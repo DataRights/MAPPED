@@ -10,6 +10,9 @@ end
 # Use devise for user management and authentication solution
 gem 'devise', '~> 4.3'
 
+# Use annotate to insert column names in model
+gem 'annotate'
+
 # End gems for MAPPED project #
 
 
