@@ -11,8 +11,12 @@ class AccessRight < ApplicationRecord
 		:edit_user
 	]
 
+	def self.valid_action?(action)
+		ACTIONS.include?(action.to_sym)
+	end
+
 	def action_content
-		errors.add(:action, "Unknown action(#{action})") unless ACTIONS.include?(action.to_sym)
+		errors.add(:action, "Unknown action(#{action})") unless self.class.valid_action?(action)
 	end
 
 end

@@ -32,4 +32,5 @@ class User < ApplicationRecord
 
 	has_many :uesr_roles
 	has_many :roles, through: :user_roles
+
 end

@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  action: MyString
-  role: one
+admin_create_user:
+  action: create_user
+  role: admin
 
-two:
-  action: MyString
-  role: two
+admin_view_user:
+  action: view_user
+  role: admin
+
+researcher_view_user:
+  action: view_user
+  role: researcher
