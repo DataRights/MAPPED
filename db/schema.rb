@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171008085114) do
+ActiveRecord::Schema.define(version: 20171023082235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "transitions", force: :cascade do |t|
+    t.string "name"
+    t.bigint "from_state_id"
+    t.bigint "to_state_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_state_id", "to_state_id"], name: "index_transitions_on_from_state_id_and_to_state_id", unique: true
+    t.index ["from_state_id"], name: "index_transitions_on_from_state_id"
+    t.index ["to_state_id"], name: "index_transitions_on_to_state_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -38,4 +49,42 @@ ActiveRecord::Schema.define(version: 20171008085114) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "workflow_states", force: :cascade do |t|
+    t.string "name"
+    t.bigint "workflow_type_version_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["workflow_type_version_id"], name: "index_workflow_states_on_workflow_type_version_id"
+  end
+
+  create_table "workflow_type_versions", force: :cascade do |t|
+    t.float "version"
+    t.bigint "workflow_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["workflow_type_id"], name: "index_workflow_type_versions_on_workflow_type_id"
+  end
+
+  create_table "workflow_types", force: :cascade do |t|
+    t.string "name"
+    t.float "active_version"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "workflows", force: :cascade do |t|
+    t.bigint "workflow_type_version_id"
+    t.bigint "workflow_state_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["workflow_state_id"], name: "index_workflows_on_workflow_state_id"
+    t.index ["workflow_type_version_id"], name: "index_workflows_on_workflow_type_version_id"
+  end
+
+  add_foreign_key "transitions", "workflow_states", column: "from_state_id"
+  add_foreign_key "transitions", "workflow_states", column: "to_state_id"
+  add_foreign_key "workflow_states", "workflow_type_versions"
+  add_foreign_key "workflow_type_versions", "workflow_types"
+  add_foreign_key "workflows", "workflow_states"
+  add_foreign_key "workflows", "workflow_type_versions"
 end
