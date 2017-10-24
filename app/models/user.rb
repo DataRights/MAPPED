@@ -30,7 +30,11 @@ class User < ApplicationRecord
 		   :recoverable, :rememberable, :trackable, :validatable,
 		   :confirmable, :lockable
 
-	has_many :uesr_roles
+	has_many :user_roles
 	has_many :roles, through: :user_roles
 
+	def can?(action)
+		raise "Unknown Action(#{action})" unless AccessRight.valid_action?(action)
+		roles.joins(:access_rights).where(access_rights: {action: action}).size > 0
+	end
 end

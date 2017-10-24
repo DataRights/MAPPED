@@ -8,6 +8,6 @@ class Role < ApplicationRecord
 
 	def can?(action)
 		raise "Unknown Action(#{action})" unless AccessRight.valid_action?(action)
-		access_rights.where(action: action).count > 0
+		access_rights.where(action: action).size > 0
 	end
 end
