@@ -26,7 +26,28 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+	test 'can? should only accept valid actions' do
+		exception = assert_raise (RuntimeError ) {User.new.can?(:an_invalid_action)}
+		assert_equal 'Unknown Action(an_invalid_action)', exception.message
+	end
+
+	test 'can? should return true if user has a role which has the action' do
+		researcher = roles(:researcher)
+		access_rights(:researcher_view_user)
+
+		user = users(:test_user)
+		UserRole.create(user: user, role: researcher)
+
+		assert user.can?(:view_user)
+		assert_not user.can?(:create_user)
+
+		admin = roles(:admin)
+		access_rights(:admin_view_user)
+		access_rights(:admin_create_user)
+
+		UserRole.create(user: user, role: admin)
+		assert user.can?(:view_user)
+		assert user.can?(:create_user)
+	end
+
 end

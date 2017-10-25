@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+admin:
+  name: Admin
+
+researcher:
+  name: Researcher
+
+participant:
+  name: Participant
+
+
+
