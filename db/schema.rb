@@ -10,10 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171023082235) do
+ActiveRecord::Schema.define(version: 20171025091958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "actions", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "class_name"
+    t.string "type"
+    t.string "internal_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "method_name"
+  end
+
+  create_table "actions_transitions", id: false, force: :cascade do |t|
+    t.bigint "action_id", null: false
+    t.bigint "transition_id", null: false
+    t.index ["action_id", "transition_id"], name: "index_actions_transitions_on_action_id_and_transition_id"
+  end
+
+  create_table "guards", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "class_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "method_name"
+  end
+
+  create_table "guards_transitions", id: false, force: :cascade do |t|
+    t.bigint "guard_id", null: false
+    t.bigint "transition_id", null: false
+    t.index ["guard_id", "transition_id"], name: "index_guards_transitions_on_guard_id_and_transition_id"
+  end
 
   create_table "transitions", force: :cascade do |t|
     t.string "name"

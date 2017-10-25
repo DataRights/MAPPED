@@ -13,6 +13,9 @@ gem 'devise', '~> 4.3'
 # Use annotate to insert column names in model
 gem 'annotate'
 
+# Use simplecov for code coverage reports
+gem 'simplecov', :require => false, :group => :test
+
 # End gems for MAPPED project #
 
 

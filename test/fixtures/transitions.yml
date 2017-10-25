@@ -1,13 +1,23 @@
+# == Schema Information
+#
+# Table name: transitions
+#
+#  id            :integer          not null, primary key
+#  name          :string
+#  from_state_id :integer
+#  to_state_id   :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
   name: MyString
   from_state: one
   to_state: one
-  workflow_type_version: one
 
 two:
   name: MyString
   from_state: two
   to_state: two
-  workflow_type_version: two

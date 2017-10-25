@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: workflow_types
+#
+#  id             :integer          not null, primary key
+#  name           :string
+#  active_version :float
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
 require 'test_helper'
 
 class WorkflowTypeTest < ActiveSupport::TestCase

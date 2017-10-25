@@ -1,18 +1,21 @@
 # == Schema Information
 #
-# Table name: transitions
+# Table name: actions
 #
 #  id            :integer          not null, primary key
 #  name          :string
-#  from_state_id :integer
-#  to_state_id   :integer
+#  description   :string
+#  class_name    :string
+#  type          :string
+#  internal_data :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  method_name   :string
 #
 
 require 'test_helper'
 
-class TransitionTest < ActiveSupport::TestCase
+class ActionTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
