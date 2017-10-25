@@ -12,9 +12,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  name: Initial State
   workflow_type_version: one
 
 two:
-  name: MyString
+  name: Waiting for Access Request Submit
   workflow_type_version: two

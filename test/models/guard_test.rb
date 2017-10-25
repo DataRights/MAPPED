@@ -14,16 +14,29 @@
 require 'test_helper'
 
 class GuardTest < ActiveSupport::TestCase
-  test "Guard should have a check method which returns true in case of success" do
+  test "Guard check method should return result:success in case of failure, it should also fill message property." do
      g = guards(:simple_true_if)
      w = workflows(:one)
      resp = g.check(w)
      assert_equal true, resp[:result]
   end
 
-  test "Guard should have a check method which returns false in case of failure, it should also fill message property of guard with failure reason" do
+  test "Guard check method should return result:false in case of failure, it should also fill message property." do
      g = guards(:simple_false_if)
      w = workflows(:one)
+     resp = g.check(w)
+     assert_equal false, resp[:result]
+     assert_not_nil resp[:message]
+  end
+
+  test "Guard should have access to workflow and check the content of workflow and related objects" do
+     g = guards(:check_something_in_workflow)
+     w = workflows(:one)
+     resp = g.check(w)
+     assert_equal true, resp[:result]
+     assert_not_nil resp[:message]
+
+     w.workflow_state.name = 'something else'
      resp = g.check(w)
      assert_equal false, resp[:result]
      assert_not_nil resp[:message]
@@ -34,7 +47,7 @@ class GuardTest < ActiveSupport::TestCase
     g.name = 'check foo.bar'
     g.description = 'Checks to see if foo.bar returns true!'
     g.class_name = 'foo'
-    g.description = 'bar'
+    g.method_name = 'bar'
     result = g.save
     assert_not result, 'Should return validation error for non existant class.'
     assert_equal 1, g.errors.count, "There should be one validation error: #{g.errors}"
@@ -47,7 +60,7 @@ class GuardTest < ActiveSupport::TestCase
     g.name = 'check foo.bar'
     g.description = 'Checks to see if foo.bar returns true!'
     g.class_name = 'GuardTestHelper'
-    g.description = 'bar'
+    g.method_name = 'bar'
     result = g.save
     assert_not result, 'Should return validation error for non existant method_name.'
     assert_equal 1, g.errors.count, "There should be one validation error: #{g.errors}"

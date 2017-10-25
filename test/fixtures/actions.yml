@@ -2,15 +2,13 @@
 #
 # Table name: actions
 #
-#  id            :integer          not null, primary key
-#  name          :string
-#  description   :string
-#  class_name    :string
-#  type          :string
-#  internal_data :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  method_name   :string
+#  id          :integer          not null, primary key
+#  name        :string
+#  description :string
+#  class_name  :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  method_name :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -20,13 +18,9 @@ send_a_reminder:
   description: send a reminder to organization
   class_name: ActionTestHelper
   method_name: reminder_to_organization
-  type: operation
-  internal_data:
 
 apply_tag_in_database:
   name: apply_tag_in_database
   description: Apply a tag in database
   class_name: ActionTestHelper
   method_name: apply_tag_in_database
-  type: operation
-  internal_data:

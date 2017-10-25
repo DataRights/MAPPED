@@ -2,21 +2,21 @@
 #
 # Table name: actions
 #
-#  id            :integer          not null, primary key
-#  name          :string
-#  description   :string
-#  class_name    :string
-#  type          :string
-#  internal_data :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  method_name   :string
+#  id          :integer          not null, primary key
+#  name        :string
+#  description :string
+#  class_name  :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  method_name :string
 #
 
 class Action < ApplicationRecord
   has_and_belongs_to_many :transitions
+  validates :name, :class_name, :method_name, presence: true
+  validate :dynamic_method_exists
 
-  def check(workflow)
+  def execute(workflow)
     self.class_name.constantize.send(self.method_name, workflow)
   end
 
