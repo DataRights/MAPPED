@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171023220322) do
+ActiveRecord::Schema.define(version: 20171025152251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(version: 20171023220322) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_access_rights_on_role_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text "title"
+    t.integer "question_type"
+    t.jsonb "metadata"
+    t.boolean "mandatory"
+    t.string "ui_class"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|
