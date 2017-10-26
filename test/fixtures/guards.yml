@@ -1,0 +1,32 @@
+# == Schema Information
+#
+# Table name: guards
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  description :string
+#  class_name  :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  method_name :string
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+simple_true_if:
+  name: Answer to life
+  description: Checks if the answer to life, the universe and everything is 42
+  class_name: GuardTestHelper
+  method_name: check_answer_to_life
+
+simple_false_if:
+  name: Simple false if
+  description: Checks if 2*2 euals 5
+  class_name: GuardTestHelper
+  method_name: check_two_plus_two_equals_five
+
+check_something_in_workflow:
+  name: Check state of workflow_state
+  description: make sure state of workflow is initial state
+  class_name: GuardTestHelper
+  method_name: check_something_in_workflow

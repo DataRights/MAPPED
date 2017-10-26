@@ -31,3 +31,6 @@
 
 en:
   hello: "Hello world"
+  validations:
+    invalid_class_name: "Class name not found in code base!"
+    invalid_method_name: "Method name not found in class methods."

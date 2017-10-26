@@ -13,6 +13,15 @@ gem 'devise', '~> 4.3'
 # Use annotate to insert column names in model
 gem 'annotate'
 
+# Use simplecov for code coverage reports
+gem 'simplecov', :require => false, :group => :test
+
+# You never have to implement CRUD again! lazy/happy programming ...
+gem 'rails_admin'
+
+# This theme provide a modern override of default bootstrap 3 rails_admin theme. Its provides news colors, adjustments and a brand new tree view menu.
+gem 'rails_admin_rollincode', '~> 1.0'
+
 # End gems for MAPPED project #
 
 
