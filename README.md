@@ -6,7 +6,7 @@ This README documents steps that are necessary to set the development environmen
 
 # Ruby version
 
-We are using the latest stable version of Ruby 2.3. You can install Ruby version using [rvm](https://rvm.io). 
+We are using the latest stable version of Ruby 2.3. You can install Ruby version using [rvm](https://rvm.io).
 
 # System dependencies
 
@@ -14,7 +14,7 @@ This steps should work on macOS and different distros of Linux as well as other 
 
 Install bundler if it's not already installed:
 
-`gem install bundler` 
+`gem install bundler`
 
 Go to the root directory of project and run:
 
@@ -31,6 +31,12 @@ Copy config/database.yml.template to config/database.yml and configure connectio
 # How to run the test suite
 
 `bundle exec rake test`
+
+# Enabling Git pre-hooks for CI
+
+`pre-commit install`
+
+This creates a .git/hooks/pre-commit script which will check your git config and run checks that are enabled. For list of enabled pre-commit hooks checkout config/pre_commit.yml file.
 
 # Deployment instructions
 

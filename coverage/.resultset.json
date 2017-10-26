@@ -1095,6 +1095,18 @@
         1,
         null
       ],
+      "/Users/mani47/Projects/mapped/app/helpers/action_test_helper.rb": [
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
       "/Users/mani47/Projects/mapped/app/helpers/guard_test_helper.rb": [
         1,
         1,
@@ -1110,20 +1122,8 @@
         2,
         null,
         null
-      ],
-      "/Users/mani47/Projects/mapped/app/helpers/action_test_helper.rb": [
-        1,
-        null,
-        1,
-        1,
-        null,
-        null,
-        1,
-        1,
-        null,
-        null
       ]
     },
-    "timestamp": 1508993232
+    "timestamp": 1508993245
   }
 }
