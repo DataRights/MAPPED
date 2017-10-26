@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/hadiasghari/MAPPED/badge.svg)](https://coveralls.io/github/hadiasghari/MAPPED)
+[![Coverage Status](https://coveralls.io/repos/github/react-boilerplate/react-boilerplate/badge.svg?branch=dev)](https://coveralls.io/github/react-boilerplate/react-boilerplate?branch=develop)
 
 # MAPPED
 
