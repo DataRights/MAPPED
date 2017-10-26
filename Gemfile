@@ -22,6 +22,13 @@ gem 'rails_admin'
 # This theme provide a modern override of default bootstrap 3 rails_admin theme. Its provides news colors, adjustments and a brand new tree view menu.
 gem 'rails_admin_rollincode', '~> 1.0'
 
+group :development do
+  # https://github.com/jish/pre-commit
+  # A better pre-commit hook for git.
+  gem "pre-commit", require: false
+  gem "rubocop", require: false
+end
+
 # End gems for MAPPED project #
 
 
