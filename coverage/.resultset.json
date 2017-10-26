@@ -8,33 +8,16 @@
         null,
         1
       ],
-      "/Users/mani47/Projects/mapped/config/environments/development.rb": [
+      "/Users/mani47/Projects/mapped/config/environments/test.rb": [
         1,
         null,
         null,
         null,
         null,
         null,
-        1,
-        null,
         null,
         1,
         null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        0,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
-        null,
-        1,
         null,
         null,
         null,
@@ -42,13 +25,22 @@
         null,
         null,
         1,
+        1,
         null,
+        null,
+        null,
+        null,
+        1,
         1,
         null,
         null,
         1,
         null,
         null,
+        1,
+        null,
+        null,
+        1,
         1,
         null,
         null,
@@ -61,10 +53,6 @@
         null,
         null,
         null,
-        null,
-        null,
-        null,
-        1,
         null
       ],
       "/Users/mani47/Projects/mapped/config/initializers/application_controller_renderer.rb": [
@@ -1124,6 +1112,6 @@
         null
       ]
     },
-    "timestamp": 1508993245
+    "timestamp": 1509000158
   }
 }

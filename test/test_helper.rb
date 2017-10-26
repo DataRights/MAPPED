@@ -1,5 +1,19 @@
+require 'coveralls'
 require 'simplecov'
-SimpleCov.start
+
+SimpleCov.start do
+  formatter SimpleCov::Formatter::MultiFormatter[
+    SimpleCov::Formatter::HTMLFormatter,
+    Coveralls::SimpleCov::Formatter,
+  ]
+  #add_filter "/test/"
+  #add_filter "/demo/"
+end
+
+Coveralls.noisy = true unless ENV['CI']
+
+#require 'simplecov'
+#SimpleCov.start
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 

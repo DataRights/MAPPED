@@ -29,6 +29,9 @@ group :development do
   gem "rubocop", require: false
 end
 
+# deliver code confidently by showing which parts of your code aren’t covered by your test suite.
+gem 'coveralls', require: false
+
 # End gems for MAPPED project #
 
 

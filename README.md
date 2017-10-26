@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/hadiasghari/MAPPED/badge.svg)](https://coveralls.io/github/hadiasghari/MAPPED)
+
 # MAPPED
 
 MAPPED is a platform that helps citizens to send access requests to organizations. An access request is a request by a citizen to receive from an organization (information about) the personal data that that organization is processing in relation to him/her. The right to receive a swift, complete and understandable answer to such a request, called right of access, is guaranteed under European law in order to promote citizen empowerment.
