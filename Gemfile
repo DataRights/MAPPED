@@ -32,6 +32,9 @@ end
 # deliver code confidently by showing which parts of your code aren’t covered by your test suite.
 gem 'coveralls', require: false
 
+# for sending emails
+gem 'sendgrid-ruby'
+
 # End gems for MAPPED project #
 
 
