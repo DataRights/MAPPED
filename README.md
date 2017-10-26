@@ -32,6 +32,8 @@ Copy config/database.yml.template to config/database.yml and configure connectio
 
 # How to run the test suite
 
+Tests are using simplecov and Coverall to generate coverage reports, before running tests make sure that you have a .coveralls.yml file with correct repo_token in it, for security reasons .coveralls.yml is not included in source control.
+
 `bundle exec rake test`
 
 # Enabling Git pre-hooks for CI
@@ -42,4 +44,4 @@ This creates a .git/hooks/pre-commit script which will check your git config and
 
 # Deployment instructions
 
-Not documented yet.
+Deployments are done using Heroku, any push to master branch will trigger a deploy to Heroku.
