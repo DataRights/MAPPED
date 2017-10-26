@@ -11,4 +11,6 @@
 
 class WorkflowTypeVersion < ApplicationRecord
   belongs_to :workflow_type
+  validates :version, :workflow_type, presence: true
+  validates :version, uniqueness: { scope: :workflow_type }
 end

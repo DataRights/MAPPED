@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171026034649) do
+ActiveRecord::Schema.define(version: 20171026095842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 20171026034649) do
     t.bigint "workflow_type_version_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_initial_state", default: false
     t.index ["workflow_type_version_id"], name: "index_workflow_states_on_workflow_type_version_id"
   end
 

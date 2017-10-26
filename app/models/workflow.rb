@@ -12,4 +12,5 @@
 class Workflow < ApplicationRecord
   belongs_to :workflow_type_version
   belongs_to :workflow_state
+  validates :workflow_type_version, :workflow_state, presence: true
 end

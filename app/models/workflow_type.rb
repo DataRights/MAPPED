@@ -10,4 +10,5 @@
 #
 
 class WorkflowType < ApplicationRecord
+  validates :name, presence: true
 end

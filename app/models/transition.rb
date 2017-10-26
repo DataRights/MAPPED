@@ -13,7 +13,7 @@
 class Transition < ApplicationRecord
   belongs_to :from_state, class_name: 'WorkflowState'
   belongs_to :to_state, class_name: 'WorkflowState'
-  validates :from_state, :to_state, presence: true
+  validates :from_state, :to_state, :name, presence: true
   validates :to_state, uniqueness: { scope: :from_state }
   has_and_belongs_to_many :actions
   has_and_belongs_to_many :guards

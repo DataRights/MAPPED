@@ -12,4 +12,5 @@
 class WorkflowState < ApplicationRecord
   belongs_to :workflow_type_version
   has_many :possible_transitions, class_name: "Transition", foreign_key: "from_state_id"
+  validates :name, :workflow_type_version, presence: true
 end

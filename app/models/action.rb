@@ -14,6 +14,7 @@
 class Action < ApplicationRecord
   has_and_belongs_to_many :transitions
   validates :name, :class_name, :method_name, presence: true
+  validates :method_name, uniqueness: { scope: :class_name }
   validate :dynamic_method_exists
 
   def execute(workflow)

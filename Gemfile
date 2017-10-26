@@ -27,6 +27,9 @@ group :development do
   # A better pre-commit hook for git.
   gem "pre-commit", require: false
   gem "rubocop", require: false
+
+  # RailRoady generates Rails 3/4/5 model (ActiveRecord, Mongoid, Datamapper) and controller UML diagrams as cross-platform .svg files, as well as in the DOT language.
+  gem 'railroady'
 end
 
 # deliver code confidently by showing which parts of your code aren’t covered by your test suite.
