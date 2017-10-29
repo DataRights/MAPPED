@@ -26,3 +26,6 @@
 .byebug_history
 
 .idea*
+
+.coveralls.yml
+coverage/*

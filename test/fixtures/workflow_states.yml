@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: workflow_states
+#
+#  id                       :integer          not null, primary key
+#  name                     :string
+#  workflow_type_version_id :integer
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Initial State
+  workflow_type_version: one
+
+two:
+  name: Waiting for Access Request Submit
+  workflow_type_version: two

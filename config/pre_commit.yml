@@ -1,0 +1,10 @@
+---
+:checks_remove:
+- :common
+- :rails
+:checks_add:
+- :yaml
+- :json
+- :ci
+- :merge_conflict
+- :ruby_symbol_hashrockets
