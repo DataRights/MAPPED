@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171026095842) do
+ActiveRecord::Schema.define(version: 20171029182503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,17 +112,36 @@ ActiveRecord::Schema.define(version: 20171026095842) do
     t.index ["workflow_type_version_id"], name: "index_workflow_states_on_workflow_type_version_id"
   end
 
+  create_table "workflow_transitions", force: :cascade do |t|
+    t.bigint "workflow_id"
+    t.bigint "transition_id"
+    t.bigint "failed_action_id"
+    t.bigint "failed_guard_id"
+    t.string "action_failed_message"
+    t.string "failed_guard_message"
+    t.string "status"
+    t.string "rollback_failed_actions"
+    t.string "performed_actions"
+    t.jsonb "internal_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["failed_action_id"], name: "index_workflow_transitions_on_failed_action_id"
+    t.index ["failed_guard_id"], name: "index_workflow_transitions_on_failed_guard_id"
+    t.index ["transition_id"], name: "index_workflow_transitions_on_transition_id"
+    t.index ["workflow_id"], name: "index_workflow_transitions_on_workflow_id"
+  end
+
   create_table "workflow_type_versions", force: :cascade do |t|
     t.float "version"
     t.bigint "workflow_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active", default: false
     t.index ["workflow_type_id"], name: "index_workflow_type_versions_on_workflow_type_id"
   end
 
   create_table "workflow_types", force: :cascade do |t|
     t.string "name"
-    t.float "active_version"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -142,6 +161,10 @@ ActiveRecord::Schema.define(version: 20171026095842) do
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
   add_foreign_key "workflow_states", "workflow_type_versions"
+  add_foreign_key "workflow_transitions", "actions", column: "failed_action_id"
+  add_foreign_key "workflow_transitions", "guards", column: "failed_guard_id"
+  add_foreign_key "workflow_transitions", "transitions"
+  add_foreign_key "workflow_transitions", "workflows"
   add_foreign_key "workflow_type_versions", "workflow_types"
   add_foreign_key "workflows", "workflow_states"
   add_foreign_key "workflows", "workflow_type_versions"

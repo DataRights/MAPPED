@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: access_rights
+#
+#  id         :integer          not null, primary key
+#  action     :string
+#  role_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class AccessRight < ApplicationRecord
 	validate :action_content
 

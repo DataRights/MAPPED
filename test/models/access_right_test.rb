@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: access_rights
+#
+#  id         :integer          not null, primary key
+#  action     :string
+#  role_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'test_helper'
 
 class AccessRightTest < ActiveSupport::TestCase

@@ -24,7 +24,7 @@ Go to the root directory of project and run:
 
 # Configuration
 
-Copy config/database.yml.template to config/database.yml and configure connection string according to your own system settings. We are using PostgreSQL 9.6.5 but there is no dependency on PostgreSQL, So you can run MySql and other Active Record supported datbase servers as well.
+Copy config/database.yml.template to config/database.yml and configure connection string according to your own system settings. We are using PostgreSQL 9.6.5 and some specific PostgreSQL features like JSONB.
 
 # Database creation and initalization
 

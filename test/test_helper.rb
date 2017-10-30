@@ -1,5 +1,5 @@
-require 'coveralls'
 require 'simplecov'
+require 'coveralls'
 
 SimpleCov.start do
   formatter SimpleCov::Formatter::MultiFormatter[
