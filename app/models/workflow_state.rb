@@ -7,7 +7,6 @@
 #  workflow_type_version_id :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
-#  is_initial_state         :boolean          default(FALSE)
 #
 
 class WorkflowState < ApplicationRecord

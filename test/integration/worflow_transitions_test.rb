@@ -25,6 +25,5 @@ class WorflowTransitionsTest < ActionDispatch::IntegrationTest
   end
 
   test "Test actions and guards success scenario" do
-    
   end
 end
