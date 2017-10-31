@@ -17,4 +17,5 @@ class Transition < ApplicationRecord
   validates :to_state, uniqueness: { scope: :from_state }
   has_and_belongs_to_many :actions
   has_and_belongs_to_many :guards
+
 end

@@ -6,8 +6,8 @@ SimpleCov.start do
     SimpleCov::Formatter::HTMLFormatter,
     Coveralls::SimpleCov::Formatter,
   ]
-  #add_filter "/test/"
-  #add_filter "/demo/"
+  add_filter "/test/"
+  add_filter "/config/"
 end
 
 Coveralls.noisy = true unless ENV['CI']

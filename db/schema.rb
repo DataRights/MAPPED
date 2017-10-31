@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171029182503) do
+ActiveRecord::Schema.define(version: 20171030114903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,11 +120,11 @@ ActiveRecord::Schema.define(version: 20171029182503) do
     t.string "action_failed_message"
     t.string "failed_guard_message"
     t.string "status"
-    t.string "rollback_failed_actions"
-    t.string "performed_actions"
     t.jsonb "internal_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "performed_actions"
+    t.jsonb "rollback_failed_actions"
     t.index ["failed_action_id"], name: "index_workflow_transitions_on_failed_action_id"
     t.index ["failed_guard_id"], name: "index_workflow_transitions_on_failed_guard_id"
     t.index ["transition_id"], name: "index_workflow_transitions_on_transition_id"

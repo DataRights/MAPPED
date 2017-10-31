@@ -29,4 +29,13 @@ class WorkflowTypeVersionTest < ActiveSupport::TestCase
     one = workflow_type_versions(:one)
     assert one.active
   end
+
+  test 'For activating a workflow having an initial state is mandatory' do
+    wf = workflow_type_versions(:two)
+    wf.active = true
+    assert_not wf.save
+    assert_equal 1, wf.errors.count, "There should be one validation error: #{wf.errors}"
+    assert_equal 1, wf.errors.messages[:active].count, "There should be one error about active value in code: #{wf.errors.messages[:active]}"
+    assert_equal I18n.t('validations.initial_state_is_mandatory'), wf.errors.messages[:active].first
+  end
 end

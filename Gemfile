@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.3.5'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -14,7 +15,7 @@ gem 'devise', '~> 4.3'
 gem 'annotate'
 
 # Use simplecov for code coverage reports
-gem 'simplecov', :require => false, :group => :test
+gem 'simplecov', :group => :test
 
 # You never have to implement CRUD again! lazy/happy programming ...
 gem 'rails_admin'
@@ -27,9 +28,6 @@ group :development do
   # A better pre-commit hook for git.
   gem "pre-commit", require: false
   gem "rubocop", require: false
-
-  # RailRoady generates Rails 3/4/5 model (ActiveRecord, Mongoid, Datamapper) and controller UML diagrams as cross-platform .svg files, as well as in the DOT language.
-  gem 'railroady'
 end
 
 # deliver code confidently by showing which parts of your code aren’t covered by your test suite.

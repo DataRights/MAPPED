@@ -10,11 +10,11 @@
 #  action_failed_message   :string
 #  failed_guard_message    :string
 #  status                  :string
-#  rollback_failed_actions :string
-#  performed_actions       :string
 #  internal_data           :jsonb
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  performed_actions       :jsonb
+#  rollback_failed_actions :jsonb
 #
 
 require 'test_helper'

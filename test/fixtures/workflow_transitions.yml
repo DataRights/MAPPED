@@ -10,11 +10,11 @@
 #  action_failed_message   :string
 #  failed_guard_message    :string
 #  status                  :string
-#  rollback_failed_actions :string
-#  performed_actions       :string
 #  internal_data           :jsonb
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  performed_actions       :jsonb
+#  rollback_failed_actions :jsonb
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -25,11 +25,9 @@ one:
   status: MyString
   failed_action: one
   action_failed_message: MyString
-  rollback_failed_actions: MyString
-  performed_actions: MyString
   failed_guard: one
   failed_guard_message: MyString
-  internal_data: 
+  internal_data:
 
 two:
   workflow: two
@@ -37,8 +35,6 @@ two:
   status: MyString
   failed_action: two
   action_failed_message: MyString
-  rollback_failed_actions: MyString
-  performed_actions: MyString
   failed_guard: two
   failed_guard_message: MyString
-  internal_data: 
+  internal_data:
