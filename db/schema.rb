@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171101174001) do
+ActiveRecord::Schema.define(version: 20171101174505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,16 @@ ActiveRecord::Schema.define(version: 20171101174001) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "template_versions", force: :cascade do |t|
+    t.string "version"
+    t.bigint "template_id"
+    t.text "content"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["template_id"], name: "index_template_versions_on_template_id"
   end
 
   create_table "templates", force: :cascade do |t|
@@ -187,6 +197,7 @@ ActiveRecord::Schema.define(version: 20171101174001) do
 
   add_foreign_key "access_rights", "roles"
   add_foreign_key "organizations", "sectors"
+  add_foreign_key "template_versions", "templates"
   add_foreign_key "transitions", "workflow_states", column: "from_state_id"
   add_foreign_key "transitions", "workflow_states", column: "to_state_id"
   add_foreign_key "user_roles", "roles"

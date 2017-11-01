@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+ar1:
+  version: 1
+  template: ar
+  content: "This is content of access request version one"
+  active: false
+
+ar2:
+  version: 2
+  template: ar
+  content: "This is content of access request version two for {{ organization.sector }}"
+  active: true
