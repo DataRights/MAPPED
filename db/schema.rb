@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(version: 20171030114903) do
     t.index ["guard_id", "transition_id"], name: "index_guards_transitions_on_guard_id_and_transition_id"
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.text "title"
+    t.jsonb "metadata"
+    t.boolean "mandatory"
+    t.string "ui_class"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "type"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
