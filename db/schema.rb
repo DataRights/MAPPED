@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171101170859) do
+ActiveRecord::Schema.define(version: 20171101171736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,14 @@ ActiveRecord::Schema.define(version: 20171101170859) do
     t.bigint "guard_id", null: false
     t.bigint "transition_id", null: false
     t.index ["guard_id", "transition_id"], name: "index_guards_transitions_on_guard_id_and_transition_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name"
+    t.bigint "sector_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sector_id"], name: "index_organizations_on_sector_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -172,6 +180,7 @@ ActiveRecord::Schema.define(version: 20171101170859) do
   end
 
   add_foreign_key "access_rights", "roles"
+  add_foreign_key "organizations", "sectors"
   add_foreign_key "transitions", "workflow_states", column: "from_state_id"
   add_foreign_key "transitions", "workflow_states", column: "to_state_id"
   add_foreign_key "user_roles", "roles"

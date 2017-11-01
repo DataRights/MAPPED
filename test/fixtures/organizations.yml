@@ -1,7 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-health:
-  name: Health
+one:
+  name: Hospital
+  sector: Health
 
-transport:
-  name: Transport
+two:
+  name: Airport1
+  sector: Transport
