@@ -3,3 +3,5 @@ rvm:
   - 2.3.5
 before_script:
   - psql -c 'create database mapped_test;' -U postgres
+addons:
+  postgresql: "9.6"
