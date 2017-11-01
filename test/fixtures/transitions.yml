@@ -21,3 +21,54 @@ two:
   name: MyString
   from_state: two
   to_state: two
+
+# BEGIN Transitions for version_one_point_o_mapped_social active workflow #
+
+access_request_created:
+  name: Access Request letter ready
+  from_state: waiting_for_ar_creation
+  to_state: waiting_to_send_the_ar
+  guards: simple_true_if, check_current_state_is_initial
+  actions: send_a_reminder, apply_tag_in_database_success
+
+ar_sent:
+  name: Access Request sent
+  from_state: waiting_to_send_the_ar
+  to_state: waiting_for_the_organization_reply
+
+data_came_back:
+  name: Organization replied to access request by providing data
+  from_state: waiting_for_the_organization_reply
+  to_state: date_came_back
+
+another_letter_needed_by_organization:
+  name: Organization replied to access request by asking for more letters and questions
+  from_state: waiting_for_the_organization_reply
+  to_state: organization_needs_more_letters
+
+organization_needs_more_letters:
+  name: Letter sent
+  from_state: organization_needs_more_letters
+  to_state: waiting_for_the_organization_reply
+
+took_long_to_get_reply_from_organization:
+  name: Organization did not replied in 30 days
+  from_state: waiting_for_the_organization_reply
+  to_state: organization_needs_reminder
+
+reminder_sent:
+  name: A reminder sent to organization
+  from_state: organization_needs_reminder
+  to_state: waiting_for_the_organization_reply
+
+not_happy:
+  name: User is not happy with the recieved data
+  from_state: date_came_back
+  to_state: not_happy_with_data
+
+happy:
+  name: User is happy with the data received
+  from_state: date_came_back
+  to_state: finished_happy_with_data
+
+# END Transitions for version_one_point_o_mapped_social active workflow #

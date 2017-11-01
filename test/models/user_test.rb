@@ -21,7 +21,6 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  unconfirmed_email      :string
 #
 
 require 'test_helper'

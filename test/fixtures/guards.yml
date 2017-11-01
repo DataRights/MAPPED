@@ -30,3 +30,9 @@ check_something_in_workflow:
   description: make sure state of workflow is initial state
   class_name: GuardTestHelper
   method_name: check_something_in_workflow
+
+check_current_state_is_initial:
+  name: workflow_state is_initial_state should be true
+  description: workflow_state is_initial_state should be true
+  class_name: GuardTestHelper
+  method_name: check_workflow_is_in_initial_state

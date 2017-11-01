@@ -14,7 +14,77 @@
 one:
   name: Initial State
   workflow_type_version: one
+  is_initial_state: true
 
 two:
-  name: Waiting for Access Request Submit
+  name: Initial State
   workflow_type_version: two
+  is_initial_state: false
+
+########## BEGIN 0.1 mapped_social workflow The Inactive workflow #########
+ar_created_old:
+  name: Access Request Created
+  workflow_type_version: version_o_point_one_mapped_social
+  is_initial_state: true
+########## END 0.1 mapped_social workflow The Inactive workflow #########
+
+########## BEGIN 1.0 mapped_social workflow The Active workflow #########
+
+waiting_for_ar_creation:
+  name: Waiting for access request creation
+  workflow_type_version: version_one_point_o_mapped_social
+  is_initial_state: true
+
+waiting_to_send_the_ar:
+  name: Waiting to send the Access Request
+  workflow_type_version: version_one_point_o_mapped_social
+  is_initial_state: false
+
+waiting_for_the_organization_reply:
+  name: Waiting for the organization reply
+  workflow_type_version: version_one_point_o_mapped_social
+  is_initial_state: false
+
+organization_needs_reminder:
+  name: Organization did not replied to access request, waiting for sending reminder
+  workflow_type_version: version_one_point_o_mapped_social
+  is_initial_state: false
+
+organization_needs_more_letters:
+  name: Waiting for another letter from user
+  workflow_type_version: version_one_point_o_mapped_social
+  is_initial_state: false
+
+data_came_back:
+  name: Organization sent the data
+  workflow_type_version: version_one_point_o_mapped_social
+  is_initial_state: false
+
+not_happy_with_data:
+  name: User is not happy with the data provided
+  workflow_type_version: version_one_point_o_mapped_social
+  is_initial_state: false
+
+finished_happy_with_data:
+  name: User is happy with returned data
+  workflow_type_version: version_one_point_o_mapped_social
+  is_initial_state: false
+
+########## END 1.0 mapped_social workflow The Active workflow #########
+
+########## BEGIN 1.1 mapped_social workflow The Inactive workflow #########
+ar_created_next:
+  name: Access Request Created
+  workflow_type_version: version_one_point_one_mapped_social
+  is_initial_state: true
+
+waiting_to_send_the_ar_next:
+  name: Waiting to send the Access Request
+  workflow_type_version: version_one_point_one_mapped_social
+  is_initial_state: false
+
+waiting_for_the_organization_reply_next:
+  name: Waiting for the organization reply
+  workflow_type_version: version_one_point_one_mapped_social
+  is_initial_state: false
+########## END 1.1 mapped_social workflow The Inactive workflow #########

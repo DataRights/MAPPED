@@ -34,3 +34,8 @@ en:
   validations:
     invalid_class_name: "Class name not found in code base!"
     invalid_method_name: "Method name not found in class methods."
+    workflow_type_is_active: "In order to edit a workflow it should not be active and it should not have active instances!"
+    initial_state_is_mandatory: "For activating the workflow having an initial state is mandatory!"
+    workflow_type_should_be_active: 'For creating a new workflow, Workflow type should be active!'
+  errors:
+    transition_does_not_exist_in_current_state: 'Transition does not exist in current state'

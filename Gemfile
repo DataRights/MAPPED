@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.3.5'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -14,7 +15,7 @@ gem 'devise', '~> 4.3'
 gem 'annotate'
 
 # Use simplecov for code coverage reports
-gem 'simplecov', :require => false, :group => :test
+gem 'simplecov', :group => :test
 
 # You never have to implement CRUD again! lazy/happy programming ...
 gem 'rails_admin'

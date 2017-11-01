@@ -1,0 +1,40 @@
+# == Schema Information
+#
+# Table name: workflow_transitions
+#
+#  id                      :integer          not null, primary key
+#  workflow_id             :integer
+#  transition_id           :integer
+#  failed_action_id        :integer
+#  failed_guard_id         :integer
+#  action_failed_message   :string
+#  failed_guard_message    :string
+#  status                  :string
+#  internal_data           :jsonb
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  performed_actions       :jsonb
+#  rollback_failed_actions :jsonb
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  workflow: one
+  transition: one
+  status: MyString
+  failed_action: one
+  action_failed_message: MyString
+  failed_guard: one
+  failed_guard_message: MyString
+  internal_data:
+
+two:
+  workflow: two
+  transition: two
+  status: MyString
+  failed_action: two
+  action_failed_message: MyString
+  failed_guard: two
+  failed_guard_message: MyString
+  internal_data:

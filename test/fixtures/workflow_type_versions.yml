@@ -12,9 +12,26 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  version: 1.5
+  version: 1.0
   workflow_type: one
+  active: true
 
 two:
-  version: 1.5
+  version: 1.0
   workflow_type: two
+  active: false
+
+version_o_point_one_mapped_social:
+  version: 0.1
+  workflow_type: mapped_wf_type_social
+  active: false
+
+version_one_point_o_mapped_social:
+  version: 1.0
+  workflow_type: mapped_wf_type_social
+  active: true
+
+version_one_point_one_mapped_social:
+  version: 1.1
+  workflow_type: mapped_wf_type_social
+  active: false

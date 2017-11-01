@@ -12,9 +12,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: Default workflow
-  active_version: 1.5
+  name: Default workflow one
 
 two:
+  name: Default workflow two
+
+mapped_wf_type_social:
   name: Social networks workflow
-  active_version: 1.5

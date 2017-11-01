@@ -11,9 +11,6 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
-# Ignore database.yml configuration as it defers for each developer
-/config/database.yml
-
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -29,3 +26,5 @@
 
 .coveralls.yml
 coverage/*
+
+.DS_Store
