@@ -29,8 +29,9 @@ ar_created_old:
 ########## END 0.1 mapped_social workflow The Inactive workflow #########
 
 ########## BEGIN 1.0 mapped_social workflow The Active workflow #########
-ar_created:
-  name: Access Request Created
+
+waiting_for_ar_creation:
+  name: Waiting for access request creation
   workflow_type_version: version_one_point_o_mapped_social
   is_initial_state: true
 

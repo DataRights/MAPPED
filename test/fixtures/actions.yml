@@ -15,6 +15,12 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+test_success_action_without_rollback:
+  name: test_success_action_without_rollback
+  description: A successfull action without rollback capability
+  class_name: ActionTestHelper
+  method_name: test_success_action_without_rollback
+
 send_a_reminder:
   name: reminder_to_organization
   description: send a reminder to organization
@@ -23,6 +29,12 @@ send_a_reminder:
 
 apply_tag_in_database:
   name: apply_tag_in_database
-  description: Apply a tag in database
+  description: Apply a tag in database will return false
   class_name: ActionTestHelper
   method_name: apply_tag_in_database
+
+apply_tag_in_database_success:
+  name: apply_tag_in_database_success
+  description: Apply a tag in database will return true
+  class_name: ActionTestHelper
+  method_name: apply_tag_in_database_success

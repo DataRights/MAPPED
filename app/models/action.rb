@@ -23,6 +23,15 @@ class Action < ApplicationRecord
     self.class_name.constantize.send(self.method_name, workflow)
   end
 
+  def rollback(workflow)
+    rollback_method_name = "#{self.method_name}_rollback"
+    if self.class_name.constantize.methods.include?(rollback_method_name.to_sym)
+      self.class_name.constantize.send(rollback_method_name, workflow)
+    else
+      { result: false, message: "Rollback method does not exist for action: #{self.name}"}
+    end
+  end
+
   def dynamic_method_exists
     unless self.class_name.safe_constantize
       errors.add(:class_name, I18n.t('validations.invalid_class_name'))

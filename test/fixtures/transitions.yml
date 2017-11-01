@@ -25,9 +25,11 @@ two:
 # BEGIN Transitions for version_one_point_o_mapped_social active workflow #
 
 access_request_created:
-  name: Access Request Created
-  from_state: ar_created
+  name: Access Request letter ready
+  from_state: waiting_for_ar_creation
   to_state: waiting_to_send_the_ar
+  guards: simple_true_if, check_current_state_is_initial
+  actions: send_a_reminder, apply_tag_in_database_success
 
 ar_sent:
   name: Access Request sent

@@ -16,7 +16,7 @@ class WorkflowTest < ActiveSupport::TestCase
      wf = Workflow.new
      wf.workflow_type_version = workflow_type_versions(:version_one_point_o_mapped_social)
      wf.save
-     assert_equal workflow_states(:ar_created), wf.workflow_state
+     assert_equal workflow_states(:waiting_for_ar_creation), wf.workflow_state
   end
 
   test 'Creating a new instance of a workflow for an inactive workflow type should return error!' do

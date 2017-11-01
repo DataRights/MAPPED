@@ -28,8 +28,8 @@ class WorkflowTransition < ApplicationRecord
     begin
       return false unless check_guards
       execute_actions
-      rollback_actions unless self.failed_action.nil?
-      self.failed_action.nil?
+      rollback_actions unless self.failed_action_id.nil?
+      self.failed_action_id.nil?
     ensure
       self.save!
     end
@@ -42,7 +42,7 @@ class WorkflowTransition < ApplicationRecord
       guard_result = g.check(workflow)
       unless guard_result[:result]
         self.status = :guard_failed
-        self.failed_guard = g
+        self.failed_guard_id = g.id
         self.failed_guard_message = guard_result[:message]
         return false
       end
@@ -55,15 +55,15 @@ class WorkflowTransition < ApplicationRecord
     self.performed_actions = []
     self.transition.actions.each do |a|
       action_result = a.execute(self.workflow)
-      if action_result
-        self.performed_actions << a.id
+      if action_result[:result]
+        self.performed_actions << { action_id: a.id, action_name: a.name }
       else
-        self.failed_action = a
+        self.failed_action_id = a.id
         self.action_failed_message = action_result[:message]
         break
       end
     end
-    if self.failed_action.nil?
+    if self.failed_action_id.nil?
       self.status = :success
       self.workflow.workflow_state = self.transition.to_state
     end
@@ -73,8 +73,10 @@ class WorkflowTransition < ApplicationRecord
     self.status = :action_failed
     self.rollback_failed_actions = []
     self.performed_actions.each do |a|
-      unless a.methods.include?(:rollback) && (rollback_result = a.rollback(self.workflow))
-        self.rollback_failed_actions << {action_id: a.id, error_message: rollback_result[:message]}
+      action = self.transition.actions.find_by id: a[:action_id]
+      rollback_result = action.rollback(self.workflow)
+      unless rollback_result[:result]
+        self.rollback_failed_actions << {action_id: action.id, error_message: rollback_result[:message]}
       end
     end
   end

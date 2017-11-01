@@ -11,4 +11,8 @@ module GuardTestHelper
   def self.check_something_in_workflow(workflow)
     { result: workflow.workflow_state.name == 'Initial State', message: "workflow state is: #{workflow.workflow_state.name}"}
   end
+
+  def self.check_workflow_is_in_initial_state(workflow)
+    { result: workflow.workflow_state.is_initial_state, message: "workflow state is initial: #{workflow.workflow_state.is_initial_state}"}
+  end
 end

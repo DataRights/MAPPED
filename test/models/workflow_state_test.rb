@@ -13,7 +13,7 @@ require 'test_helper'
 
 class WorkflowStateTest < ActiveSupport::TestCase
   test "User should NOT be able to add/remove/change an state if workflow is active" do
-    state = workflow_states(:ar_created)
+    state = workflow_states(:waiting_for_ar_creation)
     state.name = 'Initial state'
     assert_not state.save
     assert_equal 1, state.errors.count, "There should be one validation error: #{state.errors}"
