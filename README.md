@@ -1,5 +1,5 @@
-[![Coverage [![Coverage Status](https://coveralls.io/repos/github/hadiasghari/MAPPED/badge.svg?branch=develop)](https://coveralls.io/github/hadiasghari/MAPPED?branch=develop)
-[![Build status](https://travis-ci.org/hadiasghari/MAPPED.svg?branch=develop)]
+[![Coverage Status](https://coveralls.io/repos/github/hadiasghari/MAPPED/badge.svg?branch=develop)](https://coveralls.io/github/hadiasghari/MAPPED?branch=develop)
+![Build status](https://travis-ci.org/hadiasghari/MAPPED.svg?branch=develop)
 
 # MAPPED
 
