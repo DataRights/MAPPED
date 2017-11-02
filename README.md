@@ -28,6 +28,15 @@ Go to the root directory of project and run:
 Define DB_USERNAME and DB_PASSWORD environment variables to make config/database.yml work.
 We are using PostgreSQL 9.6.5 and some specific PostgreSQL features like JSONB.
 
+Generate a random key using irb:
+`SecureRandom.base64(64)`
+
+and export the key `MAPPED_TOTP_ENCRYPTION_KEY` with the above value. for example:
+
+`export MAPPED_TOTP_ENCRYPTION_KEY='UWsV8/Lz3Dr4qmQHNKGxj885nWt0+BETAZrbvsV/21yH5RC/7MBlW2fxB3tP97PyH5ryen/ZV1uoBQHhPCDWPg=='`
+
+Instead of exporting all these environment variables, you can also create a config/local_env.yml file and define all these variables in there. This file is in .gitignore and will not pushed into Git.
+
 # Database creation and initalization
 
 `bundle exec rake db:setup`

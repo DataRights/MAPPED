@@ -11,6 +11,15 @@ end
 # Use devise for user management and authentication solution
 gem 'devise', '~> 4.3'
 
+# theme for devise
+gem 'devise-bootstrap-views'
+
+# Devise-Two-Factor is a minimalist extension to Devise which offers support for two-factor authentication, through the TOTP scheme.
+gem 'devise-two-factor'
+
+# For generating devise-two-factor QRCodes
+gem 'rqrcode-rails3'
+
 # Use annotate to insert column names in model
 gem 'annotate'
 
