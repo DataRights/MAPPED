@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171101235708) do
+ActiveRecord::Schema.define(version: 20171102155944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,13 +67,6 @@ ActiveRecord::Schema.define(version: 20171101235708) do
     t.index ["sector_id"], name: "index_organizations_on_sector_id"
   end
 
-  create_table "organizations_templates", id: false, force: :cascade do |t|
-    t.bigint "organization_id"
-    t.bigint "templates_id"
-    t.index ["organization_id"], name: "index_organizations_templates_on_organization_id"
-    t.index ["templates_id"], name: "index_organizations_templates_on_templates_id"
-  end
-
   create_table "questions", force: :cascade do |t|
     t.text "title"
     t.jsonb "metadata"
@@ -94,6 +87,13 @@ ActiveRecord::Schema.define(version: 20171101235708) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sectors_templates", id: false, force: :cascade do |t|
+    t.bigint "sector_id"
+    t.bigint "template_id"
+    t.index ["sector_id"], name: "index_sectors_templates_on_sector_id"
+    t.index ["template_id"], name: "index_sectors_templates_on_template_id"
   end
 
   create_table "template_versions", force: :cascade do |t|

@@ -1,6 +1,5 @@
 class Organization < ApplicationRecord
   belongs_to :sector
-  has_and_belongs_to_many :templates
 
   def context_value
     result = { 'name' => name }
