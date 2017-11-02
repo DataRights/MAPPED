@@ -50,4 +50,8 @@ class UserTest < ActiveSupport::TestCase
 		assert user.can?(:create_user)
 	end
 
+	test "the context_value" do
+		assert_equal ({'email' => 'test@test.com'}), User.new(email: 'test@test.com').context_value
+	end
+
 end

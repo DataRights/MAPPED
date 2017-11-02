@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: Hospital
+hospital1:
+  name: Hospital1
   sector: Health
 
 two:

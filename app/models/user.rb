@@ -37,4 +37,9 @@ class User < ApplicationRecord
 		raise "Unknown Action(#{action})" unless AccessRight.valid_action?(action)
 		roles.joins(:access_rights).where(access_rights: {action: action}).size > 0
 	end
+
+	def context_value
+		{ 'email' => email }
+	end
+
 end
