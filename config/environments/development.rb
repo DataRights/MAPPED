@@ -27,7 +27,7 @@ Rails.application.configure do
   end
 
   # Config for devise links in the emails
-  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :test
 
   # Don't care if the mailer can't send.

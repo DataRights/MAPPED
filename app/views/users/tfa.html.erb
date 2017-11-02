@@ -1,0 +1,35 @@
+<div class="panel panel-default devise-bs">
+  <div class="panel-heading">
+    <h4>Two Factor Authentication</h4>
+  </div>
+  <div class="panel-body">
+      <div>
+        Two-factor authentication, or 2FA, is a way of logging into websites that requires more than just a password. Using a password to log into a website is susceptible to security threats, because it represents a single piece of information a malicious person needs to acquire. The added security that 2FA provides is requiring additional information to sign in.
+      </div>
+      <br />
+
+      <% if !current_user.otp_required_for_login %>
+        <%= button_to "Enable 2FA", users_enable_otp_path, :method => :post %>
+      <% end %>
+
+      <% if current_user.otp_required_for_login %>
+        <%= button_to "Disable 2FA", users_disable_otp_path, :method => :post %>
+        <br />
+
+        <div>
+          Scan this QRCode with Google Authenticator, Authy or any other mobile app that supports two factor authentication via TOTP.
+        </div>
+        <br />
+        <div>
+        <%= raw RQRCode::render_qrcode(current_user.otp_provisioning_uri(current_user.email, issuer: "MAPPED"),
+                                       :svg,
+                                       :level => :l,
+                                       :unit => 2) %>
+        </div>
+        <br>
+      <% end %>
+      <div>
+      <br /><%= link_to t('.back_to_admin_panel', default: 'Back To Dashboard'), rails_admin_path %>
+      </div>
+  </div>
+</div>

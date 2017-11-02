@@ -1,6 +1,11 @@
 RailsAdmin.config do |config|
 
   config.main_app_name = ["MAPPED", "Admin"]
+
+  config.navigation_static_links = {
+    'Two Factor authentication' => '/users/tfa'
+  }
+
   ### Popular gems integration
 
   ## == Devise ==
