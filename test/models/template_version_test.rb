@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TemplateVersionTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "render" do
+    assert_equal '', TemplateVersion.new.render(nil)
+  end
 end

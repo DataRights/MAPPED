@@ -25,4 +25,10 @@ class TemplateContextTest < ActiveSupport::TestCase
 		assert context.valid?
 	end
 
+	test "the context_value" do
+    assert_equal ({}), TemplateContext.new().context_value
+		assert_equal ({'user' => {'email' => 'test@test.com'}}), TemplateContext.new(user: User.new(email: 'test@test.com')).context_value
+		assert_equal ({'organization' => {'name' => 'hosp1'}}), TemplateContext.new(organization: Organization.new(name: 'hosp1')).context_value
+  end
+
 end

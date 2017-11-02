@@ -14,6 +14,13 @@ class TemplateContext
       errors[:organization] << 'Invalid organization'
       return
     end
-
   end
+
+  def context_value
+    result = {}
+    result['user'] = user.context_value if user
+    result['organization'] = organization.context_value if organization
+    result
+  end
+
 end
