@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171101234600) do
+ActiveRecord::Schema.define(version: 20171101235708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,12 @@ ActiveRecord::Schema.define(version: 20171101234600) do
     t.bigint "sector_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "custom_1"
+    t.text "custom_1_desc"
+    t.text "custom_2"
+    t.text "custom_2_desc"
+    t.text "custom_3"
+    t.text "custom_3_desc"
     t.index ["sector_id"], name: "index_organizations_on_sector_id"
   end
 
