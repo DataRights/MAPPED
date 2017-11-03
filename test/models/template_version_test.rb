@@ -35,5 +35,11 @@ class TemplateVersionTest < ActiveSupport::TestCase
     assert_equal render_result, TemplateVersion.new(content: template_content).render(TemplateContext.new(user: user))
   end
 
+  test "render with context with user with first_name and last_name" do
+    template_content = "I am {{ user.first_name }} {{ user.last_name}} and my email is {{ user.email }}"
+    render_result    = "I am John Smith and my email is j@s.c"
+    user = User.new(email: 'j@s.c', first_name: 'John', last_name: 'Smith')
+    assert_equal render_result, TemplateVersion.new(content: template_content).render(TemplateContext.new(user: user))
+  end
 
 end

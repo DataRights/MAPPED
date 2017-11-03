@@ -48,6 +48,8 @@ class User < ApplicationRecord
 	def context_value
 		result = { 'email' => email }
     result['addresses'] = addresses.map(&:context_value) unless addresses.blank?
+    result['first_name'] = first_name if first_name
+    result['last_name'] = last_name if last_name
     result
 	end
 

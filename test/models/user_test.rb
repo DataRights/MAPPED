@@ -52,6 +52,7 @@ class UserTest < ActiveSupport::TestCase
 
 	test "the context_value" do
 		assert_equal ({'email' => 'test@test.com'}), User.new(email: 'test@test.com').context_value
+		assert_equal ({'email' => 'test@test.com', 'first_name' => 'John', 'last_name' => 'Smith'}), User.new(email: 'test@test.com', first_name: 'John', last_name: 'Smith').context_value
 	end
 
 end
