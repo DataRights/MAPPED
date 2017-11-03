@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103020214) do
+ActiveRecord::Schema.define(version: 20171103020910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,21 @@ ActiveRecord::Schema.define(version: 20171103020214) do
     t.bigint "action_id", null: false
     t.bigint "transition_id", null: false
     t.index ["action_id", "transition_id"], name: "index_actions_transitions_on_action_id_and_transition_id"
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "line1"
+    t.string "line2"
+    t.string "post_code"
+    t.bigint "city_id"
+    t.bigint "country_id"
+    t.string "addressable_type"
+    t.bigint "addressable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
+    t.index ["city_id"], name: "index_addresses_on_city_id"
+    t.index ["country_id"], name: "index_addresses_on_country_id"
   end
 
   create_table "cities", force: :cascade do |t|
@@ -229,6 +244,8 @@ ActiveRecord::Schema.define(version: 20171103020214) do
   end
 
   add_foreign_key "access_rights", "roles"
+  add_foreign_key "addresses", "cities"
+  add_foreign_key "addresses", "countries"
   add_foreign_key "cities", "countries"
   add_foreign_key "organizations", "sectors"
   add_foreign_key "template_versions", "templates"

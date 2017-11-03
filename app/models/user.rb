@@ -37,6 +37,8 @@ class User < ApplicationRecord
 
 	has_many :user_roles
 	has_many :roles, through: :user_roles
+  has_many :addresses, as: :addressable
+
 
 	def can?(action)
 		raise "Unknown Action(#{action})" unless AccessRight.valid_action?(action)
