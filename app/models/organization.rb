@@ -1,5 +1,6 @@
 class Organization < ApplicationRecord
   belongs_to :sector
+  has_many :addresses, as: :addressable
 
   def context_value
     result = { 'name' => name }
