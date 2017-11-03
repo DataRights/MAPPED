@@ -24,7 +24,6 @@
 
 .idea*
 
-.coveralls.yml
 coverage/*
 
 .DS_Store
