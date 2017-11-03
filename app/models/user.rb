@@ -46,7 +46,9 @@ class User < ApplicationRecord
 	end
 
 	def context_value
-		{ 'email' => email }
+		result = { 'email' => email }
+    result['addresses'] = addresses.map(&:context_value) unless addresses.blank?
+    result
 	end
 
 end

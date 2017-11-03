@@ -11,6 +11,7 @@ class Organization < ApplicationRecord
     result['custom_2_desc'] = custom_2_desc if custom_2_desc
     result['custom_3'] = custom_3 if custom_3
     result['custom_3_desc'] = custom_3_desc if custom_3_desc
+    result['addresses'] = addresses.map(&:context_value) unless addresses.blank?
     result
   end
 

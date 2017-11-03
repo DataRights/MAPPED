@@ -13,9 +13,27 @@ class TemplateVersionTest < ActiveSupport::TestCase
     assert_equal 'This is a template', TemplateVersion.new(content: 'This is a template').render(TemplateContext.new)
   end
 
-  test "render with context" do
+  test "render with simple context" do
     template_content = "This is a template with context\n {{ user.email }}\n Sending access request to {{ organization.name }} "
     render_result    = "This is a template with context\n test123@test.com\n Sending access request to Schiphol Airport "
     assert_equal render_result, TemplateVersion.new(content: template_content).render(TemplateContext.new(user: User.new(email: 'test123@test.com'), organization: Organization.new(name: 'Schiphol Airport')))
   end
+
+  test "render with context with organization with address" do
+    template_content = "The address of {{ organization.name }}\n line1 {{ organization.addresses[0].line1 }}\n city  {{ organization.addresses[0].city.name }}"
+    render_result    = "The address of Schiphol Airport\n line1 somewhere\n city  London"
+    organization = Organization.new(name: 'Schiphol Airport')
+    organization.addresses << Address.new(line1: 'somewhere', city: City.new(name: 'London'))
+    assert_equal render_result, TemplateVersion.new(content: template_content).render(TemplateContext.new(organization: organization))
+  end
+
+  test "render with context with user with address" do
+    template_content = "The address of {{ user.email }}\n line1 {{ user.addresses[0].line1 }}\n country  {{ user.addresses[0].country.name }}"
+    render_result    = "The address of test123@test.com\n line1 somewhere\n country  UK"
+    user = User.new(email: 'test123@test.com')
+    user.addresses << Address.new(line1: 'somewhere', country: Country.new(name: 'UK'))
+    assert_equal render_result, TemplateVersion.new(content: template_content).render(TemplateContext.new(user: user))
+  end
+
+
 end
