@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103015751) do
+ActiveRecord::Schema.define(version: 20171103020214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(version: 20171103015751) do
     t.bigint "action_id", null: false
     t.bigint "transition_id", null: false
     t.index ["action_id", "transition_id"], name: "index_actions_transitions_on_action_id_and_transition_id"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.bigint "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_cities_on_country_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -221,6 +229,7 @@ ActiveRecord::Schema.define(version: 20171103015751) do
   end
 
   add_foreign_key "access_rights", "roles"
+  add_foreign_key "cities", "countries"
   add_foreign_key "organizations", "sectors"
   add_foreign_key "template_versions", "templates"
   add_foreign_key "transitions", "workflow_states", column: "from_state_id"
