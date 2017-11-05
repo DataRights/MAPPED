@@ -2,10 +2,10 @@ require 'simplecov'
 require 'coveralls'
 
 SimpleCov.start do
-  formatter SimpleCov::Formatter::MultiFormatter[
+  formatter SimpleCov::Formatter::MultiFormatter::new([
     SimpleCov::Formatter::HTMLFormatter,
     Coveralls::SimpleCov::Formatter,
-  ]
+  ])
   add_filter "/test/"
   add_filter "/config/"
 end

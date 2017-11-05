@@ -37,9 +37,20 @@ class User < ApplicationRecord
 
 	has_many :user_roles
 	has_many :roles, through: :user_roles
+  has_many :addresses, as: :addressable
+
 
 	def can?(action)
 		raise "Unknown Action(#{action})" unless AccessRight.valid_action?(action)
 		roles.joins(:access_rights).where(access_rights: {action: action}).size > 0
 	end
+
+	def context_value
+		result = { 'email' => email }
+    result['addresses'] = addresses.map(&:context_value) unless addresses.blank?
+    result['first_name'] = first_name if first_name
+    result['last_name'] = last_name if last_name
+    result
+	end
+
 end

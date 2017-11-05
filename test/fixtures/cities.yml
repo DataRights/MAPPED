@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+la:
+  name: LA
+  country: usa
+
+london:
+  name: London
+  country: uk

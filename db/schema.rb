@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102073837) do
+ActiveRecord::Schema.define(version: 20171103030433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,35 @@ ActiveRecord::Schema.define(version: 20171102073837) do
     t.index ["action_id", "transition_id"], name: "index_actions_transitions_on_action_id_and_transition_id"
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.string "line1"
+    t.string "line2"
+    t.string "post_code"
+    t.bigint "city_id"
+    t.bigint "country_id"
+    t.string "addressable_type"
+    t.bigint "addressable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
+    t.index ["city_id"], name: "index_addresses_on_city_id"
+    t.index ["country_id"], name: "index_addresses_on_country_id"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.bigint "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_cities_on_country_id"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "guards", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -51,6 +80,20 @@ ActiveRecord::Schema.define(version: 20171102073837) do
     t.bigint "guard_id", null: false
     t.bigint "transition_id", null: false
     t.index ["guard_id", "transition_id"], name: "index_guards_transitions_on_guard_id_and_transition_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name"
+    t.bigint "sector_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "custom_1"
+    t.text "custom_1_desc"
+    t.text "custom_2"
+    t.text "custom_2_desc"
+    t.text "custom_3"
+    t.text "custom_3_desc"
+    t.index ["sector_id"], name: "index_organizations_on_sector_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -67,6 +110,36 @@ ActiveRecord::Schema.define(version: 20171102073837) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sectors", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sectors_templates", id: false, force: :cascade do |t|
+    t.bigint "sector_id"
+    t.bigint "template_id"
+    t.index ["sector_id"], name: "index_sectors_templates_on_sector_id"
+    t.index ["template_id"], name: "index_sectors_templates_on_template_id"
+  end
+
+  create_table "template_versions", force: :cascade do |t|
+    t.string "version"
+    t.bigint "template_id"
+    t.text "content"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["template_id"], name: "index_template_versions_on_template_id"
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "template_type"
   end
 
   create_table "transitions", force: :cascade do |t|
@@ -114,6 +187,8 @@ ActiveRecord::Schema.define(version: 20171102073837) do
     t.string "encrypted_otp_secret_salt"
     t.integer "consumed_timestep"
     t.boolean "otp_required_for_login"
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -171,6 +246,11 @@ ActiveRecord::Schema.define(version: 20171102073837) do
   end
 
   add_foreign_key "access_rights", "roles"
+  add_foreign_key "addresses", "cities"
+  add_foreign_key "addresses", "countries"
+  add_foreign_key "cities", "countries"
+  add_foreign_key "organizations", "sectors"
+  add_foreign_key "template_versions", "templates"
   add_foreign_key "transitions", "workflow_states", column: "from_state_id"
   add_foreign_key "transitions", "workflow_states", column: "to_state_id"
   add_foreign_key "user_roles", "roles"
