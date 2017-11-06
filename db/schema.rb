@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103030433) do
+ActiveRecord::Schema.define(version: 20171106073912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "access_requests", force: :cascade do |t|
+    t.bigint "organization_id"
+    t.bigint "user_id"
+    t.jsonb "meta_data"
+    t.datetime "sent_date"
+    t.datetime "data_received_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_access_requests_on_organization_id"
+    t.index ["user_id"], name: "index_access_requests_on_user_id"
+  end
 
   create_table "access_rights", force: :cascade do |t|
     t.string "action"
@@ -243,10 +255,14 @@ ActiveRecord::Schema.define(version: 20171103030433) do
     t.bigint "workflow_state_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "access_request_id"
+    t.index ["access_request_id"], name: "index_workflows_on_access_request_id"
     t.index ["workflow_state_id"], name: "index_workflows_on_workflow_state_id"
     t.index ["workflow_type_version_id"], name: "index_workflows_on_workflow_type_version_id"
   end
 
+  add_foreign_key "access_requests", "organizations"
+  add_foreign_key "access_requests", "users"
   add_foreign_key "access_rights", "roles"
   add_foreign_key "addresses", "cities"
   add_foreign_key "addresses", "countries"
@@ -263,6 +279,7 @@ ActiveRecord::Schema.define(version: 20171103030433) do
   add_foreign_key "workflow_transitions", "transitions"
   add_foreign_key "workflow_transitions", "workflows"
   add_foreign_key "workflow_type_versions", "workflow_types"
+  add_foreign_key "workflows", "access_requests"
   add_foreign_key "workflows", "workflow_states"
   add_foreign_key "workflows", "workflow_type_versions"
 end

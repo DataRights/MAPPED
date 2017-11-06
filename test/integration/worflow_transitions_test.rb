@@ -4,6 +4,7 @@ class WorflowTransitionsTest < ActionDispatch::IntegrationTest
   test "User should be able to create a workflow for access request and go through transitions" do
      wf = Workflow.new
      wf.workflow_type_version = workflow_type_versions(:version_one_point_o_mapped_social)
+     wf.access_request = access_requests(:one)
      wf.save!
      assert_equal workflow_states(:waiting_for_ar_creation), wf.workflow_state
 
@@ -24,6 +25,7 @@ class WorflowTransitionsTest < ActionDispatch::IntegrationTest
   test "Workflow.send_event should raise an error if transition is not between possible transitions for current state" do
     wf = Workflow.new
     wf.workflow_type_version = workflow_type_versions(:version_one_point_o_mapped_social)
+    wf.access_request = access_requests(:one)
     wf.save!
     assert_equal workflow_states(:waiting_for_ar_creation), wf.workflow_state
     exception = assert_raises(Exception) { wf.send_event(transitions(:data_came_back)) }
@@ -32,6 +34,7 @@ class WorflowTransitionsTest < ActionDispatch::IntegrationTest
 
   test "Workflow.send_event should not go to next state if a guard fails." do
     wf = Workflow.new
+    wf.access_request = access_requests(:one)
     wf.workflow_type_version = workflow_type_versions(:version_one_point_o_mapped_social)
     wf.save!
     assert_equal workflow_states(:waiting_for_ar_creation), wf.workflow_state
@@ -50,6 +53,7 @@ class WorflowTransitionsTest < ActionDispatch::IntegrationTest
   test "workflow.send_event should rollback all the performed_actions if an action fails" do
     wf = Workflow.new
     wf.workflow_type_version = workflow_type_versions(:version_one_point_o_mapped_social)
+    wf.access_request = access_requests(:one)
     wf.save!
     assert_equal workflow_states(:waiting_for_ar_creation), wf.workflow_state
 

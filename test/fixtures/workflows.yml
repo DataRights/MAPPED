@@ -14,7 +14,9 @@
 one:
   workflow_type_version: one
   workflow_state: one
+  access_request: one
 
 two:
   workflow_type_version: two
   workflow_state: two
+  access_request: two

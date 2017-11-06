@@ -12,6 +12,7 @@
 class Workflow < ApplicationRecord
   belongs_to :workflow_type_version
   belongs_to :workflow_state
+  belongs_to :access_request
   validates :workflow_type_version, :workflow_state, presence: true
   validate :workflow_type_should_be_active
   before_validation(on: :create) do
