@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: questions
+#
+#  id         :integer          not null, primary key
+#  title      :text
+#  metadata   :jsonb
+#  mandatory  :boolean
+#  ui_class   :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  type       :string
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:

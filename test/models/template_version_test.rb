@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: template_versions
+#
+#  id          :integer          not null, primary key
+#  version     :string
+#  template_id :integer
+#  content     :text
+#  active      :boolean
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 require 'test_helper'
 
 class TemplateVersionTest < ActiveSupport::TestCase

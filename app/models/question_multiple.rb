@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: questions
+#
+#  id         :integer          not null, primary key
+#  title      :text
+#  metadata   :jsonb
+#  mandatory  :boolean
+#  ui_class   :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  type       :string
+#
+
 class QuestionMultiple < Question
 	def validate_metadata
 		unless metadata && metadata['option_list']

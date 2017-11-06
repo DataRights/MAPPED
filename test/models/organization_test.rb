@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: organizations
+#
+#  id            :integer          not null, primary key
+#  name          :string
+#  sector_id     :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  custom_1      :text
+#  custom_1_desc :text
+#  custom_2      :text
+#  custom_2_desc :text
+#  custom_3      :text
+#  custom_3_desc :text
+#
+
 require 'test_helper'
 
 class OrganizationTest < ActiveSupport::TestCase
