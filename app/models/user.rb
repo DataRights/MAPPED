@@ -61,4 +61,7 @@ class User < ApplicationRecord
     result
 	end
 
+  def preferred_language
+    self.attributes['preferred_language'].try(:to_sym)
+  end
 end
