@@ -20,16 +20,16 @@
 class WorkflowTransition < ApplicationRecord
   belongs_to :workflow
   belongs_to :transition
-  belongs_to :failed_action, optional: true
-  belongs_to :failed_guard, optional: true
+  belongs_to :failed_action, class_name: 'Action', optional: true
+  belongs_to :failed_guard, class_name: 'Guard', optional: true
 
   # should return state, success:false/true, message (in case of error, error_message)
   def execute
     begin
       return false unless check_guards
       execute_actions
-      rollback_actions unless self.failed_action_id.nil?
-      self.failed_action_id.nil?
+      rollback_actions unless self.failed_action.nil?
+      self.failed_action.nil?
     ensure
       self.save!
     end
@@ -42,7 +42,7 @@ class WorkflowTransition < ApplicationRecord
       guard_result = g.check(workflow)
       unless guard_result[:result]
         self.status = :guard_failed
-        self.failed_guard_id = g.id
+        self.failed_guard = g
         self.failed_guard_message = guard_result[:message]
         return false
       end
@@ -58,12 +58,12 @@ class WorkflowTransition < ApplicationRecord
       if action_result[:result]
         self.performed_actions << { action_id: a.id, action_name: a.name }
       else
-        self.failed_action_id = a.id
+        self.failed_action = a
         self.action_failed_message = action_result[:message]
         break
       end
     end
-    if self.failed_action_id.nil?
+    if self.failed_action.nil?
       self.status = :success
       self.workflow.workflow_state = self.transition.to_state
     end
