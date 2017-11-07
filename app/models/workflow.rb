@@ -7,6 +7,7 @@
 #  workflow_state_id        :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
+#  access_request_id        :integer
 #
 
 class Workflow < ApplicationRecord

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171106073912) do
+ActiveRecord::Schema.define(version: 20171107103001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,12 +44,6 @@ ActiveRecord::Schema.define(version: 20171106073912) do
     t.string "method_name"
   end
 
-  create_table "actions_transitions", id: false, force: :cascade do |t|
-    t.bigint "action_id", null: false
-    t.bigint "transition_id", null: false
-    t.index ["action_id", "transition_id"], name: "index_actions_transitions_on_action_id_and_transition_id"
-  end
-
   create_table "addresses", force: :cascade do |t|
     t.string "line1"
     t.string "line2"
@@ -71,6 +65,21 @@ ActiveRecord::Schema.define(version: 20171106073912) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_cities_on_country_id"
+  end
+
+  create_table "code_actions", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "class_name"
+    t.string "method_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "code_actions_transitions", id: false, force: :cascade do |t|
+    t.bigint "code_action_id", null: false
+    t.bigint "transition_id", null: false
+    t.index ["code_action_id", "transition_id"], name: "index_actions_transitions_on_action_id_and_transition_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -160,7 +169,6 @@ ActiveRecord::Schema.define(version: 20171106073912) do
     t.bigint "to_state_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["from_state_id", "to_state_id"], name: "index_transitions_on_from_state_id_and_to_state_id", unique: true
     t.index ["from_state_id"], name: "index_transitions_on_from_state_id"
     t.index ["to_state_id"], name: "index_transitions_on_to_state_id"
   end
@@ -222,11 +230,11 @@ ActiveRecord::Schema.define(version: 20171106073912) do
     t.string "action_failed_message"
     t.string "failed_guard_message"
     t.string "status"
+    t.jsonb "rollback_failed_actions"
+    t.jsonb "performed_actions"
     t.jsonb "internal_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.jsonb "performed_actions"
-    t.jsonb "rollback_failed_actions"
     t.index ["failed_action_id"], name: "index_workflow_transitions_on_failed_action_id"
     t.index ["failed_guard_id"], name: "index_workflow_transitions_on_failed_guard_id"
     t.index ["transition_id"], name: "index_workflow_transitions_on_transition_id"
@@ -272,7 +280,7 @@ ActiveRecord::Schema.define(version: 20171106073912) do
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
   add_foreign_key "workflow_states", "workflow_type_versions"
-  add_foreign_key "workflow_transitions", "actions", column: "failed_action_id"
+  add_foreign_key "workflow_transitions", "code_actions", column: "failed_action_id"
   add_foreign_key "workflow_transitions", "guards", column: "failed_guard_id"
   add_foreign_key "workflow_transitions", "transitions"
   add_foreign_key "workflow_transitions", "workflows"

@@ -58,8 +58,8 @@ class WorflowTransitionsTest < ActionDispatch::IntegrationTest
     assert_equal workflow_states(:waiting_for_ar_creation), wf.workflow_state
 
     t = transitions(:access_request_created)
-    a_with_failure = actions(:apply_tag_in_database) # action with failure
-    action_without_rollback = actions(:test_success_action_without_rollback)
+    a_with_failure = code_actions(:apply_tag_in_database) # action with failure
+    action_without_rollback = code_actions(:test_success_action_without_rollback)
     t.actions << action_without_rollback
     t.actions << a_with_failure
     t.save!

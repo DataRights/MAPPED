@@ -51,7 +51,9 @@ Tests are using simplecov and Coverall to generate coverage reports, before runn
 
 `pre-commit install`
 
-This creates a .git/hooks/pre-commit script which will check your git config and run checks that are enabled. For list of enabled pre-commit hooks checkout config/pre_commit.yml file.
+This creates a .git/hooks/pre-commit script which will check your git config and run checks that are enabled. modify the file .git/hooks/pre-commit and remove all the lines and add this line:
+
+`RAILS_ENV=test rake test`
 
 # Deployment instructions
 
