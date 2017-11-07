@@ -15,4 +15,5 @@
 class AccessRequest < ApplicationRecord
   belongs_to :organization
   belongs_to :user
+  belongs_to :campaign
 end

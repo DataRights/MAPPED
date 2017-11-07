@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107103001) do
+ActiveRecord::Schema.define(version: 20171107193534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20171107103001) do
     t.datetime "data_received_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "campaign_id"
+    t.index ["campaign_id"], name: "index_access_requests_on_campaign_id"
     t.index ["organization_id"], name: "index_access_requests_on_organization_id"
     t.index ["user_id"], name: "index_access_requests_on_user_id"
   end
@@ -57,6 +59,28 @@ ActiveRecord::Schema.define(version: 20171107103001) do
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
     t.index ["city_id"], name: "index_addresses_on_city_id"
     t.index ["country_id"], name: "index_addresses_on_country_id"
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+    t.string "name"
+    t.string "short_description"
+    t.text "expanded_description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "campaigns_questions", id: false, force: :cascade do |t|
+    t.bigint "campaign_id", null: false
+    t.bigint "question_id", null: false
+    t.index ["campaign_id", "question_id"], name: "index_campaigns_questions_on_campaign_id_and_question_id"
+    t.index ["question_id", "campaign_id"], name: "index_campaigns_questions_on_question_id_and_campaign_id"
+  end
+
+  create_table "campains_organizations", id: false, force: :cascade do |t|
+    t.bigint "campain_id", null: false
+    t.bigint "organization_id", null: false
+    t.index ["campain_id", "organization_id"], name: "index_campains_organizations_on_campain_id_and_organization_id"
+    t.index ["organization_id", "campain_id"], name: "index_campains_organizations_on_organization_id_and_campain_id"
   end
 
   create_table "cities", force: :cascade do |t|
