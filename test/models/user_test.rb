@@ -63,4 +63,7 @@ class UserTest < ActiveSupport::TestCase
 		assert_equal ({'email' => 'test@test.com', 'first_name' => 'John', 'last_name' => 'Smith'}), User.new(email: 'test@test.com', first_name: 'John', last_name: 'Smith').context_value
 	end
 
+	test 'perferred_language should be a symble' do
+		assert_equal :en, User.new(email: 'test@test.com', preferred_language: :en).preferred_language
+	end
 end

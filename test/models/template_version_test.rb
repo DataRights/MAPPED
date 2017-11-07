@@ -55,4 +55,8 @@ class TemplateVersionTest < ActiveSupport::TestCase
     assert_equal render_result, TemplateVersion.new(content: template_content).render(TemplateContext.new(user: user))
   end
 
+  test 'language should be a symble' do
+		assert_equal :en, TemplateVersion.new(content: 'This is a template',language: :en).language
+	end
+
 end

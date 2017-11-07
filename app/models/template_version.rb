@@ -22,4 +22,9 @@ class TemplateVersion < ApplicationRecord
     @template = Liquid::Template.parse(content)
     @template.render(template_context.context_value)
   end
+
+  def language
+    self.attributes['language'].try(:to_sym)
+  end
+
 end

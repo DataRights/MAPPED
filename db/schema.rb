@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171106073912) do
+ActiveRecord::Schema.define(version: 20171106154704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20171106073912) do
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "language"
     t.index ["template_id"], name: "index_template_versions_on_template_id"
   end
 
@@ -201,6 +202,7 @@ ActiveRecord::Schema.define(version: 20171106073912) do
     t.boolean "otp_required_for_login"
     t.string "first_name"
     t.string "last_name"
+    t.string "preferred_language"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
