@@ -55,4 +55,14 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model TemplateVersion do
+    edit do
+      field :version
+      field :template
+      field :content, :ck_editor
+      field :active
+      field :language
+    end
+  end
 end
