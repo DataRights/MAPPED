@@ -46,6 +46,7 @@ class User < ApplicationRecord
 	has_many :user_roles
 	has_many :roles, through: :user_roles
   has_many :addresses, as: :addressable
+  has_many :answers, as: :answerable
 
 
 	def can?(action)
