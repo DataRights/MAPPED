@@ -27,7 +27,7 @@ class Guard < ApplicationRecord
       return
     end
 
-    unless self.class_name.safe_constantize.methods.include?(self.method_name)
+    unless self.class_name.safe_constantize.methods.include?(self.method_name.to_sym)
       errors.add(:method_name, I18n.t('validations.invalid_method_name'))
       return
     end

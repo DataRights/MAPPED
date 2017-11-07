@@ -20,7 +20,7 @@
 class WorkflowTransition < ApplicationRecord
   belongs_to :workflow
   belongs_to :transition
-  belongs_to :failed_action, class_name: 'Action', optional: true
+  belongs_to :failed_action, class_name: 'CodeAction', optional: true
   belongs_to :failed_guard, class_name: 'Guard', optional: true
 
   # should return state, success:false/true, message (in case of error, error_message)

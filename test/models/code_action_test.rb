@@ -2,22 +2,20 @@
 #
 # Table name: actions
 #
-#  id            :integer          not null, primary key
-#  name          :string
-#  description   :string
-#  class_name    :string
-#  type          :string
-#  internal_data :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  method_name   :string
+#  id          :integer          not null, primary key
+#  name        :string
+#  description :string
+#  class_name  :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  method_name :string
 #
 
 require 'test_helper'
 
-class ActionTest < ActiveSupport::TestCase
+class CodeActionTest < ActiveSupport::TestCase
   test "Action execute method should return true in case of success and a message" do
-     a = actions(:send_a_reminder)
+     a = code_actions(:send_a_reminder)
      w = workflows(:one)
      resp = a.execute(w)
      assert_equal true, resp[:result]
@@ -26,7 +24,7 @@ class ActionTest < ActiveSupport::TestCase
   end
 
   test "Action execute method should return false and an error in case of failure" do
-     a = actions(:apply_tag_in_database)
+     a = code_actions(:apply_tag_in_database)
      w = workflows(:one)
      resp = a.execute(w)
      assert_equal false, resp[:result]
@@ -35,7 +33,7 @@ class ActionTest < ActiveSupport::TestCase
   end
 
   test "Action validation should fail if class name doesn't exists in code base." do
-    a = Action.new
+    a = CodeAction.new
     a.name = 'check foo.bar'
     a.description = 'Checks to see if foo.bar returns true!'
     a.class_name = 'foo'
@@ -48,7 +46,7 @@ class ActionTest < ActiveSupport::TestCase
   end
 
   test "Action validation should fail if class exists but method name is not among valid methods for class." do
-    a = Action.new
+    a = CodeAction.new
     a.name = 'check foo.bar'
     a.description = 'Checks to see if foo.bar returns true!'
     a.class_name = 'ActionTestHelper'
@@ -58,5 +56,20 @@ class ActionTest < ActiveSupport::TestCase
     assert_equal 1, a.errors.count, "There should be one validation error: #{a.errors}"
     assert_equal 1, a.errors.messages[:method_name].count, "There should be one error about class_name in code: #{a.errors.messages[:method_name]}"
     assert_equal I18n.t('validations.invalid_method_name'), a.errors.messages[:method_name].first
+  end
+
+  test 'Action validation should succeed if the method name exists for the specified class name' do
+    a = CodeAction.new
+    a.name = 'Success Action without rollback'
+    a.description = 'A sample action for test which returns success but does not support rollback!'
+    a.class_name = 'ActionTestHelper'
+    a.method_name = 'another_sample_action'
+    result = a.save
+    assert_equal true, result, a.errors.messages
+
+    expected_exec_result = { result:true, message:'Success!' }
+    expected_rollback_result = { result:false, message:I18n.t('rollback_method_does_not_exist_for_action') }
+    assert_equal expected_exec_result, a.execute(nil)
+    assert_equal expected_rollback_result, a.rollback(nil)
   end
 end

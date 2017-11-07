@@ -39,3 +39,4 @@ en:
     workflow_type_should_be_active: 'For creating a new workflow, Workflow type should be active!'
   errors:
     transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
+  rollback_method_does_not_exist_for_action: 'Rollback method does not exist for action'

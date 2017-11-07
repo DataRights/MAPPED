@@ -19,4 +19,8 @@ module ActionTestHelper
   def self.apply_tag_in_database(workflow)
     { result: false, message: "tag failed to apply to workflow in state: #{workflow.workflow_state.name}"}
   end
+
+  def self.another_sample_action(workflow)
+    { result: true, message: 'Success!' }
+  end
 end
