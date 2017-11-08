@@ -46,6 +46,7 @@ class User < ApplicationRecord
 	has_many :user_roles
 	has_many :roles, through: :user_roles
   has_many :addresses, as: :addressable
+  has_many :answers, as: :answerable
 
 
 	def can?(action)
@@ -58,6 +59,9 @@ class User < ApplicationRecord
     result['addresses'] = addresses.map(&:context_value) unless addresses.blank?
     result['first_name'] = first_name if first_name
     result['last_name'] = last_name if last_name
+    result['custom_1'] = custom_1 if custom_1
+    result['custom_2'] = custom_2 if custom_2
+    result['custom_3'] = custom_3 if custom_3
     result
 	end
 

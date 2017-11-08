@@ -61,6 +61,9 @@ class UserTest < ActiveSupport::TestCase
 	test "the context_value" do
 		assert_equal ({'email' => 'test@test.com'}), User.new(email: 'test@test.com').context_value
 		assert_equal ({'email' => 'test@test.com', 'first_name' => 'John', 'last_name' => 'Smith'}), User.new(email: 'test@test.com', first_name: 'John', last_name: 'Smith').context_value
+		assert_equal ({'email' => 'test@test.com', 'custom_1' => 'aaa'}), User.new(email: 'test@test.com', custom_1: 'aaa').context_value
+		assert_equal ({'email' => 'test@test.com', 'custom_2' => 'aaa'}), User.new(email: 'test@test.com', custom_2: 'aaa').context_value
+		assert_equal ({'email' => 'test@test.com', 'custom_3' => 'aaa'}), User.new(email: 'test@test.com', custom_3: 'aaa').context_value
 	end
 
 	test 'perferred_language should be a symble' do
