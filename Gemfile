@@ -102,3 +102,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'liquid'
 
 gem 'ckeditor'
+
+gem 'wkhtmltopdf-binary'
+
+gem 'wicked_pdf'

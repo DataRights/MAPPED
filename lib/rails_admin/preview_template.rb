@@ -18,7 +18,7 @@ module RailsAdmin
 
         # You may or may not want pjax for your action
         register_instance_option :pjax? do
-          true
+          false
         end
 
         register_instance_option :controller do
@@ -50,7 +50,11 @@ module RailsAdmin
 
             @rendered_template = @object.render(context)
 
-            render action: @action.template_name
+            if params[:commit] == 'PDF'
+              send_data(WickedPdf.new.pdf_from_string(@rendered_template) , :type => :pdf, :disposition => 'inline')
+            else
+              render action: @action.template_name
+            end
           end
         end
       end
