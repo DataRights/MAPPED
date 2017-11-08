@@ -42,3 +42,9 @@ en:
   workflow:
     no_state_to_generate_diagram: 'Workflow has no state to generate a diagram!'
   rollback_method_does_not_exist_for_action: 'Rollback method does not exist for action'
+  admin:
+    actions:
+      preview_template:
+        menu: 'Preview'
+        title: 'Preview Template ...'
+        breadcrumb: 'Preview'

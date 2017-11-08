@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107235446) do
+ActiveRecord::Schema.define(version: 20171108174639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,18 +80,16 @@ ActiveRecord::Schema.define(version: 20171107235446) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "campaigns_organizations", id: false, force: :cascade do |t|
+    t.bigint "campaign_id", null: false
+    t.bigint "organization_id", null: false
+  end
+
   create_table "campaigns_questions", id: false, force: :cascade do |t|
     t.bigint "campaign_id", null: false
     t.bigint "question_id", null: false
     t.index ["campaign_id", "question_id"], name: "index_campaigns_questions_on_campaign_id_and_question_id"
     t.index ["question_id", "campaign_id"], name: "index_campaigns_questions_on_question_id_and_campaign_id"
-  end
-
-  create_table "campains_organizations", id: false, force: :cascade do |t|
-    t.bigint "campain_id", null: false
-    t.bigint "organization_id", null: false
-    t.index ["campain_id", "organization_id"], name: "index_campains_organizations_on_campain_id_and_organization_id"
-    t.index ["organization_id", "campain_id"], name: "index_campains_organizations_on_organization_id_and_campain_id"
   end
 
   create_table "cities", force: :cascade do |t|

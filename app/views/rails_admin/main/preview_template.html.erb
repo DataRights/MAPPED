@@ -1,0 +1,20 @@
+<script type="text/javascript" charset="utf-8">
+  // Javascript magic that loads a users auth credentials into the Admin's
+  // client and redirects to the user portal when ready.
+</script>
+
+<%= form_tag({}, method: "get") do %>
+  <%= label_tag(:campaign_id, "Campaign:") %>
+  <%= select_tag(:campaign_id, options_for_select(@campaigns,@selected_campain)) %>
+  <%= label_tag(:user_id, "User:") %>
+  <%= select_tag(:user_id, options_for_select(@users,@selected_user)) %>
+  <%= label_tag(:organization_id, "Organization:") %>
+  <%= select_tag(:organization_id, options_for_select(@organizations,@selected_organization)) %>
+  <br><br><br>
+
+  <%= @rendered_template.html_safe %>
+
+  <br><br><br>
+  <%= submit_tag("Preview") %>
+  <%= submit_tag("PDF") %>
+<% end %>
