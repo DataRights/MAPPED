@@ -45,7 +45,7 @@ module RailsAdmin
             context = TemplateContext.new
             context.campaign = Campaign.find_by_id(@campaign_id) unless  @selected_campain == 0
             context.user = User.find_by_id(@user_id) unless  @selected_user == 0
-            context.organizations = Organization.find_by_id(@organizations_id) unless  @selected_organization == 0
+            context.organization = Organization.find_by_id(@organization_id) unless  @selected_organization == 0
 
             @rendered_template = @object.render(context)
 
