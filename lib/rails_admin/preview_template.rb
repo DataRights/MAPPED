@@ -23,7 +23,6 @@ module RailsAdmin
 
         register_instance_option :controller do
           proc do
-
             @campaign_id = params[:campaign_id] ? params[:campaign_id].to_i : -1
             @user_id = params[:user_id] ? params[:user_id].to_i : -1
             @organization_id = params[:organization_id] ? params[:organization_id].to_i : -1

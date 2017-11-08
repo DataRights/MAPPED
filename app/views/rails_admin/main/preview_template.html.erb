@@ -12,9 +12,7 @@
   <%= select_tag(:organization_id, options_for_select(@organizations,@selected_organization)) %>
   <br><br><br>
 
-  </div>
-    <%= @rendered_template.html_safe %>
-  <div>
+  <%= @rendered_template.html_safe %>
 
   <br><br><br>
   <%= submit_tag("Preview") %>
