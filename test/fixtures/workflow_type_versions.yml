@@ -36,3 +36,8 @@ version_one_point_one_mapped_social:
   version: 1.1
   workflow_type: mapped_wf_type_social
   active: false
+
+workflow_without_states:
+  version: 0.2
+  workflow_type: mapped_wf_type_social
+  active: false

@@ -29,6 +29,7 @@
 #  otp_required_for_login    :boolean
 #  first_name                :string
 #  last_name                 :string
+#  preferred_language        :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

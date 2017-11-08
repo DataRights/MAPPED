@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20171107103001) do
     t.string "name"
     t.string "description"
     t.string "class_name"
+    t.string "type"
+    t.string "internal_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "method_name"

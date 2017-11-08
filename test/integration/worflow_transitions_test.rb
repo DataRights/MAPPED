@@ -28,7 +28,7 @@ class WorflowTransitionsTest < ActionDispatch::IntegrationTest
     wf.access_request = access_requests(:one)
     wf.save!
     assert_equal workflow_states(:waiting_for_ar_creation), wf.workflow_state
-    exception = assert_raises(Exception) { wf.send_event(transitions(:data_came_back)) }
+    exception = assert_raises(Exception) { wf.send_event(transitions(:data_came_back_transition)) }
     assert_equal( I18n.t('errors.transition_does_not_exist_in_current_state'), exception.message )
   end
 

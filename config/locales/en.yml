@@ -30,7 +30,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  invalid_parameters: "Invalid Parameters!"
   validations:
     invalid_class_name: "Class name not found in code base!"
     invalid_method_name: "Method name not found in class methods."
@@ -39,4 +39,6 @@ en:
     workflow_type_should_be_active: 'For creating a new workflow, Workflow type should be active!'
   errors:
     transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
+  workflow:
+    no_state_to_generate_diagram: 'Workflow has no state to generate a diagram!'
   rollback_method_does_not_exist_for_action: 'Rollback method does not exist for action'

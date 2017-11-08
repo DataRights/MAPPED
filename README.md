@@ -9,7 +9,7 @@ This README documents steps that are necessary to set the development environmen
 
 # Ruby version
 
-We are using the latest stable version of Ruby 2.3. You can install Ruby version using [rvm](https://rvm.io).
+We are using the latest stable version of Ruby 2.3. You can install it using [rvm](https://rvm.io).
 
 # System dependencies
 

@@ -37,6 +37,9 @@ group :development do
   # A better pre-commit hook for git.
   gem "pre-commit", require: false
   gem "rubocop", require: false
+
+  # generate a diagram based on your application's Active Record models
+  gem 'rails-erd', require: false
 end
 
 # deliver code confidently by showing which parts of your code aren’t covered by your test suite.
@@ -44,6 +47,9 @@ gem 'coveralls', require: false
 
 # for sending emails
 gem 'sendgrid-ruby'
+
+# Ruby/Graphviz provides an interface to layout and generate images of directed graphs in a variety of formats (PostScript, PNG, etc.) using GraphViz.
+gem 'ruby-graphviz', '~> 1.2', '>= 1.2.3'
 
 # End gems for MAPPED project #
 
