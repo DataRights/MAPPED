@@ -6,3 +6,5 @@ before_script:
 script: test bundle exec rake test:system test
 addons:
   postgresql: "9.6"
+
+# add graphviz
