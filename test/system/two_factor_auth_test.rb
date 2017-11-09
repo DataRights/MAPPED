@@ -20,7 +20,6 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
   end
 
   test "All two factor authentication scenarios" do
-    Capybara.using_driver(Capybara.javascript_driver) do
       # 1. Login
       visit('/admin')
       fill_in('user_email', with: @sample_email)
@@ -72,6 +71,5 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
       fill_in('user_password', with: @sample_password)
       click_button I18n.t('devise.sign_in', default: 'Sign in')
       assert page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
-    end
   end
 end

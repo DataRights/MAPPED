@@ -24,7 +24,6 @@ end
 
 require 'capybara/rails'
 require 'capybara/minitest'
-Capybara.javascript_driver = :webkit
 
 class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
@@ -36,6 +35,6 @@ class ActionDispatch::IntegrationTest
   # Use super wherever this method is redefined in your individual test classes
   def teardown
     Capybara.reset_sessions!
-    #Capybara.use_default_driver
+    Capybara.use_default_driver
   end
 end
