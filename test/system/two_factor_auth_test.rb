@@ -20,56 +20,57 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
   end
 
   test "Login without TFA, Enable TFA, Logout, Try to login without TFA should fail, Try to login with wrong otp should fail, Login with TFA, Disable TFA, Logout, Login without TFA again" do
+    Capybara.using_driver(Capybara.javascript_driver) do
+      # 1. Login
+      visit('/admin')
+      fill_in('user_email', with: @sample_email)
+      fill_in('user_password', with: @sample_password)
+      click_button I18n.t('devise.sign_in', default: 'Sign in')
+      has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
 
-    # 1. Login
-    visit('/admin')
-    fill_in('user_email', with: @sample_email)
-    fill_in('user_password', with: @sample_password)
-    click_button I18n.t('devise.sign_in', default: 'Sign in')
-    has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
+      # 2. Enable TFA
+      visit(users_tfa_path)
+      click_button I18n.t('tfa.enable')
 
-    # 2. Enable TFA
-    visit(users_tfa_path)
-    click_button I18n.t('tfa.enable')
+      # 3. Logout
+      visit('/admin')
+      click_on I18n.t('admin.misc.log_out')
 
-    # 3. Logout
-    visit('/admin')
-    click_on I18n.t('admin.misc.log_out')
+      # 4. Try to login without TFA should fail
+      fill_in('user_email', with: @sample_email)
+      fill_in('user_password', with: @sample_password)
+      click_button I18n.t('devise.sign_in', default: 'Sign in')
+      assert_text I18n.t('devise.failure.invalid', authentication_keys: 'Email')
 
-    # 4. Try to login without TFA should fail
-    fill_in('user_email', with: @sample_email)
-    fill_in('user_password', with: @sample_password)
-    click_button I18n.t('devise.sign_in', default: 'Sign in')
-    assert_text I18n.t('devise.failure.invalid', authentication_keys: 'Email')
+      # 5. Try to login with wrong one time password should also fail
+      fill_in('user_email', with: @sample_email)
+      fill_in('user_password', with: @sample_password)
+      fill_in('user_otp_attempt', with: '123456')
+      click_button I18n.t('devise.sign_in', default: 'Sign in')
+      assert_text I18n.t('devise.failure.invalid', authentication_keys: 'Email')
 
-    # 5. Try to login with wrong one time password should also fail
-    fill_in('user_email', with: @sample_email)
-    fill_in('user_password', with: @sample_password)
-    fill_in('user_otp_attempt', with: '123456')
-    click_button I18n.t('devise.sign_in', default: 'Sign in')
-    assert_text I18n.t('devise.failure.invalid', authentication_keys: 'Email')
+      # 6. Login with right one time password should work
+      fill_in('user_email', with: @sample_email)
+      fill_in('user_password', with: @sample_password)
+      @user.reload
+      fill_in('user_otp_attempt', with: @user.current_otp)
+      click_button I18n.t('devise.sign_in', default: 'Sign in')
+      has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
 
-    # 6. Login with right one time password should work
-    fill_in('user_email', with: @sample_email)
-    fill_in('user_password', with: @sample_password)
-    @user.reload
-    fill_in('user_otp_attempt', with: @user.current_otp)
-    click_button I18n.t('devise.sign_in', default: 'Sign in')
-    has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
+      # 7. Disable OTP
+      visit(users_tfa_path)
+      click_button I18n.t('tfa.disable')
 
-    # 7. Disable OTP
-    visit(users_tfa_path)
-    click_button I18n.t('tfa.disable')
+      # 8. Logout
+      visit('/admin')
+      click_on I18n.t('admin.misc.log_out')
 
-    # 8. Logout
-    visit('/admin')
-    click_on I18n.t('admin.misc.log_out')
-
-    # 9. Should be able to login without one time password
-    visit('/admin')
-    fill_in('user_email', with: @sample_email)
-    fill_in('user_password', with: @sample_password)
-    click_button I18n.t('devise.sign_in', default: 'Sign in')
-    has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
+      # 9. Should be able to login without one time password
+      visit('/admin')
+      fill_in('user_email', with: @sample_email)
+      fill_in('user_password', with: @sample_password)
+      click_button I18n.t('devise.sign_in', default: 'Sign in')
+      has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
+    end
   end
 end
