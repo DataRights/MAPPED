@@ -36,6 +36,6 @@ class ActionDispatch::IntegrationTest
   # Use super wherever this method is redefined in your individual test classes
   def teardown
     Capybara.reset_sessions!
-    Capybara.use_default_driver
+    #Capybara.use_default_driver
   end
 end

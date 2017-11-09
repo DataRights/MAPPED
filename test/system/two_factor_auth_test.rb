@@ -8,8 +8,8 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
   # end
 
   setup do
-    @sample_email = 'mm.mani@gmail.com'
-    @sample_password = 'eybaba13'
+    @sample_email = 'john@smith.com'
+    @sample_password = '1234567890'
     User.create!(email: @sample_email, password_confirmation: @sample_password, password: @sample_password)
     @user = User.find_by(email: @sample_email)
     @user.confirm
@@ -19,14 +19,14 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
     User.find_by(email: @sample_email).destroy
   end
 
-  test "Login without TFA, Enable TFA, Logout, Try to login without TFA should fail, Try to login with wrong otp should fail, Login with TFA, Disable TFA, Logout, Login without TFA again" do
+  test "All two factor authentication scenarios" do
     Capybara.using_driver(Capybara.javascript_driver) do
       # 1. Login
       visit('/admin')
       fill_in('user_email', with: @sample_email)
       fill_in('user_password', with: @sample_password)
       click_button I18n.t('devise.sign_in', default: 'Sign in')
-      has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
+      assert page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
 
       # 2. Enable TFA
       visit(users_tfa_path)
@@ -35,6 +35,7 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
       # 3. Logout
       visit('/admin')
       click_on I18n.t('admin.misc.log_out')
+      visit('/admin')
 
       # 4. Try to login without TFA should fail
       fill_in('user_email', with: @sample_email)
@@ -55,7 +56,7 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
       @user.reload
       fill_in('user_otp_attempt', with: @user.current_otp)
       click_button I18n.t('devise.sign_in', default: 'Sign in')
-      has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
+      assert page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
 
       # 7. Disable OTP
       visit(users_tfa_path)
@@ -70,7 +71,7 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
       fill_in('user_email', with: @sample_email)
       fill_in('user_password', with: @sample_password)
       click_button I18n.t('devise.sign_in', default: 'Sign in')
-      has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
+      assert page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
     end
   end
 end

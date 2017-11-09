@@ -8,8 +8,8 @@ class AdminWorkflowDiagramTest < ApplicationSystemTestCase
   # end
 
   setup do
-    @sample_email = 'mm.mani@gmail.com'
-    @sample_password = 'eybaba13'
+    @sample_email = 'john@smith.com'
+    @sample_password = '1234567890'
     User.create!(email: @sample_email, password_confirmation: @sample_password, password: @sample_password)
     @user = User.find_by(email: @sample_email)
     @user.confirm
@@ -30,7 +30,6 @@ class AdminWorkflowDiagramTest < ApplicationSystemTestCase
       fill_in('user_password', with: @sample_password)
       click_button I18n.t('devise.sign_in', default: 'Sign in')
       has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
-      take_screenshot unless has_title
       assert_equal true, has_title
       visit('/admin/workflow_type_version')
       page.all('a', text: I18n.t('workflow.generate_diagram')).each do |a|
