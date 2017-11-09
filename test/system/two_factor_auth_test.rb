@@ -53,6 +53,7 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
       fill_in('user_email', with: @sample_email)
       fill_in('user_password', with: @sample_password)
       @user.reload
+      assert @user.encrypted_otp_secret
       fill_in('user_otp_attempt', with: @user.current_otp)
       click_button I18n.t('devise.sign_in', default: 'Sign in')
       assert page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
