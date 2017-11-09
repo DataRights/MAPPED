@@ -81,7 +81,7 @@ class WorkflowTypeVersion < ApplicationRecord
 
       field :diagram do
         pretty_value do
-          %{<a id="workflow_diagram_link" href="/workflow/diagram/#{value}" target='_blank'>Generate Diagram</a>}.html_safe
+          %{<a id="workflow_diagram_link" href="/workflow/diagram/#{value}" target='_blank'>#{I18n.t('workflow.generate_diagram')}</a>}.html_safe
         end
       end
     end

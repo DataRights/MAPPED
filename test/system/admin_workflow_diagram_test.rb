@@ -11,7 +11,8 @@ class AdminWorkflowDiagramTest < ApplicationSystemTestCase
     @sample_email = 'mm.mani@gmail.com'
     @sample_password = 'eybaba13'
     User.create!(email: @sample_email, password_confirmation: @sample_password, password: @sample_password)
-    User.find_by(email: @sample_email).confirm
+    @user = User.find_by(email: @sample_email)
+    @user.confirm
   end
 
   teardown do
@@ -27,11 +28,11 @@ class AdminWorkflowDiagramTest < ApplicationSystemTestCase
     fill_in('user_email', with: @sample_email)
     fill_in('user_password', with: @sample_password)
     click_button I18n.t('devise.sign_in', default: 'Sign in')
-    has_title = page.has_content?('SITE ADMINISTRATION')
+    has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
     take_screenshot unless has_title
     assert_equal true, has_title
     visit('/admin/workflow_type_version')
-    page.all('a', text: 'Generate Diagram').each do |a|
+    page.all('a', text: I18n.t('workflow.generate_diagram')).each do |a|
       new_window = window_opened_by { a.click }
       within_window new_window do
         has_image = (page.all('img', id: 'workflow_diagram_img').count > 0)

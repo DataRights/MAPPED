@@ -1,9 +1,5 @@
 class WorkflowController < ApplicationController
   def diagram
-    unless params.include?(:id)
-      flash[:notice] = I18n.t('invalid_parameters')
-      return
-    end
     w = WorkflowTypeVersion.find_by(id: params[:id])
     unless w
       flash[:notice] = I18n.t('invalid_parameters')

@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: campaigns
+#
+#  id                   :integer          not null, primary key
+#  name                 :string
+#  short_description    :string
+#  expanded_description :text
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#
+
 class Campaign < ApplicationRecord
   has_and_belongs_to_many :organizations
   has_many :access_requests

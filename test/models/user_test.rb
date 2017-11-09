@@ -30,6 +30,9 @@
 #  first_name                :string
 #  last_name                 :string
 #  preferred_language        :string
+#  custom_1                  :text
+#  custom_2                  :text
+#  custom_3                  :text
 #
 
 require 'test_helper'
@@ -67,7 +70,7 @@ class UserTest < ActiveSupport::TestCase
 		assert_equal ({'email' => 'test@test.com', 'custom_3' => 'aaa'}), User.new(email: 'test@test.com', custom_3: 'aaa').context_value
 	end
 
-	test 'perferred_language should be a symble' do
+	test 'perferred_language should be a symbol' do
 		assert_equal :en, User.new(email: 'test@test.com', preferred_language: :en).preferred_language
 	end
 end

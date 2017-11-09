@@ -30,6 +30,9 @@
 #  first_name                :string
 #  last_name                 :string
 #  preferred_language        :string
+#  custom_1                  :text
+#  custom_2                  :text
+#  custom_3                  :text
 #
 
 class User < ApplicationRecord
@@ -37,6 +40,8 @@ class User < ApplicationRecord
   # Configuration for TOTP
   devise :two_factor_authenticatable,
          :otp_secret_encryption_key => ENV['MAPPED_TOTP_ENCRYPTION_KEY']
+
+  attribute :otp_secret
 
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable and :omniauthable
@@ -68,5 +73,16 @@ class User < ApplicationRecord
 
   def preferred_language
     self.attributes['preferred_language'].try(:to_sym)
+  end
+
+  def enable_otp!
+    self.otp_secret = User.generate_otp_secret
+    self.otp_required_for_login = true
+    self.save!
+  end
+
+  def disable_otp!
+    self.otp_required_for_login = false
+    self.save!
   end
 end

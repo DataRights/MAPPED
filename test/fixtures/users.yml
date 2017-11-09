@@ -30,6 +30,9 @@
 #  first_name                :string
 #  last_name                 :string
 #  preferred_language        :string
+#  custom_1                  :text
+#  custom_2                  :text
+#  custom_3                  :text
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

@@ -10,6 +10,7 @@
 #  data_received_date :datetime
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  campaign_id        :integer
 #
 
 require 'test_helper'

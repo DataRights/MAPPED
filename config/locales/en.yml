@@ -30,6 +30,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  project_name: 'DataRights'
   invalid_parameters: "Invalid Parameters!"
   validations:
     invalid_class_name: "Class name not found in code base!"
@@ -41,6 +42,13 @@ en:
     transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
   workflow:
     no_state_to_generate_diagram: 'Workflow has no state to generate a diagram!'
+    generate_diagram: 'Generate Diagram'
+  tfa:
+    title: 'Two Factor Authentication'
+    help: 'Two-factor authentication, or 2FA, is a way of logging into websites that requires more than just a password. Using a password to log into a website is susceptible to security threats, because it represents a single piece of information a malicious person needs to acquire. The added security that 2FA provides is requiring additional information to sign in.'
+    enable: 'Enable 2FA'
+    disable: 'Disable 2FA'
+    scan_qr_code: 'Scan this QRCode with Google Authenticator, Authy or any other mobile app that supports two factor authentication via TOTP.'
   rollback_method_does_not_exist_for_action: 'Rollback method does not exist for action'
   admin:
     actions:

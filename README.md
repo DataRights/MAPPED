@@ -45,7 +45,7 @@ Instead of exporting all these environment variables, you can also create a conf
 
 Tests are using simplecov and Coverall to generate coverage reports, before running tests make sure that you have a .coveralls.yml file with correct repo_token in it, for security reasons .coveralls.yml is not included in source control.
 
-`bundle exec rake test`
+`bundle exec rake test:system test`
 
 # Enabling Git pre-hooks for CI
 
@@ -53,7 +53,7 @@ Tests are using simplecov and Coverall to generate coverage reports, before runn
 
 This creates a .git/hooks/pre-commit script which will check your git config and run checks that are enabled. modify the file .git/hooks/pre-commit and remove all the lines and add this line:
 
-`RAILS_ENV=test rake test`
+`RAILS_ENV=test bundle exec rake test:system test`
 
 # Deployment instructions
 
