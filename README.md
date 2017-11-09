@@ -23,6 +23,8 @@ Go to the root directory of project and run:
 
 `bundle install`
 
+Capybara-webkit gem needs installing QT for more information refer to [Installing Qt and compiling capybara webkit](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit#macos-sierra-1012-el-capitan-1011-and-yosemite-1010)
+
 # Configuration
 
 Define DB_USERNAME and DB_PASSWORD environment variables to make config/database.yml work.
@@ -43,9 +45,13 @@ Instead of exporting all these environment variables, you can also create a conf
 
 # How to run the test suite
 
-Tests are using simplecov and Coverall to generate coverage reports, before running tests make sure that you have a .coveralls.yml file with correct repo_token in it, for security reasons .coveralls.yml is not included in source control.
+Tests are using simplecov and Coverall to generate coverage reports.
 
 `bundle exec rake test:system test`
+
+Or you can use:
+
+`./run_tests`
 
 # Enabling Git pre-hooks for CI
 
