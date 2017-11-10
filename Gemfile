@@ -29,8 +29,14 @@ gem 'simplecov', :group => :test
 # You never have to implement CRUD again! lazy/happy programming ...
 gem 'rails_admin'
 
+# Bootstrap JavaScript depends on jQuery. If you're using Rails 5.1+, add the jquery-rails gem to your Gemfile:
+gem 'jquery-rails'
+
 # This theme provide a modern override of default bootstrap 3 rails_admin theme. Its provides news colors, adjustments and a brand new tree view menu.
 gem 'rails_admin_rollincode', '~> 1.0'
+
+# Bootstrap 4 ruby gem for Ruby on Rails (Sprockets) and Hanami (formerly Lotus).
+gem 'bootstrap', '~> 4.0.0.beta2.1'
 
 group :development do
   # https://github.com/jish/pre-commit
@@ -88,8 +94,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
-  gem "capybara-webkit"
-  #gem 'selenium-webdriver'
+  gem 'selenium-webdriver'
 end
 
 group :development do

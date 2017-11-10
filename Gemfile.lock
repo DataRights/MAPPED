@@ -47,8 +47,14 @@ GEM
     ast (2.3.0)
     attr_encrypted (3.0.3)
       encryptor (~> 3.0.0)
+    autoprefixer-rails (7.1.6)
+      execjs
     bcrypt (3.1.11)
     bindex (0.5.0)
+    bootstrap (4.0.0.beta2.1)
+      autoprefixer-rails (>= 6.0.3)
+      popper_js (>= 1.12.3, < 2)
+      sass (>= 3.5.2)
     builder (3.2.3)
     byebug (9.1.0)
     capybara (2.15.4)
@@ -58,9 +64,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.1.0)
-      capybara (~> 2.0, >= 2.0.2)
-      json
+    childprocess (0.8.0)
+      ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
     chunky_png (1.3.8)
     ckeditor (4.2.4)
@@ -162,6 +167,7 @@ GEM
       ast (~> 2.2)
     pg (0.21.0)
     pluginator (1.5.0)
+    popper_js (1.12.5)
     powerpack (0.1.1)
     pre-commit (0.37.0)
       pluginator (~> 1.5)
@@ -244,6 +250,7 @@ GEM
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
     ruby_http_client (3.2.0)
+    rubyzip (1.2.1)
     sass (3.5.3)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -255,6 +262,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    selenium-webdriver (3.6.0)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.0)
     sendgrid-ruby (5.1.0)
       ruby_http_client (~> 3.2)
       sinatra (>= 1.4.7, < 3)
@@ -315,9 +325,9 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  bootstrap (~> 4.0.0.beta2.1)
   byebug
   capybara (~> 2.13)
-  capybara-webkit
   ckeditor
   coffee-rails (~> 4.2)
   coveralls
@@ -325,6 +335,7 @@ DEPENDENCIES
   devise-bootstrap-views
   devise-two-factor
   jbuilder (~> 2.5)
+  jquery-rails
   liquid
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.21)
@@ -338,6 +349,7 @@ DEPENDENCIES
   rubocop
   ruby-graphviz (~> 1.2, >= 1.2.3)
   sass-rails (~> 5.0)
+  selenium-webdriver
   sendgrid-ruby
   simplecov
   spring
