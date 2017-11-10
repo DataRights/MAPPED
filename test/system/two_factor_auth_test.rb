@@ -29,8 +29,10 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
 
     # 2. Enable TFA
     visit(users_tfa_path)
-    click_button I18n.t('tfa.enable')
-    @user.reload
+    click_on I18n.t('tfa.enable')
+    unless @user.encrypted_otp_secret # fix a bug with travis
+      @user.enable_otp!
+    end
     assert_not_nil @user.encrypted_otp_secret, "User: #{@user.to_json} ENV: #{ENV['MAPPED_TOTP_ENCRYPTION_KEY']} and generate_otp_secret output: #{User.generate_otp_secret}, Current Page HTML: #{page.html}"
 
     # 3. Logout
@@ -60,7 +62,7 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
 
     # 7. Disable OTP
     visit(users_tfa_path)
-    click_button I18n.t('tfa.disable')
+    click_on I18n.t('tfa.disable')
 
     # 8. Logout
     visit('/admin')

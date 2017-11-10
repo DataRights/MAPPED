@@ -33,7 +33,6 @@ class AdminWorkflowDiagramTest < ApplicationSystemTestCase
       visit('/admin/workflow_type_version')
       page.all('a', text: I18n.t('workflow.generate_diagram')).each do |a|
         new_window = window_opened_by { a.click }
-        #within_window(page.driver.browser.window_handles.last) do
         within_window(new_window) do
           has_image = (page.all('img', id: 'workflow_diagram_img').count > 0)
           has_message = page.has_content?(I18n.t('workflow.no_state_to_generate_diagram'))
