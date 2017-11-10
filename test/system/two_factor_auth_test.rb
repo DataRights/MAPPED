@@ -58,7 +58,8 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
     fill_in('user_password', with: @sample_password)
     fill_in('user_otp_attempt', with: @user.current_otp)
     click_button I18n.t('devise.sign_in', default: 'Sign in')
-    assert page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
+    assert @user.current_otp
+    assert_equal true, page.has_content?(I18n.t('admin.actions.dashboard.title').upcase), "Current Page HTML: #{page.html}"
 
     # 7. Disable OTP
     visit(users_tfa_path)
