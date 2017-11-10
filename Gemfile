@@ -108,7 +108,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'liquid'
 
-gem 'ckeditor'
+gem 'ckeditor', github: 'galetahub/ckeditor'
 
 gem 'wkhtmltopdf-binary'
 
