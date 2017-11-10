@@ -30,7 +30,6 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
     # 2. Enable TFA
     visit(users_tfa_path)
     click_button I18n.t('tfa.enable')
-    sleep(3)
     @user.reload
     assert_not_nil @user.encrypted_otp_secret, "User: #{@user.to_json} ENV: #{ENV['MAPPED_TOTP_ENCRYPTION_KEY']} and generate_otp_secret output: #{User.generate_otp_secret}, Current Page HTML: #{page.html}"
 
