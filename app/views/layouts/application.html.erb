@@ -3,20 +3,87 @@
   <head>
     <title>Mapped</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.css">
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <div class="row" style="margin-top: 100px">
-      <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
-        <%= yield %>
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">
+        <%= image_tag "datarights.svg", height: 24 %>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="<%= t '.toggle_navigation' %>">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#"><%= t '.my_profile' %></a>
+          </li>
+          <!-- <li class="nav-item active"> <a class="nav-link" href="#">Campaigns</a><span class="sr-only">(current)</span> </li>-->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle disabled" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= t '.campaigns' %></a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item disabled" href="#">--<small>(10)</small>
+              </a>
+              <a class="dropdown-item disabled" href="#">--<small>(1)</small>
+              </a>
+              <a class="dropdown-item disabled" href="#">---<small>(3)</small>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#"><%= t '.notifications' %></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#"><%= t '.forum' %></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#"><%= t '.faq' %></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#"><%= t '.help_desk' %></a>
+          </li>
+        </ul>
+
+        <!--
+        <button type="button" class="btn btn-secondary btn-sm">Log Out</button>
+      -->
       </div>
-    </div>
-  </body>
+    </nav>
+
+    <main role="main">
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+
+          <% if alert %>
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <strong><%= alert %></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <% end %>
+          <% if notice %>
+          <div class="alert alert-warning alert-dismissible" role="alert">
+            <strong><%= notice %></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <% end %>
+          <%= yield %>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="container">
+      <p>
+        <small><%= t '.disclaimer' %></small>
+      </p>
+    </footer>
+</body>
 </html>

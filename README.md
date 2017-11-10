@@ -23,6 +23,14 @@ Go to the root directory of project and run:
 
 `bundle install`
 
+## Chrome and ChromeDriver
+
+In order to run system tests using rake test:system make sure you have Chrome and [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/) installed.
+
+## capybara-webkit
+
+[Installing Qt and compiling capybara webkit](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit)
+
 # Configuration
 
 Define DB_USERNAME and DB_PASSWORD environment variables to make config/database.yml work.
