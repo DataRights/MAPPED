@@ -11,7 +11,8 @@ before_script:
   - unzip chromedriver_linux64.zip -d /home/travis
   - export PATH="/home/travis:$PATH"
   - export MAPPED_TOTP_ENCRYPTION_KEY="ICjFctlM7/tSD7LTrOWYGpocFSDvYNrtEhDS6ECOx20tlOGxT7ZIWovIHvfTaT/IISdNvg+BeyXP5oAXcpkueQ=="
-script: export DISPLAY=:99.0 && bundle exec rake test:system test
+  - export DISPLAY=:99.0
+script: bundle exec rake test:system test
 addons:
   apt:
     packages:
