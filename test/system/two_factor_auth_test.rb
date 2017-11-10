@@ -7,17 +7,19 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
   #   assert_selector "h1", text: "TwoFactorAuth"
   # end
 
-  teardown do
-    User.find_by(email: @sample_email).destroy
-  end
-
-  test 'All two factor authentication scenarios' do
+  setup do
     @sample_email = 'john@smith.com'
     @sample_password = '1234567890'
     User.create!(email: @sample_email, password_confirmation: @sample_password, password: @sample_password)
     @user = User.find_by(email: @sample_email)
     @user.confirm
+  end
 
+  teardown do
+    User.find_by(email: @sample_email).destroy
+  end
+
+  test 'All two factor authentication scenarios' do
     # 1. Login
     visit('/admin')
     fill_in('user_email', with: @sample_email)
@@ -28,8 +30,8 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
     # 2. Enable TFA
     visit(users_tfa_path)
     click_button I18n.t('tfa.enable')
-    @user.reload
-    assert_not_nil @user.encrypted_otp_secret, "ENV: #{ENV['MAPPED_TOTP_ENCRYPTION_KEY']} and generate_otp_secret output: #{User.generate_otp_secret}"
+    @user = User.find_by email: @sample_email
+    assert_not_nil @user.encrypted_otp_secret, "ENV: #{ENV['MAPPED_TOTP_ENCRYPTION_KEY']} and generate_otp_secret output: #{User.generate_otp_secret}, Current Page HTML: #{page.html}"
 
     # 3. Logout
     visit('/admin')
