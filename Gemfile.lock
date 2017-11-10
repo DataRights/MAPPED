@@ -64,6 +64,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.1.0)
+      capybara (~> 2.0, >= 2.0.2)
+      json
     childprocess (0.8.0)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
@@ -328,6 +331,7 @@ DEPENDENCIES
   bootstrap (~> 4.0.0.beta2.1)
   byebug
   capybara (~> 2.13)
+  capybara-webkit
   ckeditor
   coffee-rails (~> 4.2)
   coveralls
