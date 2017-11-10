@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108174639) do
+ActiveRecord::Schema.define(version: 20171110005401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,16 @@ ActiveRecord::Schema.define(version: 20171108174639) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["answerable_type", "answerable_id"], name: "index_answers_on_answerable_type_and_answerable_id"
+  end
+
+  create_table "attachments", force: :cascade do |t|
+    t.string "title"
+    t.string "content_type"
+    t.binary "content"
+    t.bigint "access_request_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["access_request_id"], name: "index_attachments_on_access_request_id"
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -308,6 +318,7 @@ ActiveRecord::Schema.define(version: 20171108174639) do
   add_foreign_key "access_rights", "roles"
   add_foreign_key "addresses", "cities"
   add_foreign_key "addresses", "countries"
+  add_foreign_key "attachments", "access_requests"
   add_foreign_key "cities", "countries"
   add_foreign_key "organizations", "sectors"
   add_foreign_key "template_versions", "templates"
