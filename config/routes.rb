@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   post 'users/disable_otp'
 
   root 'home#index'
+
+  resources :attachments
 end
