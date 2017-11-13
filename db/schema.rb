@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108174639) do
+ActiveRecord::Schema.define(version: 20171112134312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(version: 20171108174639) do
     t.bigint "to_state_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "timeout_days"
     t.index ["from_state_id"], name: "index_transitions_on_from_state_id"
     t.index ["to_state_id"], name: "index_transitions_on_to_state_id"
   end

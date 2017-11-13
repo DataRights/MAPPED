@@ -8,12 +8,18 @@
 #  to_state_id   :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  timeout_days  :float
 #
 
 require 'test_helper'
 
 class TransitionTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should not allow more than one timeout from one state" do
+    t = transitions(:another_letter_needed_by_organization)
+    other_transition_timeout = transitions(:took_long_to_get_reply_from_organization)
+    t.timeout_days = 4
+    assert_not t.save
+    assert_equal 1, t.errors.messages[:timeout_days].count, "There should be one error about timeout_days in code: #{t.errors.messages[:timeout_days]}"
+    assert_equal I18n.t('workflow.state_has_already_one_timeout_transition', transition: other_transition_timeout.to_json), t.errors.messages[:timeout_days].first
+  end
 end
