@@ -1,14 +1,19 @@
 <%= form_with(model: attachment, local: true) do |form| %>
-<%= form.label :title %>
-<%= form.text_field :title, id: :title %>
-<br>
-<%= form.label :content_type %>
-<%= form.text_field :content_type, id: :content_type %>
-<br>
-<%= form.label :access_request %>
+  <%= form.label :title %>
+  <%= form.text_field :title, id: :title %>
+  <br>
+  <%= form.label :content_type %>
+  <%= form.text_field :content_type, id: :content_type %>
+  <br>
+  <%= form.label :access_request %>
 
-<%= form.collection_select(:access_request_id, AccessRequest.all, :id, :id) %>
-<br>
+  <%= form.collection_select(:access_request_id, AccessRequest.all, :id, :id) %>
+  <br>
+
+  <%= button_tag "Content", type: 'button', onclick: "Painterro().show()" %>
+  <br>
+  <br>
+    
   <% if attachment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(attachment.errors.count, "error") %> prohibited this attachment from being saved:</h2>

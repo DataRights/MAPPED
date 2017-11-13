@@ -3,6 +3,7 @@
 <br>
 <b>Content Type:</b>  <%= @attachment.content_type %>
 <br>
+<b>Content Type:</b> <%= @attachment.content.blank? ? 'Is empty' : 'Contains data' %>
 <br>
 <%= link_to 'Edit', edit_attachment_path(@attachment) %> |
 <%= link_to 'Back', attachments_path %>
