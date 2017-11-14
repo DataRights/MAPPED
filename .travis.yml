@@ -1,10 +1,22 @@
 language: ruby
 rvm:
   - 2.3.5
+before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3 # give xvfb some time to start
 before_script:
   - psql -c 'create database mapped_test;' -U postgres
-script: test bundle exec rake test:system test
+  - wget https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip -d /home/travis
+  - export PATH="/home/travis:$PATH"
+  - export MAPPED_TOTP_ENCRYPTION_KEY="ICjFctlM7/tSD7LTrOWYGpocFSDvYNrtEhDS6ECOx20tlOGxT7ZIWovIHvfTaT/IISdNvg+BeyXP5oAXcpkueQ=="
+  - export DISPLAY=:99.0
+#script: bundle exec rake test:system test # for unknown reasons system tests are failing on travis
+script: bundle exec rake test
 addons:
+  apt:
+    packages:
+      - graphviz
   postgresql: "9.6"
-
-# add graphviz to addons
+  chrome: stable

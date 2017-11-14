@@ -43,6 +43,7 @@ en:
   workflow:
     no_state_to_generate_diagram: 'Workflow has no state to generate a diagram!'
     generate_diagram: 'Generate Diagram'
+    state_has_already_one_timeout_transition: "State has already one timeout transition: %{transition}"
   tfa:
     title: 'Two Factor Authentication'
     help: 'Two-factor authentication, or 2FA, is a way of logging into websites that requires more than just a password. Using a password to log into a website is susceptible to security threats, because it represents a single piece of information a malicious person needs to acquire. The added security that 2FA provides is requiring additional information to sign in.'
@@ -50,9 +51,18 @@ en:
     disable: 'Disable 2FA'
     scan_qr_code: 'Scan this QRCode with Google Authenticator, Authy or any other mobile app that supports two factor authentication via TOTP.'
   rollback_method_does_not_exist_for_action: 'Rollback method does not exist for action'
-  admin:
-    actions:
-      preview_template:
-        menu: 'Preview'
-        title: 'Preview Template ...'
-        breadcrumb: 'Preview'
+  layouts:
+    application:
+      toggle_navigation: 'Toggle navigation'
+      my_profile: 'My profile'
+      campaigns: 'Campaigns'
+      notifications: 'Notifications'
+      forum: 'Forum'
+      faq: 'FAQ'
+      help_desk: 'Helpdesk'
+      disclaimer: 'Disclaimer'
+  home:
+    index:
+      welcome: 'Welcome!'
+      participant_landing_message: 'This is a landing page for the participant after logging in for the first time. This box contains a general welcome text about the platform, also requesting the participant to provide essential information about him/herself after clicking on a button below opening a page with form regarding e.g. his/her full name, address, email etc. All other menu items are disabled until this entry form is filled in.</p>'
+      edit_your_profile: 'Edit your personal profile'

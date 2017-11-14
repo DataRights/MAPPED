@@ -23,7 +23,13 @@ Go to the root directory of project and run:
 
 `bundle install`
 
-Capybara-webkit gem needs installing QT for more information refer to [Installing Qt and compiling capybara webkit](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit#macos-sierra-1012-el-capitan-1011-and-yosemite-1010)
+## Chrome and ChromeDriver
+
+In order to run system tests using rake test:system make sure you have Chrome and [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/) installed.
+
+## capybara-webkit
+
+[Installing Qt and compiling capybara webkit](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit)
 
 # Configuration
 

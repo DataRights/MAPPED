@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   post 'users/enable_otp'
   post 'users/disable_otp'
 
-  root 'rails_admin/main#dashboard'
+  root 'home#index'
 end

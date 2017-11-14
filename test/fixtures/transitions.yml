@@ -8,6 +8,7 @@
 #  to_state_id   :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  timeout_days  :float
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -55,6 +56,7 @@ took_long_to_get_reply_from_organization:
   name: Organization did not replied in 30 days
   from_state: waiting_for_the_organization_reply
   to_state: organization_needs_reminder
+  timeout_days: 10
 
 reminder_sent:
   name: A reminder sent to organization
