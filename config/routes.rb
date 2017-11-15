@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :attachments
+  post 'attachments/:id/content', to: 'attachments#content'
+
 end

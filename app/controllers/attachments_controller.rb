@@ -1,5 +1,5 @@
 class AttachmentsController < ApplicationController
-  before_action :set_attachment, only: [:show, :edit, :update, :destroy]
+  before_action :set_attachment, only: [:show, :edit, :update, :destroy, :content]
 
   # GET /attachments
   # GET /attachments.json
@@ -59,6 +59,14 @@ class AttachmentsController < ApplicationController
       format.html { redirect_to attachments_url, notice: 'Attachment was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def content
+    @attachment.title = params['image'].original_filename
+    @attachment.content_type = params['image'].content_type
+    @attachment.content = params['image'].tempfile.read
+    @attachment.save!
+    render json: {}, status: :ok
   end
 
   private

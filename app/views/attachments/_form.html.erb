@@ -10,10 +10,10 @@
   <%= form.collection_select(:access_request_id, AccessRequest.all, :id, :id) %>
   <br>
 
-  <%= button_tag "Content", type: 'button', onclick: "Painterro().show()" %>
+  <%= button_tag "Content", type: 'button', onclick: "showContentEditor()" %>
   <br>
   <br>
-    
+
   <% if attachment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(attachment.errors.count, "error") %> prohibited this attachment from being saved:</h2>
