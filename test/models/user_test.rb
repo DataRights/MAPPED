@@ -33,6 +33,7 @@
 #  custom_1                  :text
 #  custom_2                  :text
 #  custom_3                  :text
+#  notification_type         :integer          default("email_daily_digest")
 #
 
 require 'test_helper'

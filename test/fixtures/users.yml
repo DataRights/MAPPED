@@ -33,6 +33,7 @@
 #  custom_1                  :text
 #  custom_2                  :text
 #  custom_3                  :text
+#  notification_type         :integer          default("email_daily_digest")
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -41,5 +42,11 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+one:
+  email: 'one@datarights.me'
+
+two:
+  email: 'two@datarights.me'
+
 test_user:
   email: 'test@test.com'

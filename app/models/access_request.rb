@@ -17,4 +17,9 @@ class AccessRequest < ApplicationRecord
   belongs_to :organization
   belongs_to :user
   belongs_to :campaign
+  validates :user, :organization, presence: true
+
+  def context_value
+    { 'id' => id, 'data_received_date' => self.data_received_date, 'sent_date' => self.sent_date }
+  end
 end

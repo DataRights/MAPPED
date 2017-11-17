@@ -56,8 +56,18 @@ class TemplateVersionTest < ActiveSupport::TestCase
     assert_equal render_result, TemplateVersion.new(content: template_content).render(TemplateContext.new(user: user))
   end
 
-  test 'language should be a symble' do
+  test 'language should be a symbol' do
 		assert_equal :en, TemplateVersion.new(content: 'This is a template',language: :en).language
 	end
+
+  test 'render with user, workflow, access request and organization' do
+    workflow = workflows(:one)
+    user = users(:one)
+    organization = organizations(:one)
+    access_request = access_requests(:one)
+    template_content = "Dear {{ user.email }} The access request {{ access_request.id }} has been created on DataRights.me and it's ready for sending to organization {{ organization.name }}. Currently status of your wokrflow is: {{ workflow.workflow_state }}"
+    render_result = "Dear one@datarights.me The access request #{access_request.id} has been created on DataRights.me and it's ready for sending to organization Acibadem Hospital. Currently status of your wokrflow is: Initial State"
+    assert_equal render_result, TemplateVersion.new(content: template_content).render(TemplateContext.new(user: user, workflow: workflow, organization: organization, access_request: access_request))
+  end
 
 end

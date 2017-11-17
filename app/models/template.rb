@@ -12,5 +12,5 @@
 class Template < ApplicationRecord
   has_many :template_versions, dependent: :destroy
   has_and_belongs_to_many :sectors
-  enum template_type:  [:access_request, :reminder, :followup, :custom]
+  enum template_type:  [:access_request, :reminder, :followup, :custom, :notification]
 end

@@ -2,13 +2,14 @@
 #
 # Table name: code_actions
 #
-#  id          :integer          not null, primary key
-#  name        :string
-#  description :string
-#  class_name  :string
-#  method_name :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id            :integer          not null, primary key
+#  name          :string
+#  description   :string
+#  class_name    :string
+#  method_name   :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  internal_data :jsonb
 #
 
 require 'test_helper'

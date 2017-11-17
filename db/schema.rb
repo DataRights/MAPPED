@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171112134312) do
+ActiveRecord::Schema.define(version: 20171117080207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20171112134312) do
     t.string "method_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "internal_data"
   end
 
   create_table "code_actions_transitions", id: false, force: :cascade do |t|
@@ -132,6 +133,19 @@ ActiveRecord::Schema.define(version: 20171112134312) do
     t.bigint "guard_id", null: false
     t.bigint "transition_id", null: false
     t.index ["guard_id", "transition_id"], name: "index_guards_transitions_on_guard_id_and_transition_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "access_request_id"
+    t.string "title"
+    t.string "content"
+    t.integer "status", default: 0, null: false
+    t.datetime "seen_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["access_request_id"], name: "index_notifications_on_access_request_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -246,6 +260,7 @@ ActiveRecord::Schema.define(version: 20171112134312) do
     t.text "custom_1"
     t.text "custom_2"
     t.text "custom_3"
+    t.integer "notification_type", default: 1, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -310,6 +325,8 @@ ActiveRecord::Schema.define(version: 20171112134312) do
   add_foreign_key "addresses", "cities"
   add_foreign_key "addresses", "countries"
   add_foreign_key "cities", "countries"
+  add_foreign_key "notifications", "access_requests"
+  add_foreign_key "notifications", "users"
   add_foreign_key "organizations", "sectors"
   add_foreign_key "template_versions", "templates"
   add_foreign_key "transitions", "workflow_states", column: "from_state_id"
