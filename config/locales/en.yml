@@ -64,6 +64,9 @@ en:
       faq: 'FAQ'
       help_desk: 'Helpdesk'
       disclaimer: 'Disclaimer'
+  notificaitons:
+    diget_email_subject: 'Your digest DataRights notifications'
+    insert_failed: "Inserting notification in database failed with error: %{errors}"
   home:
     index:
       welcome: 'Welcome!'

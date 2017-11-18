@@ -1,5 +1,6 @@
 module NotificationActionsHelper
   def self.send_notification_with_template(workflow, internal_data)
+    internal_data = internal_data&.with_indifferent_access
     unless internal_data.include?('template_id') and internal_data.include?('title')
       return { result: false, message: I18n.t('validations.template_id_mandatory_internal_data') }
     end
@@ -24,7 +25,7 @@ module NotificationActionsHelper
     if n.save
       { result: true, message: n.to_json }
     else
-      { result: false, message: "Inserting action in database failed with error: #{n.errors.messages}"}
+      { result: false, message: I18n.t('notificaitons.insert_failed', errors: n.errors.messages)}
     end
   end
 end

@@ -33,12 +33,12 @@
 #  custom_1                  :text
 #  custom_2                  :text
 #  custom_3                  :text
-#  notification_type         :integer          default("email_daily_digest")
+#  notification_type         :integer          default("email_realtime")
 #
 
 class User < ApplicationRecord
 
-  enum notification_type: [:no_email, :email_daily_digest, :email_weekly_digest, :email_realtime]
+  enum notification_type: [:no_email, :email_realtime, :email_daily_digest, :email_weekly_digest]
 
   # Configuration for TOTP
   devise :two_factor_authenticatable,
@@ -88,14 +88,5 @@ class User < ApplicationRecord
   def disable_otp!
     self.otp_required_for_login = false
     self.save!
-  end
-
-  def send_notifications
-    notifications = self.notifications.where(status: :pending)
-    notifications.each do |n|
-      UserMailer.notification(self.email, n.title, n.content).deliver_later
-      n.status = :email_sent
-      n.save!
-    end
   end
 end
