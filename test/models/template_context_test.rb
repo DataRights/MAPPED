@@ -37,6 +37,30 @@ class TemplateContextTest < ActiveSupport::TestCase
 		assert context.valid?
 	end
 
+	test 'access_request should be a valid access_request or nil' do
+		context = TemplateContext.new
+		assert context.valid?
+
+		context.access_request = 1
+		assert_not context.valid?
+		assert_includes context.errors[:access_request], 'Invalid access request'
+
+		context.access_request = access_requests(:one)
+		assert context.valid?
+	end
+
+	test 'workflow should be a valid workflow or nil' do
+		context = TemplateContext.new
+		assert context.valid?
+
+		context.workflow = 1
+		assert_not context.valid?
+		assert_includes context.errors[:workflow], 'Invalid workflow'
+
+		context.workflow = workflows(:one)
+		assert context.valid?
+	end
+
 	test "the context_value" do
     assert_equal ({}), TemplateContext.new().context_value
 		assert_equal ({'user' => {'email' => 'test@test.com'}}), TemplateContext.new(user: User.new(email: 'test@test.com')).context_value
