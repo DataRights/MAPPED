@@ -5,5 +5,7 @@ task :send_daily_digest => :environment do
 end
 
 task :send_weekly_digest => :environment do
-  Notification.send_weekly_digest
+  if Date.today.wday.zero?
+    Notification.send_weekly_digest
+  end
 end
