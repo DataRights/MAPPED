@@ -355,7 +355,7 @@ DEPENDENCIES
   rails (~> 5.1.4)
   rails-erd
   rails_admin
-  rails_admin_rollincode (~> 1.0)
+  rails_admin_rollincode
   redis
   rqrcode-rails3
   rubocop
