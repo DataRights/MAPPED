@@ -47,9 +47,12 @@
           </li>
         </ul>
 
-        <!--
-        <button type="button" class="btn btn-secondary btn-sm">Log Out</button>
-      -->
+        <% if user_signed_in? %>
+            <a class="nav-link disabled" href="#">Welcome <%= current_user.email %>!</a>
+            <%= button_to('Logout', destroy_user_session_path, {method: :delete, class: 'btn btn-secondary btn-sm'}) %>
+        <% else %>
+            <%= button_to('Login', new_user_session_path, {class: 'btn btn-secondary btn-sm'}) %>
+        <% end %>
       </div>
     </nav>
 

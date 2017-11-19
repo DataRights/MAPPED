@@ -13,7 +13,11 @@ RailsAdmin.config do |config|
 
   ## == Devise ==
   config.authenticate_with do
-    warden.authenticate! scope: :user
+    if current_user.nil?
+      warden.authenticate! scope: :user
+    else
+      redirect_to main_app.root_path unless current_user.can?(:admin_login)
+    end
   end
   config.current_user_method(&:current_user)
 
@@ -31,6 +35,8 @@ RailsAdmin.config do |config|
   config.label_methods << :action
   config.label_methods << :line1
   config.label_methods << :version
+  config.label_methods << :role
+  config.label_methods << :admin_login
 
   config.actions do
     dashboard                     # mandatory
