@@ -1,15 +1,16 @@
 <%= form_with(model: attachment, local: true) do |form| %>
   <%= form.label :title %>
-  <%= form.text_field :title, id: :title %>
-  <br>
+  <%= form.text_field :title, id: :title, disabled: true %>
   <%= form.label :content_type %>
-  <%= form.text_field :content_type, id: :content_type %>
+  <%= form.text_field :content_type, id: :content_type, disabled: true %>
   <br>
   <%= form.label :access_request %>
-
   <%= form.collection_select(:access_request_id, AccessRequest.all, :id, :id) %>
   <br>
-
+  <% if @attachment && !@attachment.content.blank? %>
+    <%= image_tag get_content_path(@attachment.id) %>
+    <br>
+  <% end %>
   <%= button_tag "Content", type: 'button', onclick: "showContentEditor()" %>
   <br>
   <br>

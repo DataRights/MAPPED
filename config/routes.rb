@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :attachments
-  post 'attachments/:id/content', to: 'attachments#content'
+  get 'attachments/:id/content', to: 'attachments#get_content', as: 'get_content'
+  post 'attachments/:id/content', to: 'attachments#post_content'
 
 end

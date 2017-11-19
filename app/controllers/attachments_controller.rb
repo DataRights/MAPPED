@@ -1,5 +1,5 @@
 class AttachmentsController < ApplicationController
-  before_action :set_attachment, only: [:show, :edit, :update, :destroy, :content]
+  before_action :set_attachment, only: [:show, :edit, :update, :destroy, :get_content, :post_content]
 
   # GET /attachments
   # GET /attachments.json
@@ -61,7 +61,15 @@ class AttachmentsController < ApplicationController
     end
   end
 
-  def content
+  def get_content
+    if @attachment && @attachment.content
+      send_data @attachment.content, :type => @attachment.content_type
+    else
+      send_data '', :type => ''
+    end
+  end
+
+  def post_content
     @attachment.title = params['image'].original_filename
     @attachment.content_type = params['image'].content_type
     @attachment.content = params['image'].tempfile.read
