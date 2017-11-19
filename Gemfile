@@ -33,7 +33,7 @@ gem 'rails_admin'
 gem 'jquery-rails'
 
 # This theme provide a modern override of default bootstrap 3 rails_admin theme. Its provides news colors, adjustments and a brand new tree view menu.
-gem 'rails_admin_rollincode', '~> 1.0'
+gem 'rails_admin_rollincode'
 
 # Bootstrap 4 ruby gem for Ruby on Rails (Sprockets) and Hanami (formerly Lotus).
 gem 'bootstrap', '~> 4.0.0.beta2.1'
