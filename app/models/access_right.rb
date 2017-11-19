@@ -15,6 +15,10 @@ class AccessRight < ApplicationRecord
 	belongs_to :role
 
 	ACTIONS = [
+
+		# Admin panel
+		:admin_login,
+
 		#User actions
 		:view_user,
 		:create_user,

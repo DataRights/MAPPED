@@ -27,6 +27,10 @@ Rails.application.configure do
 
   # Config for devise links in the emails
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_options = {
+      :from => 'mapped@herokumanager.com',
+      :reply_to => 'mapped@herokumanager.com'
+  }
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
