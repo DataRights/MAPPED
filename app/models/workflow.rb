@@ -14,7 +14,7 @@ class Workflow < ApplicationRecord
   belongs_to :workflow_type_version
   belongs_to :workflow_state
   belongs_to :access_request
-  validates :workflow_type_version, :workflow_state, presence: true
+  validates :workflow_type_version, :workflow_state, :access_request, presence: true
   validate :workflow_type_should_be_active
   before_validation(on: :create) do
    self.workflow_state = WorkflowState.where(workflow_type_version: self.workflow_type_version, is_initial_state: true).first
@@ -24,6 +24,10 @@ class Workflow < ApplicationRecord
     unless self.workflow_type_version && self.workflow_type_version.active
       errors.add(:workflow_type_version, I18n.t('validations.workflow_type_should_be_active'))
     end
+  end
+
+  def context_value
+    { 'workflow_state' => self.workflow_state.name, 'created_at' => self.created_at, 'updated_at' => self.updated_at }
   end
 
   def send_event(transition)

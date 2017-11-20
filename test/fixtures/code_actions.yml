@@ -2,13 +2,14 @@
 #
 # Table name: code_actions
 #
-#  id          :integer          not null, primary key
-#  name        :string
-#  description :string
-#  class_name  :string
-#  method_name :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id            :integer          not null, primary key
+#  name          :string
+#  description   :string
+#  class_name    :string
+#  method_name   :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  internal_data :jsonb
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -36,3 +37,9 @@ apply_tag_in_database_success:
   description: Apply a tag in database will return true
   class_name: ActionTestHelper
   method_name: apply_tag_in_database_success
+
+send_notification_with_template:
+  name: send_notification_with_template
+  description: sends a notification to user with specified template and title
+  class_name: NotificationActionsHelper
+  method_name: send_notification_with_template

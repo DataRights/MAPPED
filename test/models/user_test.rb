@@ -33,6 +33,7 @@
 #  custom_1                  :text
 #  custom_2                  :text
 #  custom_3                  :text
+#  notification_type         :integer          default("email_daily_digest")
 #
 
 require 'test_helper'
@@ -72,5 +73,16 @@ class UserTest < ActiveSupport::TestCase
 
 	test 'perferred_language should be a symbol' do
 		assert_equal :en, User.new(email: 'test@test.com', preferred_language: :en).preferred_language
+	end
+
+	test 'enable_otp should generate an OTP secret and set otp_required_for_login to true and disable_otp! should set it to false again' do
+		u = users(:one)
+		assert_not u.otp_required_for_login
+		u.enable_otp!
+		assert u.otp_required_for_login
+		assert_not u.otp_secret.blank?
+
+		u.disable_otp!
+		assert_not u.otp_required_for_login
 	end
 end

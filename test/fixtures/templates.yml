@@ -16,3 +16,6 @@ ar:
 
 follow:
   name: FollowUp
+
+ar_created_reminder:
+  name: AccessRequestCreatedReminder

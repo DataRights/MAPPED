@@ -1,5 +1,5 @@
 [![Coverage Status](https://coveralls.io/repos/github/DataRights/MAPPED/badge.svg?branch=develop)](https://coveralls.io/github/DataRights/MAPPED?branch=develop)
-![Build status](https://travis-ci.org/DataRights/MAPPED.svg?branch=develop)
+[![Build status](https://travis-ci.org/DataRights/MAPPED.svg?branch=develop)](https://travis-ci.org/DataRights)
 
 # MAPPED
 
@@ -51,9 +51,13 @@ Instead of exporting all these environment variables, you can also create a conf
 
 # How to run the test suite
 
-Tests are using simplecov and Coverall to generate coverage reports, before running tests make sure that you have a .coveralls.yml file with correct repo_token in it, for security reasons .coveralls.yml is not included in source control.
+Tests are using simplecov and Coverall to generate coverage reports.
 
 `bundle exec rake test:system test`
+
+Or you can use:
+
+`./run_tests`
 
 # Enabling Git pre-hooks for CI
 

@@ -22,3 +22,7 @@ admin_view_user:
 researcher_view_user:
   action: view_user
   role: researcher
+
+admin_panel_login:
+  action: admin_login
+  role: admin

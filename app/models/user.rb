@@ -33,9 +33,12 @@
 #  custom_1                  :text
 #  custom_2                  :text
 #  custom_3                  :text
+#  notification_type         :integer          default("email_realtime")
 #
 
 class User < ApplicationRecord
+
+  enum notification_type: [:no_email, :email_realtime, :email_daily_digest, :email_weekly_digest]
 
   # Configuration for TOTP
   devise :two_factor_authenticatable,
@@ -49,10 +52,11 @@ class User < ApplicationRecord
 		   :recoverable, :rememberable, :trackable, :validatable,
 		   :confirmable, :lockable
 
-	has_many :user_roles
-	has_many :roles, through: :user_roles
-  has_many :addresses, as: :addressable
-  has_many :answers, as: :answerable
+	has_many :user_roles, :dependent => :destroy
+	has_many :roles, through: :user_roles, :dependent => :destroy
+  has_many :addresses, as: :addressable, :dependent => :destroy
+  has_many :answers, as: :answerable, :dependent => :destroy
+  has_many :notifications, :dependent => :destroy
 
 
 	def can?(action)

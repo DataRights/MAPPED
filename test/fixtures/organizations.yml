@@ -17,6 +17,10 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+one:
+  name: Acibadem Hospital
+  sector: Health
+
 hospital1:
   name: Hospital1
   sector: Health

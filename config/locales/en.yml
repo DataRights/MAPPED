@@ -38,11 +38,15 @@ en:
     workflow_type_is_active: "In order to edit a workflow it should not be active and it should not have active instances!"
     initial_state_is_mandatory: "For activating the workflow having an initial state is mandatory!"
     workflow_type_should_be_active: 'For creating a new workflow, Workflow type should be active!'
+    action_internal_data_required: 'Internal data parameter in mandatory for this action.'
+    template_id_mandatory_internal_data: 'template_id is mandatory for internal data of this action.'
+    template_id_not_found: 'template_id not found!'
   errors:
     transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
   workflow:
     no_state_to_generate_diagram: 'Workflow has no state to generate a diagram!'
     generate_diagram: 'Generate Diagram'
+    state_has_already_one_timeout_transition: "State has already one timeout transition: %{transition}"
   tfa:
     title: 'Two Factor Authentication'
     help: 'Two-factor authentication, or 2FA, is a way of logging into websites that requires more than just a password. Using a password to log into a website is susceptible to security threats, because it represents a single piece of information a malicious person needs to acquire. The added security that 2FA provides is requiring additional information to sign in.'
@@ -60,6 +64,9 @@ en:
       faq: 'FAQ'
       help_desk: 'Helpdesk'
       disclaimer: 'Disclaimer'
+  notificaitons:
+    diget_email_subject: 'Your digest DataRights notifications'
+    insert_failed: "Inserting notification in database failed with error: %{errors}"
   home:
     index:
       welcome: 'Welcome!'

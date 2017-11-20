@@ -72,18 +72,4 @@ class WorkflowTypeVersion < ApplicationRecord
   def diagram_path
     "/#{self.id}.png"
   end
-
-  rails_admin do
-    list do
-      field :version
-      field :workflow_type
-      field :active
-
-      field :diagram do
-        pretty_value do
-          %{<a id="workflow_diagram_link" href="/workflow/diagram/#{value}" target='_blank'>#{I18n.t('workflow.generate_diagram')}</a>}.html_safe
-        end
-      end
-    end
-  end
 end
