@@ -17,7 +17,7 @@ class AttachmentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create attachment" do
     assert_difference('Attachment.count') do
-      post attachments_url, params: { attachment: {  } }
+      post attachments_url, params: { attachment: { title: 'A new attachment', access_request_id: AccessRequest.first.id} }
     end
 
     assert_redirected_to attachment_url(Attachment.last)
@@ -34,7 +34,7 @@ class AttachmentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update attachment" do
-    patch attachment_url(@attachment), params: { attachment: {  } }
+    patch attachment_url(@attachment), params: { attachment: { title: 'Updated attachment' } }
     assert_redirected_to attachment_url(@attachment)
   end
 
