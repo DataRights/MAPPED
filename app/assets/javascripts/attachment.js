@@ -6,12 +6,12 @@ function showContentEditor() {
       formData.append('image', image.asBlob(), image.suggestedFileName());
       formData.append('authenticity_token',AUTH_TOKEN);
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'http://localhost:3000/attachments/1/content', true);
+      xhr.open('POST', 'content', true);
       xhr.onload = xhr.onerror = function () {
         done(false);
       };
       xhr.send(formData);
     }
   })
-  ptro.show('http://localhost:3000/attachments/1/content');
+  ptro.show('content');
 }
