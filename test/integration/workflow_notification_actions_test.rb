@@ -2,7 +2,7 @@ require 'test_helper'
 
 class WorkflowNotificationActionsTest < ActionDispatch::IntegrationTest
   include ActiveJob::TestHelper
-  
+
   test "Code actions with notifications should insert a new notification record with specified template content and title into database." do
     wf = Workflow.new
     wf.workflow_type_version = workflow_type_versions(:version_one_point_o_mapped_social)
@@ -30,16 +30,16 @@ class WorkflowNotificationActionsTest < ActionDispatch::IntegrationTest
 
       assert_equal notifications_count_before_transition + 1, Notification.count
       expected_notification_content = "The access request #{wf.access_request.id} has been created on DataRights.me and it's ready for sending to organization #{wf.access_request.organization.name}. Currently status of your wokrflow is: #{t.from_state.name}"
-      n = Notification.last
-      assert_equal expected_notification_content, n.content
-      assert_equal title, n.title
-      assert_equal 'email_sent', n.status
+      e = EmailNotification.last
+      assert_equal expected_notification_content, e.notification.content
+      assert_equal title, e.notification.title
+      assert_equal 'sent', e.status, e.error_log
 
       mail = ActionMailer::Base.deliveries.last
       assert mail
       assert_equal [wf.access_request.user.email], mail.to, mail.inspect
-      assert_equal n.title, mail.subject, mail.inspect
-      assert_equal n.content, mail.body.parts.first.body.raw_source.gsub("\n",'')
+      assert_equal e.notification.title, mail.subject, mail.inspect
+      assert_equal e.notification.content, mail.body.parts.first.body.raw_source.gsub("\n",'')
     end
   end
 end

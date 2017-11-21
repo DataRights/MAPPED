@@ -33,7 +33,6 @@
 #  custom_1                  :text
 #  custom_2                  :text
 #  custom_3                  :text
-#  notification_type         :integer          default("email_realtime")
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -44,6 +43,7 @@
 #
 one:
   email: 'one@datarights.me'
+  notification_settings: web, email_instantly
 
 two:
   email: 'two@datarights.me'
