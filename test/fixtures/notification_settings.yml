@@ -1,0 +1,27 @@
+# == Schema Information
+#
+# Table name: notification_settings
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+web:
+  name: Web Notification
+  notification_type: web_notification
+
+email_instantly:
+  name: Email Instantly
+  notification_type: email_instantly
+
+email_daily:
+  name: Email Daily Digest
+  notification_type: email_daily_digest
+
+email_weekly:
+  name: Email Weekly Digest
+  notification_type: email_weekly_digest

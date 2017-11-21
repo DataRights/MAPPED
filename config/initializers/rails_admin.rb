@@ -5,6 +5,7 @@ RailsAdmin.config do |config|
 
   config.main_app_name = ["MAPPED", "Admin"]
 
+  config.navigation_static_label = "Security"
   config.navigation_static_links = {
     'Two Factor authentication' => '/users/tfa'
   }
@@ -37,6 +38,7 @@ RailsAdmin.config do |config|
   config.label_methods << :version
   config.label_methods << :role
   config.label_methods << :admin_login
+  config.label_methods << :name
 
   config.actions do
     dashboard                     # mandatory
@@ -50,6 +52,30 @@ RailsAdmin.config do |config|
     show_in_app
 
     preview_template
+  end
+
+  config.model Template do
+    navigation_label 'Template Engine'
+  end
+
+  config.model User do
+    navigation_label 'User Management'
+  end
+
+  config.model Question do
+    navigation_label 'Survey'
+  end
+
+  config.model AccessRequest do
+    navigation_label 'Access Requests & Workflows'
+  end
+
+  config.model Sector do
+    navigation_label 'Sectors & Organizations'
+  end
+
+  config.model Notification do
+    navigation_label 'Notification Engine'
   end
 
   config.model TemplateVersion do
@@ -89,10 +115,6 @@ RailsAdmin.config do |config|
     parent User
   end
 
-  config.model Notification do
-    parent User
-  end
-
   config.model Address do
     parent User
   end
@@ -110,39 +132,59 @@ RailsAdmin.config do |config|
   end
 
   config.model WorkflowState do
-    parent Workflow
+    parent AccessRequest
   end
 
   config.model WorkflowTransition do
-    parent Workflow
+    parent AccessRequest
   end
 
   config.model WorkflowType do
-    parent Workflow
+    parent AccessRequest
   end
 
   config.model WorkflowTypeVersion do
-    parent Workflow
+    parent AccessRequest
   end
 
   config.model WorkflowState do
-    parent Workflow
+    parent AccessRequest
   end
 
   config.model Transition do
-    parent Workflow
+    parent AccessRequest
   end
 
   config.model Guard do
-    parent Workflow
+    parent AccessRequest
+  end
+
+  config.model Workflow do
+    parent AccessRequest
   end
 
   config.model CodeAction do
-    parent Workflow
+    parent AccessRequest
+  end
+
+  config.model Campaign do
+    parent AccessRequest
   end
 
   config.model Organization do
     parent Sector
+  end
+
+  config.model EmailNotification do
+    parent Notification
+  end
+
+  config.model WebNotification do
+    parent Notification
+  end
+
+  config.model NotificationSetting do
+    parent Notification
   end
 
 end

@@ -33,7 +33,6 @@
 #  custom_1                  :text
 #  custom_2                  :text
 #  custom_3                  :text
-#  notification_type         :integer          default("email_daily_digest")
 #
 
 require 'test_helper'
@@ -84,5 +83,11 @@ class UserTest < ActiveSupport::TestCase
 
 		u.disable_otp!
 		assert_not u.otp_required_for_login
+	end
+
+	test 'create new user without notification_type should set web_notification as the default' do
+		User.create!(email: 'test@test12.com', password_confirmation: 'test123', password: 'test123')
+		u = User.find_by email: 'test@test12.com'
+		assert u.notification_settings.pluck(:notification_type).include?('web_notification'), u.notification_settings.pluck(:notification_type)
 	end
 end
