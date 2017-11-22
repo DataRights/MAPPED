@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171117080207) do
+ActiveRecord::Schema.define(version: 20171121104603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,18 @@ ActiveRecord::Schema.define(version: 20171117080207) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "email_notifications", force: :cascade do |t|
+    t.bigint "notification_id"
+    t.integer "status", default: 0, null: false
+    t.datetime "sent"
+    t.datetime "delivered"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "email_type", default: 0, null: false
+    t.string "error_log"
+    t.index ["notification_id"], name: "index_email_notifications_on_notification_id"
+  end
+
   create_table "guards", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -145,13 +157,24 @@ ActiveRecord::Schema.define(version: 20171117080207) do
     t.index ["guard_id", "transition_id"], name: "index_guards_transitions_on_guard_id_and_transition_id"
   end
 
+  create_table "notification_settings", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "notification_type"
+  end
+
+  create_table "notification_settings_users", id: false, force: :cascade do |t|
+    t.bigint "notification_setting_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id", "notification_setting_id"], name: "index_user_notification_setting"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "access_request_id"
     t.string "title"
     t.string "content"
-    t.integer "status", default: 0, null: false
-    t.datetime "seen_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["access_request_id"], name: "index_notifications_on_access_request_id"
@@ -270,9 +293,17 @@ ActiveRecord::Schema.define(version: 20171117080207) do
     t.text "custom_1"
     t.text "custom_2"
     t.text "custom_3"
-    t.integer "notification_type", default: 1, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "web_notifications", force: :cascade do |t|
+    t.bigint "notification_id"
+    t.integer "status", default: 0, null: false
+    t.datetime "seen_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notification_id"], name: "index_web_notifications_on_notification_id"
   end
 
   create_table "workflow_states", force: :cascade do |t|
@@ -336,6 +367,7 @@ ActiveRecord::Schema.define(version: 20171117080207) do
   add_foreign_key "addresses", "countries"
   add_foreign_key "attachments", "access_requests"
   add_foreign_key "cities", "countries"
+  add_foreign_key "email_notifications", "notifications"
   add_foreign_key "notifications", "access_requests"
   add_foreign_key "notifications", "users"
   add_foreign_key "organizations", "sectors"
@@ -344,6 +376,7 @@ ActiveRecord::Schema.define(version: 20171117080207) do
   add_foreign_key "transitions", "workflow_states", column: "to_state_id"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
+  add_foreign_key "web_notifications", "notifications"
   add_foreign_key "workflow_states", "workflow_type_versions"
   add_foreign_key "workflow_transitions", "code_actions", column: "failed_action_id"
   add_foreign_key "workflow_transitions", "guards", column: "failed_guard_id"

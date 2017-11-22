@@ -7,8 +7,6 @@
 #  access_request_id :integer
 #  title             :string
 #  content           :string
-#  status            :integer          default("pending")
-#  seen_date         :datetime
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
@@ -20,13 +18,9 @@ one:
   access_request: one
   title: MyString
   content: MyString
-  status: 1
-  seen_date: 2017-11-15 16:39:23
 
 two:
   user: two
   access_request: two
   title: MyString
   content: MyString
-  status: 1
-  seen_date: 2017-11-15 16:39:23

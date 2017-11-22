@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: web_notifications
+#
+#  id              :integer          not null, primary key
+#  notification_id :integer
+#  status          :integer          default("pending"), not null
+#  seen_date       :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  notification: one
+  status: 1
+  seen_date: 2017-11-20 16:37:20
+
+two:
+  notification: two
+  status: 1
+  seen_date: 2017-11-20 16:37:20
