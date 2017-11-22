@@ -1,6 +1,7 @@
 class AttachmentsController < ApplicationController
-  before_action :set_attachment, only: [:show, :edit, :update, :destroy, :get_content, :post_content]
+  before_action :set_attachment, only: [:show, :edit, :update, :destroy, :get_content, :post_content, :thumbnail]
 
+  THUMBNAIL_SIZE = 50
   # GET /attachments
   # GET /attachments.json
   def index
@@ -75,6 +76,24 @@ class AttachmentsController < ApplicationController
     @attachment.content = params['image'].tempfile.read
     @attachment.save!
     render json: {}, status: :ok
+  end
+
+  def thumbnail
+    if @attachment && @attachment.content
+      geom = "#{THUMBNAIL_SIZE}x#{THUMBNAIL_SIZE}"
+      image = Magick::Image.from_blob(@attachment.content).first
+      image.change_geometry!(geom) { |cols, rows| image.thumbnail! cols, rows }
+
+      bg = Magick::Image.new(THUMBNAIL_SIZE+6, THUMBNAIL_SIZE+6) { self.background_color = 'gray75' }
+      bg = bg.raise(3,3)
+
+      thumbnail = image.composite(bg, Magick::CenterGravity, Magick::DstOverCompositeOp)
+
+      send_data thumbnail.to_blob, :type => @attachment.content_type
+    else
+      send_data '', :type => ''
+    end
+
   end
 
   private

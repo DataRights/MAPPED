@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   get 'attachments/:id/content', to: 'attachments#get_content', as: 'get_content'
   post 'attachments/:id/content', to: 'attachments#post_content'
 
+  get 'attachments/:id/thumbnail', to: 'attachments#thumbnail', as: 'thumbnail'
 end

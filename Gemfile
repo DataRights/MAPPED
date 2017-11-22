@@ -123,3 +123,5 @@ gem 'wicked_pdf'
 gem 'sidekiq'
 
 gem 'redis'
+
+gem 'rmagick'
