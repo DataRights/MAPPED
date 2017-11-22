@@ -1,3 +1,4 @@
+require 'tempfile'
 require 'test_helper'
 
 class AttachmentsControllerTest < ActionDispatch::IntegrationTest
@@ -45,4 +46,15 @@ class AttachmentsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to attachments_url
   end
+
+  test "should get attachment content" do
+    get get_content_path(@attachment), xhr: true
+    assert_response :success
+    assert_equal '{}', response.body
+    @attachment.content = 'test'
+    @attachment.save!
+    get get_content_path(@attachment), xhr: true
+    assert_equal 'test', response.body
+  end
+
 end
