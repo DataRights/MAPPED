@@ -3,7 +3,7 @@ require 'test_helper'
 class UserMailerTest < ActionMailer::TestCase
   test "digest_notification should send all the pending notifications of a user in one email" do
      u = users(:test_user)
-     u.notification_type = :email_daily_digest
+     u.notification_settings << notification_settings(:email_daily)
      assert u.save
 
      n1 = Notification.new
@@ -19,9 +19,12 @@ class UserMailerTest < ActionMailer::TestCase
      assert n2.save
 
      notifications = Notification.where(user_id: u.id)
+     email_notification_ids = []
+     notifications.each { |n| email_notification_ids << n.email_notifications.first.id }
+
      assert_equal 0, ActionMailer::Base.deliveries.count
      perform_enqueued_jobs do
-       UserMailer.digest_notification(u.email, notifications.to_json).deliver_later
+       UserMailer.digest_notification(u.email, email_notification_ids).deliver_later
        mail = ActionMailer::Base.deliveries.last
        assert mail
        assert_equal [u.email], mail.to, mail.inspect

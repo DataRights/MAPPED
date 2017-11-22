@@ -7,8 +7,6 @@
 #  access_request_id :integer
 #  title             :string
 #  content           :string
-#  status            :integer          default("pending")
-#  seen_date         :datetime
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
@@ -18,19 +16,9 @@ require 'test_helper'
 class NotificationTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
-  test "Notification should have default value of email_realtime and as soon as creating notificaiton it will send the email" do
-     n = Notification.new
-     n.user = users(:one)
-     n.title = 'test'
-     n.content = 'test'
-     assert n.save, n.errors.messages
-     n.reload
-     assert_equal 'email_sent', n.status
-  end
-
   test 'send_daily_digest should send all notifications in one email' do
     u = users(:test_user)
-    u.notification_type = :email_daily_digest
+    u.notification_settings << notification_settings(:email_daily)
     assert u.save
 
     n1 = Notification.new
@@ -44,10 +32,15 @@ class NotificationTest < ActiveSupport::TestCase
     n2.content = 'test2_content'
     n2.user = u
     assert n2.save
+
+    email_notifications.each do |e|
+      assert_equal e.status, 'pending'
+    end
+
     ActionMailer::Base.deliveries.clear
     assert_equal 0, ActionMailer::Base.deliveries.count
     perform_enqueued_jobs do
-      Notification.send_daily_digest
+      EmailNotification.send_daily_digest
       mail = ActionMailer::Base.deliveries.last
       assert mail
       assert_equal [u.email], mail.to, mail.inspect
@@ -56,12 +49,16 @@ class NotificationTest < ActiveSupport::TestCase
       assert mail.body.parts.first.body.raw_source.include?('test1_content')
       assert mail.body.parts.first.body.raw_source.include?('test2_title')
       assert mail.body.parts.first.body.raw_source.include?('test2_content')
+      email_notifications = EmailNotification.joins(:notification => :user).where(users: {id: u.id})
+      email_notifications.each do |e|
+        assert_equal e.status, 'sent'
+      end
     end
   end
 
   test 'send_weekly_digest should send all notifications in one email' do
     u = users(:test_user)
-    u.notification_type = :email_weekly_digest
+    u.notification_settings << notification_settings(:email_weekly)
     assert u.save
 
     n1 = Notification.new
@@ -75,10 +72,15 @@ class NotificationTest < ActiveSupport::TestCase
     n2.content = 'test2_content'
     n2.user = u
     assert n2.save
+
+    email_notifications.each do |e|
+      assert_equal e.status, 'pending'
+    end
+
     ActionMailer::Base.deliveries.clear
     assert_equal 0, ActionMailer::Base.deliveries.count
     perform_enqueued_jobs do
-      Notification.send_weekly_digest
+      EmailNotification.send_weekly_digest
       mail = ActionMailer::Base.deliveries.last
       assert mail
       assert_equal [u.email], mail.to, mail.inspect
@@ -87,6 +89,11 @@ class NotificationTest < ActiveSupport::TestCase
       assert mail.body.parts.first.body.raw_source.include?('test1_content')
       assert mail.body.parts.first.body.raw_source.include?('test2_title')
       assert mail.body.parts.first.body.raw_source.include?('test2_content')
+
+      email_notifications = EmailNotification.joins(:notification => :user).where(users: {id: u.id})
+      email_notifications.each do |e|
+        assert_equal e.status, 'sent'
+      end
     end
   end
 end

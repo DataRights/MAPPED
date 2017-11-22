@@ -16,8 +16,28 @@
   $link-color: #F0F;
 */
 /* RailsAdmin SASS variables */
+/*
+  Customize Sass variables from Twitter-Bootstrap/RailsAdmin theme or add new ones for your own use.
+
+  Available variables to use/override:
+
+  https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss
+  https://github.com/sferik/rails_admin/blob/master/app/assets/stylesheets/rails_admin/base/variables.scss
+
+  Test me: pink links
+
+  $link-color: #F0F;
+*/
 /***  Mixins  ***/
 /* RailsAdmin SASS mixins */
+/*
+  Customize Sass mixins from Twitter-Bootstrap/RailsAdmin theme or add new ones for your own use.
+
+  Available mixins to use/override:
+
+  https://github.com/twbs/bootstrap-sass/tree/master/assets/stylesheets/bootstrap/mixins
+  https://github.com/sferik/rails_admin/blob/master/app/assets/stylesheets/rails_admin/base/mixins.scss
+*/
 /*
   Customize Sass mixins from Twitter-Bootstrap/RailsAdmin theme or add new ones for your own use.
   Copy this file to your app/assets/rails_admin/custom/mixins.scss, leave this one untouched
@@ -42,7 +62,6 @@
  */
 /* Layout helpers
 ----------------------------------*/
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,700);
 /* line 13, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-helper-hidden {
   display: none;
@@ -187,16 +206,12 @@
 .ui-widget-header {
   background: #ededed url(/assets/rails_admin/aristo/images/bg_fallback-bad53cee26694a42bdba717337e2de9f997ebf3ded300b8c3ff48ac5192c1903.png) 0 0 repeat-x;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #ededed 0%, #c4c4c4 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ededed), color-stop(100%, #c4c4c4));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #ededed 0%, #c4c4c4 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #ededed 0%, #c4c4c4 100%);
   /* Opera11.10+ */
-  background: -ms-linear-gradient(top, #ededed 0%, #c4c4c4 100%);
   /* IE10+ */
+  background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#c4c4c4));
   background: linear-gradient(to bottom, #ededed 0%, #c4c4c4 100%);
   /* W3C */
 }
@@ -219,20 +234,15 @@
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
   background: #ededed url(/assets/rails_admin/aristo/images/bg_fallback-bad53cee26694a42bdba717337e2de9f997ebf3ded300b8c3ff48ac5192c1903.png) 0 0 repeat-x;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #ededed 0%, #c4c4c4 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ededed), color-stop(100%, #c4c4c4));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #ededed 0%, #c4c4c4 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #ededed 0%, #c4c4c4 100%);
   /* Opera11.10+ */
-  background: -ms-linear-gradient(top, #ededed 0%, #c4c4c4 100%);
   /* IE10+ */
+  background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#c4c4c4));
   background: linear-gradient(to bottom, #ededed 0%, #c4c4c4 100%);
   /* W3C */
   -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
-  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
 }
 
@@ -262,20 +272,15 @@
   border: 1px solid #7096ab;
   background: #ededed url(/assets/rails_admin/aristo/images/bg_fallback-bad53cee26694a42bdba717337e2de9f997ebf3ded300b8c3ff48ac5192c1903.png) 0 -50px repeat-x;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #b9e0f5 0%, #92bdd6 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #b9e0f5), color-stop(100%, #92bdd6));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #b9e0f5 0%, #92bdd6 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #b9e0f5 0%, #92bdd6 100%);
   /* Opera11.10+ */
-  background: -ms-linear-gradient(top, #b9e0f5 0%, #92bdd6 100%);
   /* IE10+ */
+  background: -webkit-gradient(linear, left top, left bottom, from(#b9e0f5), to(#92bdd6));
   background: linear-gradient(to bottom, #b9e0f5 0%, #92bdd6 100%);
   /* W3C */
   -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   box-shadow: none;
 }
 
@@ -297,8 +302,6 @@
   border: 1px solid #d2dbf4;
   background: #f4f8fd;
   color: #0d2054;
-  -moz-border-radius: 0 !important;
-  -webkit-border-radius: 0 !important;
   border-radius: 0 !important;
 }
 
@@ -312,8 +315,6 @@
   border: 1px solid #e2d0d0;
   background: #fcf0f0;
   color: #280b0b;
-  -moz-border-radius: 0 !important;
-  -webkit-border-radius: 0 !important;
   border-radius: 0 !important;
 }
 
@@ -1273,76 +1274,50 @@
 /* Corner radius */
 /* line 318, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-corner-tl {
-  -moz-border-radius-topleft: 3px;
-  -webkit-border-top-left-radius: 3px;
   border-top-left-radius: 3px;
 }
 
 /* line 319, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-corner-tr {
-  -moz-border-radius-topright: 3px;
-  -webkit-border-top-right-radius: 3px;
   border-top-right-radius: 3px;
 }
 
 /* line 320, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-corner-bl {
-  -moz-border-radius-bottomleft: 3px;
-  -webkit-border-bottom-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
 
 /* line 321, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-corner-br {
-  -moz-border-radius-bottomright: 3px;
-  -webkit-border-bottom-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 
 /* line 322, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-corner-top {
-  -moz-border-radius-topleft: 3px;
-  -webkit-border-top-left-radius: 3px;
   border-top-left-radius: 3px;
-  -moz-border-radius-topright: 3px;
-  -webkit-border-top-right-radius: 3px;
   border-top-right-radius: 3px;
 }
 
 /* line 323, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-corner-bottom {
-  -moz-border-radius-bottomleft: 3px;
-  -webkit-border-bottom-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  -moz-border-radius-bottomright: 3px;
-  -webkit-border-bottom-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 
 /* line 324, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-corner-right {
-  -moz-border-radius-topright: 3px;
-  -webkit-border-top-right-radius: 3px;
   border-top-right-radius: 3px;
-  -moz-border-radius-bottomright: 3px;
-  -webkit-border-bottom-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 
 /* line 325, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-corner-left {
-  -moz-border-radius-topleft: 3px;
-  -webkit-border-top-left-radius: 3px;
   border-top-left-radius: 3px;
-  -moz-border-radius-bottomleft: 3px;
-  -webkit-border-bottom-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
 
 /* line 326, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-corner-all {
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
 }
 
@@ -1361,8 +1336,6 @@
   background: #000000;
   opacity: .30;
   filter: Alpha(Opacity=30);
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
   border-radius: 8px;
 }
 
@@ -1506,8 +1479,6 @@
 
 /* line 371, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-accordion .ui-accordion-header, .ui-accordion .ui-accordion-content {
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
   border-radius: 0;
 }
 
@@ -1574,10 +1545,7 @@
   position: absolute;
   cursor: default;
   z-index: 1051 !important;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
   border-radius: 0;
-  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
@@ -1640,8 +1608,6 @@
   color: #FFFFFF;
   text-shadow: 0px 1px 1px #234386;
   border-color: #466086;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
   border-radius: 0;
 }
 
@@ -1667,7 +1633,8 @@
   overflow: visible;
   -webkit-user-select: none;
   -moz-user-select: none;
-  user-select: none;
+  -ms-user-select: none;
+      user-select: none;
 }
 
 /* the overflow property removes extra width in IE */
@@ -1704,7 +1671,6 @@ button.ui-button-icons-only {
 /*states*/
 /* line 469, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-button.ui-state-hover {
-  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.8) inset;
   -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.8) inset;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.8) inset;
 }
@@ -1716,19 +1682,14 @@ button.ui-button-icons-only {
   border-color: #7096ab;
   background: #ededed url(/assets/rails_admin/aristo/images/bg_fallback-bad53cee26694a42bdba717337e2de9f997ebf3ded300b8c3ff48ac5192c1903.png) 0 -50px repeat-x;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #b9e0f5 0%, #92bdd6 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #b9e0f5), color-stop(100%, #92bdd6));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #b9e0f5 0%, #92bdd6 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #b9e0f5 0%, #92bdd6 100%);
   /* Opera11.10+ */
-  background: -ms-linear-gradient(top, #b9e0f5 0%, #92bdd6 100%);
   /* IE10+ */
+  background: -webkit-gradient(linear, left top, left bottom, from(#b9e0f5), to(#92bdd6));
   background: linear-gradient(to bottom, #b9e0f5 0%, #92bdd6 100%);
   /* W3C */
-  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.8) inset;
   -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.8) inset;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.8) inset;
 }
@@ -1845,20 +1806,15 @@ input.ui-button::-moz-focus-inner {
 .ui-buttonset .ui-button.ui-state-active {
   background: #ededed url(/assets/rails_admin/aristo/images/bg_fallback-bad53cee26694a42bdba717337e2de9f997ebf3ded300b8c3ff48ac5192c1903.png) 0 -50px repeat-x;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #b9e0f5 0%, #92bdd6 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #b9e0f5), color-stop(100%, #92bdd6));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #b9e0f5 0%, #92bdd6 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #b9e0f5 0%, #92bdd6 100%);
   /* Opera11.10+ */
-  background: -ms-linear-gradient(top, #b9e0f5 0%, #92bdd6 100%);
   /* IE10+ */
+  background: -webkit-gradient(linear, left top, left bottom, from(#b9e0f5), to(#92bdd6));
   background: linear-gradient(to bottom, #b9e0f5 0%, #92bdd6 100%);
   /* W3C */
   -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   box-shadow: none;
 }
 
@@ -1899,8 +1855,6 @@ button.ui-button::-moz-focus-inner {
   position: relative;
   border: none;
   border-bottom: 1px solid #979797;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
   border-radius: 0;
 }
 
@@ -2003,7 +1957,6 @@ button.ui-button::-moz-focus-inner {
 
 /* line 574, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-slider {
-  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) inset;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) inset;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) inset;
 }
@@ -2018,7 +1971,6 @@ button.ui-button::-moz-focus-inner {
   cursor: default;
   border: none;
   outline: none;
-  -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -2041,7 +1993,6 @@ button.ui-button::-moz-focus-inner {
 
 /* line 578, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-slider .ui-slider-range {
-  -moz-box-shadow: 0 1px 2px rgba(17, 35, 45, 0.6) inset;
   -webkit-box-shadow: 0 1px 2px rgba(17, 35, 45, 0.6) inset;
   box-shadow: 0 1px 2px rgba(17, 35, 45, 0.6) inset;
 }
@@ -2130,8 +2081,6 @@ button.ui-button::-moz-focus-inner {
 
 /* line 602, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-tabs .ui-tabs-nav {
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
   border-radius: 0;
 }
 
@@ -2188,8 +2137,6 @@ button.ui-button::-moz-focus-inner {
 /* line 613, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-tabs .ui-tabs-panel {
   background: #FFF;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
   border-radius: 0;
 }
 
@@ -2217,7 +2164,6 @@ button.ui-button::-moz-focus-inner {
 
 /* line 629, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-datepicker {
-  -moz-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
@@ -2228,8 +2174,6 @@ button.ui-button::-moz-focus-inner {
   padding: .35em 0;
   border: none;
   border-bottom: 1px solid #B6B6B6;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
   border-radius: 0;
 }
 
@@ -2509,7 +2453,8 @@ button.ui-button::-moz-focus-inner {
   /*must have*/
   z-index: -1;
   /*must have*/
-  filter: mask();
+  -webkit-filter: mask();
+          filter: mask();
   /*must have*/
   top: -4px;
   /*must have*/
@@ -2548,13 +2493,10 @@ button.ui-button::-moz-focus-inner {
 /* line 708, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/aristo/jquery-ui-1.8.7.custom.scss */
 .ui-form textarea, .ui-form input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]) {
   padding: 3px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
   border-radius: 2px;
   border: 1px solid #cecece;
   outline: none;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
   -webkit-transition: all 0.25s ease-in-out;
   -moz-transition: all 0.25 ease-in-out;
@@ -2565,7 +2507,6 @@ button.ui-button::-moz-focus-inner {
 .ui-form textarea:hover, .ui-form input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]):hover {
   border: 1px solid #bdbdbd;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
@@ -2573,7 +2514,6 @@ button.ui-button::-moz-focus-inner {
 .ui-form textarea:focus, .ui-form input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]):focus {
   border: 1px solid #95bdd4;
   -webkit-box-shadow: 0 2px 3px rgba(161, 202, 226, 0.5) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
-  -moz-box-shadow: 0 2px 3px rgba(161, 202, 226, 0.5) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
   box-shadow: 0 2px 3px rgba(161, 202, 226, 0.5) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
@@ -2682,7 +2622,8 @@ button.ui-button::-moz-focus-inner {
 }
 /* line 105, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/vendor/assets/stylesheets/rails_admin/_bootstrap-datetimepicker.scss */
 .bootstrap-datetimepicker-widget a[data-action]:active {
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 /* line 109, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/vendor/assets/stylesheets/rails_admin/_bootstrap-datetimepicker.scss */
 .bootstrap-datetimepicker-widget .timepicker-hour, .bootstrap-datetimepicker-widget .timepicker-minute, .bootstrap-datetimepicker-widget .timepicker-second {
@@ -3418,7 +3359,6 @@ iframe.wysihtml5-sandbox, .wysihtml5-editor {
 .fa-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 
@@ -3426,7 +3366,6 @@ iframe.wysihtml5-sandbox, .wysihtml5-editor {
 .fa-rotate-180 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
   -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 
@@ -3434,7 +3373,6 @@ iframe.wysihtml5-sandbox, .wysihtml5-editor {
 .fa-rotate-270 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
   -webkit-transform: rotate(270deg);
-  -ms-transform: rotate(270deg);
   transform: rotate(270deg);
 }
 
@@ -3442,7 +3380,6 @@ iframe.wysihtml5-sandbox, .wysihtml5-editor {
 .fa-flip-horizontal {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
   -webkit-transform: scale(-1, 1);
-  -ms-transform: scale(-1, 1);
   transform: scale(-1, 1);
 }
 
@@ -3450,7 +3387,6 @@ iframe.wysihtml5-sandbox, .wysihtml5-editor {
 .fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(1, -1);
-  -ms-transform: scale(1, -1);
   transform: scale(1, -1);
 }
 
@@ -3460,7 +3396,8 @@ iframe.wysihtml5-sandbox, .wysihtml5-editor {
 :root .fa-rotate-270,
 :root .fa-flip-horizontal,
 :root .fa-flip-vertical {
-  filter: none;
+  -webkit-filter: none;
+          filter: none;
 }
 
 /* line 162, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/font-awesome-rails-4.7.0.2/app/assets/stylesheets/font-awesome.css.erb */
@@ -7149,8 +7086,8 @@ figure {
 
 /* line 209, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_normalize.scss */
 hr {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
   height: 0;
 }
 
@@ -7220,7 +7157,8 @@ input {
 /* line 332, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_normalize.scss */
 input[type="checkbox"],
 input[type="radio"] {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 0;
 }
 
@@ -7233,7 +7171,6 @@ input[type="number"]::-webkit-outer-spin-button {
 /* line 355, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_normalize.scss */
 input[type="search"] {
   -webkit-appearance: textfield;
-  -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
@@ -7282,7 +7219,6 @@ th {
 /* line 11, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_scaffolding.scss */
 * {
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -7290,7 +7226,6 @@ th {
 *:before,
 *:after {
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -7367,7 +7302,6 @@ img {
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   display: inline-block;
   width: 100% \9;
@@ -9014,7 +8948,6 @@ label {
 /* line 47, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_forms.scss */
 input[type="search"] {
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -9077,8 +9010,10 @@ output {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
 }
 /* line 53, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/mixins/_forms.scss */
 .form-control:focus {
@@ -10056,7 +9991,6 @@ table th[class*="col-"] {
 .fade {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
-  -o-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
 }
 /* line 13, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_component-animations.scss */
@@ -10089,7 +10023,6 @@ tbody.collapse.in {
   height: 0;
   overflow: hidden;
   -webkit-transition: height 0.35s ease;
-  -o-transition: height 0.35s ease;
   transition: height 0.35s ease;
 }
 
@@ -11130,7 +11063,8 @@ input[type="button"].btn-block {
   padding-right: 15px;
   padding-left: 15px;
   border-top: 1px solid transparent;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
   -webkit-overflow-scrolling: touch;
 }
 /* line 14, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/mixins/_clearfix.scss */
@@ -11151,7 +11085,8 @@ input[type="button"].btn-block {
   .navbar-collapse {
     width: auto;
     border-top: 0;
-    box-shadow: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
   }
   /* line 68, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_navbar.scss */
   .navbar-collapse.collapse {
@@ -11319,7 +11254,8 @@ input[type="button"].btn-block {
     margin-top: 0;
     background-color: transparent;
     border: 0;
-    box-shadow: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
   }
   /* line 248, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_navbar.scss */
   .navbar-nav .open .dropdown-menu > li > a,
@@ -11868,9 +11804,9 @@ input[type="button"].btn-block {
   -webkit-transform: translate3d(0, -25%, 0);
   transform: translate3d(0, -25%, 0);
   -webkit-transition: -webkit-transform 0.3s ease-out;
-  -moz-transition: -moz-transform 0.3s ease-out;
-  -o-transition: -o-transform 0.3s ease-out;
+  transition: -webkit-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
 }
 /* line 36, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_modals.scss */
 .modal.in .modal-dialog {
@@ -12282,7 +12218,6 @@ input[type="button"].btn-block {
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 /* line 17, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_thumbnails.scss */
@@ -12876,15 +12811,12 @@ a.badge:hover, a.badge:focus {
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
-  -o-transition: width 0.6s ease;
   transition: width 0.6s ease;
 }
 
 /* line 55, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_progress-bars.scss */
 .progress-striped .progress-bar,
 .progress-bar-striped {
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
@@ -12893,7 +12825,6 @@ a.badge:hover, a.badge:focus {
 .progress.active .progress-bar,
 .progress-bar.active {
   -webkit-animation: progress-bar-stripes 2s linear infinite;
-  -o-animation: progress-bar-stripes 2s linear infinite;
   animation: progress-bar-stripes 2s linear infinite;
 }
 
@@ -12907,7 +12838,8 @@ a.badge:hover, a.badge:focus {
   min-width: 30px;
   background-color: transparent;
   background-image: none;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 /* line 91, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_progress-bars.scss */
@@ -12916,8 +12848,6 @@ a.badge:hover, a.badge:focus {
 }
 /* line 7, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/mixins/_progress-bar.scss */
 .progress-striped .progress-bar-success {
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 
@@ -12927,8 +12857,6 @@ a.badge:hover, a.badge:focus {
 }
 /* line 7, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/mixins/_progress-bar.scss */
 .progress-striped .progress-bar-info {
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 
@@ -12938,8 +12866,6 @@ a.badge:hover, a.badge:focus {
 }
 /* line 7, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/mixins/_progress-bar.scss */
 .progress-striped .progress-bar-warning {
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 
@@ -12949,8 +12875,6 @@ a.badge:hover, a.badge:focus {
 }
 /* line 7, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/mixins/_progress-bar.scss */
 .progress-striped .progress-bar-danger {
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 
@@ -12970,7 +12894,6 @@ a.badge:hover, a.badge:focus {
   display: none;
   position: relative;
   -webkit-transition: 0.6s ease-in-out left;
-  -o-transition: 0.6s ease-in-out left;
   transition: 0.6s ease-in-out left;
 }
 /* line 22, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_carousel.scss */
@@ -13037,8 +12960,7 @@ a.badge:hover, a.badge:focus {
 }
 /* line 84, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin-1.2.0/app/assets/stylesheets/rails_admin/bootstrap/_carousel.scss */
 .carousel-control.left {
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.0001)));
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
@@ -13047,8 +12969,7 @@ a.badge:hover, a.badge:focus {
 .carousel-control.right {
   left: auto;
   right: 0;
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.0001)), to(rgba(0, 0, 0, 0.5)));
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
@@ -13882,579 +13803,17 @@ body.rails_admin .table th.item {
     overflow-y: auto;
   }
 }
-/* line 3, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-body {
-  color: #1a1a1a;
-  background: #E9F0F5;
-  font-family: 'Raleway', sans-serif;
-}
+/*
+  Customize RailsAdmin theme here.
 
-/* line 9, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-body.rails_admin .form-horizontal textarea {
-  width: 100%;
-}
+  Look at the markup in RailsAdmin and go there to get inspiration from:
 
-/* line 13, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-body.rails_admin .sidebar-nav .dropdown-header {
-  color: #fff;
-  padding: 10px 15px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  font-weight: normal;
-  text-transform: inherit;
-  cursor: pointer;
-}
-/* line 22, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-body.rails_admin .sidebar-nav .dropdown-header::after {
-  content: "\f138";
-  position: absolute;
-  right: 15px;
-  color: #fff;
-  font-family: 'FontAwesome', sans-serif;
-}
+  http://getbootstrap.com
 
-/* line 31, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-body.rails_admin .table .headerSortDown,
-body.rails_admin .table .headerSortUp {
-  background-color: inherit;
-  text-shadow: none;
-}
+  Test me: (actual color should be the one defined in variables.scss if you did)
 
-/* line 37, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-body.rails_admin .table .header:after {
-  visibility: visible !important;
-}
-
-/* line 41, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-body.rails_admin .sidebar-nav {
-  background: #273135;
-}
-
-/* line 45, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.nav .nav-pills .nav-stacked {
-  margin-top: 4px;
-}
-
-/* line 49, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-body.rails_admin .sidebar-nav > .nav-stacked > li > a {
-  padding: 10px 15px;
-}
-
-/* line 55, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.links ul li a {
-  color: #fff;
-  background: #273135;
-}
-/* line 61, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.links ul li:nth-child(1) a {
-  background: #29B6F6;
-  color: #fff;
-}
-/* line 68, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.links ul li:nth-child(2) a {
-  background: #66BB6A;
-  color: #fff;
-}
-/* line 75, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.links ul li:nth-child(3) a {
-  background: #ef5350;
-  color: #fff;
-}
-
-/* line 83, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.alert-info {
-  background-color: #3498db;
-  border: 0;
-  color: #fff;
-}
-
-/* line 89, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.alert-success {
-  background-color: #2ecc71;
-  border: 0;
-  color: #fff;
-}
-
-/* line 95, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.alert-danger {
-  background-color: #e74c3c;
-  border: 0;
-  color: #fff;
-}
-
-/* line 101, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.btn {
-  border-radius: 2px;
-  color: #fff !important;
-}
-
-/* line 106, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.btn-default {
-  color: #1a1a1a !important;
-}
-
-/* line 110, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.btn-info {
-  background: #273135;
-  border-color: #111618;
-}
-/* line 114, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.btn-info:active, .btn-info:focus, .btn-info:hover, .btn-info:target {
-  background: #37BC9B;
-  border-color: #2b957a;
-  color: #273135;
-}
-
-/* line 124, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.btn-info.disabled {
-  background: #3d4c52;
-  border-color: #3d4c52;
-}
-
-/* line 129, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.btn-primary {
-  background: #37BC9B;
-  border-color: #37BC9B;
-}
-/* line 133, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.btn-primary:active, .btn-primary:focus, .btn-primary:hover, .btn-primary:target {
-  background: #206d5a;
-  border-color: #206d5a;
-}
-
-/* line 142, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.btn-primary.disabled {
-  background: #7fdac3;
-  border-color: #7fdac3;
-}
-
-/* line 147, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.alert {
-  border-radius: 2px;
-}
-
-/* line 152, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.sidebar-nav i {
-  margin-right: 10px;
-}
-
-/* line 157, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.nav-tabs > li > a {
-  border-radius: 2px 2px 0 0;
-}
-
-/* line 162, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.nav-tabs li {
-  border-radius: 2px;
-}
-/* line 166, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.nav-tabs a,
-.nav-tabs a.dropdown-toggle {
-  color: #1a1a1a;
-}
-
-/* line 172, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.navbar-default {
-  background: #37BC9B;
-  border: 0;
-}
-
-/* line 178, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.dropdown-header.open::after {
-  content: "\f13a" !important;
-  position: absolute;
-  right: 15px;
-  color: #fff;
-  font-family: 'FontAwesome', sans-serif;
-}
-
-/* line 187, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.dropdown-header:hover {
-  background: #37BC9B;
-}
-
-/* line 191, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.dropdown-header.active {
-  background: #37BC9B;
-}
-
-/* line 195, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.navbar-default .navbar-nav > li > a,
-a {
-  color: #fff;
-}
-/* line 197, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.navbar-default .navbar-nav > li > a:hover,
-a:hover {
-  color: #37BC9B;
-}
-
-/* line 203, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.navbar-header {
-  margin-left: -15px;
-}
-
-/* line 207, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-a.navbar-brand {
-  line-height: 25px;
-  padding-top: 12px;
-  white-space: nowrap;
-  color: #fff !important;
-  cursor: pointer !important;
-  background: #2b957a !important;
-}
-/* line 215, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-a.navbar-brand:hover {
-  background: #2b957a !important;
-  color: #fff !important;
-}
-
-/* line 221, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.page-header {
-  margin-top: 0;
-}
-/* line 224, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.page-header h1 {
-  background: #37BC9B;
-  padding: 10px 15px;
-  color: #fff;
-  border-radius: 2px;
-  text-transform: uppercase;
-  margin-top: 0;
-}
-
-/* line 234, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.content {
-  margin: 19px 0 15px;
-  background: #fff;
-  padding: 20px;
-}
-/* line 239, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.content a {
-  color: #37BC9B;
-}
-
-/* line 244, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.form-control {
-  border-radius: 2px;
-}
-
-/* line 248, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.nav-pills > li > a:focus,
-.nav-pills > li > a:hover {
-  color: #37BC9B !important;
-}
-
-/* line 254, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.root_links .dashboard_root_link,
-.root_links .edit_user_root_link,
-.root_links li {
-  color: #fff;
-}
-/* line 258, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.root_links .dashboard_root_link .label-danger,
-.root_links .edit_user_root_link .label-danger,
-.root_links li .label-danger {
-  padding: 5px 10px;
-}
-/* line 263, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.root_links .dashboard_root_link:hover,
-.root_links .edit_user_root_link:hover,
-.root_links li:hover {
-  background: #2b957a !important;
-}
-/* line 268, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.root_links .dashboard_root_link a:hover,
-.root_links .edit_user_root_link a:hover,
-.root_links li a:hover {
-  color: #fff !important;
-}
-
-/* line 275, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.sub-menu a {
-  color: #fff;
-  padding: 10px 15px 10px 30px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  font-weight: normal;
-  text-transform: inherit;
-  cursor: pointer;
-  display: block;
-  text-decoration: none;
-}
-
-/* line 287, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.sub-menu-container {
-  background: #1c2326;
-}
-/* line 290, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.sub-menu-container li a {
-  color: #EEE;
-}
-/* line 293, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.sub-menu-container li a:hover {
-  color: #37BC9B !important;
-}
-/* line 298, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.sub-menu-container li.active a {
-  background: #111618;
-  color: #37BC9B !important;
-}
-/* line 302, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.sub-menu-container li.active a:hover {
-  color: #37BC9B !important;
-}
-
-/* line 308, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.label-warning {
-  padding: 5px;
-}
-
-/* line 312, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.well {
-  border-radius: 2px;
-}
-
-/* line 316, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.h1,
-h1 {
-  font-size: 20px;
-}
-
-/* line 321, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.fieldset a {
-  color: #37BC9B !important;
-}
-
-/* line 325, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.table-striped td:not(.image_field) a {
-  text-decoration: none !important;
-  padding: 8px 10px;
-  border-radius: 2px;
-  color: #37BC9B;
-}
-/* line 331, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.table-striped td:not(.image_field) a:hover {
-  background: #37BC9B;
-  color: #273135;
-}
-
-/* line 337, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.ui-state-default a:link,
-.ui-state-default a:visited {
-  color: #fff;
-  text-decoration: none;
-}
-
-/* line 343, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-#fields_to_export .control-label {
-  text-align: left;
-  margin-bottom: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-/* line 350, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.table-striped td,
-.table-striped th,
-body.rails_admin .table td {
-  vertical-align: middle;
-  line-height: 40px;
-  border-right: 1px solid #ddd;
-  padding: 6px 11px;
-}
-
-/* line 359, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.row-highlight td {
-  background: rgba(55, 188, 155, 0.1) !important;
-}
-
-/* line 363, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.table-condensed > tbody > tr > td,
-.table-condensed > tbody > tr > th,
-.table-condensed > tfoot > tr > td,
-.table-condensed > tfoot > tr > th,
-.table-condensed > thead > tr > td,
-.table-condensed > thead > tr > th {
-  padding: 15px 5px;
-}
-
-/* line 372, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.table-striped {
-  border: 1px solid #ddd;
-  border-top: 4px solid #37BC9B;
-}
-
-/* line 377, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-th.shrink {
-  padding: 14px 11px !important;
-}
-
-/* line 381, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-td.carrierwave_type .img-thumbnail {
-  max-width: 40px;
-}
-
-/* line 385, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.img-thumbnail {
-  max-width: 125px;
-  background: #EEE;
-}
-
-/* line 390, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.breadcrumb .false a {
-  color: #C4C4C4 !important;
-}
-
-/* line 394, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.breadcrumb {
-  border-radius: 2px;
-}
-
-/* line 398, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.nav-stacked > li + li {
-  margin-top: 0;
-}
-
-/* line 402, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.progress {
-  border-radius: 2px;
-}
-
-/* line 406, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-#sortable {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
-/* line 413, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-#sortable li {
-  color: #fff;
-  cursor: pointer;
-}
-
-/* line 418, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-#sortable li,
-.ui-state-highlight {
-  display: inline-block;
-}
-
-/* line 424, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-#rails_admin_nestable label {
-  padding: 0;
-}
-
-/* line 429, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.dd-handle .dd3-handle,
-.dd3-content {
-  height: inherit;
-}
-
-/* line 434, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.dd3-content .pull-right a {
-  background: none !important;
-  color: #000 !important;
-}
-
-/* line 439, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.dd3-content {
-  margin: 10px 0 !important;
-}
-
-/* line 443, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.sortable-container {
-  width: 100%;
-  background: #44c8a8;
-  margin-bottom: 15px;
-}
-
-/* line 449, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.li_sortable_label,
-.ref_number {
-  float: left;
-  padding: 10px 5px;
-}
-
-/* line 455, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.li_sortable_label {
-  background: #44c8a8;
-  color: #273135;
-  padding: 10px 15px;
-}
-
-/* line 461, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.ref_number {
-  color: #37BC9B;
-  background: #273135;
-  padding: 10px 15px;
-  border-left: 2px solid #206d5a;
-}
-
-/* line 468, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.ui-state-highlight {
-  padding: 10px 15px;
-  margin: 0 15px 15px;
-  width: 100%;
-  min-height: 40px;
-}
-
-/* line 475, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.well {
-  box-shadow: none;
-}
-
-/* line 481, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.fieldset dl dt span.label-info {
-  text-align: left;
-  display: block;
-  padding: 10px;
-  font-size: 13px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-/* line 490, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.fieldset dl dd.well {
-  padding: 10px;
-  border-top: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-/* line 499, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.bootstrap-datetimepicker-widget table td.day {
-  color: #333;
-  width: 10px;
-  height: 10px;
-  line-height: 10px;
-  padding: 10px 0;
-}
-
-/* line 507, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.bootstrap-datetimepicker-widget table td span {
-  width: 25px;
-  height: 25px;
-  line-height: 25px;
-  color: #333;
-}
-
-/* line 515, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-#edit_page .has_one_association_type {
-  background: #F3F1F1;
-  margin: 25px 15px !important;
-}
-
-/* line 521, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.fr-basic .fr-element {
-  min-height: 150px;
-}
-
-/* line 525, /Users/mani47/.rvm/gems/ruby-2.3.5/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets/rails_admin/themes/rollincode/theming.scss */
-.modal-header-title {
-  margin-top: 0;
-}
-
+  body { background-color: $link-color; }
+*/
 /*
   Customize RailsAdmin theme here.
   Copy this file to your app/assets/stylesheets/rails_admin/custom/theming.scss, leave this one untouched

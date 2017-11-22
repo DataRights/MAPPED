@@ -5,6 +5,7 @@ RailsAdmin.config do |config|
 
   config.main_app_name = ["MAPPED", "Admin"]
 
+  config.navigation_static_label = "Security"
   config.navigation_static_links = {
     'Two Factor authentication' => '/users/tfa'
   }
@@ -13,7 +14,11 @@ RailsAdmin.config do |config|
 
   ## == Devise ==
   config.authenticate_with do
-    warden.authenticate! scope: :user
+    if current_user.nil?
+      warden.authenticate! scope: :user
+    else
+      redirect_to main_app.root_path unless current_user.can?(:admin_login)
+    end
   end
   config.current_user_method(&:current_user)
 
@@ -31,6 +36,9 @@ RailsAdmin.config do |config|
   config.label_methods << :action
   config.label_methods << :line1
   config.label_methods << :version
+  config.label_methods << :role
+  config.label_methods << :admin_login
+  config.label_methods << :name
 
   config.actions do
     dashboard                     # mandatory
@@ -46,7 +54,32 @@ RailsAdmin.config do |config|
     preview_template
   end
 
+  config.model Template do
+    navigation_label 'Template Engine'
+  end
+
+  config.model User do
+    navigation_label 'User Management'
+  end
+
+  config.model Question do
+    navigation_label 'Survey'
+  end
+
+  config.model AccessRequest do
+    navigation_label 'Access Requests & Workflows'
+  end
+
+  config.model Sector do
+    navigation_label 'Sectors & Organizations'
+  end
+
+  config.model Notification do
+    navigation_label 'Notification Engine'
+  end
+
   config.model TemplateVersion do
+    parent Template
     edit do
       field :version
       field :template
@@ -55,4 +88,103 @@ RailsAdmin.config do |config|
       field :language
     end
   end
+
+  config.model WorkflowTypeVersion do
+    list do
+      field :version
+      field :workflow_type
+      field :active
+
+      field :diagram do
+        pretty_value do
+          %{<a id="workflow_diagram_link" href="/workflow/diagram/#{value}" target='_blank'>#{I18n.t('workflow.generate_diagram')}</a>}.html_safe
+        end
+      end
+    end
+  end
+
+  config.model Answer do
+    parent Question
+  end
+
+  config.model UserRole do
+    parent User
+  end
+
+  config.model AccessRight do
+    parent User
+  end
+
+  config.model Address do
+    parent User
+  end
+
+  config.model Role do
+    parent User
+  end
+
+  config.model City do
+    parent User
+  end
+
+  config.model Country do
+    parent User
+  end
+
+  config.model WorkflowState do
+    parent AccessRequest
+  end
+
+  config.model WorkflowTransition do
+    parent AccessRequest
+  end
+
+  config.model WorkflowType do
+    parent AccessRequest
+  end
+
+  config.model WorkflowTypeVersion do
+    parent AccessRequest
+  end
+
+  config.model WorkflowState do
+    parent AccessRequest
+  end
+
+  config.model Transition do
+    parent AccessRequest
+  end
+
+  config.model Guard do
+    parent AccessRequest
+  end
+
+  config.model Workflow do
+    parent AccessRequest
+  end
+
+  config.model CodeAction do
+    parent AccessRequest
+  end
+
+  config.model Campaign do
+    parent AccessRequest
+  end
+
+  config.model Organization do
+    parent Sector
+  end
+
+  config.model EmailNotification do
+    parent Notification
+  end
+
+  config.model WebNotification do
+    parent Notification
+  end
+
+  config.model NotificationSetting do
+    parent Notification
+  end
+
 end

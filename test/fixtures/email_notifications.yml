@@ -1,0 +1,27 @@
+# == Schema Information
+#
+# Table name: email_notifications
+#
+#  id              :integer          not null, primary key
+#  notification_id :integer
+#  status          :integer          default("pending"), not null
+#  sent            :datetime
+#  delivered       :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  email_type      :integer          default("realtime"), not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  notification: one
+  status: 1
+  sent: 2017-11-20 16:33:47
+  delivered: 2017-11-20 16:33:47
+
+two:
+  notification: two
+  status: 1
+  sent: 2017-11-20 16:33:47
+  delivered: 2017-11-20 16:33:47

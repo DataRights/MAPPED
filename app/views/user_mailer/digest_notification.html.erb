@@ -1,8 +1,8 @@
-<% @notifications.each do |n| %>
-<strong><%= n['title'] %></strong>
+<% @email_notifications.each do |e| %>
+<strong><%= e.notification.title %></strong>
 <hr />
 <p>
-<%= n['content'] %>
+<%= e.notification.content %>
 </p>
 <br />
 <br />
