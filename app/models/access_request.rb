@@ -18,8 +18,6 @@ class AccessRequest < ApplicationRecord
   belongs_to :user
   belongs_to :campaign
 
-  has_many :attachments
-
   validates :user, :organization, presence: true
 
   def context_value

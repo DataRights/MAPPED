@@ -79,7 +79,7 @@ class AttachmentsController < ApplicationController
 
   def new_content
     @attachment = Attachment.new()
-    @attachment.access_request_id =  params['access_request_id'].to_i
+    @attachment.workflow_transition_id =  params['workflow_transition_id'].to_i
     @attachment.title = params['image'].original_filename
     @attachment.content_type = params['image'].content_type
     @attachment.content = params['image'].tempfile.read
@@ -116,7 +116,7 @@ class AttachmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def attachment_params
-      params.require(:attachment).permit(:title, :content_type, :access_request_id)
+      params.require(:attachment).permit(:title, :content_type, :workflow_transition_id)
     end
 
 end

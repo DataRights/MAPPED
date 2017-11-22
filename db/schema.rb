@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171121104603) do
+ActiveRecord::Schema.define(version: 20171122211434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,10 +74,10 @@ ActiveRecord::Schema.define(version: 20171121104603) do
     t.string "title"
     t.string "content_type"
     t.binary "content"
-    t.bigint "access_request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["access_request_id"], name: "index_attachments_on_access_request_id"
+    t.bigint "workflow_transition_id"
+    t.index ["workflow_transition_id"], name: "index_attachments_on_workflow_transition_id"
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -365,7 +365,7 @@ ActiveRecord::Schema.define(version: 20171121104603) do
   add_foreign_key "access_rights", "roles"
   add_foreign_key "addresses", "cities"
   add_foreign_key "addresses", "countries"
-  add_foreign_key "attachments", "access_requests"
+  add_foreign_key "attachments", "workflow_transitions"
   add_foreign_key "cities", "countries"
   add_foreign_key "email_notifications", "notifications"
   add_foreign_key "notifications", "access_requests"

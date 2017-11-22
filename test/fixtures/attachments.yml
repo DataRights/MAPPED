@@ -3,11 +3,11 @@
 one:
   title: MyString
   content_type: MyString
-  content: 
-  access_request: one
+  content:
+  workflow_transition: one
 
 two:
   title: MyString
   content_type: MyString
-  content: 
-  access_request: two
+  content:
+  workflow_transition: two

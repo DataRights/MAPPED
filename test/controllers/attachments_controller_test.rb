@@ -17,7 +17,7 @@ class AttachmentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create attachment" do
     assert_difference('Attachment.count') do
-      post attachments_url, params: { attachment: { title: 'A new attachment', access_request_id: AccessRequest.first.id} }
+      post attachments_url, params: { attachment: { title: 'A new attachment', workflow_transition_id: WorkflowTransition.first.id} }
     end
 
     assert_redirected_to attachment_url(Attachment.last)

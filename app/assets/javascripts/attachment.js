@@ -1,6 +1,6 @@
 function showContentEditor(newImage) {
   var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
-  var access_request_id = $("[name='attachment[access_request_id]']").val()
+  var workflow_transition_id = $("[name='attachment[workflow_transition_id]']").val()
 
   var ptro = Painterro({
     saveHandler: function (image, done) {
@@ -10,7 +10,7 @@ function showContentEditor(newImage) {
       var xhr = new XMLHttpRequest();
       var postPath = 'content';
       if (newImage) {
-        postPath = postPath + '/' + access_request_id
+        postPath = postPath + '/' + workflow_transition_id
       }
       xhr.open('POST',postPath, true);
       xhr.onload = xhr.onerror = function () {

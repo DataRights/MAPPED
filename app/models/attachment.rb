@@ -1,3 +1,3 @@
 class Attachment < ApplicationRecord
-  belongs_to :access_request
+  belongs_to :workflow_transition
 end
