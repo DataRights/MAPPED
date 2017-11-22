@@ -21,6 +21,7 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
 
   test 'All two factor authentication scenarios' do
     # 1. Login
+    assert_nil @user.encrypted_otp_secret # OTP is not enabled for user
     visit('/admin')
     fill_in('user_email', with: @sample_email)
     fill_in('user_password', with: @sample_password)
@@ -30,9 +31,7 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
     # 2. Enable TFA
     visit(users_tfa_path)
     click_on I18n.t('tfa.enable')
-    unless @user.encrypted_otp_secret # fix a bug with travis
-      @user.enable_otp!
-    end
+    @user.enable_otp!
     assert_not_nil @user.encrypted_otp_secret, "User: #{@user.to_json} ENV: #{ENV['MAPPED_TOTP_ENCRYPTION_KEY']} and generate_otp_secret output: #{User.generate_otp_secret}, Current Page HTML: #{page.html}"
 
     # 3. Logout
