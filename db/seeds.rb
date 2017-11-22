@@ -10,12 +10,31 @@ admin2 = User.find_by email: 'shahriar.b@gmail.com'
 
 unless admin1
   User.create!(email: 'mm.mani@gmail.com', password_confirmation: 'eybaba13', password: 'eybaba13')
+  admin1 = User.find_by email: 'mm.mani@gmail.com'
   admin1.confirm
 end
 
 unless admin2
   User.create!(email: 'shahriar.b@gmail.com', password_confirmation: 'eybaba13', password: 'eybaba13')
+  admin2 = User.find_by email: 'shahriar.b@gmail.com'
   admin2.confirm
+end
+
+admin_role = Role.find_by name: 'admin'
+unless admin_role
+  Role.create! name: 'admin'
+  admin_role = Role.find_by name: 'admin'
+  AccessRight.find_or_create_by!(action: 'admin_login', role: admin_role)
+end
+
+unless admin1.roles.include?(admin_role)
+  admin1.roles << admin_role
+  admin1.save!
+end
+
+unless admin2.roles.include?(admin_role)
+  admin2.roles << admin_role
+  admin2.save!
 end
 
 NotificationSetting.find_or_create_by!(name: 'Web Notification', notification_type: 'web_notification')

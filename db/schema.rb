@@ -259,6 +259,7 @@ ActiveRecord::Schema.define(version: 20171122211434) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_user_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_user_roles_on_user_id_and_role_id", unique: true
     t.index ["user_id"], name: "index_user_roles_on_user_id"
   end
 

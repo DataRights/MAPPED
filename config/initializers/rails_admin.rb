@@ -26,11 +26,6 @@ RailsAdmin.config do |config|
   ## To disable Gravatar integration in Navigation Bar set to false
   # config.show_gravatar = true
 
-  config.model 'CodeAction' do
-    label "Action"
-    label_plural "Actions"
-  end
-
   config.label_methods << :description
   config.label_methods << :email
   config.label_methods << :action
@@ -54,28 +49,34 @@ RailsAdmin.config do |config|
     preview_template
   end
 
-  config.model Template do
-    navigation_label 'Template Engine'
+  config.model AccessRequest do
+    navigation_label 'Access Requests & Workflows'
+    weight 0
   end
 
   config.model User do
     navigation_label 'User Management'
+    weight 1
   end
 
-  config.model Question do
-    navigation_label 'Survey'
-  end
-
-  config.model AccessRequest do
-    navigation_label 'Access Requests & Workflows'
+  config.model Template do
+    navigation_label 'Template Engine'
+    weight 2
   end
 
   config.model Sector do
     navigation_label 'Sectors & Organizations'
+    weight 3
+  end
+
+  config.model Question do
+    navigation_label 'Survey'
+    weight 4
   end
 
   config.model Notification do
     navigation_label 'Notification Engine'
+    weight 5
   end
 
   config.model TemplateVersion do
@@ -165,6 +166,8 @@ RailsAdmin.config do |config|
 
   config.model CodeAction do
     parent AccessRequest
+    label "Action"
+    label_plural "Actions"
   end
 
   config.model Campaign do
