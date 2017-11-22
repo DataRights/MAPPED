@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :attachments
   get 'attachments/:id/content', to: 'attachments#get_content', as: 'get_content'
   post 'attachments/:id/content', to: 'attachments#post_content'
+  post 'attachments/content/:access_request_id', to: 'attachments#new_content'
 
   get 'attachments/:id/thumbnail', to: 'attachments#thumbnail', as: 'thumbnail'
 end

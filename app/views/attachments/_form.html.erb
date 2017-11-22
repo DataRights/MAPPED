@@ -1,8 +1,8 @@
-<%= form_with(model: attachment, local: true) do |form| %>
+<%= form_with(model: attachment, local: true, id: :attachment) do |form| %>
   <%= form.label :title %>
-  <%= form.text_field :title, id: :title, disabled: true %>
+  <%= form.text_field :title, id: :title %>
   <%= form.label :content_type %>
-  <%= form.text_field :content_type, id: :content_type, disabled: true %>
+  <%= form.text_field :content_type, id: :content_type %>
   <br>
   <%= form.label :access_request %>
   <%= form.collection_select(:access_request_id, AccessRequest.all, :id, :id) %>
@@ -10,8 +10,10 @@
   <% if @attachment && !@attachment.content.blank? %>
     <%= image_tag thumbnail_path(@attachment.id) %>
     <br>
+    <%= button_tag "Content", type: 'button', onclick: "showContentEditor(false)" %>
+  <% else %>
+    <%= button_tag "Content", type: 'button', onclick: "showContentEditor(true)" %>
   <% end %>
-  <%= button_tag "Content", type: 'button', onclick: "showContentEditor()" %>
   <br>
   <br>
 

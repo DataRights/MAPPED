@@ -66,16 +66,28 @@ class AttachmentsController < ApplicationController
     if @attachment && @attachment.content
       send_data @attachment.content, :type => @attachment.content_type
     else
-      send_data '', :type => ''
+      render json: {}, status: :ok
     end
   end
 
+
   def post_content
-    @attachment.title = params['image'].original_filename
-    @attachment.content_type = params['image'].content_type
     @attachment.content = params['image'].tempfile.read
     @attachment.save!
     render json: {}, status: :ok
+  end
+
+  def new_content
+    @attachment = Attachment.new()
+    @attachment.access_request_id =  params['access_request_id'].to_i
+    @attachment.title = params['image'].original_filename
+    @attachment.content_type = params['image'].content_type
+    @attachment.content = params['image'].tempfile.read
+    if @attachment.save
+      render json: {}, status: :ok
+    else
+      render json: {}, status: :fail
+    end
   end
 
   def thumbnail
