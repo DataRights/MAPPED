@@ -41,6 +41,7 @@ en:
     action_internal_data_required: 'Internal data parameter in mandatory for this action.'
     template_id_mandatory_internal_data: 'template_id is mandatory for internal data of this action.'
     template_id_not_found: 'template_id not found!'
+    attachment_max_size: 'maximum attachment size is 500k'
   errors:
     transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
   workflow:
