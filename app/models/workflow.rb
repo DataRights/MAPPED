@@ -16,6 +16,7 @@ class Workflow < ApplicationRecord
   belongs_to :access_request
   validates :workflow_type_version, :workflow_state, :access_request, presence: true
   validate :workflow_type_should_be_active
+  after_create :check_transition_timeout
   before_validation(on: :create) do
    self.workflow_state = WorkflowState.where(workflow_type_version: self.workflow_type_version, is_initial_state: true).first
   end
@@ -42,5 +43,14 @@ class Workflow < ApplicationRecord
     wt.save
     self.save
     wt
+  end
+
+  def check_transition_timeout
+    self.workflow_state.possible_transitions.each do |t|
+      unless t.timeout_days.nil?
+        TransitionTimeoutJob.set(wait: t.timeout_days.days).perform_later(self.id, self.workflow_state.id, t.id)
+        break
+      end
+    end
   end
 end
