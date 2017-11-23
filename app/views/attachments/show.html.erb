@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+<b>Title:</b> <%= @attachment.title%>
+<b>Content Type:</b>  <%= @attachment.content_type %>
+<br>
+<% if @attachment && !@attachment.content.blank? %>
+  <%= image_tag thumbnail_path(@attachment.id) %>
+<% end %>
+<br>
+
+<%= link_to 'Edit', edit_attachment_path(@attachment) %> |
+<%= link_to 'Back', attachments_path %>

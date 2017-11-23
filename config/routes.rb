@@ -9,4 +9,11 @@ Rails.application.routes.draw do
   post 'users/disable_otp'
 
   root 'home#index'
+
+  resources :attachments
+  get 'attachments/:id/content', to: 'attachments#get_content', as: 'get_content'
+  post 'attachments/:id/content', to: 'attachments#post_content', as: 'post_content'
+  post 'attachments/content/:workflow_transition_id', to: 'attachments#new_content', as: 'new_content'
+
+  get 'attachments/:id/thumbnail', to: 'attachments#thumbnail', as: 'thumbnail'
 end

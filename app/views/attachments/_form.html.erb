@@ -1,0 +1,35 @@
+<%= form_with(model: attachment, local: true, id: :attachment) do |form| %>
+  <%= form.label :title %>
+  <%= form.text_field :title, id: :title %>
+  <%= form.label :content_type %>
+  <%= form.text_field :content_type, id: :content_type %>
+  <br>
+  <%= form.label :workflow_transition %>
+  <%= form.collection_select(:workflow_transition_id, WorkflowTransition.all, :id, :id) %>
+  <br>
+  <% if @attachment && !@attachment.content.blank? %>
+    <%= image_tag thumbnail_path(@attachment.id) %>
+    <br>
+    <%= button_tag "Content", type: 'button', onclick: "showContentEditor(false)" %>
+  <% else %>
+    <%= button_tag "Content", type: 'button', onclick: "showContentEditor(true)" %>
+  <% end %>
+  <br>
+  <br>
+
+  <% if attachment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(attachment.errors.count, "error") %> prohibited this attachment from being saved:</h2>
+
+      <ul>
+      <% attachment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
