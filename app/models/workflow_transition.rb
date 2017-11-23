@@ -66,16 +66,7 @@ class WorkflowTransition < ApplicationRecord
     if self.failed_action.nil?
       self.status = :success
       self.workflow.workflow_state = self.transition.to_state
-      check_timeout_transitions
-    end
-  end
-
-  def check_timeout_transitions
-    self.workflow.workflow_state.possible_transitions.each do |t|
-      unless t.timeout_days.nil?
-        TransitionTimeoutJob.set(wait: timeout_transition.timeout_days.days).perform_later(workflow.id, t.id)
-        break
-      end
+      self.workflow.check_transition_timeout
     end
   end
 
