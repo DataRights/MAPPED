@@ -2,7 +2,7 @@
   <%= form.label :title %>
   <%= form.text_field :title, id: :title %>
   <%= form.label :content_type %>
-  <%= form.text_field :content_type, id: :content_type %>
+  <%= form.text_field :content_type, id: :content_type, disabled: :true %>
   <br>
   <%= form.label :workflow_transition %>
   <%= form.collection_select(:workflow_transition_id, WorkflowTransition.all, :id, :id) %>
