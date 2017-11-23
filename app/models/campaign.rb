@@ -15,6 +15,7 @@ class Campaign < ApplicationRecord
   has_many :access_requests
   has_and_belongs_to_many :questions
   has_many :answers, as: :answerable
+  has_and_belongs_to_many :users
 
   def context_value
     result = { 'name' => name.blank? ? '' : name }
