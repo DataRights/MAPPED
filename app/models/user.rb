@@ -38,14 +38,14 @@
 class User < ApplicationRecord
 
   # Configuration for TOTP
-  devise :two_factor_authenticatable,
+  devise :invitable, :two_factor_authenticatable,
          :otp_secret_encryption_key => ENV['MAPPED_TOTP_ENCRYPTION_KEY']
 
   attribute :otp_secret
 
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable and :omniauthable
-	devise :registerable,
+	devise :invitable, :registerable,
 		   :recoverable, :rememberable, :trackable, :validatable,
 		   :confirmable, :lockable
 
