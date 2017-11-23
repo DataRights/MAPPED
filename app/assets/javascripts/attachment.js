@@ -6,7 +6,7 @@ function showContentEditor(newImage) {
     saveHandler: function (image, done) {
       var formData = new FormData();
       formData.append('authenticity_token',AUTH_TOKEN);
-      formData.append('image', image.asBlob(), image.suggestedFileName());
+      formData.append('image', image.asBlob('image/jpeg',0.5), image.suggestedFileName('jpeg'));
       var xhr = new XMLHttpRequest();
       var postPath = 'content';
       if (newImage) {
