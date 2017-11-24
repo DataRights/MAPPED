@@ -15,6 +15,9 @@
     <%= button_tag "Content", type: 'button', onclick: "showContentEditor(true)" %>
   <% end %>
   <br>
+  <input type="file" id="new_file" style="display:none" onchange="newFileSelected()">
+  <%= button_tag "New file", type: 'button', onclick: "uploadNewFile()" %>
+  <br>
   <br>
 
   <% if attachment.errors.any? %>
