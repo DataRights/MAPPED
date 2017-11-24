@@ -31,7 +31,7 @@ function newFileSelected() {
         }
         var fileContent = this.result
         var ptro = createBlackOutTool();
-        ptro.show(fileContent);
+        ptro.show(fileContent, true);
       };
       reader.readAsDataURL(selectedFile);
   }
@@ -73,7 +73,6 @@ function createBlackOutTool() {
         done(false);
       };
       xhr.send(formData);
-      location.reload(true);
     }
   })
 }
