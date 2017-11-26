@@ -5,9 +5,10 @@ RailsAdmin.config do |config|
 
   config.main_app_name = ["MAPPED", "Admin"]
 
-  config.navigation_static_label = "Security"
+  config.navigation_static_label = "Tools"
   config.navigation_static_links = {
-    'Two Factor authentication' => '/users/tfa'
+    'Two Factor authentication' => '/users/tfa',
+    'Invitition' => '/users/invitation/new'
   }
 
   ### Popular gems integration
