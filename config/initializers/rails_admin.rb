@@ -57,6 +57,7 @@ RailsAdmin.config do |config|
   config.model User do
     navigation_label 'User Management'
     weight 1
+    exclude_fields :user_roles, :answers, :notifications
   end
 
   config.model Template do
