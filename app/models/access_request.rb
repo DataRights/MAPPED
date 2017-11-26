@@ -17,6 +17,7 @@ class AccessRequest < ApplicationRecord
   belongs_to :organization
   belongs_to :user
   belongs_to :campaign
+
   validates :user, :organization, presence: true
 
   def context_value

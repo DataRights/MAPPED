@@ -22,6 +22,7 @@ class WorkflowTransition < ApplicationRecord
   belongs_to :transition
   belongs_to :failed_action, class_name: 'CodeAction', optional: true
   belongs_to :failed_guard, class_name: 'Guard', optional: true
+  has_many   :attachments
 
   # should return state, success:false/true, message (in case of error, error_message)
   def execute
@@ -66,6 +67,7 @@ class WorkflowTransition < ApplicationRecord
     if self.failed_action.nil?
       self.status = :success
       self.workflow.workflow_state = self.transition.to_state
+      self.workflow.check_transition_timeout
     end
   end
 
