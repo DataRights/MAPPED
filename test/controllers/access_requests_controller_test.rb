@@ -16,9 +16,4 @@ class AccessRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get terms" do
-    get access_requests_terms_url
-    assert_response :success
-  end
-
 end
