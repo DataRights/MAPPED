@@ -35,4 +35,18 @@ class UserMailerTest < ActionMailer::TestCase
        assert mail.body.parts.first.body.raw_source.include?('test2_content')
      end
   end
+
+  test 'custom_invitation should send a custom invitation email' do
+      u = users(:test_user)
+
+      assert_equal 0, ActionMailer::Base.deliveries.count
+      perform_enqueued_jobs do
+        UserMailer.custom_invitation(u.email, 'This is a test invitation').deliver_later
+        mail = ActionMailer::Base.deliveries.last
+        assert mail
+        assert_equal [u.email], mail.to, mail.inspect
+        assert_equal I18n.t('devise.invitations.new.custom_email_subject'), mail.subject, mail.inspect
+        assert mail.body.parts.first.body.raw_source.include?('This is a test invitation')
+      end  
+  end
 end
