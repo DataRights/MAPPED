@@ -55,6 +55,7 @@ class User < ApplicationRecord
   has_many :answers, as: :answerable, :dependent => :destroy
   has_many :notifications, :dependent => :destroy
   has_and_belongs_to_many :notification_settings, :dependent => :destroy
+  has_many :tags, :as => :tagable
 
   before_create :add_default_notification_settings
 
