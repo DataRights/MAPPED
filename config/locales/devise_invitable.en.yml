@@ -9,9 +9,11 @@ en:
       updated_not_active: "Your password was set successfully."
       no_invitations_remaining: "No invitations remaining"
       invitation_removed: "Your invitation was removed."
+      custom_email_subject: "Invitation to MAPPED"
       new:
         header: "Send invitation"
-        submit_button: "Send an invitation"
+        submit_button: "Send an standard invitation"
+        submit_custom: "Send a custom invitation"
       edit:
         header: "Set your password"
         submit_button: "Set my password"

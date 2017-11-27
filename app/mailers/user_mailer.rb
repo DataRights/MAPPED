@@ -19,4 +19,9 @@ class UserMailer < ApplicationMailer
       @email_notifications.update_all(status: :failed, error_log: ex.inspect)
     end
   end
+
+  def custom_invitation(to,custom_text)
+    @body = custom_text
+    mail(to: to, subject: I18n.t('devise.invitations.new.custom_email_subject'))
+  end
 end
