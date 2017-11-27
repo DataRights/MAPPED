@@ -16,4 +16,5 @@
 //= require popper
 //= require painterro-0.2.48
 //= require bootstrap-sprockets
+//= require bootstrap-toggle
 //= require_tree .

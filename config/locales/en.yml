@@ -31,6 +31,13 @@
 
 en:
   project_name: 'DataRights'
+  user_links:
+    sign_up: "Sign Up"
+    login: "Login"
+    logout: "Logout"
+    forgot_your_password: "Forgot your password?"
+    didnt_receive_confirmation: "Didn't receive confirmation instructions?"
+    didnt_receive_unlock: "Didn't receive unlock instructions?"
   invalid_parameters: "Invalid Parameters!"
   validations:
     invalid_class_name: "Class name not found in code base!"
@@ -57,6 +64,7 @@ en:
   rollback_method_does_not_exist_for_action: 'Rollback method does not exist for action'
   layouts:
     application:
+      page_html_title: 'DataRights'
       toggle_navigation: 'Toggle navigation'
       my_profile: 'My profile'
       campaigns: 'Campaigns'
@@ -65,11 +73,51 @@ en:
       faq: 'FAQ'
       help_desk: 'Helpdesk'
       disclaimer: 'Disclaimer'
+      admin: 'Admin Panel'
+      partners: 'Partners'
+      home: 'Home'
+      welcome: 'Welcome'
   notificaitons:
     diget_email_subject: 'Your digest DataRights notifications'
     insert_failed: "Inserting notification in database failed with error: %{errors}"
   home:
     index:
-      welcome: 'Welcome!'
-      participant_landing_message: 'This is a landing page for the participant after logging in for the first time. This box contains a general welcome text about the platform, also requesting the participant to provide essential information about him/herself after clicking on a button below opening a page with form regarding e.g. his/her full name, address, email etc. All other menu items are disabled until this entry form is filled in.</p>'
+      join_us: 'Join us!'
+      participant_landing_message_part1: "<strong>datarights.me</strong> is a platform that helps citizens to send access requests to organizations. An access request is a request by a citizen to receive from an organization (information about) the personal data that that organization is processing in relation to him/her. The right to receive a swift, complete and understandable answer to such a request, called right of access, is guaranteed under European law in order to promote citizen empowerment."
+      participant_landing_message_part2: "<strong>datarights.me</strong> provides a structured process in order to facilitate making use of the right of access to citizens. Moreover it is a platform where citizens come together to make use of this right as part of a citizens collective, and create crowd-sourced and crowd-interpreted knowledge of data practices in society. This should eventually help to initiate a re-balancing of power between citizens, governments and corporations."
       edit_your_profile: 'Edit your personal profile'
+      more_information: 'More Information'
+      previous: 'Previous'
+      next: 'Next'
+      my_profile: 'My Profile'
+      requests_sent: 'Requests sent'
+      responses: 'Responses'
+      participants: 'Participants'
+      organizations: 'Organizations'
+  campaigns:
+    index:
+      general_text: 'This is a general text about campaigns assigned/available to the participant, what we are currently busy with in terms of research, etc etc. It could also be a place for general info relevant for the new participant. After first viewing this part of the interface can also dissapear...'
+      learn_more: 'Learn more'
+      join_campaign: 'Join campaign'
+  users:
+    edit:
+      title: 'Before you start...'
+      terms_title: 'Terms of service'
+      terms_of_service: "Lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla.<br /><br />Lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla.<br /><br />Lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla."
+      first_name_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
+      first_name_help_title: 'Why do we ask for your first name?'
+      last_name_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
+      last_name_help_title: 'Why do we ask for your last name?'
+      notification_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
+      notification_help_title: 'Why do we send you notification?'
+      address_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
+      address_help_title: 'Why do we ask for your address?'
+      lang_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
+      lang_help_title: 'Why do we ask for your preferred language?'
+      submit: 'Submit'
+  helpers:
+    label:
+      user:
+        email: "Email Address"
+        password: "Password (minimum 6 characters)"
+        password_confirmation: "Password confirmation"

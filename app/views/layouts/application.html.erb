@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mapped</title>
+    <title><%= t('.page_html_title') %></title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -17,76 +17,85 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#"><%= t '.my_profile' %></a>
-          </li>
-          <!-- <li class="nav-item active"> <a class="nav-link" href="#">Campaigns</a><span class="sr-only">(current)</span> </li>-->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle disabled" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= t '.campaigns' %></a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item disabled" href="#">--<small>(10)</small>
-              </a>
-              <a class="dropdown-item disabled" href="#">--<small>(1)</small>
-              </a>
-              <a class="dropdown-item disabled" href="#">---<small>(3)</small>
-              </a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#"><%= t '.notifications' %></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#"><%= t '.forum' %></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#"><%= t '.faq' %></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#"><%= t '.help_desk' %></a>
-          </li>
-        </ul>
-
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <%= link_to t('.home'), :home, class:"nav-link disabled" %>
+            </li>
+            <li class="nav-item dropdown">
+              <%= link_to t('.campaigns'), :campaigns, class:"nav-link disabled" %>
+            </li>
+            <% if user_signed_in? %>
+              <!--
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle disabled" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= t '.campaigns' %></a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                  <a class="dropdown-item disabled" href="#">--<small>(10)</small>
+                  </a>
+                  <a class="dropdown-item disabled" href="#">--<small>(1)</small>
+                  </a>
+                  <a class="dropdown-item disabled" href="#">---<small>(3)</small>
+                  </a>
+                </div>
+              </li>
+              -->
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#"><%= t '.notifications' %></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#"><%= t '.forum' %></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#"><%= t '.faq' %></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#"><%= t '.help_desk' %></a>
+              </li>
+              <li class="nav-item">
+                <%= link_to t('.my_profile'), :users_profile_edit, class:"nav-link disabled" %>
+              </li>
+              <% if current_user.can?(:admin_login) %>
+              <li class="nav-item">
+                <%= link_to t('.admin'), :rails_admin, class:"nav-link disabled" %>
+              </li>
+              <% end %>
+            <% end %>
+            </ul>
         <% if user_signed_in? %>
-            <a class="nav-link disabled" href="#">Welcome <%= current_user.email %>!</a>
-            <%= button_to('Logout', destroy_user_session_path, {method: :delete, class: 'btn btn-secondary btn-sm'}) %>
+            <a class="nav-link disabled" href="#"><%= t('.welcome') %> <%= current_user.email %>!</a>
+            <%= button_to(t('user_links.logout'), destroy_user_session_path, {method: :delete, class: 'btn btn-secondary btn-sm'}) %>
         <% else %>
-            <%= button_to('Login', new_user_session_path, {class: 'btn btn-secondary btn-sm'}) %>
+            <%= button_to(t('user_links.login'), new_user_session_path, {class: 'btn btn-secondary btn-sm'}) %>
         <% end %>
       </div>
     </nav>
 
-    <main role="main">
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <div class="container">
-
-          <% if alert %>
-          <div class="alert alert-danger alert-dismissible" role="alert">
-            <strong><%= alert %></strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <% end %>
-          <% if notice %>
-          <div class="alert alert-warning alert-dismissible" role="alert">
-            <strong><%= notice %></strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <% end %>
-          <%= yield %>
-        </div>
+    <div class="container">
+      <% if alert %>
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <strong><%= alert %></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
       </div>
+      <% end %>
+      <% if notice %>
+      <div class="alert alert-warning alert-dismissible" role="alert">
+        <strong><%= notice %></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <% end %>
 
+    </div>
+
+    <main role="main">
+      <%= yield %>
     </main>
 
     <footer class="container">
-      <p>
-        <small><%= t '.disclaimer' %></small>
-      </p>
+      <hr />
+      <%= t('.disclaimer') %>
     </footer>
 </body>
 </html>

@@ -63,6 +63,7 @@ GEM
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.3, < 2)
       sass (>= 3.5.2)
+    bootstrap-toggle-rails (2.2.1.0)
     builder (3.2.3)
     byebug (9.1.0)
     capybara (2.15.4)
@@ -98,6 +99,7 @@ GEM
       thor (~> 0.19.4)
       tins (~> 1.6)
     crass (1.0.2)
+    dalli (2.7.6)
     devise (4.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -342,12 +344,14 @@ PLATFORMS
 DEPENDENCIES
   annotate
   bootstrap (~> 4.0.0.beta2.1)
+  bootstrap-toggle-rails
   byebug
   capybara (~> 2.13)
   capybara-webkit
   ckeditor!
   coffee-rails (~> 4.2)
   coveralls
+  dalli
   devise (~> 4.3)
   devise-bootstrap-views
   devise-two-factor
