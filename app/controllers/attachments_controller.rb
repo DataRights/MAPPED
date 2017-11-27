@@ -70,8 +70,9 @@ class AttachmentsController < ApplicationController
     end
   end
 
-
   def post_content
+    @attachment.title = params['image'].original_filename
+    @attachment.content_type = params['image'].content_type
     @attachment.content = params['image'].tempfile.read
     @attachment.save!
     render json: {}, status: :ok
