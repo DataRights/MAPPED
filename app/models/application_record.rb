@@ -1,10 +1,10 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
-  after_create :invalidate_count_cache
-  after_destroy :invalidate_count_cache
+  before_create :invalidate_count_cache
+  before_destroy :invalidate_count_cache
 
-  def self.count
+  def self.cached_count
     Rails.cache.fetch("#{ancestors.first.name}/count", expires_in: 120.minutes) do
       super
     end
