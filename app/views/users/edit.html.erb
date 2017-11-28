@@ -1,0 +1,105 @@
+<div class="container" style="padding-top: 3em;">
+  <h1 class="display-4"><%= t('.title') %></h1>
+  <br />
+  <h3><%= t('.terms_title') %></h3>
+  <p>
+    <%= t('.terms_of_service').html_safe %>
+  </p>
+  <div class="col-md-8">
+    <%= form_for(@user, url: users_profile_path(:user)) do |f| %>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <%= f.check_box :terms_of_service  %> I agree to the conditions above.
+        </div>
+      </div>
+
+      <div class="form-row" style="padding-top: 1em">
+        <div class="form-group col-md-12">
+          <%= f.label :first_name %>
+          <%= image_tag "info_with_circle.svg", height: 16, style: 'cursor: pointer', role: 'button', :"data-toggle" => 'popover', :"data-content" => t('.first_name_help_content'), :"data-original-title" => t('.first_name_help_title'), :"aria-describedby" => 'popover769085' %>
+          <br />
+          <%= f.text_field :first_name, class:"form-control w-50" %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <%= f.label :last_name %>
+          <%= image_tag "info_with_circle.svg", height: 16, style: 'cursor: pointer', role: 'button', :"data-toggle" => 'popover', :"data-content" => t('.last_name_help_content'), :"data-original-title" => t('.last_name_help_title'), :"aria-describedby" => 'popover769085' %>
+          <br />
+          <%= f.text_field :last_name, class:"form-control w-50" %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <%= f.label :preferred_language %>
+          <%= image_tag "info_with_circle.svg", height: 16, style: 'cursor: pointer', role: 'button', :"data-toggle" => 'popover', :"data-content" => t('.lang_help_content'), :"data-original-title" => t('.lang_help_title'), :"aria-describedby" => 'popover769085' %>
+          <br />
+          <%= f.select(:preferred_language, [['English', 'en'], ['Dutch', 'nl']], {}, {class: "form-control w-50"}) %>
+        </div>
+      </div>
+
+      <br />
+      <fieldset>
+        <legend>Notification Settings <%= image_tag "info_with_circle.svg", height: 16, style: 'cursor: pointer', role: 'button', :"data-toggle" => 'popover', :"data-content" => t('.notification_help_content'), :"data-original-title" => t('.notification_help_title'), :"aria-describedby" => 'popover769085' %></legend>
+        <br />
+        <div class="form-row" data-turbolinks="false">
+          <div class="form-group col-md-12">
+            <%= f.collection_check_boxes(:notification_setting_ids, NotificationSetting.all, :id, :name) do |b| %>
+              <%= b.label class: "d-block", :"data-value" => b.value do %>
+                <%= b.check_box(class: "toggle", :"data-value" => b.value, :"data-toggle" => 'toggle', :"data-onstyle" => 'success', :"data-offstyle" => 'danger') + "&nbsp; &nbsp;".html_safe + b.text %>
+              <% end %>
+            <% end %>
+          </div>
+          <script type="text/javascript">
+            $('input[type="checkbox"].toggle').bootstrapToggle(); // assumes the checkboxes have the class "toggle" to fix problem with turbolinks
+          </script>
+        </div>
+      </fieldset>
+
+      <br />
+      <fieldset>
+        <legend>Address <%= image_tag "info_with_circle.svg", height: 16, style: 'cursor: pointer', role: 'button', :"data-toggle" => 'popover', :"data-content" => t('.address_help_content'), :"data-original-title" => t('.address_help_title'), :"aria-describedby" => 'popover769085' %></legend>
+          <br />
+            <%= fields_for(@user.addresses.last) do |a| %>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <%= a.label :line1 %><br />
+                  <%= a.text_field :line1, class:"form-control" %>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <%= a.label :line2 %><br />
+                  <%= a.text_field :line2, class:"form-control" %>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-2">
+                  <%= a.label :post_code %><br />
+                  <%= a.text_field :post_code, class:"form-control" %>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <%= a.label :city %><br />
+                  <%= a.text_field :city, class:"form-control" %>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <%= a.label :country %><br />
+                  <%= a.collection_select(:country_id, Country.all, :id, :name, {}, {:class => 'form-control'}) %>
+                </div>
+              </div>
+
+            <% end %>
+      </fieldset>
+
+        <%= f.submit t('.submit'), class: "btn btn-primary" %>
+
+    <% end %>
+  </div>
+</div>

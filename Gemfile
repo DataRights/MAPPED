@@ -6,63 +6,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# Begin gems added for MAPPED project #
-
-# Use devise for user management and authentication solution
-gem 'devise', '~> 4.3'
-
-# theme for devise
-gem 'devise-bootstrap-views'
-
-# Devise-Two-Factor is a minimalist extension to Devise which offers support for two-factor authentication, through the TOTP scheme.
-gem 'devise-two-factor'
-
-#An invitation strategy for devise
-gem 'devise_invitable', '~> 1.7.0'
-
-# For generating devise-two-factor QRCodes
-gem 'rqrcode-rails3'
-
-# Use annotate to insert column names in model
-gem 'annotate'
-
-# Use simplecov for code coverage reports
-gem 'simplecov', :group => :test
-
-# You never have to implement CRUD again! lazy/happy programming ...
-gem 'rails_admin'
-
-# Bootstrap JavaScript depends on jQuery. If you're using Rails 5.1+, add the jquery-rails gem to your Gemfile:
-gem 'jquery-rails'
-
-# This theme provide a modern override of default bootstrap 3 rails_admin theme. Its provides news colors, adjustments and a brand new tree view menu.
-gem 'rails_admin_rollincode'
-
-# Bootstrap 4 ruby gem for Ruby on Rails (Sprockets) and Hanami (formerly Lotus).
-gem 'bootstrap', '~> 4.0.0.beta2.1'
-
-group :development do
-  # https://github.com/jish/pre-commit
-  # A better pre-commit hook for git.
-  gem "pre-commit", require: false
-  gem "rubocop", require: false
-
-  # generate a diagram based on your application's Active Record models
-  gem 'rails-erd', require: false
-end
-
-# deliver code confidently by showing which parts of your code aren’t covered by your test suite.
-gem 'coveralls', require: false
-
-# for sending emails
-gem 'sendgrid-ruby'
-
-# Ruby/Graphviz provides an interface to layout and generate images of directed graphs in a variety of formats (PostScript, PNG, etc.) using GraphViz.
-gem 'ruby-graphviz', '~> 1.2', '>= 1.2.3'
-
-# End gems for MAPPED project #
-
-
 # Begin Default rails gems #
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -115,6 +58,60 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # End Default rails gems #
 
+# Begin gems added for MAPPED project #
+
+# Use devise for user management and authentication solution
+gem 'devise', '~> 4.3'
+
+# theme for devise
+gem 'devise-bootstrap-views'
+
+# Devise-Two-Factor is a minimalist extension to Devise which offers support for two-factor authentication, through the TOTP scheme.
+gem 'devise-two-factor'
+
+# For generating devise-two-factor QRCodes
+gem 'rqrcode-rails3'
+
+# Use annotate to insert column names in model
+gem 'annotate'
+
+# Use simplecov for code coverage reports
+gem 'simplecov', :group => :test
+
+# You never have to implement CRUD again! lazy/happy programming ...
+gem 'rails_admin'
+
+# Bootstrap JavaScript depends on jQuery. If you're using Rails 5.1+, add the jquery-rails gem to your Gemfile:
+gem 'jquery-rails'
+
+# This theme provide a modern override of default bootstrap 3 rails_admin theme. Its provides news colors, adjustments and a brand new tree view menu.
+gem 'rails_admin_rollincode'
+
+# Bootstrap 4 ruby gem for Ruby on Rails (Sprockets) and Hanami (formerly Lotus).
+gem 'bootstrap', '~> 4.0.0.beta2.1'
+
+# Bootstrap Toggle is a highly flexible Bootstrap plugin that converts checkboxes into toggles.
+gem 'bootstrap-toggle-rails'
+
+group :development do
+  # https://github.com/jish/pre-commit
+  # A better pre-commit hook for git.
+  gem "pre-commit", require: false
+  gem "rubocop", require: false
+
+  # generate a diagram based on your application's Active Record models
+  gem 'rails-erd', require: false
+end
+
+# deliver code confidently by showing which parts of your code aren’t covered by your test suite.
+gem 'coveralls', require: false
+
+# for sending emails
+gem 'sendgrid-ruby'
+
+# Ruby/Graphviz provides an interface to layout and generate images of directed graphs in a variety of formats (PostScript, PNG, etc.) using GraphViz.
+gem 'ruby-graphviz', '~> 1.2', '>= 1.2.3'
+
 gem 'liquid'
 
 gem 'ckeditor', github: 'galetahub/ckeditor'
@@ -128,3 +125,6 @@ gem 'sidekiq'
 gem 'redis'
 
 gem 'rmagick'
+
+# For memcached
+gem 'dalli'

@@ -2,10 +2,11 @@
 #
 # Table name: notification_settings
 #
-#  id         :integer          not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                :integer          not null, primary key
+#  name              :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  notification_type :string
 #
 
 class NotificationSetting < ApplicationRecord

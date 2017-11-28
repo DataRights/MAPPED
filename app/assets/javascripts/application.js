@@ -18,4 +18,5 @@
 //= require pdf
 //= require pdf.worker
 //= require bootstrap-sprockets
+//= require bootstrap-toggle
 //= require_tree .
