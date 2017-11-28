@@ -300,6 +300,8 @@ ActiveRecord::Schema.define(version: 20171127062748) do
     t.text "custom_1"
     t.text "custom_2"
     t.text "custom_3"
+    t.boolean "terms_of_service", default: false
+    t.datetime "terms_of_service_acceptance_date"
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -308,8 +310,6 @@ ActiveRecord::Schema.define(version: 20171127062748) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.boolean "terms_of_service", default: false
-    t.datetime "terms_of_service_acceptance_date"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"

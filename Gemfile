@@ -69,6 +69,9 @@ gem 'devise-bootstrap-views'
 # Devise-Two-Factor is a minimalist extension to Devise which offers support for two-factor authentication, through the TOTP scheme.
 gem 'devise-two-factor'
 
+#An invitation strategy for devise
+gem 'devise_invitable', '~> 1.7.0'
+
 # For generating devise-two-factor QRCodes
 gem 'rqrcode-rails3'
 
