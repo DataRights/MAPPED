@@ -57,4 +57,30 @@ class AttachmentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'test', response.body
   end
 
+  test "should post attachment content" do
+    image_file = fixture_file_upload('files/Testing.jpg','image/jpeg')
+    post post_content_path(@attachment), params: {image: image_file}
+    assert_response :success
+    assert_equal '{}', response.body
+    @attachment.reload
+    assert_equal @attachment.content, image_file.tempfile.read
+  end
+
+  test "should create new attachment by posting new content" do
+    image_file = fixture_file_upload('files/Testing.jpg','image/jpeg')
+
+    assert_difference('Attachment.count') do
+      post new_content_path, params: {image: image_file, workflow_transition_id: WorkflowTransition.first.id}
+    end
+  end
+
+  test 'should return thumbnail' do
+    image_file = file_fixture('Testing.jpg')
+    @attachment.content = image_file.read
+    @attachment.save!
+    get thumbnail_path(@attachment)
+    assert_response :success
+    assert_equal @attachment.content_type, response.content_type
+  end
+
 end
