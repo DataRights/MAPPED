@@ -9,7 +9,8 @@
 #  delivered       :datetime
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  email_type      :integer          default("realtime"), not null
+#  email_type      :integer          default("instantly"), not null
+#  error_log       :string
 #
 
 require 'test_helper'

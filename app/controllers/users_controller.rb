@@ -11,4 +11,11 @@ class UsersController < ApplicationController
 
   def tfa
   end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+  end
 end

@@ -2,50 +2,52 @@
 #
 # Table name: users
 #
-#  id                        :integer          not null, primary key
-#  email                     :string           default(""), not null
-#  encrypted_password        :string           default(""), not null
-#  reset_password_token      :string
-#  reset_password_sent_at    :datetime
-#  remember_created_at       :datetime
-#  sign_in_count             :integer          default(0), not null
-#  current_sign_in_at        :datetime
-#  last_sign_in_at           :datetime
-#  current_sign_in_ip        :inet
-#  last_sign_in_ip           :inet
-#  confirmation_token        :string
-#  confirmed_at              :datetime
-#  confirmation_sent_at      :datetime
-#  failed_attempts           :integer          default(0), not null
-#  unlock_token              :string
-#  locked_at                 :datetime
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  unconfirmed_email         :string
-#  encrypted_otp_secret      :string
-#  encrypted_otp_secret_iv   :string
-#  encrypted_otp_secret_salt :string
-#  consumed_timestep         :integer
-#  otp_required_for_login    :boolean
-#  first_name                :string
-#  last_name                 :string
-#  preferred_language        :string
-#  custom_1                  :text
-#  custom_2                  :text
-#  custom_3                  :text
+#  id                               :integer          not null, primary key
+#  email                            :string           default(""), not null
+#  encrypted_password               :string           default(""), not null
+#  reset_password_token             :string
+#  reset_password_sent_at           :datetime
+#  remember_created_at              :datetime
+#  sign_in_count                    :integer          default(0), not null
+#  current_sign_in_at               :datetime
+#  last_sign_in_at                  :datetime
+#  current_sign_in_ip               :inet
+#  last_sign_in_ip                  :inet
+#  confirmation_token               :string
+#  confirmed_at                     :datetime
+#  confirmation_sent_at             :datetime
+#  failed_attempts                  :integer          default(0), not null
+#  unlock_token                     :string
+#  locked_at                        :datetime
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
+#  unconfirmed_email                :string
+#  encrypted_otp_secret             :string
+#  encrypted_otp_secret_iv          :string
+#  encrypted_otp_secret_salt        :string
+#  consumed_timestep                :integer
+#  otp_required_for_login           :boolean
+#  first_name                       :string
+#  last_name                        :string
+#  preferred_language               :string
+#  custom_1                         :text
+#  custom_2                         :text
+#  custom_3                         :text
+#  terms_of_service                 :boolean          default(FALSE)
+#  terms_of_service_acceptance_date :datetime
 #
 
 class User < ApplicationRecord
 
   # Configuration for TOTP
-  devise :two_factor_authenticatable,
+  devise :invitable, :two_factor_authenticatable,
          :otp_secret_encryption_key => ENV['MAPPED_TOTP_ENCRYPTION_KEY']
 
   attribute :otp_secret
 
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable and :omniauthable
-	devise :registerable,
+	devise :invitable, :registerable,
 		   :recoverable, :rememberable, :trackable, :validatable,
 		   :confirmable, :lockable
 
@@ -55,6 +57,7 @@ class User < ApplicationRecord
   has_many :answers, as: :answerable, :dependent => :destroy
   has_many :notifications, :dependent => :destroy
   has_and_belongs_to_many :notification_settings, :dependent => :destroy
+  has_and_belongs_to_many :campaigns
   has_many :tags, :as => :tagable
 
   before_create :add_default_notification_settings

@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: attachments
+#
+#  id                     :integer          not null, primary key
+#  title                  :string
+#  content_type           :string
+#  content                :binary
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  workflow_transition_id :integer
+#
+
 require 'test_helper'
 
 class AttachmentTest < ActiveSupport::TestCase

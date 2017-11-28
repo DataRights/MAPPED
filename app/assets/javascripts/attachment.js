@@ -17,6 +17,15 @@ function newFileSelected() {
   var selectedFile = document.getElementById('new_file').files[0]
   if (selectedFile) {
     if (selectedFile.type == 'application/pdf')   {
+      var fileTypeElement = document.getElementById("content_type");
+      if  (fileTypeElement) {
+        fileTypeElement.value = 'image/jpeg'
+      }
+      var fileName = selectedFile.name
+      var fileNameElement = document.getElementById("title");
+      if  (fileName && fileNameElement) {
+        fileNameElement.value = fileName
+      }
       convertPDF(URL.createObjectURL(selectedFile))
     } else {
       var reader = new FileReader();
