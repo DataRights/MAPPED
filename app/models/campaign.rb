@@ -15,6 +15,7 @@ class Campaign < ApplicationRecord
   has_many :access_requests
   has_and_belongs_to_many :questions
   has_many :answers, as: :answerable
+  has_and_belongs_to_many :users
   after_create :invalidate_top_three
   after_destroy :invalidate_top_three
 

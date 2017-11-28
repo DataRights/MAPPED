@@ -113,6 +113,9 @@ GEM
       devise (~> 4.0)
       railties
       rotp (~> 2.0)
+    devise_invitable (1.7.2)
+      actionmailer (>= 4.1.0)
+      devise (>= 4.0.0)
     docile (1.1.5)
     encryptor (3.0.0)
     erubi (1.7.0)
@@ -355,6 +358,7 @@ DEPENDENCIES
   devise (~> 4.3)
   devise-bootstrap-views
   devise-two-factor
+  devise_invitable (~> 1.7.0)
   jbuilder (~> 2.5)
   jquery-rails
   liquid
