@@ -81,6 +81,11 @@ RailsAdmin.config do |config|
     weight 5
   end
 
+  config.model Comment do
+    navigation_label 'General'
+    weight 6
+  end
+
   config.model TemplateVersion do
     parent Template
     edit do
@@ -191,5 +196,14 @@ RailsAdmin.config do |config|
   config.model NotificationSetting do
     parent Notification
   end
+
+  config.model Attachment do
+    parent AccessRequest
+  end
+
+  config.model Tag do
+    parent Comment
+  end
+
 
 end

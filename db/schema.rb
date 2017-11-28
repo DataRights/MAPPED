@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127062748) do
+ActiveRecord::Schema.define(version: 20171128122258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,17 @@ ActiveRecord::Schema.define(version: 20171127062748) do
     t.index ["code_action_id", "transition_id"], name: "index_actions_transitions_on_action_id_and_transition_id"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "countries", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -230,6 +241,15 @@ ActiveRecord::Schema.define(version: 20171127062748) do
     t.index ["template_id"], name: "index_sectors_templates_on_template_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.string "tagable_type"
+    t.bigint "tagable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tagable_type", "tagable_id"], name: "index_tags_on_tagable_type_and_tagable_id"
+  end
+
   create_table "template_versions", force: :cascade do |t|
     t.string "version"
     t.bigint "template_id"
@@ -300,8 +320,6 @@ ActiveRecord::Schema.define(version: 20171127062748) do
     t.text "custom_1"
     t.text "custom_2"
     t.text "custom_3"
-    t.boolean "terms_of_service", default: false
-    t.datetime "terms_of_service_acceptance_date"
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -310,6 +328,8 @@ ActiveRecord::Schema.define(version: 20171127062748) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.boolean "terms_of_service", default: false
+    t.datetime "terms_of_service_acceptance_date"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
@@ -388,6 +408,7 @@ ActiveRecord::Schema.define(version: 20171127062748) do
   add_foreign_key "addresses", "countries"
   add_foreign_key "attachments", "workflow_transitions"
   add_foreign_key "cities", "countries"
+  add_foreign_key "comments", "users"
   add_foreign_key "email_notifications", "notifications"
   add_foreign_key "notifications", "access_requests"
   add_foreign_key "notifications", "users"

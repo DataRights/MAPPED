@@ -58,6 +58,8 @@ class User < ApplicationRecord
   has_many :notifications, :dependent => :destroy
   has_and_belongs_to_many :notification_settings, :dependent => :destroy
   has_and_belongs_to_many :campaigns
+  has_many :tags, :as => :tagable
+  has_many :comments
 
   before_create :add_default_notification_settings
 

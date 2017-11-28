@@ -19,6 +19,8 @@ class Organization < ApplicationRecord
   belongs_to :sector
   has_many :addresses, as: :addressable
   has_and_belongs_to_many :campaigns
+  has_many :tags, :as => :tagable
+  has_many :comments, :as => :commentable
 
   def context_value
     result = { 'name' => name }
