@@ -18,6 +18,7 @@ class AccessRequest < ApplicationRecord
   belongs_to :user
   belongs_to :campaign
   has_many :tags, :as => :tagable
+  has_many :comments, :as => :commentable
 
   validates :user, :organization, presence: true
 
