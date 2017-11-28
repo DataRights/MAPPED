@@ -6,7 +6,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   def self.cached_count
     Rails.cache.fetch("#{ancestors.first.name}/count", expires_in: 120.minutes) do
-      super
+      "#{ancestors.first.name}".constantize.count
     end
   end
 
