@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128120229) do
+ActiveRecord::Schema.define(version: 20171128122258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,7 +136,9 @@ ActiveRecord::Schema.define(version: 20171128120229) do
     t.bigint "commentable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -406,6 +408,7 @@ ActiveRecord::Schema.define(version: 20171128120229) do
   add_foreign_key "addresses", "countries"
   add_foreign_key "attachments", "workflow_transitions"
   add_foreign_key "cities", "countries"
+  add_foreign_key "comments", "users"
   add_foreign_key "email_notifications", "notifications"
   add_foreign_key "notifications", "access_requests"
   add_foreign_key "notifications", "users"
