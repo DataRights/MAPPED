@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'consent/show/:id', to: 'consent#show'
+
   get 'access_requests/index'
 
   get 'access_requests/new'

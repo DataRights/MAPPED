@@ -1,16 +1,12 @@
 <div class="container" style="padding-top: 3em;">
   <h1 class="display-4"><%= t('.title') %></h1>
   <br />
-  <h3><%= t('.terms_title') %></h3>
-  <p>
-    <%= t('.terms_of_service').html_safe %>
-  </p>
   <div class="col-md-8">
     <%= form_for(@user, url: users_profile_path(:user)) do |f| %>
 
       <div class="form-row">
         <div class="form-group col-md-12">
-          <%= f.check_box :terms_of_service  %> I agree to the conditions above.
+          <!-- f.check_box :terms_of_service I agree to the conditions above. -->
         </div>
       </div>
 

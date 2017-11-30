@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128122258) do
+ActiveRecord::Schema.define(version: 20171130094805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(version: 20171128122258) do
     t.text "expanded_description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "terms_of_service_id"
+    t.index ["terms_of_service_id"], name: "index_campaigns_on_terms_of_service_id"
   end
 
   create_table "campaigns_organizations", id: false, force: :cascade do |t|
@@ -270,6 +272,16 @@ ActiveRecord::Schema.define(version: 20171128122258) do
     t.integer "template_type"
   end
 
+  create_table "terms_of_services", force: :cascade do |t|
+    t.bigint "template_id"
+    t.string "title", null: false
+    t.integer "type_of", null: false
+    t.boolean "mandatory", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["template_id"], name: "index_terms_of_services_on_template_id"
+  end
+
   create_table "transitions", force: :cascade do |t|
     t.string "name"
     t.bigint "from_state_id"
@@ -289,6 +301,17 @@ ActiveRecord::Schema.define(version: 20171128122258) do
     t.index ["role_id"], name: "index_user_roles_on_role_id"
     t.index ["user_id", "role_id"], name: "index_user_roles_on_user_id_and_role_id", unique: true
     t.index ["user_id"], name: "index_user_roles_on_user_id"
+  end
+
+  create_table "user_terms_of_services", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "terms_of_service_id"
+    t.boolean "approved"
+    t.datetime "approved_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["terms_of_service_id"], name: "index_user_terms_of_services_on_terms_of_service_id"
+    t.index ["user_id"], name: "index_user_terms_of_services_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -409,6 +432,7 @@ ActiveRecord::Schema.define(version: 20171128122258) do
   add_foreign_key "addresses", "cities"
   add_foreign_key "addresses", "countries"
   add_foreign_key "attachments", "workflow_transitions"
+  add_foreign_key "campaigns", "terms_of_services"
   add_foreign_key "cities", "countries"
   add_foreign_key "comments", "users"
   add_foreign_key "email_notifications", "notifications"
@@ -416,10 +440,13 @@ ActiveRecord::Schema.define(version: 20171128122258) do
   add_foreign_key "notifications", "users"
   add_foreign_key "organizations", "sectors"
   add_foreign_key "template_versions", "templates"
+  add_foreign_key "terms_of_services", "templates"
   add_foreign_key "transitions", "workflow_states", column: "from_state_id"
   add_foreign_key "transitions", "workflow_states", column: "to_state_id"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
+  add_foreign_key "user_terms_of_services", "terms_of_services"
+  add_foreign_key "user_terms_of_services", "users"
   add_foreign_key "web_notifications", "notifications"
   add_foreign_key "workflow_states", "workflow_type_versions"
   add_foreign_key "workflow_transitions", "code_actions", column: "failed_action_id"

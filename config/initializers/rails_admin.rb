@@ -205,5 +205,13 @@ RailsAdmin.config do |config|
     parent Comment
   end
 
+  config.model TermsOfService do
+    parent User
+  end
+
+  config.model UserTermsOfService do
+    parent User
+  end
+
 
 end

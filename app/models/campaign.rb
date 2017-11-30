@@ -8,6 +8,7 @@
 #  expanded_description :text
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  terms_of_service_id  :integer
 #
 
 class Campaign < ApplicationRecord
@@ -16,6 +17,7 @@ class Campaign < ApplicationRecord
   has_and_belongs_to_many :questions
   has_many :answers, as: :answerable
   has_and_belongs_to_many :users
+  belongs_to :terms_of_service, optional: true
   after_create :invalidate_top_three
   after_destroy :invalidate_top_three
 
