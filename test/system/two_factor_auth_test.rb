@@ -23,9 +23,9 @@ class TwoFactorAuthTest < ApplicationSystemTestCase
 
     # TODO: The rest of test fails on travis CI for no reason!
     # ignoring linux OS which travis CI uses
-    unless OS.mac?
-      assert true
-    end
+    # unless OS.mac?
+    #   assert true
+    # end
 
     # 1. Login
     assert_nil @user.encrypted_otp_secret # OTP is not enabled for user
