@@ -1,2 +1,76 @@
-<h1>AccessRequests#new</h1>
-<p>Find me in app/views/access_requests/new.html.erb</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3><%= @campaign_name %><small>(<%@campaign_count%>)</small></h3>
+            <p><%= @campaign_dec %> </p>
+        </div>
+        <div class="col-md-8">
+            <h3>Create new access request</h3>
+
+            <form>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Sector</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option>Telecom companies</option>
+                        <option selected>Banks</option>
+                        <option>Public transport</option>
+                        <option>City halls</option>
+                        <option>Schools</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2">Organisation</label>
+                    <select class="form-control" id="exampleFormControlSelect2">
+                        <option selected>ABN AMRO</option>
+                        <option>ING</option>
+                        <option>Rabobank</option>
+                    </select>
+                </div>
+                <small><a href="#">Click here</a> for more information about the selected organization on our wiki page.</small><br/><br/>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Text of access request</label>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"> Standard text
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" checked> Expanded text
+                        </label>
+                    </div><br/>
+                    <div id="summernote"></div>
+                    <script>
+                      	var markupStr = '<p>Dear Sir/Madam,<br><br>This is the text of the access request to be customized by the participant. This is the text of the access request to be customized by the participant. This is the text of the access request to be customized by the participant. This is the text of the access request to be customized by the participant. This is the text of the access request to be customized by the participant. This is the text of the access request to be customized by the participant.</p><p>Specifically I would like to receive information regarding this <span style="color: rgb(255, 0, 0); font-weight: bold;">type of data</span>, this <span style="color: rgb(255, 0, 0); font-weight: bold;">transaction</span>, and this <span style="font-weight: bold; color: rgb(255, 0, 0);">personal number</span>.<br><br>Kind regards,<br><br>Firstname Lastname</p>';
+
+                        $('#summernote').summernote({
+                          toolbar: [
+                            // [groupName, [list of button]]
+                            ['style', ['bold', 'italic', 'underline', 'clear']],
+                            ['font', ['strikethrough', 'superscript', 'subscript']],
+                            ['fontsize', ['fontsize']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['height', ['height']]
+                          ]
+                        });
+                        $('#summernote').summernote('code', markupStr);
+                    </script>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect3">Date of sending</label><br/>
+                    <input id="date" type="date">
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Do not forget to attach a copy of your passport/ID card to your access request.</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <a class="btn btn-primary" href="template3.html" role="button">Generate PDF</a>
+            </form>
+            <br/>
+        </div>
+    </div>
+    <hr>
+</div> <!-- /container -->
