@@ -7,24 +7,14 @@
         <div class="col-md-8">
             <h3>Create new access request</h3>
 
-            <form>
+            <%= form_tag({}, method: "get") do %>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Sector</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>Telecom companies</option>
-                        <option selected>Banks</option>
-                        <option>Public transport</option>
-                        <option>City halls</option>
-                        <option>Schools</option>
-                    </select>
+                    <%= label_tag(:sector_id, "Sector:") %>
+                    <%= select_tag(:sector_id, options_for_select(@sectors,@selected_sector)) %>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect2">Organisation</label>
-                    <select class="form-control" id="exampleFormControlSelect2">
-                        <option selected>ABN AMRO</option>
-                        <option>ING</option>
-                        <option>Rabobank</option>
-                    </select>
+                    <%= label_tag(:organization_id, "Organization:") %>
+                    <%= select_tag(:organization_id, options_for_select(@organizations,@selected_organization)) %>
                 </div>
                 <small><a href="#">Click here</a> for more information about the selected organization on our wiki page.</small><br/><br/>
                 <div class="form-group">
@@ -68,7 +58,7 @@
                     </button>
                 </div>
                 <a class="btn btn-primary" href="template3.html" role="button">Generate PDF</a>
-            </form>
+            <% end %>
             <br/>
         </div>
     </div>

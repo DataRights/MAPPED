@@ -1,4 +1,6 @@
 class AccessRequestsController < ApplicationController
+  include AccessRequestsHelper
+
   before_action :authenticate_user!
 
   def index
@@ -6,7 +8,7 @@ class AccessRequestsController < ApplicationController
 
   def new
     campaign_id = params[:campaign_id]
-    campaign_id = Campaign.find_by(:name => 'Default') unless campaign_id
+    campaign_id = Campaign.find_by(:name => Campaign::DEFAULT_CAMPAIGN_NAME) unless campaign_id
     unless campaign_id
       flash[:notice] = I18n.t('errors.campaign_not_found')
       redirect_to home_path and return
@@ -19,6 +21,13 @@ class AccessRequestsController < ApplicationController
     @campaign_name = @campaign.name
     @campaign_count = AccessRequest.where('campaign_id = ? AND user_id = ?', @campaign.id,current_user.id).count
     @campaign_desc = @campaign.expanded_description
+
+    @sectors = get_sectors(@campaign)
+    @selected_sector = @sectors.first
+
+    @organizations = get_organizations(@campaign, Sector.find_by_id(@selected_sector[1]))  if @selected_sector
+    @organizations ||= []
+    @selected_organization = @organizations.first
   end
 
   def create

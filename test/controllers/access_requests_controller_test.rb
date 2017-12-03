@@ -7,7 +7,7 @@ class AccessRequestsControllerTest < ActionDispatch::IntegrationTest
     @user = users(:test_user)
     @user.confirm
     sign_in @user
-    Campaign.create(:name => 'Default') unless Campaign.find_by(:name => 'Default')
+    Campaign.create(:name => Campaign::DEFAULT_CAMPAIGN_NAME) unless Campaign.find_by(:name => Campaign::DEFAULT_CAMPAIGN_NAME)
   end
 
   test "should get index" do
@@ -19,7 +19,7 @@ class AccessRequestsControllerTest < ActionDispatch::IntegrationTest
     get access_requests_new_url
     assert_response :success
 
-    
+
   end
 
   test "should get create" do
