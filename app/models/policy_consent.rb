@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: terms_of_services
+# Table name: policy_consents
 #
 #  id          :integer          not null, primary key
 #  template_id :integer
@@ -11,16 +11,9 @@
 #  updated_at  :datetime         not null
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  template: one
-  title: MyString
-  type_of: 1
-  mandatory: false
-
-two:
-  template: two
-  title: MyString
-  type_of: 1
-  mandatory: false
+class PolicyConsent < ApplicationRecord
+  belongs_to :template
+  has_many :campaigns
+  validates_presence_of :type_of, :title, :template_id
+  enum type_of:  [:campaign, :share_with_researchers, :share_in_forum]
+end

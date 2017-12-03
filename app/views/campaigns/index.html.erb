@@ -15,7 +15,9 @@
       <div class="col-md-4">
         <h3><%= c.name %></h3>
         <p><%= c.short_description %></p>
-        <p><a class="btn btn-secondary" href="#" role="button"><%= t('.join_campaign') %> &raquo;</a></p>
+        <p>
+          <%= link_to(t('.join_campaign'), user_profile_for_campaign_path(c), {"class": "btn btn-secondary"}) %>
+        </p>
       </div>
     </div>
   <% end %>

@@ -131,6 +131,3 @@ gem 'rmagick'
 
 # For memcached
 gem 'dalli'
-
-# detecting server OS, used in system tests
-gem 'os'

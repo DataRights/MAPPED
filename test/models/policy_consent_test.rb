@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: terms_of_services
+# Table name: policy_consents
 #
 #  id          :integer          not null, primary key
 #  template_id :integer
@@ -13,7 +13,7 @@
 
 require 'test_helper'
 
-class TermsOfServiceTest < ActiveSupport::TestCase
+class PolicyConsentTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

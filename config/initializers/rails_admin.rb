@@ -205,11 +205,11 @@ RailsAdmin.config do |config|
     parent Comment
   end
 
-  config.model TermsOfService do
+  config.model PolicyConsent do
     parent User
   end
 
-  config.model UserTermsOfService do
+  config.model UserPolicyConsent do
     parent User
   end
 

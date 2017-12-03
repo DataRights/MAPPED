@@ -1,6 +1,6 @@
-class CreateTermsOfServices < ActiveRecord::Migration[5.1]
+class CreatePolicyConsent < ActiveRecord::Migration[5.1]
   def change
-    create_table :terms_of_services do |t|
+    create_table :policy_consents do |t|
       t.references :template, foreign_key: true
       t.string :title, null: false
       t.integer :type_of, null: false

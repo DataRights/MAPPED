@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: user_policy_consents
+#
+#  id                :integer          not null, primary key
+#  user_id           :integer
+#  policy_consent_id :integer
+#  approved          :boolean
+#  approved_date     :datetime
+#  revoked_date      :datetime
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  policy_consent: one
+  approved:
+  approved_date:
+  revoked_date:
+
+two:
+  user: two
+  policy_consent: two
+  approved:
+  approved_date:
+  revoked_date:

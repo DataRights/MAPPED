@@ -42,11 +42,12 @@ class TemplateVersionTest < ActiveSupport::TestCase
   end
 
   test "render with context with user with address" do
-    template_content = "The address of {{ user.email }}\n line1 {{ user.addresses[0].line1 }}\n country  {{ user.addresses[0].country.name }}"
-    render_result    = "The address of test123@test.com\n line1 somewhere\n country  UK"
+    template_content = "The address of {{ user.email }}\n line1 {{ user&.address.line1 }}\n country {{ user&.address.country.name }}"
+    expected_render_result = "The address of test123@test.com\n line1 somewhere\n country UK"
     user = User.new(email: 'test123@test.com')
-    user.addresses << Address.new(line1: 'somewhere', country: Country.new(name: 'UK'))
-    assert_equal render_result, TemplateVersion.new(content: template_content).render(TemplateContext.new(user: user))
+    user.address = Address.new(line1: 'somewhere', country: Country.new(name: 'UK'))
+    actual_render_result = TemplateVersion.new(content: template_content).render(TemplateContext.new(user: user))
+    assert_equal expected_render_result, actual_render_result, "actual render result: #{actual_render_result}"
   end
 
   test "render with context with user with first_name and last_name" do

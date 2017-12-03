@@ -1,12 +1,21 @@
 <div class="container" style="padding-top: 3em;">
-  <h1 class="display-4"><%= t('.title') %></h1>
+  <h1 class="display-4"><%= @title %></h1>
   <br />
   <div class="col-md-8">
     <%= form_for(@user, url: users_profile_path(:user)) do |f| %>
 
       <div class="form-row">
         <div class="form-group col-md-12">
-          <!-- f.check_box :terms_of_service I agree to the conditions above. -->
+          <%= @content %>
+          <% if @content %>
+            <%= f.fields_for(:user_policy_consents, @upc) do |upc| %>
+              <%= upc.hidden_field(:id) %>
+              <%= upc.check_box :approved %> <%= t('.consent_check_box') %>
+              <% if @upc.approved %>
+                <%= t('.already_approved_at', approved_date: @upc.approved_date&.to_date) %>
+              <% end %>
+            <% end %>
+          <% end %>
         </div>
       </div>
 
@@ -59,7 +68,7 @@
       <fieldset>
         <legend>Address <%= image_tag "info_with_circle.svg", height: 16, style: 'cursor: pointer', role: 'button', :"data-toggle" => 'popover', :"data-content" => t('.address_help_content'), :"data-original-title" => t('.address_help_title'), :"aria-describedby" => 'popover769085' %></legend>
           <br />
-            <%= fields_for(@user.addresses.last) do |a| %>
+            <%= f.fields_for :address, @user.address || Address.new do |a| %>
               <div class="form-row">
                 <div class="form-group col-md-12">
                   <%= a.label :line1 %><br />
@@ -81,8 +90,8 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                  <%= a.label :city %><br />
-                  <%= a.text_field :city, class:"form-control" %>
+                  <%= a.label :city_name %><br />
+                  <%= a.text_field :city_name, class:"form-control" %>
                 </div>
 
                 <div class="form-group col-md-4">
@@ -93,6 +102,8 @@
 
             <% end %>
       </fieldset>
+
+        <%= f.hidden_field(:campaign_id, :value => @campaign_id) %>
 
         <%= f.submit t('.submit'), class: "btn btn-primary" %>
 
