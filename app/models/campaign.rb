@@ -8,6 +8,7 @@
 #  expanded_description :text
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  policy_consent_id    :integer
 #
 
 class Campaign < ApplicationRecord
@@ -16,12 +17,13 @@ class Campaign < ApplicationRecord
   has_and_belongs_to_many :questions
   has_many :answers, as: :answerable
   has_and_belongs_to_many :users
+  belongs_to :policy_consent, optional: true
   after_create :invalidate_top_three
   after_destroy :invalidate_top_three
 
   def context_value
     result = { 'name' => name.blank? ? '' : name }
-    result['short_description']  = short_description if short_description
+    result['short_description'] = short_description if short_description
     result['expanded_description'] = expanded_description if expanded_description
     result
   end

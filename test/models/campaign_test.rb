@@ -8,6 +8,7 @@
 #  expanded_description :text
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  policy_consent_id    :integer
 #
 
 require 'test_helper'

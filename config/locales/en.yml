@@ -101,9 +101,8 @@ en:
       join_campaign: 'Join campaign'
   users:
     edit:
-      title: 'Before you start...'
-      terms_title: 'Terms of service'
-      terms_of_service: "Lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla.<br /><br />Lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla.<br /><br />Lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla lorem ipsum blablabla."
+      title: 'Profile'
+      title_before_you_start: 'Before you start...'
       first_name_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
       first_name_help_title: 'Why do we ask for your first name?'
       last_name_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
@@ -115,6 +114,9 @@ en:
       lang_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
       lang_help_title: 'Why do we ask for your preferred language?'
       submit: 'Submit'
+      consent_check_box: 'I agree to the conditions above.'
+      already_approved_at: "(Consent already approved at: %{approved_date})"
+      profile_success: 'Profile information successfully updated!'
   helpers:
     label:
       user:

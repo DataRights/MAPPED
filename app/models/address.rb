@@ -18,6 +18,9 @@ class Address < ApplicationRecord
   belongs_to :city
   belongs_to :country
   belongs_to :addressable, polymorphic: true
+  before_validation :create_city
+
+  attr_accessor :city_name
 
   def context_value
     result = {
@@ -28,6 +31,24 @@ class Address < ApplicationRecord
     result['city'] = city.context_value if city
     result['country'] = country.context_value if country
     result
+  end
+
+  after_initialize do |address|
+    if address.city
+      address.city_name = address.city.name
+    end
+  end
+
+  def create_city
+    return if city_name.blank? or country_id.blank?
+    c = City.find_by name: city_name.capitalize
+    if c.nil?
+      c = City.new
+      c.country_id = self.country_id
+      c.name = city_name.capitalize
+      c.save!
+    end
+    self.city = c
   end
 
 end

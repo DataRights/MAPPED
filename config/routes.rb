@@ -13,7 +13,8 @@ Rails.application.routes.draw do
 
   get 'workflow/diagram/:id', to: 'workflow#diagram'
 
-  get 'users/profile/edit', to: 'users#edit'
+  get 'user/profile/edit', to: 'users#edit'
+  get 'user/profile/campaign/:campaign_id', to: 'users#edit', as: 'user_profile_for_campaign'
   match 'users/profile', to: 'users#update', via: [:patch, :put]
   get 'users/tfa'
   post 'users/enable_otp'
