@@ -15,5 +15,5 @@ class Template < ApplicationRecord
   has_many :tags, :as => :tagable
   has_many :comments, :as => :commentable
 
-  enum template_type:  [:access_request, :reminder, :followup, :custom, :notification]
+  enum template_type:  [:access_request, :reminder, :followup, :custom, :notification, :terms_of_service]
 end

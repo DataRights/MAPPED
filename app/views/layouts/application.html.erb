@@ -51,7 +51,7 @@
                 <a class="nav-link disabled" href="#"><%= t '.help_desk' %></a>
               </li>
               <li class="nav-item">
-                <%= link_to t('.my_profile'), :users_profile_edit, class:"nav-link disabled" %>
+                <%= link_to t('.my_profile'), :user_profile_edit, class:"nav-link disabled" %>
               </li>
               <% if current_user.can?(:admin_login) %>
               <li class="nav-item">
@@ -81,6 +81,14 @@
       <% if notice %>
       <div class="alert alert-warning alert-dismissible" role="alert">
         <strong><%= notice %></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <% end %>
+      <% if flash[:success] %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <strong><%= flash[:success] %></strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>

@@ -33,6 +33,14 @@
 #  custom_1                         :text
 #  custom_2                         :text
 #  custom_3                         :text
+#  invitation_token                 :string
+#  invitation_created_at            :datetime
+#  invitation_sent_at               :datetime
+#  invitation_accepted_at           :datetime
+#  invitation_limit                 :integer
+#  invited_by_type                  :string
+#  invited_by_id                    :integer
+#  invitations_count                :integer          default(0)
 #  terms_of_service                 :boolean          default(FALSE)
 #  terms_of_service_acceptance_date :datetime
 #
@@ -53,15 +61,21 @@ class User < ApplicationRecord
 
 	has_many :user_roles, :dependent => :destroy
 	has_many :roles, through: :user_roles, :dependent => :destroy
-  has_many :addresses, as: :addressable, :dependent => :destroy
+  has_one :address, as: :addressable, :dependent => :destroy
   has_many :answers, as: :answerable, :dependent => :destroy
   has_many :notifications, :dependent => :destroy
   has_and_belongs_to_many :notification_settings, :dependent => :destroy
   has_and_belongs_to_many :campaigns
   has_many :tags, :as => :tagable
   has_many :comments
+  has_many :user_policy_consents
 
   before_create :add_default_notification_settings
+
+  accepts_nested_attributes_for :address
+  accepts_nested_attributes_for :user_policy_consents
+
+  attr_accessor :campaign_id
 
   def add_default_notification_settings
     if notification_settings.nil? or notification_settings.count == 0
@@ -76,7 +90,7 @@ class User < ApplicationRecord
 
 	def context_value
 		result = { 'email' => email }
-    result['addresses'] = addresses.map(&:context_value) unless addresses.blank?
+    result['address'] = address.context_value if address
     result['first_name'] = first_name if first_name
     result['last_name'] = last_name if last_name
     result['custom_1'] = custom_1 if custom_1

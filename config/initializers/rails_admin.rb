@@ -205,5 +205,13 @@ RailsAdmin.config do |config|
     parent Comment
   end
 
+  config.model PolicyConsent do
+    parent User
+  end
+
+  config.model UserPolicyConsent do
+    parent User
+  end
+
 
 end
