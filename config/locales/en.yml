@@ -51,6 +51,7 @@ en:
     attachment_max_size: 'maximum attachment size is 500k'
   errors:
     transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
+    campaign_not_found: 'Campaign is not found'
   workflow:
     no_state_to_generate_diagram: 'Workflow has no state to generate a diagram!'
     generate_diagram: 'Generate Diagram'
