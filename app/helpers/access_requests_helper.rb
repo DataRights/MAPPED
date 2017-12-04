@@ -6,7 +6,7 @@ module AccessRequestsHelper
     campaign.organizations.map(&:sector).map {|sector| [sector.name, sector.id]}.uniq
   end
 
-  def get_organizations(campaign, sector)
+  def get_campaign_organizations(campaign, sector)
     return [] unless campaign
     return [] unless campaign.is_a? Campaign
     return [] unless sector

@@ -1,0 +1,16 @@
+$(document).ready(function(){
+  $("#sector_id").on('change', function(){
+    $.ajax({
+      url: "<%= Rails.configuration.base_protocol %>://<%= Rails.configuration.base_url %>/campaigns/" + $("#campaign_id").val() + "/organizations/" + $(this).val(),
+      type: "GET",
+      success: function(e) {
+        $("#organization_id").children().remove();
+        var listitems = [];
+        $.each(e,function(key, value){
+          listitems += '<option value="' + value[1]+ '">' + value[0] + '</option>';
+        });
+        $("#organization_id").append(listitems);
+      }
+    })
+  });
+});

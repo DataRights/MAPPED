@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
   get 'access_requests/index'
-
   get 'access_requests/new'
-
   get 'access_requests/create'
 
   get 'campaigns', to: 'campaigns#index'
+  get 'campaigns/:id/organizations/:sector_id', to: 'campaigns#get_organizations', as: 'get_campaign_organizations'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

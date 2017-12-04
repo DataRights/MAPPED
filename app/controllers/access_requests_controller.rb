@@ -18,6 +18,7 @@ class AccessRequestsController < ApplicationController
       flash[:notice] = I18n.t('errors.campaign_not_found')
       redirect_to home_path and return
     end
+    @campaign_id = @campaign.id
     @campaign_name = @campaign.name
     @campaign_count = AccessRequest.where('campaign_id = ? AND user_id = ?', @campaign.id,current_user.id).count
     @campaign_desc = @campaign.expanded_description
@@ -25,7 +26,7 @@ class AccessRequestsController < ApplicationController
     @sectors = get_sectors(@campaign)
     @selected_sector = @sectors.first
 
-    @organizations = get_organizations(@campaign, Sector.find_by_id(@selected_sector[1]))  if @selected_sector
+    @organizations = get_campaign_organizations(@campaign, Sector.find_by_id(@selected_sector[1]))  if @selected_sector
     @organizations ||= []
     @selected_organization = @organizations.first
   end

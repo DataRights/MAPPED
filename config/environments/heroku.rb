@@ -111,4 +111,5 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :sidekiq
   config.base_url = 'mapped-web.herokuapp.com'
+  config.base_protocol = 'http'
 end

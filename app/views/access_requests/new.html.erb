@@ -8,6 +8,7 @@
             <h3>Create new access request</h3>
 
             <%= form_tag({}, method: "get") do %>
+                <%= hidden_field_tag(:campaign_id,@campaign_id) %>
                 <div class="form-group">
                     <%= label_tag(:sector_id, "Sector:") %>
                     <%= select_tag(:sector_id, options_for_select(@sectors,@selected_sector)) %>
@@ -29,23 +30,8 @@
                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" checked> Expanded text
                         </label>
                     </div><br/>
-                    <div id="summernote"></div>
-                    <script>
-                      	var markupStr = '<p>Dear Sir/Madam,<br><br>This is the text of the access request to be customized by the participant. This is the text of the access request to be customized by the participant. This is the text of the access request to be customized by the participant. This is the text of the access request to be customized by the participant. This is the text of the access request to be customized by the participant. This is the text of the access request to be customized by the participant.</p><p>Specifically I would like to receive information regarding this <span style="color: rgb(255, 0, 0); font-weight: bold;">type of data</span>, this <span style="color: rgb(255, 0, 0); font-weight: bold;">transaction</span>, and this <span style="font-weight: bold; color: rgb(255, 0, 0);">personal number</span>.<br><br>Kind regards,<br><br>Firstname Lastname</p>';
-
-                        $('#summernote').summernote({
-                          toolbar: [
-                            // [groupName, [list of button]]
-                            ['style', ['bold', 'italic', 'underline', 'clear']],
-                            ['font', ['strikethrough', 'superscript', 'subscript']],
-                            ['fontsize', ['fontsize']],
-                            ['color', ['color']],
-                            ['para', ['ul', 'ol', 'paragraph']],
-                            ['height', ['height']]
-                          ]
-                        });
-                        $('#summernote').summernote('code', markupStr);
-                    </script>
+                    <div id="summernote">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect3">Date of sending</label><br/>
