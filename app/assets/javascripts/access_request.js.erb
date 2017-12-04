@@ -13,4 +13,19 @@ $(document).ready(function(){
       }
     })
   });
+
+  $("#textTypeRadioStandard").on('change', function(){
+    if ($(this).is(':checked') && $(this).val() == 'standard') {
+      $("#textContentStandard").show();
+      $("#textContentExpanded").hide();
+    }
+  });
+
+  $("#textTypeRadioExpanded").on('change', function(){
+    if ($(this).is(':checked') && $(this).val() == 'expanded') {
+      $("#textContentStandard").hide();
+      $("#textContentExpanded").show();
+    }
+  });
+
 });
