@@ -39,4 +39,10 @@ class Organization < ApplicationRecord
     result
   end
 
+  def languages
+    result = self[:languages]
+    result = self.address.country.languages if result.blank?
+    result ||= []
+    result.map {|language| language.to_sym}
+  end
 end

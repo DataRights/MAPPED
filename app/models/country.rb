@@ -15,4 +15,10 @@ class Country < ApplicationRecord
   def context_value
     {'name' => name}
   end
+
+  def languages
+    result = self[:languages]
+    result ||= []
+    result.map {|language| language.to_sym}
+  end
 end
