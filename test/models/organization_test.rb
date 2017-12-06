@@ -25,4 +25,11 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_equal ({'name' => 'hosp1', 'custom_2' => 'aaa' , 'custom_2_desc' => 'bbb' }), Organization.new(name: 'hosp1', custom_2: 'aaa', custom_2_desc: 'bbb').context_value
     assert_equal ({'name' => 'hosp1', 'custom_3' => 'aaa' , 'custom_3_desc' => 'bbb' }), Organization.new(name: 'hosp1', custom_3: 'aaa', custom_3_desc: 'bbb').context_value
   end
+
+  test 'Must have an address' do
+    o = Organization.new(name: 'datarights', sector: Sector.new(name: 'IT'))
+    assert_not o.valid?
+    o.address = Address.new(line1: 'somewhere', line2: 'somewhere else', post_code: 'NW12', city: City.new(name: 'London'), country: Country.new(name: 'UK'), addressable: o)
+    assert o.valid?
+  end
 end
