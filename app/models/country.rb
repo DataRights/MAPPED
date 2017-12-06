@@ -10,6 +10,7 @@
 
 class Country < ApplicationRecord
   has_many :cities
+  validates_presence_of :languages
 
   def context_value
     {'name' => name}
