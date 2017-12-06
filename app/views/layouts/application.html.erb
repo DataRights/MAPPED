@@ -16,46 +16,43 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <div class="collapse navbar-collapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <%= link_to t('.home'), :home, class:"nav-link disabled" %>
-            </li>
-            <li class="nav-item dropdown">
-              <%= link_to t('.campaigns'), :campaigns, class:"nav-link disabled" %>
+              <%= link_to t('.home'), :home, class:"nav-link" %>
             </li>
             <% if user_signed_in? %>
-              <!--
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle disabled" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= t '.campaigns' %></a>
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= t '.campaigns' %></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
-                  <a class="dropdown-item disabled" href="#">--<small>(10)</small>
-                  </a>
-                  <a class="dropdown-item disabled" href="#">--<small>(1)</small>
-                  </a>
-                  <a class="dropdown-item disabled" href="#">---<small>(3)</small>
-                  </a>
+                  <% @campaigns.each do |c| %>
+                    <%= link_to "#{c.name}<small>(#{c.count_of_access_requests})</small>".html_safe, :campaigns, class:"dropdown-item" %>
+                  <% end %>
                 </div>
               </li>
-              -->
               <li class="nav-item">
-                <a class="nav-link disabled" href="#"><%= t '.notifications' %></a>
+                <a class="nav-link" href="#">
+                  <%= t '.notifications' %>
+                  <% if @unread_notifications_count > 0 %>
+                    <span class="badge badge-danger"><%= @unread_notifications_count %></span>
+                  <% end %>
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#"><%= t '.forum' %></a>
+                <a class="nav-link" href="#"><%= t '.forum' %></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#"><%= t '.faq' %></a>
+                <a class="nav-link" href="#"><%= t '.faq' %></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#"><%= t '.help_desk' %></a>
+                <a class="nav-link" href="#"><%= t '.help_desk' %></a>
               </li>
               <li class="nav-item">
-                <%= link_to t('.my_profile'), :user_profile_edit, class:"nav-link disabled" %>
+                <%= link_to t('.my_profile'), :user_profile_edit, class:"nav-link" %>
               </li>
               <% if current_user.can?(:admin_login) %>
               <li class="nav-item">
-                <%= link_to t('.admin'), :rails_admin, class:"nav-link disabled" %>
+                <%= link_to t('.admin'), :rails_admin, class:"nav-link" %>
               </li>
               <% end %>
             <% end %>

@@ -20,11 +20,10 @@ class UsersController < ApplicationController
     @content = nil
     @campaign_id = nil
 
-    @title = I18n.t('users.edit.title_before_you_start')
-    # @title = I18n.t('users.edit.title')
-    # if @user.first_name.blank? and @user.last_name.blank?
-    #   @title = I18n.t('users.edit.title_before_you_start')
-    # end
+    @title = I18n.t('users.edit.title')
+    if @user.first_name.blank? and @user.last_name.blank?
+       @title = I18n.t('users.edit.title_before_you_start')
+    end
 
     if params.include?(:campaign_id)
       campaign = Campaign.find(params[:campaign_id])

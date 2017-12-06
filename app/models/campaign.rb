@@ -28,6 +28,12 @@ class Campaign < ApplicationRecord
     result
   end
 
+  def count_of_access_requests
+    Rails.cache.fetch("campaign/#{self.id}/count_of_access_requests", expires_in: 120.minutes) do
+      self.access_requests.count
+    end
+  end
+
   def self.top_three
     Rails.cache.fetch("campaigns/top_three", expires_in: 120.minutes) do
       Campaign.last(3)

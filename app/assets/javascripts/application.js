@@ -20,3 +20,4 @@
 //= require bootstrap-sprockets
 //= require bootstrap-toggle
 //= require_tree .
+//= require_self
