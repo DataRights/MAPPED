@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171206140304) do
+ActiveRecord::Schema.define(version: 20171206155812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -212,6 +212,7 @@ ActiveRecord::Schema.define(version: 20171206140304) do
     t.text "custom_2_desc"
     t.text "custom_3"
     t.text "custom_3_desc"
+    t.string "languages", default: [], array: true
     t.index ["sector_id"], name: "index_organizations_on_sector_id"
   end
 
