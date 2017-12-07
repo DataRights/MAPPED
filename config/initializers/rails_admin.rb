@@ -137,6 +137,11 @@ RailsAdmin.config do |config|
 
   config.model Country do
     parent User
+    edit do
+      field :name
+      field :cities
+      field :languages, :pg_string_array
+    end
   end
 
   config.model WorkflowState do
@@ -183,6 +188,21 @@ RailsAdmin.config do |config|
 
   config.model Organization do
     parent Sector
+    edit do
+      field :name
+      field :sector
+      field :custom_1
+      field :custom_1_desc
+      field :custom_2
+      field :custom_2_desc
+      field :custom_3
+      field :custom_3_desc
+      field :address
+      field :campaigns
+      field :tags
+      field :comments
+      field :languages, :pg_string_array       
+    end
   end
 
   config.model EmailNotification do

@@ -15,13 +15,14 @@ module AccessRequestsHelper
     campaign.organizations.where(sector: sector).map {|organization| [organization.name, organization.id]}
   end
 
-  def get_template(user, campaign, organization)
+  def get_campaign_org_template(user, campaign, organization)
     return nil unless user
     return nil unless user.is_a? User
     return nil unless campaign
     return nil unless campaign.is_a? Campaign
     return nil unless organization
     return nil unless organization.is_a? Organization
+    puts organization
     sector = organization.sector
     return nil unless sector
 
@@ -33,7 +34,7 @@ module AccessRequestsHelper
         accepted_versions << active_version if expected_langs.include? active_version.language.to_sym
       end
     end
-    return nil if active_versions.blank?
+    return nil if accepted_versions.blank?
     prefered_lang = user.preferred_language
     prefered_lang ||= :en
     result = accepted_versions.detect {|active_version| active_version.language == prefered_lang}
