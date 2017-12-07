@@ -34,7 +34,7 @@
                     <%= @rendered_template.html_safe %>
                     </div>
                     <div id="textContentExpanded" style="display: none;">
-                      <p>CCCCCCCCC </p>
+                      <%= cktext_area_tag(:custom_text_editor, @rendered_template) %>
                     </div>
                 </div>
                 <div class="form-group">

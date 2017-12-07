@@ -11,14 +11,14 @@ $(document).ready(function(){
         });
         $("#organization_id").append(listitems);
         if (listitems.length > 0){
-          updateStandardContent(e[0][1]);
+          updateTemplateContent(e[0][1]);
         }
       }
     })
   });
 
   $("#organization_id").on('change', function(){
-    updateStandardContent($(this).val());
+    updateTemplateContent($(this).val());
   });
 
 
@@ -39,12 +39,13 @@ $(document).ready(function(){
 });
 
 
-function updateStandardContent(organization_id) {
+function updateTemplateContent(organization_id) {
   $.ajax({
     url: "<%= Rails.configuration.base_protocol %>://<%= Rails.configuration.base_url %>/campaigns/" + $("#campaign_id").val() + "/organizations/" + organization_id + "/template",
     type: "GET",
     success: function(e) {
       document.getElementById("textContentStandard").innerHTML = e.template;
+      CKEDITOR.instances["custom_text_editor"].setData(e.template);
     }
   })
 }
