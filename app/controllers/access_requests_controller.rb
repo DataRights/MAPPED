@@ -51,4 +51,10 @@ class AccessRequestsController < ApplicationController
 
   def create
   end
+
+  def preview
+    @rendered_template = params[:rendered_template]
+    @rendered_template ||= ''
+    send_data(WickedPdf.new.pdf_from_string(@rendered_template) , :type => :pdf, :disposition => 'inline')
+  end
 end

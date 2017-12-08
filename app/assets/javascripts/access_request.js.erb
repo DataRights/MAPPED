@@ -35,9 +35,14 @@ $(document).ready(function(){
       $("#textContentExpanded").show();
     }
   });
-
 });
 
+window.onclick = function(event) {
+  var modal = document.getElementById('previewModal');
+  if (event.target == modal) {
+      modal.style.display = "none";
+  }
+}
 
 function updateTemplateContent(organization_id) {
   $.ajax({
@@ -48,4 +53,44 @@ function updateTemplateContent(organization_id) {
       CKEDITOR.instances["custom_text_editor"].setData(e.template);
     }
   })
+}
+
+function previewPDF() {
+  var rendered_template = '';
+  if(document.getElementById('textTypeRadioStandard').checked) {
+    rendered_template = document.getElementById("textContentStandard").innerHTML
+  }else if(document.getElementById('textTypeRadioExpanded').checked) {
+    rendered_template = CKEDITOR.instances["custom_text_editor"].getData()
+  }
+
+  var oReq = new XMLHttpRequest();
+  oReq.responseType = "blob";
+  oReq.onload = function(e) {
+    var file = window.URL.createObjectURL(oReq.response);
+    PDFJS.disableWorker = true;
+    PDFJS.getDocument(file).then(function (pdf) {
+     // Fetch the page.
+     pdf.getPage(1).then(function (page) {
+       var scale = 1;
+       var viewport = page.getViewport(scale);
+
+       // Prepare canvas using PDF page dimensions.
+       var canvas = document.getElementById('preview-canvas');
+       var context = canvas.getContext('2d');
+       canvas.height = viewport.height;
+       canvas.width = viewport.width;
+
+       // Render PDF page into canvas context.
+       var renderContext = {
+         canvasContext: context,
+         viewport: viewport
+       };
+       page.render(renderContext).then(function() {
+         document.getElementById('previewModal').style.display = "block";
+       });
+     });
+   });
+  }
+  oReq.open("GET", "<%= Rails.configuration.base_protocol %>://<%= Rails.configuration.base_url %>/access_requests/preview?rendered_template="+encodeURIComponent(rendered_template));
+  oReq.send()
 }
