@@ -56,7 +56,11 @@ class AccessRequestsController < ApplicationController
     @access_request.sent_date = params['sending_date']
     @access_request.campaign_id = params['campaign_id']
     @access_request.suggested_text = params['standard_text']
-    @access_request.final_text = params['custom_text']
+    if params['textTypeRadios'] == 'expanded'
+      @access_request.final_text = params['custom_text']
+    else
+      @access_request.final_text = params['standard_text']
+    end
     @access_request.save!
     redirect_to access_requests_index_path
   end

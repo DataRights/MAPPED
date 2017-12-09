@@ -5,31 +5,31 @@
             <p><%= @campaign_desc %> </p>
         </div>
         <div class="col-md-8">
-            <h3>Create new access request</h3>
+            <h3><%= t('.title') %></h3>
 
             <%= form_tag access_requests_create_path do %>
                 <%= hidden_field_tag(:campaign_id,@campaign_id) %>
                 <div class="form-group">
-                    <%= label_tag(:sector_id, "Sector:") %>
+                    <%= label_tag(:sector_id, t('.sector_label')) %>
                     <br>
                     <%= select_tag(:sector_id, options_for_select(@sectors,@selected_sector)) %>
                 </div>
                 <div class="form-group">
-                    <%= label_tag(:organization_id, "Organization:") %>
+                    <%= label_tag(:organization_id, t('.organization_label')) %>
                     <br>
                     <%= select_tag(:organization_id, options_for_select(@organizations,@selected_organization)) %>
                 </div>
-                <small><a href="#">Click here</a> for more information about the selected organization on our wiki page.</small><br/><br/>
+                <small><a href="#">Click here</a> <%= t('.organization_help') %></small><br/><br/>
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Text of access request</label>
+                    <label for="exampleFormControlTextarea1"><%= t('.text_type_select') %></label>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="textTypeRadios" id="textTypeRadioStandard" value="standard" checked> Standard text
+                            <input class="form-check-input" type="radio" name="textTypeRadios" id="textTypeRadioStandard" value="standard" checked> <%= t('.text_type_standard') %>
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="textTypeRadios" id="textTypeRadioExpanded" value="expanded"> Expanded text
+                            <input class="form-check-input" type="radio" name="textTypeRadios" id="textTypeRadioExpanded" value="expanded"> <%= t('.text_type_custom') %>
                         </label>
                     </div><br/>
                     <div id="textContentStandard" style="border:2px solid gray;">
@@ -40,21 +40,21 @@
                       <%= cktext_area_tag(:custom_text, @rendered_template) %>
                     </div>
                 </div>
-                <%= button_tag "Preview PDF", type: 'button', onclick: "previewPDF()" %>
+                <%= button_tag t('.preview_button'), type: 'button', onclick: "previewPDF()" %>
                 <br>
                 <br>
                 <div class="form-group">
-                  <%= label_tag(:sending_date, "Date of sending:") %>
+                  <%= label_tag(:sending_date, t('.sending_date_label')) %>
                   <br>
                   <%= date_field_tag(:sending_date, Date.today)%>
                 </div>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Do not forget to attach a copy of your passport/ID card to your access request.</strong>
+                    <strong><%= t('.passport_id_warning') %></strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <%= submit_tag "Generate final PDF" %>
+                <%= submit_tag t('.final_button') %>
             <% end %>
             <br/>
         </div>

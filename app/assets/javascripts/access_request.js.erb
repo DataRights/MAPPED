@@ -50,7 +50,7 @@ function updateTemplateContent(organization_id) {
     type: "GET",
     success: function(e) {
       document.getElementById("textContentStandard").innerHTML = e.template;
-      CKEDITOR.instances["custom_text_editor"].setData(e.template);
+      CKEDITOR.instances["custom_text"].setData(e.template);
     }
   })
 }
@@ -60,7 +60,7 @@ function previewPDF() {
   if(document.getElementById('textTypeRadioStandard').checked) {
     rendered_template = document.getElementById("textContentStandard").innerHTML
   }else if(document.getElementById('textTypeRadioExpanded').checked) {
-    rendered_template = CKEDITOR.instances["custom_text_editor"].getData()
+    rendered_template = CKEDITOR.instances["custom_text"].getData()
   }
 
   var oReq = new XMLHttpRequest();

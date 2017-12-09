@@ -126,3 +126,16 @@ en:
         email: "Email Address"
         password: "Password (minimum 6 characters)"
         password_confirmation: "Password confirmation"
+  access_requests:
+    new:
+      title: 'Create new access request'
+      sector_label: 'Sector'
+      organization_label: 'Organization'
+      organization_help: 'for more information about the selected organization on our wiki page.'
+      text_type_select: 'Text of access request'
+      text_type_standard: 'Standard text'
+      text_type_custom: 'Expanded text'
+      preview_button: 'Preview PDF'
+      sending_date_label: 'Date of sending'
+      passport_id_warning: 'Do not forget to attach a copy of your passport/ID card to your access request.'
+      final_button: 'Generate final PDF'
