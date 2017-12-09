@@ -50,6 +50,15 @@ class AccessRequestsController < ApplicationController
   end
 
   def create
+    @access_request = AccessRequest.new
+    @access_request.organization_id = params['organization_id']
+    @access_request.user = current_user
+    @access_request.sent_date = params['sending_date']
+    @access_request.campaign_id = params['campaign_id']
+    @access_request.suggested_text = params['standard_text']
+    @access_request.final_text = params['custom_text']
+    @access_request.save!
+    redirect_to access_requests_index_path
   end
 
   def preview
