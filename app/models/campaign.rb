@@ -21,6 +21,8 @@ class Campaign < ApplicationRecord
   after_create :invalidate_top_three
   after_destroy :invalidate_top_three
 
+  DEFAULT_CAMPAIGN_NAME = 'Default'
+
   def context_value
     result = { 'name' => name.blank? ? '' : name }
     result['short_description'] = short_description if short_description

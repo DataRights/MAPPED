@@ -1,2 +1,72 @@
-<h1>AccessRequests#new</h1>
-<p>Find me in app/views/access_requests/new.html.erb</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3><%= @campaign_name %> <small>(<%= @campaign_count %>)</small></h3>
+            <p><%= @campaign_desc %> </p>
+        </div>
+        <div class="col-md-8">
+            <h3><%= t('.title') %></h3>
+
+            <%= form_tag access_requests_create_path do %>
+                <%= hidden_field_tag(:campaign_id,@campaign_id) %>
+                <div class="form-group">
+                    <%= label_tag(:sector_id, t('.sector_label')) %>
+                    <br>
+                    <%= select_tag(:sector_id, options_for_select(@sectors,@selected_sector)) %>
+                </div>
+                <div class="form-group">
+                    <%= label_tag(:organization_id, t('.organization_label')) %>
+                    <br>
+                    <%= select_tag(:organization_id, options_for_select(@organizations,@selected_organization)) %>
+                </div>
+                <small><a href="#">Click here</a> <%= t('.organization_help') %></small><br/><br/>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1"><%= t('.text_type_select') %></label>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="textTypeRadios" id="textTypeRadioStandard" value="standard" checked> <%= t('.text_type_standard') %>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="textTypeRadios" id="textTypeRadioExpanded" value="expanded"> <%= t('.text_type_custom') %>
+                        </label>
+                    </div><br/>
+                    <div id="textContentStandard" style="border:2px solid gray;">
+                    <%= hidden_field_tag(:standard_text, @rendered_template.html_safe)%>
+                    <%= @rendered_template.html_safe %>
+                    </div>
+                    <div id="textContentExpanded" style="display: none;">
+                      <%= cktext_area_tag(:custom_text, @rendered_template) %>
+                    </div>
+                </div>
+                <%= button_tag t('.preview_button'), type: 'button', onclick: "previewPDF()" %>
+                <br>
+                <br>
+                <div class="form-group">
+                  <%= label_tag(:sending_date, t('.sending_date_label')) %>
+                  <br>
+                  <%= date_field_tag(:sending_date, Date.today)%>
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong><%= t('.passport_id_warning') %></strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <%= submit_tag t('.final_button') %>
+            <% end %>
+            <br/>
+        </div>
+    </div>
+    <hr>
+</div> <!-- /container -->
+
+<div id="previewModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div id="preview">
+      <canvas id="preview-canvas" style="border:1px solid black;"/>
+    </div>
+  </div>
+</div>

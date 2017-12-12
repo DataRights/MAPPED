@@ -10,8 +10,15 @@
 
 class Country < ApplicationRecord
   has_many :cities
+  validates_presence_of :languages
 
   def context_value
     {'name' => name}
+  end
+
+  def languages
+    result = self[:languages]
+    result ||= []
+    result.map {|language| language.to_sym}
   end
 end

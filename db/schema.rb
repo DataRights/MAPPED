@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171130094805) do
+ActiveRecord::Schema.define(version: 20171209211653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20171130094805) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "campaign_id"
+    t.text "suggested_text"
+    t.text "final_text"
     t.index ["campaign_id"], name: "index_access_requests_on_campaign_id"
     t.index ["organization_id"], name: "index_access_requests_on_organization_id"
     t.index ["user_id"], name: "index_access_requests_on_user_id"
@@ -147,6 +149,7 @@ ActiveRecord::Schema.define(version: 20171130094805) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "languages", default: [], array: true
   end
 
   create_table "email_notifications", force: :cascade do |t|
@@ -211,6 +214,7 @@ ActiveRecord::Schema.define(version: 20171130094805) do
     t.text "custom_2_desc"
     t.text "custom_3"
     t.text "custom_3_desc"
+    t.string "languages", default: [], array: true
     t.index ["sector_id"], name: "index_organizations_on_sector_id"
   end
 

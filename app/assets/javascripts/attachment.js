@@ -126,6 +126,9 @@ function convertPDF(pdfUrl) {
 
       canvas.width = viewport.width;
       canvas.height = viewport.height;
+      modal = document.createElement('previewModal');
+      modal.width = canvas.width + 5
+      modal.height = canvas.height + 5
 
       page.render(renderContext).then(function() {
         canvases[page.pageNumber - 1] = canvas;
