@@ -16,7 +16,13 @@
 require 'test_helper'
 
 class AccessRequestTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "Creating new access request should update count_of_access_requests in campaign" do
+    campaign = campaigns(:one)
+    old_count = campaign.count_of_access_requests
+    assert_equal old_count, campaign.count_of_access_requests
+    a = access_requests(:one)
+    a.campaign = campaign
+    assert a.save
+    assert_equal old_count + 1, campaign.count_of_access_requests
+  end
 end

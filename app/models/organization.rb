@@ -22,6 +22,8 @@ class Organization < ApplicationRecord
   has_many :tags, :as => :tagable
   has_many :comments, :as => :commentable
 
+  validates_presence_of :name
+
   def context_value
     result = { 'name' => name }
     result['sector'] = sector.context_value if sector

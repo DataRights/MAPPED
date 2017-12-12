@@ -1,19 +1,12 @@
 require 'test_helper'
 
 class AccessRequestsControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get access_requests_index_url
+
+  include Devise::Test::IntegrationHelpers
+
+  test 'should get index by campaign work' do
+    sign_in users(:one)
+    get campaign_access_requests_url(campaigns(:one).id)
     assert_response :success
   end
-
-  test "should get new" do
-    get access_requests_new_url
-    assert_response :success
-  end
-
-  test "should get create" do
-    get access_requests_create_url
-    assert_response :success
-  end
-
 end

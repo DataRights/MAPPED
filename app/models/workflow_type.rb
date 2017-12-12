@@ -10,4 +10,8 @@
 
 class WorkflowType < ApplicationRecord
   validates :name, presence: true
+
+  def current_version
+    WorkflowTypeVersion.find_by workflow_type_id: self.id, active: true
+  end
 end

@@ -17,17 +17,30 @@ class AccessRequest < ApplicationRecord
   belongs_to :organization
   belongs_to :user
   belongs_to :campaign
+  has_one :workflow
   has_many :tags, :as => :tagable
   has_many :comments, :as => :commentable
-  after_create :update_related_caches
+  before_save :update_related_caches, if: :campaign_id_changed?
+  after_create :create_workflow
 
-  validates :user, :organization, presence: true
+  validates :user, :organization, :campaign, presence: true
 
   def context_value
     { 'id' => id, 'data_received_date' => self.data_received_date, 'sent_date' => self.sent_date }
   end
 
   def update_related_caches
+    if self.changes.include?('campaign_id')
+      old_campaign_id = self.changes['campaign_id'].first
+      Rails.cache.delete("campaign/#{old_campaign_id}/count_of_access_requests") if old_campaign_id
+    end
     Rails.cache.delete("campaign/#{self.campaign.id}/count_of_access_requests") if campaign
+  end
+
+  def create_workflow
+    wf = Workflow.new
+    wf.workflow_type_version = self.campaign.workflow_type.current_version
+    wf.access_request = self
+    wf.save!
   end
 end

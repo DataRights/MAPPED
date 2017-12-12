@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     unless campaign_id.blank?
       campaign = Campaign.find(campaign_id)
       if success
-        redirect_to access_requests_new_path #TODO: pass the campaign
+        redirect_to campaign_access_requests_path(campaign_id)
       else
         redirect_to user_profile_for_campaign_path(campaign)
       end

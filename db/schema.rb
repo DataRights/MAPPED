@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171130094805) do
+ActiveRecord::Schema.define(version: 20171207225041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,7 +87,9 @@ ActiveRecord::Schema.define(version: 20171130094805) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "policy_consent_id"
+    t.bigint "workflow_type_id"
     t.index ["policy_consent_id"], name: "index_campaigns_on_policy_consent_id"
+    t.index ["workflow_type_id"], name: "index_campaigns_on_workflow_type_id"
   end
 
   create_table "campaigns_organizations", id: false, force: :cascade do |t|
@@ -352,8 +354,6 @@ ActiveRecord::Schema.define(version: 20171130094805) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.boolean "terms_of_service", default: false
-    t.datetime "terms_of_service_acceptance_date"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
@@ -405,6 +405,7 @@ ActiveRecord::Schema.define(version: 20171130094805) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "active", default: false
+    t.string "name", default: "-", null: false
     t.index ["workflow_type_id"], name: "index_workflow_type_versions_on_workflow_type_id"
   end
 
@@ -432,6 +433,7 @@ ActiveRecord::Schema.define(version: 20171130094805) do
   add_foreign_key "addresses", "countries"
   add_foreign_key "attachments", "workflow_transitions"
   add_foreign_key "campaigns", "policy_consents"
+  add_foreign_key "campaigns", "workflow_types"
   add_foreign_key "cities", "countries"
   add_foreign_key "comments", "users"
   add_foreign_key "email_notifications", "notifications"

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get 'access_requests/index'
+  get 'campaign/:campaign_id/access_requests', to: 'access_requests#index', as: 'campaign_access_requests'
+
+  get 'campaign/:campaign_id/access_request/new', to: 'access_requests#new', as: 'campaign_access_request_new'
 
   get 'access_requests/new'
 

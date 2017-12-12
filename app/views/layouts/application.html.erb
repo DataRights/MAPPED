@@ -26,7 +26,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= t '.campaigns' %></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
                   <% @campaigns.each do |c| %>
-                    <%= link_to "#{c.name}<small>(#{c.count_of_access_requests})</small>".html_safe, :campaigns, class:"dropdown-item" %>
+                    <%= link_to "#{c.name}<small>(#{c.count_of_access_requests})</small>".html_safe, campaign_access_requests_path(c.id), class:"dropdown-item" %>
                   <% end %>
                 </div>
               </li>

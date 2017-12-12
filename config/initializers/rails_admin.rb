@@ -31,7 +31,6 @@ RailsAdmin.config do |config|
   config.label_methods << :email
   config.label_methods << :action
   config.label_methods << :line1
-  config.label_methods << :version
   config.label_methods << :role
   config.label_methods << :admin_login
   config.label_methods << :name
@@ -99,8 +98,9 @@ RailsAdmin.config do |config|
 
   config.model WorkflowTypeVersion do
     list do
-      field :version
+      field :name
       field :workflow_type
+      field :version
       field :active
 
       field :diagram do
@@ -108,6 +108,20 @@ RailsAdmin.config do |config|
           %{<a id="workflow_diagram_link" href="/workflow/diagram/#{value}" target='_blank'>#{I18n.t('workflow.generate_diagram')}</a>}.html_safe
         end
       end
+    end
+
+    create do
+      field :name
+      field :workflow_type
+      field :version
+      field :active
+    end
+
+    edit do
+      field :name
+      field :workflow_type
+      field :version
+      field :active
     end
   end
 
@@ -183,6 +197,38 @@ RailsAdmin.config do |config|
 
   config.model Organization do
     parent Sector
+    list do
+      field :name
+      field :sector
+      field :custom_1
+      field :custom_1_desc
+      field :custom_2
+      field :custom_2_desc
+      field :custom_3
+      field :custom_3_desc
+    end
+
+    create do
+      field :name
+      field :sector
+      field :custom_1
+      field :custom_1_desc
+      field :custom_2
+      field :custom_2_desc
+      field :custom_3
+      field :custom_3_desc
+    end
+
+    edit do
+      field :name
+      field :sector
+      field :custom_1
+      field :custom_1_desc
+      field :custom_2
+      field :custom_2_desc
+      field :custom_3
+      field :custom_3_desc
+    end
   end
 
   config.model EmailNotification do

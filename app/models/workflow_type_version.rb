@@ -8,6 +8,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  active           :boolean          default(FALSE)
+#  name             :string           default("-"), not null
 #
 
 class WorkflowTypeVersion < ApplicationRecord
@@ -16,6 +17,7 @@ class WorkflowTypeVersion < ApplicationRecord
   validates :version, :workflow_type, presence: true
   validates :version, uniqueness: { scope: :workflow_type }
   validate :presence_of_initial_state
+  validates_presence_of :name
   after_save :make_other_versions_inactive
 
   attr_accessor :diagram

@@ -99,6 +99,19 @@ en:
       general_text: 'This is a general text about campaigns assigned/available to the participant, what we are currently busy with in terms of research, etc etc. It could also be a place for general info relevant for the new participant. After first viewing this part of the interface can also dissapear...'
       learn_more: 'Learn more'
       join_campaign: 'Join campaign'
+  access_requests:
+    index:
+      update_status: 'Update Status'
+      received_response: 'I received a response'
+      didnot_receive: "I didn't receive a response"
+      receive_phone_call: 'I received a phone call'
+      other: 'Other'
+      what_is_it: 'What is it?'
+      remark: 'Remark'
+      acknowledgement: 'Acknowledgement/confirmation'
+      request_clarification: 'Request of clarification'
+      cant_verify_your_identity: "We can't verify your identity"
+      we_dont_know_you: "We don't know you"
   users:
     edit:
       title: 'Profile'
@@ -117,6 +130,9 @@ en:
       consent_check_box: 'I agree to the conditions above.'
       already_approved_at: "(Consent already approved at: %{approved_date})"
       profile_success: 'Profile information successfully updated!'
+  common:
+    campaign_not_found: 'Campaign not found!'
+    create_new_ar: 'Create new access request'
   helpers:
     label:
       user:
