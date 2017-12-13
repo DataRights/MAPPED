@@ -101,17 +101,18 @@ en:
       join_campaign: 'Join campaign'
   access_requests:
     index:
-      update_status: 'Update Status'
-      received_response: 'I received a response'
-      didnot_receive: "I didn't receive a response"
-      receive_phone_call: 'I received a phone call'
-      other: 'Other'
-      what_is_it: 'What is it?'
-      remark: 'Remark'
-      acknowledgement: 'Acknowledgement/confirmation'
-      request_clarification: 'Request of clarification'
-      cant_verify_your_identity: "We can't verify your identity"
-      we_dont_know_you: "We don't know you"
+    templates:
+      update_status:
+        update_status: 'Update Status'
+        what_is_it: 'What is it?'
+        remark: 'Remark'
+        acknowledgement: 'Acknowledgement/confirmation'
+        request_clarification: 'Request of clarification'
+        cant_verify_your_identity: "We can't verify your identity"
+        we_dont_know_you: "We don't know you"
+        close: "Close"
+        save: "Save"
+        saving: "Saving..."
   users:
     edit:
       title: 'Profile'

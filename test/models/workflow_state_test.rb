@@ -8,6 +8,7 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  is_initial_state         :boolean          default(FALSE)
+#  workflow_state_form_id   :integer
 #
 
 require 'test_helper'

@@ -173,6 +173,10 @@ RailsAdmin.config do |config|
     parent AccessRequest
   end
 
+  config.model WorkflowStateForm do
+    parent AccessRequest
+  end
+
   config.model Transition do
     parent AccessRequest
   end
@@ -193,6 +197,33 @@ RailsAdmin.config do |config|
 
   config.model Campaign do
     parent AccessRequest
+
+    create do
+      field :name
+      field :short_description
+      field :expanded_description
+      field :policy_consent
+      field :workflow_type
+      field :questions
+    end
+
+    edit do
+      field :name
+      field :short_description
+      field :expanded_description
+      field :policy_consent
+      field :workflow_type
+      field :questions
+    end
+
+    list do
+      field :name
+      field :short_description
+      field :expanded_description
+      field :policy_consent
+      field :workflow_type
+      field :questions
+    end
   end
 
   config.model Organization do

@@ -66,8 +66,8 @@ class TemplateVersionTest < ActiveSupport::TestCase
     user = users(:one)
     organization = organizations(:one)
     access_request = access_requests(:one)
-    template_content = "Dear {{ user.email }} The access request {{ access_request.id }} has been created on DataRights.me and it's ready for sending to organization {{ organization.name }}. Currently status of your wokrflow is: {{ workflow.workflow_state }}"
-    render_result = "Dear one@datarights.me The access request #{access_request.id} has been created on DataRights.me and it's ready for sending to organization Acibadem Hospital. Currently status of your wokrflow is: Initial State"
+    template_content = "Dear {{ user.email }} The access request {{ access_request.id }} has been created on DataRights.me and it's ready for sending to organization {{ organization.name }}. Currently status of your workflow is: {{ workflow.workflow_state }}"
+    render_result = "Dear one@datarights.me The access request #{access_request.id} has been created on DataRights.me and it's ready for sending to organization Acibadem Hospital. Currently status of your workflow is: Initial State"
     assert_equal render_result, TemplateVersion.new(content: template_content).render(TemplateContext.new(user: user, workflow: workflow, organization: organization, access_request: access_request))
   end
 

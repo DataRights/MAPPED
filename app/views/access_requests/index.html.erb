@@ -17,54 +17,13 @@
           <small><%= a.organization.sector.name %></small>
         </h5>
         <p>
-          [<%= a.workflow.workflow_state.name %>]
-        </p>
-        <p>
           <a class="btn btn-secondary disabled" href="#" role="button" aria-disabled="true">&nbsp;</a>
           <% a.workflow.workflow_transitions.each do |wt| %>
             <a class="btn btn-secondary disabled" href="#" role="button" aria-disabled="true">&nbsp;</a>
           <% end %>
-          <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button"><%= t('.update_status') %></a>
-          <div class="modal fade" id="modal<%= a.id %>" tabindex="-1" role="dialog" aria-labelledby="modal<%= a.id %>Label" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel"><%= t('.update_status') %> (step 1 of 3)</h5>
-
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="form-group">
-                    <select class="form-control" id="whatHappened<%= a.id %>">
-                      <option selected="selected"><%= t('.received_response') %></option>
-                      <option><%= t('.didnot_receive') %></option>
-                      <option><%= t('.receive_phone_call') %></option>
-                      <option><%= t('.other') %></option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="whatIsIt<%= a.id %>"><%= t('.what_is_it') %></label>
-                    <select class="form-control" id="whatIsIt<%= a.id %>">
-                      <option selected="selected"><%= t('.acknowledgement') %></option>
-                      <option><%= t('.request_clarification') %></option>
-                      <option><%= t('.cant_verify_your_identity') %></option>
-                      <option><%= t('.we_dont_know_you') %></option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1"><%= t('.remark') %></label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal5">Next step</button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <% if a.workflow.workflow_state.workflow_state_form %>
+            <%= render partial: a.workflow.workflow_state.workflow_state_form.form_path, collection: @access_requests, locals: {a: a} %>
+          <% end %>
         </p>
       <% end %>
     </div>

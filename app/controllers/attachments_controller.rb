@@ -1,6 +1,8 @@
 class AttachmentsController < ApplicationController
   before_action :set_attachment, only: [:show, :edit, :update, :destroy, :get_content, :post_content, :thumbnail]
 
+  before_action :authenticate_user!
+
   THUMBNAIL_SIZE = 50
   # GET /attachments
   # GET /attachments.json

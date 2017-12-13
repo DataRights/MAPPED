@@ -21,6 +21,7 @@ class Transition < ApplicationRecord
   validate :only_one_timeout_from_one_state
 
   def only_one_timeout_from_one_state
+    return unless self.timeout_days
     other_transition_timeout = Transition.where(from_state_id: self.from_state_id).where.not(timeout_days: nil).where.not(id: self.id).first
     if other_transition_timeout
       errors.add(:timeout_days, I18n.t('workflow.state_has_already_one_timeout_transition', transition: other_transition_timeout.to_json))

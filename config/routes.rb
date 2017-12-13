@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, :controllers => { :invitations => 'users/invitations' }
 
+  # Workflow
   get 'workflow/diagram/:id', to: 'workflow#diagram'
+  patch 'workflow', to: 'workflow#send_event'
 
   get 'user/profile/edit', to: 'users#edit'
   get 'user/profile/campaign/:campaign_id', to: 'users#edit', as: 'user_profile_for_campaign'

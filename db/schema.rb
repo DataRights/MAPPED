@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171207225041) do
+ActiveRecord::Schema.define(version: 20171213093048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -371,12 +371,21 @@ ActiveRecord::Schema.define(version: 20171207225041) do
     t.index ["notification_id"], name: "index_web_notifications_on_notification_id"
   end
 
+  create_table "workflow_state_forms", force: :cascade do |t|
+    t.string "name"
+    t.string "form_path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "workflow_states", force: :cascade do |t|
     t.string "name"
     t.bigint "workflow_type_version_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_initial_state", default: false
+    t.bigint "workflow_state_form_id"
+    t.index ["workflow_state_form_id"], name: "index_workflow_states_on_workflow_state_form_id"
     t.index ["workflow_type_version_id"], name: "index_workflow_states_on_workflow_type_version_id"
   end
 
@@ -449,6 +458,7 @@ ActiveRecord::Schema.define(version: 20171207225041) do
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
   add_foreign_key "web_notifications", "notifications"
+  add_foreign_key "workflow_states", "workflow_state_forms"
   add_foreign_key "workflow_states", "workflow_type_versions"
   add_foreign_key "workflow_transitions", "code_actions", column: "failed_action_id"
   add_foreign_key "workflow_transitions", "guards", column: "failed_guard_id"
