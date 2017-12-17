@@ -19,6 +19,7 @@ class Address < ApplicationRecord
   belongs_to :country
   belongs_to :addressable, polymorphic: true
   before_validation :create_city
+  validates_presence_of :line1
 
   attr_accessor :city_name
 

@@ -8,6 +8,7 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  is_initial_state         :boolean          default(FALSE)
+#  workflow_state_form_id   :integer
 #
 
 require 'test_helper'
@@ -15,6 +16,7 @@ require 'test_helper'
 class WorkflowStateTest < ActiveSupport::TestCase
   test "User should NOT be able to add/remove/change an state if workflow is active" do
     state = workflow_states(:waiting_for_ar_creation)
+    state.is_initial_state = false
     state.name = 'Initial state'
     assert_not state.save
     assert_equal 1, state.errors.count, "There should be one validation error: #{state.errors}"

@@ -10,8 +10,9 @@ class AccessRequestsControllerTest < ActionDispatch::IntegrationTest
     Campaign.create(:name => Campaign::DEFAULT_CAMPAIGN_NAME) unless Campaign.find_by(:name => Campaign::DEFAULT_CAMPAIGN_NAME)
   end
 
-  test "should get index" do
-    get access_requests_index_url
+  test 'should get index by campaign' do
+    sign_in users(:one)
+    get campaign_access_requests_url(campaigns(:one).id)
     assert_response :success
   end
 
@@ -26,5 +27,4 @@ class AccessRequestsControllerTest < ActionDispatch::IntegrationTest
     get access_requests_create_url
     assert_response :success
   end
-
 end

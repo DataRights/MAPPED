@@ -9,6 +9,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  policy_consent_id    :integer
+#  workflow_type_id     :integer
 #
 
 class Campaign < ApplicationRecord
@@ -18,9 +19,14 @@ class Campaign < ApplicationRecord
   has_many :answers, as: :answerable
   has_and_belongs_to_many :users
   belongs_to :policy_consent, optional: true
+  belongs_to :workflow_type
+
   after_create :invalidate_top_three
   after_destroy :invalidate_top_three
 
+  validates_presence_of :name, :workflow_type
+  validate :presence_of_active_workflow_type
+  CAMPAIGN_TOP_THREE_CACHE_NAME = 'campaigns/top_three'
   DEFAULT_CAMPAIGN_NAME = 'Default'
 
   def context_value
@@ -30,13 +36,26 @@ class Campaign < ApplicationRecord
     result
   end
 
+  def count_of_access_requests
+    Rails.cache.fetch("campaign/#{self.id}/count_of_access_requests", expires_in: 120.minutes) do
+      self.access_requests.count
+    end
+  end
+
   def self.top_three
-    Rails.cache.fetch("campaigns/top_three", expires_in: 120.minutes) do
+    Rails.cache.fetch(Campaign::CAMPAIGN_TOP_THREE_CACHE_NAME, expires_in: 120.minutes) do
       Campaign.last(3)
     end
   end
 
   def invalidate_top_three
-    Rails.cache.delete("campaigns/top_three")
+    Rails.cache.delete(Campaign::CAMPAIGN_TOP_THREE_CACHE_NAME)
+  end
+
+  def presence_of_active_workflow_type
+    return unless self.workflow_type
+    unless self.workflow_type.current_version
+      self.errors.add(:workflow_type, ' : There is no active workflow type version for selected workflow type.')
+    end
   end
 end

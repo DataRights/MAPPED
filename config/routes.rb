@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get 'access_requests/index'
-  get 'access_requests/new'
+  get 'campaign/:campaign_id/access_requests', to: 'access_requests#index', as: 'campaign_access_requests'
+
+  get 'campaign/:campaign_id/access_request/new', to: 'access_requests#new', as: 'campaign_access_request_new'
+
   post 'access_requests/create'
   get  'access_requests/preview'
 
@@ -12,7 +14,9 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, :controllers => { :invitations => 'users/invitations' }
 
+  # Workflow
   get 'workflow/diagram/:id', to: 'workflow#diagram'
+  patch 'workflow', to: 'workflow#send_event'
 
   get 'user/profile/edit', to: 'users#edit'
   get 'user/profile/campaign/:campaign_id', to: 'users#edit', as: 'user_profile_for_campaign'

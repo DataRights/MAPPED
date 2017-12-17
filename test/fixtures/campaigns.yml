@@ -9,6 +9,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  policy_consent_id    :integer
+#  workflow_type_id     :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -17,8 +18,10 @@ one:
   name: MyString
   short_description: MyString
   expanded_description: MyText
+  workflow_type: one
 
 two:
   name: MyString
   short_description: MyString
   expanded_description: MyText
+  workflow_type: version_one_point_o_mapped_social

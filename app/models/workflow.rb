@@ -14,6 +14,7 @@ class Workflow < ApplicationRecord
   belongs_to :workflow_type_version
   belongs_to :workflow_state
   belongs_to :access_request
+  has_many :workflow_transitions
   validates :workflow_type_version, :workflow_state, :access_request, presence: true
   validate :workflow_type_should_be_active
   after_create :check_transition_timeout
@@ -29,6 +30,10 @@ class Workflow < ApplicationRecord
 
   def context_value
     { 'workflow_state' => self.workflow_state.name, 'created_at' => self.created_at, 'updated_at' => self.updated_at }
+  end
+
+  def send_event_with_transition_id(transition_id)
+    send_event(Transition.find(transition_id))
   end
 
   def send_event(transition)

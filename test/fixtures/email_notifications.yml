@@ -4,7 +4,7 @@
 #
 #  id              :integer          not null, primary key
 #  notification_id :integer
-#  status          :integer          default("pending"), not null
+#  status          :integer          default("unread"), not null
 #  sent            :datetime
 #  delivered       :datetime
 #  created_at      :datetime         not null

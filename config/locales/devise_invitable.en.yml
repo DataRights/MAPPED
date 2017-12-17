@@ -11,7 +11,7 @@ en:
       invitation_removed: "Your invitation was removed."
       new:
         header: "Send invitation"
-        submit_button: "Send an standard invitation"
+        submit_button: "Send a standard invitation"
         submit_custom: "Send a custom invitation"
         custom_email_subject: "Invitation to MAPPED"
       edit:

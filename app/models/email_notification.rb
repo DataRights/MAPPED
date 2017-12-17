@@ -4,7 +4,7 @@
 #
 #  id              :integer          not null, primary key
 #  notification_id :integer
-#  status          :integer          default("pending"), not null
+#  status          :integer          default("unread"), not null
 #  sent            :datetime
 #  delivered       :datetime
 #  created_at      :datetime         not null
@@ -15,7 +15,7 @@
 
 class EmailNotification < ApplicationRecord
   belongs_to :notification
-  enum status: [:pending, :sent, :delivered, :failed]
+  enum status: [:unread, :sent, :delivered, :failed]
   enum email_type: [:instantly, :daily, :weekly]
   delegate :user, to: :notification
 

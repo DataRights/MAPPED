@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="margin-top: 50px;">
     <div class="row">
         <div class="col-md-4">
             <h3><%= @campaign_name %> <small>(<%= @campaign_count %>)</small></h3>
@@ -12,14 +12,14 @@
                 <div class="form-group">
                     <%= label_tag(:sector_id, t('.sector_label')) %>
                     <br>
-                    <%= select_tag(:sector_id, options_for_select(@sectors,@selected_sector)) %>
+                    <%= select_tag(:sector_id, options_for_select(@sectors,@selected_sector), {class: "form-control"}) %>
                 </div>
                 <div class="form-group">
                     <%= label_tag(:organization_id, t('.organization_label')) %>
                     <br>
-                    <%= select_tag(:organization_id, options_for_select(@organizations,@selected_organization)) %>
+                    <%= select_tag(:organization_id, options_for_select(@organizations,@selected_organization), {class: "form-control"}) %>
                 </div>
-                <small><a href="#">Click here</a> <%= t('.organization_help') %></small><br/><br/>
+                <small><a href="#"><%= t('.click_here') %></a> <%= t('.organization_help') %></small><br/><br/>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1"><%= t('.text_type_select') %></label>
                     <div class="form-check">
@@ -32,15 +32,21 @@
                             <input class="form-check-input" type="radio" name="textTypeRadios" id="textTypeRadioExpanded" value="expanded"> <%= t('.text_type_custom') %>
                         </label>
                     </div><br/>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong><%= t('.please_note_fields_in_red') %></strong>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
                     <div id="textContentStandard" style="border:2px solid gray;">
                     <%= hidden_field_tag(:standard_text, @rendered_template.html_safe)%>
                     <%= @rendered_template.html_safe %>
                     </div>
                     <div id="textContentExpanded" style="display: none;">
-                      <%= cktext_area_tag(:custom_text, @rendered_template) %>
+                      <%= cktext_area_tag(:custom_text, @rendered_template, ckeditor: { toolbar: 'mini'}) %>
                     </div>
                 </div>
-                <%= button_tag t('.preview_button'), type: 'button', onclick: "previewPDF()" %>
+                <%= button_tag t('.preview_button'), type: 'button', onclick: "previewPDF()", class: 'btn btn-secondary' %>
                 <br>
                 <br>
                 <div class="form-group">
@@ -54,7 +60,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <%= submit_tag t('.final_button') %>
+                <%= submit_tag t('.final_button'), class: 'btn btn-primary' %>
             <% end %>
             <br/>
         </div>

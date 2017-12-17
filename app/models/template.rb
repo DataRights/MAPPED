@@ -14,6 +14,7 @@ class Template < ApplicationRecord
   has_and_belongs_to_many :sectors
   has_many :tags, :as => :tagable
   has_many :comments, :as => :commentable
+  validates_presence_of :name, :template_type
 
   enum template_type:  [:access_request, :reminder, :followup, :custom, :notification, :terms_of_service]
 end

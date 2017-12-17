@@ -2,47 +2,45 @@
 #
 # Table name: users
 #
-#  id                               :integer          not null, primary key
-#  email                            :string           default(""), not null
-#  encrypted_password               :string           default(""), not null
-#  reset_password_token             :string
-#  reset_password_sent_at           :datetime
-#  remember_created_at              :datetime
-#  sign_in_count                    :integer          default(0), not null
-#  current_sign_in_at               :datetime
-#  last_sign_in_at                  :datetime
-#  current_sign_in_ip               :inet
-#  last_sign_in_ip                  :inet
-#  confirmation_token               :string
-#  confirmed_at                     :datetime
-#  confirmation_sent_at             :datetime
-#  failed_attempts                  :integer          default(0), not null
-#  unlock_token                     :string
-#  locked_at                        :datetime
-#  created_at                       :datetime         not null
-#  updated_at                       :datetime         not null
-#  unconfirmed_email                :string
-#  encrypted_otp_secret             :string
-#  encrypted_otp_secret_iv          :string
-#  encrypted_otp_secret_salt        :string
-#  consumed_timestep                :integer
-#  otp_required_for_login           :boolean
-#  first_name                       :string
-#  last_name                        :string
-#  preferred_language               :string
-#  custom_1                         :text
-#  custom_2                         :text
-#  custom_3                         :text
-#  invitation_token                 :string
-#  invitation_created_at            :datetime
-#  invitation_sent_at               :datetime
-#  invitation_accepted_at           :datetime
-#  invitation_limit                 :integer
-#  invited_by_type                  :string
-#  invited_by_id                    :integer
-#  invitations_count                :integer          default(0)
-#  terms_of_service                 :boolean          default(FALSE)
-#  terms_of_service_acceptance_date :datetime
+#  id                        :integer          not null, primary key
+#  email                     :string           default(""), not null
+#  encrypted_password        :string           default(""), not null
+#  reset_password_token      :string
+#  reset_password_sent_at    :datetime
+#  remember_created_at       :datetime
+#  sign_in_count             :integer          default(0), not null
+#  current_sign_in_at        :datetime
+#  last_sign_in_at           :datetime
+#  current_sign_in_ip        :inet
+#  last_sign_in_ip           :inet
+#  confirmation_token        :string
+#  confirmed_at              :datetime
+#  confirmation_sent_at      :datetime
+#  failed_attempts           :integer          default(0), not null
+#  unlock_token              :string
+#  locked_at                 :datetime
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  unconfirmed_email         :string
+#  encrypted_otp_secret      :string
+#  encrypted_otp_secret_iv   :string
+#  encrypted_otp_secret_salt :string
+#  consumed_timestep         :integer
+#  otp_required_for_login    :boolean
+#  first_name                :string
+#  last_name                 :string
+#  preferred_language        :string
+#  custom_1                  :text
+#  custom_2                  :text
+#  custom_3                  :text
+#  invitation_token          :string
+#  invitation_created_at     :datetime
+#  invitation_sent_at        :datetime
+#  invitation_accepted_at    :datetime
+#  invitation_limit          :integer
+#  invited_by_type           :string
+#  invited_by_id             :integer
+#  invitations_count         :integer          default(0)
 #
 
 class User < ApplicationRecord
@@ -69,6 +67,7 @@ class User < ApplicationRecord
   has_many :tags, :as => :tagable
   has_many :comments
   has_many :user_policy_consents
+  has_many :access_requests
 
   before_create :add_default_notification_settings
 
@@ -112,5 +111,13 @@ class User < ApplicationRecord
   def disable_otp!
     self.otp_required_for_login = false
     self.save!
+  end
+
+  def welcome_title
+    if self.first_name or self.last_name
+      "#{self.first_name} #{self.last_name}"
+    else
+      self.email
+    end
   end
 end

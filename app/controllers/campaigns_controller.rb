@@ -1,4 +1,6 @@
 class CampaignsController < ApplicationController
+
+  before_action :authenticate_user!
   include AccessRequestsHelper
 
   def index

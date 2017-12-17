@@ -29,7 +29,7 @@ class WorkflowNotificationActionsTest < ActionDispatch::IntegrationTest
       assert action_names.include?(a.name)
 
       assert_equal notifications_count_before_transition + 1, Notification.count
-      expected_notification_content = "The access request #{wf.access_request.id} has been created on DataRights.me and it's ready for sending to organization #{wf.access_request.organization.name}. Currently status of your wokrflow is: #{t.from_state.name}"
+      expected_notification_content = "The access request #{wf.access_request.id} has been created on DataRights.me and it's ready for sending to organization #{wf.access_request.organization.name}. Currently status of your workflow is: #{t.from_state.name}"
       e = EmailNotification.last
       assert_equal expected_notification_content, e.notification.content
       assert_equal title, e.notification.title

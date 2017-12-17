@@ -20,11 +20,10 @@ class UsersController < ApplicationController
     @content = nil
     @campaign_id = nil
 
-    @title = I18n.t('users.edit.title_before_you_start')
-    # @title = I18n.t('users.edit.title')
-    # if @user.first_name.blank? and @user.last_name.blank?
-    #   @title = I18n.t('users.edit.title_before_you_start')
-    # end
+    @title = I18n.t('users.edit.title')
+    if @user.first_name.blank? and @user.last_name.blank?
+       @title = I18n.t('users.edit.title_before_you_start')
+    end
 
     if params.include?(:campaign_id)
       campaign = Campaign.find(params[:campaign_id])
@@ -35,7 +34,7 @@ class UsersController < ApplicationController
       return unless pc
       @upc = UserPolicyConsent.find_or_create_by user_id: current_user.id, policy_consent_id: pc.id
       if @upc.approved && !current_user.first_name.blank? && !current_user.last_name.blank?
-        return redirect_to access_requests_new_path #TODO: pass the campaign
+        return redirect_to campaign_access_request_new_path(@campaign_id)
       end
       tv = TemplateVersion.find_by template_id: pc.template_id, active: true
       if tv
@@ -61,7 +60,7 @@ class UsersController < ApplicationController
     unless campaign_id.blank?
       campaign = Campaign.find(campaign_id)
       if success
-        redirect_to access_requests_new_path #TODO: pass the campaign
+        redirect_to campaign_access_requests_path(campaign_id)
       else
         redirect_to user_profile_for_campaign_path(campaign)
       end

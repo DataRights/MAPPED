@@ -3,7 +3,7 @@ RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::PreviewTemplat
 
 RailsAdmin.config do |config|
 
-  config.main_app_name = ["MAPPED", "Admin"]
+  config.main_app_name = ["MAPPED", "Dashboard"]
 
   config.navigation_static_label = "Tools"
   config.navigation_static_links = {
@@ -31,10 +31,10 @@ RailsAdmin.config do |config|
   config.label_methods << :email
   config.label_methods << :action
   config.label_methods << :line1
-  config.label_methods << :version
   config.label_methods << :role
   config.label_methods << :admin_login
   config.label_methods << :name
+  config.label_methods << :version
 
   config.actions do
     dashboard                     # mandatory
@@ -64,6 +64,27 @@ RailsAdmin.config do |config|
   config.model Template do
     navigation_label 'Template Engine'
     weight 2
+
+    create do
+      field :name
+      field :template_type
+      field :template_versions
+      field :sectors
+    end
+
+    edit do
+      field :name
+      field :template_type
+      field :template_versions
+      field :sectors
+    end
+
+    list do
+      field :name
+      field :template_type
+      field :template_versions
+      field :sectors
+    end
   end
 
   config.model Sector do
@@ -99,8 +120,9 @@ RailsAdmin.config do |config|
 
   config.model WorkflowTypeVersion do
     list do
-      field :version
+      field :name
       field :workflow_type
+      field :version
       field :active
 
       field :diagram do
@@ -108,6 +130,20 @@ RailsAdmin.config do |config|
           %{<a id="workflow_diagram_link" href="/workflow/diagram/#{value}" target='_blank'>#{I18n.t('workflow.generate_diagram')}</a>}.html_safe
         end
       end
+    end
+
+    create do
+      field :name
+      field :workflow_type
+      field :version
+      field :active
+    end
+
+    edit do
+      field :name
+      field :workflow_type
+      field :version
+      field :active
     end
   end
 
@@ -164,6 +200,10 @@ RailsAdmin.config do |config|
     parent AccessRequest
   end
 
+  config.model WorkflowStateForm do
+    parent AccessRequest
+  end
+
   config.model Transition do
     parent AccessRequest
   end
@@ -184,10 +224,67 @@ RailsAdmin.config do |config|
 
   config.model Campaign do
     parent AccessRequest
+
+    create do
+      field :name
+      field :short_description
+      field :expanded_description
+      field :policy_consent
+      field :workflow_type
+      field :questions
+    end
+
+    edit do
+      field :name
+      field :short_description
+      field :expanded_description
+      field :policy_consent
+      field :workflow_type
+      field :questions
+    end
+
+    list do
+      field :name
+      field :short_description
+      field :expanded_description
+      field :policy_consent
+      field :workflow_type
+      field :questions
+    end
   end
 
   config.model Organization do
     parent Sector
+    list do
+      field :name
+      field :sector
+      field :custom_1
+      field :custom_1_desc
+      field :custom_2
+      field :custom_2_desc
+      field :custom_3
+      field :custom_3_desc
+      field :address
+      field :campaigns
+      field :tags
+      field :languages, :pg_string_array
+    end
+
+    create do
+      field :name
+      field :sector
+      field :custom_1
+      field :custom_1_desc
+      field :custom_2
+      field :custom_2_desc
+      field :custom_3
+      field :custom_3_desc
+      field :address
+      field :campaigns
+      field :tags
+      field :languages, :pg_string_array
+    end
+
     edit do
       field :name
       field :sector
@@ -200,8 +297,7 @@ RailsAdmin.config do |config|
       field :address
       field :campaigns
       field :tags
-      field :comments
-      field :languages, :pg_string_array       
+      field :languages, :pg_string_array
     end
   end
 

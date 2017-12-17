@@ -58,6 +58,7 @@ en:
     no_state_to_generate_diagram: 'Workflow has no state to generate a diagram!'
     generate_diagram: 'Generate Diagram'
     state_has_already_one_timeout_transition: "State has already one timeout transition: %{transition}"
+    send_event_success: 'Operation successfully completed.'
   tfa:
     title: 'Two Factor Authentication'
     help: 'Two-factor authentication, or 2FA, is a way of logging into websites that requires more than just a password. Using a password to log into a website is susceptible to security threats, because it represents a single piece of information a malicious person needs to acquire. The added security that 2FA provides is requiring additional information to sign in.'
@@ -120,6 +121,9 @@ en:
       consent_check_box: 'I agree to the conditions above.'
       already_approved_at: "(Consent already approved at: %{approved_date})"
       profile_success: 'Profile information successfully updated!'
+  common:
+    campaign_not_found: 'Campaign not found!'
+    create_new_ar: 'Create new access request'
   helpers:
     label:
       user:
@@ -127,10 +131,29 @@ en:
         password: "Password (minimum 6 characters)"
         password_confirmation: "Password confirmation"
   access_requests:
+    templates:
+      update_status:
+        update_status: 'Update Status'
+        what_is_it: 'What is it?'
+        remark: 'Remark'
+        acknowledgement: 'Acknowledgement/confirmation'
+        request_clarification: 'Request of clarification'
+        cant_verify_your_identity: "We can't verify your identity"
+        we_dont_know_you: "We don't know you"
+        close: "Close"
+        save: "Save"
+        saving: "Saving..."
+        select_blank: 'Please select an action ...'
+      awaiting_response:
+        awaiting_response: 'Awaiting response'
+        left: left
+      evaluation:
+        evaluate: 'Evaluate'
     new:
       title: 'Create new access request'
       sector_label: 'Sector'
       organization_label: 'Organization'
+      click_here: 'Click here'
       organization_help: 'for more information about the selected organization on our wiki page.'
       text_type_select: 'Text of access request'
       text_type_standard: 'Standard text'
@@ -139,3 +162,4 @@ en:
       sending_date_label: 'Date of sending'
       passport_id_warning: 'Do not forget to attach a copy of your passport/ID card to your access request.'
       final_button: 'Generate final PDF'
+      please_note_fields_in_red: 'Please note that fields in red require your personal data.'

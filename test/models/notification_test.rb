@@ -34,7 +34,7 @@ class NotificationTest < ActiveSupport::TestCase
     assert n2.save
 
     email_notifications.each do |e|
-      assert_equal e.status, 'pending'
+      assert_equal e.status, 'unread'
     end
 
     ActionMailer::Base.deliveries.clear
@@ -74,7 +74,7 @@ class NotificationTest < ActiveSupport::TestCase
     assert n2.save
 
     email_notifications.each do |e|
-      assert_equal e.status, 'pending'
+      assert_equal e.status, 'unread'
     end
 
     ActionMailer::Base.deliveries.clear

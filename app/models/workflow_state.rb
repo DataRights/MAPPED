@@ -8,15 +8,20 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  is_initial_state         :boolean          default(FALSE)
+#  workflow_state_form_id   :integer
 #
 
 class WorkflowState < ApplicationRecord
   belongs_to :workflow_type_version
+  belongs_to :workflow_state_form, optional: true
   has_many :possible_transitions, class_name: "Transition", foreign_key: "from_state_id"
   validates :name, :workflow_type_version, presence: true
   validate :workflow_type_not_active
 
   def workflow_type_not_active
+
+    return unless self.changes.include?(:workflow_type_version) or self.changes.include?(:is_initial_state)
+
     if self.workflow_type_version.active
       errors.add(:workflow_type_version, I18n.t('validations.workflow_type_is_active'))
     end

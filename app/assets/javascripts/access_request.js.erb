@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).on("turbolinks:load", function(){
   $("#sector_id").on('change', function(){
     $.ajax({
       url: "<%= Rails.configuration.base_protocol %>://<%= Rails.configuration.base_url %>/campaigns/" + $("#campaign_id").val() + "/organizations/" + $(this).val(),

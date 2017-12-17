@@ -9,6 +9,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  timeout_days  :float
+#  ui_form       :integer
 #
 
 require 'test_helper'
