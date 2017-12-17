@@ -64,7 +64,7 @@ class AccessRequestsController < ApplicationController
       @access_request.final_text = params['standard_text']
     end
     @access_request.save!
-    redirect_to access_requests_index_path
+    redirect_to campaign_access_requests_path(@access_request.campaign_id)
   end
 
   def preview

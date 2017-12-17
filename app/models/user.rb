@@ -112,4 +112,12 @@ class User < ApplicationRecord
     self.otp_required_for_login = false
     self.save!
   end
+
+  def welcome_title
+    if self.first_name or self.last_name
+      "#{self.first_name} #{self.last_name}"
+    else
+      self.email
+    end
+  end
 end

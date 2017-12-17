@@ -13,6 +13,7 @@
 #  custom_2_desc :text
 #  custom_3      :text
 #  custom_3_desc :text
+#  languages     :string           default([]), is an Array
 #
 
 class Organization < ApplicationRecord
@@ -21,10 +22,8 @@ class Organization < ApplicationRecord
   has_and_belongs_to_many :campaigns
   has_many :tags, :as => :tagable
   has_many :comments, :as => :commentable
-
-  validates_presence_of :name
+  validates_presence_of :address, :languages, :name
   accepts_nested_attributes_for :address
-  validates_presence_of :address
 
   def context_value
     result = { 'name' => name }
@@ -43,6 +42,6 @@ class Organization < ApplicationRecord
     result = self[:languages]
     result = self.address.country.languages if result.blank? && self.address && self.address.country
     result ||= []
-    result.map {|language| language.to_sym}
+    result.map {|language| (language.is_a? Symbol)? language : language.strip.to_sym}
   end
 end

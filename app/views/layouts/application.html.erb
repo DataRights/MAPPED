@@ -58,7 +58,7 @@
             <% end %>
             </ul>
         <% if user_signed_in? %>
-            <a class="nav-link disabled" href="#"><%= t('.welcome') %> <%= current_user.email %>!</a>
+            <a class="nav-link disabled" href="#"><%= t('.welcome') %> <%= current_user.welcome_title %>!</a>
             <%= button_to(t('user_links.logout'), destroy_user_session_path, {method: :delete, class: 'btn btn-secondary btn-sm'}) %>
         <% else %>
             <%= button_to(t('user_links.login'), new_user_session_path, {class: 'btn btn-secondary btn-sm'}) %>

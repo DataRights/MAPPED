@@ -34,6 +34,7 @@ RailsAdmin.config do |config|
   config.label_methods << :role
   config.label_methods << :admin_login
   config.label_methods << :name
+  config.label_methods << :version
 
   config.actions do
     dashboard                     # mandatory
@@ -63,6 +64,27 @@ RailsAdmin.config do |config|
   config.model Template do
     navigation_label 'Template Engine'
     weight 2
+
+    create do
+      field :name
+      field :template_type
+      field :template_versions
+      field :sectors
+    end
+
+    edit do
+      field :name
+      field :template_type
+      field :template_versions
+      field :sectors
+    end
+
+    list do
+      field :name
+      field :template_type
+      field :template_versions
+      field :sectors
+    end
   end
 
   config.model Sector do
@@ -245,7 +267,7 @@ RailsAdmin.config do |config|
       field :address
       field :campaigns
       field :tags
-      field :languages, :pg_string_array       
+      field :languages, :pg_string_array
     end
 
     create do

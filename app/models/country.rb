@@ -6,6 +6,7 @@
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  languages  :string           default([]), is an Array
 #
 
 class Country < ApplicationRecord

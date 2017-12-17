@@ -9,13 +9,18 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  timeout_days  :float
+#  ui_form       :integer
 #
 
 class Transition < ApplicationRecord
+
+  enum ui_form: [ :response_received, :send_reminder ]
+
   belongs_to :from_state, class_name: 'WorkflowState'
   belongs_to :to_state, class_name: 'WorkflowState'
   has_and_belongs_to_many :actions, class_name: 'CodeAction'
   has_and_belongs_to_many :guards
+
   validates :from_state, :to_state, :name, presence: true
   validates :to_state, uniqueness: { scope: :from_state }
   validate :only_one_timeout_from_one_state

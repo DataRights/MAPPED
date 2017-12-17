@@ -11,6 +11,8 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  campaign_id        :integer
+#  suggested_text     :text
+#  final_text         :text
 #
 
 require 'test_helper'

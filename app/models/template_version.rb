@@ -14,6 +14,7 @@
 
 class TemplateVersion < ApplicationRecord
   belongs_to :template
+  validates_presence_of :version, :content, :language
 
   def render(template_context)
     return '' if content.blank?
