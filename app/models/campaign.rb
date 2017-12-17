@@ -26,8 +26,8 @@ class Campaign < ApplicationRecord
 
   validates_presence_of :name, :workflow_type
   validate :presence_of_active_workflow_type
-
   CAMPAIGN_TOP_THREE_CACHE_NAME = 'campaigns/top_three'
+  DEFAULT_CAMPAIGN_NAME = 'Default'
 
   def context_value
     result = { 'name' => name.blank? ? '' : name }

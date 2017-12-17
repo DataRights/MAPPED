@@ -17,12 +17,14 @@
 
 class Organization < ApplicationRecord
   belongs_to :sector
-  has_many :addresses, as: :addressable
+  has_one :address, as: :addressable, :dependent => :destroy
   has_and_belongs_to_many :campaigns
   has_many :tags, :as => :tagable
   has_many :comments, :as => :commentable
 
   validates_presence_of :name
+  accepts_nested_attributes_for :address
+  validates_presence_of :address
 
   def context_value
     result = { 'name' => name }
@@ -33,8 +35,14 @@ class Organization < ApplicationRecord
     result['custom_2_desc'] = custom_2_desc if custom_2_desc
     result['custom_3'] = custom_3 if custom_3
     result['custom_3_desc'] = custom_3_desc if custom_3_desc
-    result['addresses'] = addresses.map(&:context_value) unless addresses.blank?
+    result['address'] = address.context_value if address
     result
   end
 
+  def languages
+    result = self[:languages]
+    result = self.address.country.languages if result.blank? && self.address && self.address.country
+    result ||= []
+    result.map {|language| language.to_sym}
+  end
 end

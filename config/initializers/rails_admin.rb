@@ -151,6 +151,11 @@ RailsAdmin.config do |config|
 
   config.model Country do
     parent User
+    edit do
+      field :name
+      field :cities
+      field :languages, :pg_string_array
+    end
   end
 
   config.model WorkflowState do
@@ -237,6 +242,10 @@ RailsAdmin.config do |config|
       field :custom_2_desc
       field :custom_3
       field :custom_3_desc
+      field :address
+      field :campaigns
+      field :tags
+      field :languages, :pg_string_array       
     end
 
     create do
@@ -248,6 +257,10 @@ RailsAdmin.config do |config|
       field :custom_2_desc
       field :custom_3
       field :custom_3_desc
+      field :address
+      field :campaigns
+      field :tags
+      field :languages, :pg_string_array
     end
 
     edit do
@@ -259,6 +272,10 @@ RailsAdmin.config do |config|
       field :custom_2_desc
       field :custom_3
       field :custom_3_desc
+      field :address
+      field :campaigns
+      field :tags
+      field :languages, :pg_string_array
     end
   end
 

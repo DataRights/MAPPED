@@ -19,5 +19,6 @@
 //= require pdf.worker
 //= require bootstrap-sprockets
 //= require bootstrap-toggle
+//= require ckeditor/init
 //= require_tree .
 //= require_self

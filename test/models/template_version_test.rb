@@ -34,10 +34,10 @@ class TemplateVersionTest < ActiveSupport::TestCase
   end
 
   test "render with context with organization with address" do
-    template_content = "The address of {{ organization.name }}\n line1 {{ organization.addresses[0].line1 }}\n city  {{ organization.addresses[0].city.name }}"
+    template_content = "The address of {{ organization.name }}\n line1 {{ organization.address.line1 }}\n city  {{ organization.address.city.name }}"
     render_result    = "The address of Schiphol Airport\n line1 somewhere\n city  London"
     organization = Organization.new(name: 'Schiphol Airport')
-    organization.addresses << Address.new(line1: 'somewhere', city: City.new(name: 'London'))
+    organization.address = Address.new(line1: 'somewhere', city: City.new(name: 'London'))
     assert_equal render_result, TemplateVersion.new(content: template_content).render(TemplateContext.new(organization: organization))
   end
 

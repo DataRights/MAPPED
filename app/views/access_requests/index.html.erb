@@ -6,7 +6,7 @@
         <%= @campaign.expanded_description %>
       </p>
       <p>
-        <%= button_to t('common.create_new_ar'), {:controller => "access_requests", :action => "new", :campaign_id => @campaign.id }, class: 'btn btn-success' %>
+        <%= link_to t('common.create_new_ar'), {:controller => "access_requests", :action => "new", :campaign_id => @campaign.id }, class: 'btn btn-success' %>
       </p>
     </div>
     <div class="col-md-8">

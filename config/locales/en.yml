@@ -51,6 +51,9 @@ en:
     attachment_max_size: 'maximum attachment size is 500k'
   errors:
     transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
+    campaign_not_found: 'Campaign is not found'
+    organization_not_found: 'Organization not found'
+    template_version_not_found: 'Template version not found'
   workflow:
     no_state_to_generate_diagram: 'Workflow has no state to generate a diagram!'
     generate_diagram: 'Generate Diagram'
@@ -100,23 +103,6 @@ en:
       general_text: 'This is a general text about campaigns assigned/available to the participant, what we are currently busy with in terms of research, etc etc. It could also be a place for general info relevant for the new participant. After first viewing this part of the interface can also dissapear...'
       learn_more: 'Learn more'
       join_campaign: 'Join campaign'
-  access_requests:
-    index:
-    templates:
-      update_status:
-        update_status: 'Update Status'
-        what_is_it: 'What is it?'
-        remark: 'Remark'
-        acknowledgement: 'Acknowledgement/confirmation'
-        request_clarification: 'Request of clarification'
-        cant_verify_your_identity: "We can't verify your identity"
-        we_dont_know_you: "We don't know you"
-        close: "Close"
-        save: "Save"
-        saving: "Saving..."
-      awaiting_response:
-        awaiting_response: 'Awaiting response'
-        left: left
   users:
     edit:
       title: 'Profile'
@@ -144,3 +130,31 @@ en:
         email: "Email Address"
         password: "Password (minimum 6 characters)"
         password_confirmation: "Password confirmation"
+  access_requests:
+    templates:
+      update_status:
+        update_status: 'Update Status'
+        what_is_it: 'What is it?'
+        remark: 'Remark'
+        acknowledgement: 'Acknowledgement/confirmation'
+        request_clarification: 'Request of clarification'
+        cant_verify_your_identity: "We can't verify your identity"
+        we_dont_know_you: "We don't know you"
+        close: "Close"
+        save: "Save"
+        saving: "Saving..."
+      awaiting_response:
+        awaiting_response: 'Awaiting response'
+        left: left
+    new:
+      title: 'Create new access request'
+      sector_label: 'Sector'
+      organization_label: 'Organization'
+      organization_help: 'for more information about the selected organization on our wiki page.'
+      text_type_select: 'Text of access request'
+      text_type_standard: 'Standard text'
+      text_type_custom: 'Expanded text'
+      preview_button: 'Preview PDF'
+      sending_date_label: 'Date of sending'
+      passport_id_warning: 'Do not forget to attach a copy of your passport/ID card to your access request.'
+      final_button: 'Generate final PDF'

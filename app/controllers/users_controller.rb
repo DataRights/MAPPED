@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       return unless pc
       @upc = UserPolicyConsent.find_or_create_by user_id: current_user.id, policy_consent_id: pc.id
       if @upc.approved && !current_user.first_name.blank? && !current_user.last_name.blank?
-        return redirect_to access_requests_new_path #TODO: pass the campaign
+        return redirect_to campaign_access_request_new_path(@campaign_id)
       end
       tv = TemplateVersion.find_by template_id: pc.template_id, active: true
       if tv

@@ -25,4 +25,28 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_equal ({'name' => 'hosp1', 'custom_2' => 'aaa' , 'custom_2_desc' => 'bbb' }), Organization.new(name: 'hosp1', custom_2: 'aaa', custom_2_desc: 'bbb').context_value
     assert_equal ({'name' => 'hosp1', 'custom_3' => 'aaa' , 'custom_3_desc' => 'bbb' }), Organization.new(name: 'hosp1', custom_3: 'aaa', custom_3_desc: 'bbb').context_value
   end
+
+  test 'must have an address' do
+    o = Organization.new(name: 'datarights', sector: Sector.new(name: 'IT'))
+    assert_not o.valid?
+    o.address = Address.new(line1: 'somewhere', line2: 'somewhere else', post_code: 'NW12', city: City.new(name: 'London'), country: Country.new(name: 'UK'), addressable: o)
+    assert o.valid?
+  end
+
+  test 'should return langugaes from address if there is no languages' do
+    o = Organization.new(name: 'datarights', sector: Sector.new(name: 'IT'))
+    country = Country.new(name: 'UK')
+    country.languages = [:en,:ar]
+    o.address = Address.new(line1: 'somewhere', line2: 'somewhere else', post_code: 'NW12', city: City.new(name: 'London'), country: country, addressable: o)
+    assert_equal [:en,:ar], o.languages
+  end
+
+  test 'should return its own language instead of address languages (override)' do
+    o = Organization.new(name: 'datarights', sector: Sector.new(name: 'IT'))
+    o.languages = [:kq,:rw]
+    country = Country.new(name: 'UK')
+    country.languages = [:en,:ar]
+    o.address = Address.new(line1: 'somewhere', line2: 'somewhere else', post_code: 'NW12', city: City.new(name: 'London'), country: country, addressable: o)
+    assert_equal [:kq,:rw], o.languages
+  end
 end
