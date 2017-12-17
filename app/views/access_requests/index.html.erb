@@ -22,7 +22,7 @@
             <a class="btn btn-secondary disabled" href="#" role="button" aria-disabled="true">&nbsp;</a>
           <% end %>
           <% if a.workflow.workflow_state.workflow_state_form %>
-            <%= render partial: a.workflow.workflow_state.workflow_state_form.form_path, collection: @access_requests, locals: {a: a} %>
+            <%= render partial: a.workflow.workflow_state.workflow_state_form.form_path, locals: {a: a} %>
           <% end %>
         </p>
       <% end %>

@@ -1,6 +1,6 @@
 <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button"><%= t('.update_status') %></a>
 <%= form_with(model: a.workflow) do |f| %>
-<span id="result"></span>
+
 <div class="modal fade" id="modal<%= a.id %>" tabindex="-1" role="dialog" aria-labelledby="modal<%= a.id %>Label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -12,16 +12,37 @@
         </button>
       </div>
       <div class="modal-body">
+
+        <div class="alert alert-danger alert-dismissible collapse" id="send_event_alert<%= a.id %>" role="alert">
+          <span id="alert_message<%= a.id %>"></span>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+
+        <div class="alert alert-success alert-dismissible collapse" id="send_event_success<%= a.id %>" role="alert">
+          <span id="success_message<%= a.id %>"></span>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+
         <div class="form-group">
           <%= f.hidden_field(:id) %>
-          <%= f.select(:event, options_from_collection_for_select(a.workflow.workflow_state.possible_transitions, 'id', 'name'), {}, {class: "form-control"}) %>
+          <%= f.select(:transition_id, options_from_collection_for_select(a.workflow.workflow_state.possible_transitions, 'id', 'name'), {}, {class: "form-control", id: "workflow_transition_id"}) %>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') %></button>
-        <%= f.submit t('.save'), id: 'update_status_save', data: { "disable-with": t('.saving') }, class: 'btn btn-primary' %>
+        <%= f.submit t('.save'), id: "update_status_save#{a.id}", data: { "disable-with": t('.saving') }, class: 'btn btn-primary' %>
       </div>
     </div>
   </div>
 </div>
 <% end %>
+
+<script>
+  $('#modal<%= a.id %>').on('hidden.bs.modal', function () {
+    Turbolinks.visit(window.location.toString(), {action: 'replace'});
+  });
+</script>

@@ -2,8 +2,12 @@ require 'tempfile'
 require 'test_helper'
 
 class AttachmentsControllerTest < ActionDispatch::IntegrationTest
+
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @attachment = attachments(:one)
+    sign_in users(:one)
   end
 
   test "should get index" do

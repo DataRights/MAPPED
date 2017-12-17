@@ -29,6 +29,7 @@ class CampaignTest < ActiveSupport::TestCase
     c.name = 'Test campaign'
     c.short_description = 'This is a campaign to test top_three cache items update'
     c.expanded_description = 'This is a campaign to test top_three cache items update, blah blah ...'
+    c.workflow_type = workflow_types(:one)
     assert c.save
     assert_equal false, Rails.cache.exist?(Campaign::CAMPAIGN_TOP_THREE_CACHE_NAME)
     Campaign.top_three

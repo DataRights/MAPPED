@@ -18,8 +18,10 @@ one:
   name: MyString
   short_description: MyString
   expanded_description: MyText
+  workflow_type: one
 
 two:
   name: MyString
   short_description: MyString
   expanded_description: MyText
+  workflow_type: version_one_point_o_mapped_social

@@ -18,6 +18,12 @@ class WorkflowController < ApplicationController
 
   def send_event
     # TODO: check workflow to see if it belongs to current logged in user
-    render json: {success: true, message: 'Workflow send event was successfull!'}, :status => :ok
+    workflow_id = params[:workflow][:id]
+    transition_id = params[:workflow][:transition_id]
+    wf = Workflow.find(workflow_id)
+    return unless wf.access_request.user_id == current_user.id
+    t = Transition.find(transition_id)
+    @workflow_transition = wf.send_event(t)
+    @ar = wf.access_request
   end
 end

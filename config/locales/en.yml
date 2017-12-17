@@ -55,6 +55,7 @@ en:
     no_state_to_generate_diagram: 'Workflow has no state to generate a diagram!'
     generate_diagram: 'Generate Diagram'
     state_has_already_one_timeout_transition: "State has already one timeout transition: %{transition}"
+    send_event_success: 'Operation successfully completed.'
   tfa:
     title: 'Two Factor Authentication'
     help: 'Two-factor authentication, or 2FA, is a way of logging into websites that requires more than just a password. Using a password to log into a website is susceptible to security threats, because it represents a single piece of information a malicious person needs to acquire. The added security that 2FA provides is requiring additional information to sign in.'
@@ -113,6 +114,9 @@ en:
         close: "Close"
         save: "Save"
         saving: "Saving..."
+      awaiting_response:
+        awaiting_response: 'Awaiting response'
+        left: left
   users:
     edit:
       title: 'Profile'

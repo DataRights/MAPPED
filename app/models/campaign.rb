@@ -53,6 +53,7 @@ class Campaign < ApplicationRecord
   end
 
   def presence_of_active_workflow_type
+    return unless self.workflow_type
     unless self.workflow_type.current_version
       self.errors.add(:workflow_type, ' : There is no active workflow type version for selected workflow type.')
     end
