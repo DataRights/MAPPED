@@ -63,9 +63,10 @@ Or you can use:
 
 `pre-commit install`
 
-This creates a .git/hooks/pre-commit script which will check your git config and run checks that are enabled. modify the file .git/hooks/pre-commit and remove all the lines and add this line:
+This creates a .git/hooks/pre-commit script which will check your git config and run checks that are enabled. modify the file .git/hooks/pre-commit and remove all the lines and add these lines:
 
 `RAILS_ENV=test bundle exec rake test:system test`
+`bundle exec rake assets:precompile`
 
 # Deployment instructions
 
