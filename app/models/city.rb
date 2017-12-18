@@ -11,6 +11,8 @@
 
 class City < ApplicationRecord
   belongs_to :country
+  validates_presence_of :name
+  validates_uniqueness_of :name, scope: :country_id
 
   def context_value
     {'name' => name}

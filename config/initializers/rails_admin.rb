@@ -231,6 +231,7 @@ RailsAdmin.config do |config|
       field :expanded_description
       field :policy_consent
       field :workflow_type
+      field :organizations
       field :questions
     end
 
@@ -240,6 +241,7 @@ RailsAdmin.config do |config|
       field :expanded_description
       field :policy_consent
       field :workflow_type
+      field :organizations
       field :questions
     end
 
@@ -249,6 +251,7 @@ RailsAdmin.config do |config|
       field :expanded_description
       field :policy_consent
       field :workflow_type
+      field :organizations
       field :questions
     end
   end
