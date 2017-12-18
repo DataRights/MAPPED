@@ -13,11 +13,11 @@
 #
 
 class Campaign < ApplicationRecord
-  has_and_belongs_to_many :organizations
-  has_many :access_requests
-  has_and_belongs_to_many :questions
-  has_many :answers, as: :answerable
-  has_and_belongs_to_many :users
+  has_and_belongs_to_many :organizations, dependent: :destroy
+  has_many :access_requests, dependent: :destroy
+  has_and_belongs_to_many :questions, dependent: :destroy
+  has_many :answers, as: :answerable, dependent: :destroy
+  has_and_belongs_to_many :users, dependent: :destroy
   belongs_to :policy_consent, optional: true
   belongs_to :workflow_type
 

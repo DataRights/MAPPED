@@ -13,7 +13,7 @@
 
 class WorkflowTypeVersion < ApplicationRecord
   belongs_to :workflow_type
-  has_many :workflow_states
+  has_many :workflow_states, dependent: :destroy
   validates :version, :workflow_type, presence: true
   validates :version, uniqueness: { scope: :workflow_type }
   validate :presence_of_initial_state

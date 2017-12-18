@@ -13,7 +13,7 @@
 
 class PolicyConsent < ApplicationRecord
   belongs_to :template
-  has_many :campaigns
+  has_many :campaigns, dependent: :destroy
   validates_presence_of :type_of, :title, :template_id
   enum type_of:  [:campaign, :share_with_researchers, :share_in_forum]
 end

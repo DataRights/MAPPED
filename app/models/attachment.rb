@@ -13,8 +13,8 @@
 
 class Attachment < ApplicationRecord
   belongs_to :workflow_transition
-  has_many :tags, :as => :tagable
-  has_many :comments, :as => :commentable
+  has_many :tags, :as => :tagable, dependent: :destroy
+  has_many :comments, :as => :commentable, dependent: :destroy
   validate :max_size
 
   MAX_SIZE = 500*1024

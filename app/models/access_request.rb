@@ -19,9 +19,9 @@ class AccessRequest < ApplicationRecord
   belongs_to :organization
   belongs_to :user
   belongs_to :campaign
-  has_one :workflow
-  has_many :tags, :as => :tagable
-  has_many :comments, :as => :commentable
+  has_one :workflow, dependent: :destroy
+  has_many :tags, :as => :tagable, dependent: :destroy
+  has_many :comments, :as => :commentable, dependent: :destroy
   before_save :update_related_caches, if: :campaign_id_changed?
   after_create :create_workflow
 

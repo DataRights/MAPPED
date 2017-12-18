@@ -14,7 +14,7 @@ class Role < ApplicationRecord
 	has_many :user_roles, dependent: :destroy
 	has_many :users, through: :user_roles
 
-	has_many :access_rights
+	has_many :access_rights, dependent: :destroy
 
 	def can?(action)
 		raise "Unknown Action(#{action})" unless AccessRight.valid_action?(action)

@@ -20,8 +20,8 @@ class Organization < ApplicationRecord
   belongs_to :sector
   has_one :address, as: :addressable, :dependent => :destroy
   has_and_belongs_to_many :campaigns
-  has_many :tags, :as => :tagable
-  has_many :comments, :as => :commentable
+  has_many :tags, :as => :tagable, dependent: :destroy
+  has_many :comments, :as => :commentable, dependent: :destroy
   validates_presence_of :address, :languages, :name
   accepts_nested_attributes_for :address
 

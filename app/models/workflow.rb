@@ -14,7 +14,7 @@ class Workflow < ApplicationRecord
   belongs_to :workflow_type_version
   belongs_to :workflow_state
   belongs_to :access_request
-  has_many :workflow_transitions
+  has_many :workflow_transitions, dependent: :destroy
   validates :workflow_type_version, :workflow_state, :access_request, presence: true
   validate :workflow_type_should_be_active
   after_create :check_transition_timeout

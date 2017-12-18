@@ -9,7 +9,7 @@
 #
 
 class Sector < ApplicationRecord
-  has_many :organizations
+  has_many :organizations, dependent: :destroy
   has_and_belongs_to_many :templates
 
   def context_value

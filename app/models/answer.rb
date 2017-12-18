@@ -12,5 +12,5 @@
 
 class Answer < ApplicationRecord
   belongs_to :answerable, polymorphic: true
-  has_many :tags, :as => :tagable
+  has_many :tags, :as => :tagable, dependent: :destroy
 end

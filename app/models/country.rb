@@ -10,7 +10,7 @@
 #
 
 class Country < ApplicationRecord
-  has_many :cities
+  has_many :cities, dependent: :destroy
   validates_presence_of :languages
 
   def context_value

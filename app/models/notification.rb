@@ -14,8 +14,8 @@
 class Notification < ApplicationRecord
   belongs_to :user
   belongs_to :access_request, optional: true
-  has_many :email_notifications
-  has_many :web_notifications
+  has_many :email_notifications, dependent: :destroy
+  has_many :web_notifications, dependent: :destroy
   after_create :create_notification_senders
 
   # TODO: factory for creating web, email, ... notifications
