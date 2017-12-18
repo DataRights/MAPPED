@@ -17,7 +17,7 @@
 class Address < ApplicationRecord
   belongs_to :city
   belongs_to :country
-  belongs_to :addressable, polymorphic: true
+  belongs_to :addressable, polymorphic: true, :inverse_of => :address
   before_validation :create_city
   validates_presence_of :line1
 

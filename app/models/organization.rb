@@ -18,7 +18,7 @@
 
 class Organization < ApplicationRecord
   belongs_to :sector
-  has_one :address, as: :addressable, :dependent => :destroy
+  has_one :address, as: :addressable, :dependent => :destroy, :inverse_of => :addressable
   has_and_belongs_to_many :campaigns
   has_many :tags, :as => :tagable, dependent: :destroy
   has_many :comments, :as => :commentable, dependent: :destroy

@@ -1,0 +1,86 @@
+getUrl = window.location;
+baseUrl = getUrl .protocol + "//" + getUrl.host;
+
+updateTemplateContent = (organization_id) ->
+  $.ajax
+    url: baseUrl + '/campaigns/' + $('#campaign_id').val() + '/organizations/' + organization_id + '/template'
+    type: 'GET'
+    success: (e) ->
+      document.getElementById('textContentStandard').innerHTML = e.template
+      CKEDITOR.instances['custom_text'].setData e.template
+      return
+  return
+
+previewPDF = ->
+  rendered_template = ''
+  if document.getElementById('textTypeRadioStandard').checked
+    rendered_template = document.getElementById('textContentStandard').innerHTML
+  else if document.getElementById('textTypeRadioExpanded').checked
+    rendered_template = CKEDITOR.instances['custom_text'].getData()
+  oReq = new XMLHttpRequest
+  oReq.responseType = 'blob'
+
+  oReq.onload = (e) ->
+    file = window.URL.createObjectURL(oReq.response)
+    PDFJS.disableWorker = true
+    PDFJS.getDocument(file).then (pdf) ->
+      # Fetch the page.
+      pdf.getPage(1).then (page) ->
+        scale = 1
+        viewport = page.getViewport(scale)
+        # Prepare canvas using PDF page dimensions.
+        canvas = document.getElementById('preview-canvas')
+        context = canvas.getContext('2d')
+        canvas.height = viewport.height
+        canvas.width = viewport.width
+        # Render PDF page into canvas context.
+        renderContext =
+          canvasContext: context
+          viewport: viewport
+        page.render(renderContext).then ->
+          document.getElementById('previewModal').style.display = 'block'
+          return
+        return
+      return
+    return
+
+  oReq.open 'GET', baseUrl + '/access_requests/preview?rendered_template=' + encodeURIComponent(rendered_template)
+  oReq.send()
+  return
+
+$(document).on 'turbolinks:load', ->
+  $('#sector_id').on 'change', ->
+    $.ajax
+      url: baseUrl + '/campaigns/' + $('#campaign_id').val() + '/organizations/' + $(this).val()
+      type: 'GET'
+      success: (e) ->
+        $('#organization_id').children().remove()
+        listitems = []
+        $.each e, (key, value) ->
+          listitems += '<option value="' + value[1] + '">' + value[0] + '</option>'
+          return
+        $('#organization_id').append listitems
+        if listitems.length > 0
+          updateTemplateContent e[0][1]
+        return
+    return
+  $('#organization_id').on 'change', ->
+    updateTemplateContent $(this).val()
+    return
+  $('#textTypeRadioStandard').on 'change', ->
+    if $(this).is(':checked') and $(this).val() == 'standard'
+      $('#textContentStandard').show()
+      $('#textContentExpanded').hide()
+    return
+  $('#textTypeRadioExpanded').on 'change', ->
+    if $(this).is(':checked') and $(this).val() == 'expanded'
+      $('#textContentStandard').hide()
+      $('#textContentExpanded').show()
+    return
+  return
+
+window.onclick = (event) ->
+  modal = document.getElementById('previewModal')
+  if event.target == modal
+    modal.style.display = 'none'
+  return

@@ -1,0 +1,59 @@
+defaults: &defaults
+  ttl: 1800
+  readonly: false
+  urlencode: false
+  c_threshold: 10000
+  compression: true
+  debug: false
+  namespace: ""
+  sessions: true
+  fragments: true
+  memory: 128
+  raise_errors: true
+  fast_hash: false
+  fastest_hash: false
+
+development:
+  <<: *defaults
+  benchmarking: true
+  servers:
+      - 127.0.0.1:11211
+
+test:
+  <<: *defaults
+  benchmarking: true
+  servers:
+      - 127.0.0.1:11211
+
+staging:
+  <<: *defaults
+  benchmarking: false
+  servers:
+      - ip-172-31-62-157.ec2.internal:11211
+      - ip-172-31-6-224.ec2.internal:11211
+
+heroku:
+  <<: *defaults
+  benchmarking: false
+  servers:
+      - ip-172-31-62-157.ec2.internal:11211
+      - ip-172-31-6-224.ec2.internal:11211
+
+production:
+  <<: *defaults
+  benchmarking: false
+  servers:
+      - ip-172-31-62-157.ec2.internal:11211
+      - ip-172-31-6-224.ec2.internal:11211
+
+aetna_dev:
+  <<: *defaults
+  benchmarking: false
+  servers:
+      - 157.121.55.18:11211
+
+aetna_qa:
+  <<: *defaults
+  benchmarking: false
+  servers:
+      - 157.121.51.94:11211
