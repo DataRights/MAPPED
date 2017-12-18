@@ -11,44 +11,51 @@ updateTemplateContent = (organization_id) ->
       return
   return
 
-previewPDF = ->
-  rendered_template = ''
-  if document.getElementById('textTypeRadioStandard').checked
-    rendered_template = document.getElementById('textContentStandard').innerHTML
-  else if document.getElementById('textTypeRadioExpanded').checked
-    rendered_template = CKEDITOR.instances['custom_text'].getData()
-  oReq = new XMLHttpRequest
-  oReq.responseType = 'blob'
-
-  oReq.onload = (e) ->
-    file = window.URL.createObjectURL(oReq.response)
-    PDFJS.disableWorker = true
-    PDFJS.getDocument(file).then (pdf) ->
-      # Fetch the page.
-      pdf.getPage(1).then (page) ->
-        scale = 1
-        viewport = page.getViewport(scale)
-        # Prepare canvas using PDF page dimensions.
-        canvas = document.getElementById('preview-canvas')
-        context = canvas.getContext('2d')
-        canvas.height = viewport.height
-        canvas.width = viewport.width
-        # Render PDF page into canvas context.
-        renderContext =
-          canvasContext: context
-          viewport: viewport
-        page.render(renderContext).then ->
-          document.getElementById('previewModal').style.display = 'block'
-          return
-        return
-      return
-    return
-
-  oReq.open 'GET', baseUrl + '/access_requests/preview?rendered_template=' + encodeURIComponent(rendered_template)
-  oReq.send()
+window.onclick = (event) ->
+  modal = document.getElementById('previewModal')
+  if event.target == modal
+    modal.style.display = 'none'
   return
 
 $(document).on 'turbolinks:load', ->
+
+  $('#ar_pdf_preview').on 'click', ->
+    rendered_template = ''
+    if document.getElementById('textTypeRadioStandard').checked
+      rendered_template = document.getElementById('textContentStandard').innerHTML
+    else if document.getElementById('textTypeRadioExpanded').checked
+      rendered_template = CKEDITOR.instances['custom_text'].getData()
+    oReq = new XMLHttpRequest
+    oReq.responseType = 'blob'
+
+    oReq.onload = (e) ->
+      file = window.URL.createObjectURL(oReq.response)
+      PDFJS.disableWorker = true
+      PDFJS.getDocument(file).then (pdf) ->
+        # Fetch the page.
+        pdf.getPage(1).then (page) ->
+          scale = 1
+          viewport = page.getViewport(scale)
+          # Prepare canvas using PDF page dimensions.
+          canvas = document.getElementById('preview-canvas')
+          context = canvas.getContext('2d')
+          canvas.height = viewport.height
+          canvas.width = viewport.width
+          # Render PDF page into canvas context.
+          renderContext =
+            canvasContext: context
+            viewport: viewport
+          page.render(renderContext).then ->
+            document.getElementById('previewModal').style.display = 'block'
+            return
+          return
+        return
+      return
+
+    oReq.open 'GET', baseUrl + '/access_requests/preview?rendered_template=' + encodeURIComponent(rendered_template)
+    oReq.send()
+    return
+
   $('#sector_id').on 'change', ->
     $.ajax
       url: baseUrl + '/campaigns/' + $('#campaign_id').val() + '/organizations/' + $(this).val()
@@ -77,10 +84,4 @@ $(document).on 'turbolinks:load', ->
       $('#textContentStandard').hide()
       $('#textContentExpanded').show()
     return
-  return
-
-window.onclick = (event) ->
-  modal = document.getElementById('previewModal')
-  if event.target == modal
-    modal.style.display = 'none'
   return

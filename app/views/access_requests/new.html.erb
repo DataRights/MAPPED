@@ -46,7 +46,7 @@
                       <%= cktext_area_tag(:custom_text, @rendered_template, ckeditor: { toolbar: 'mini'}) %>
                     </div>
                 </div>
-                <%= button_tag t('.preview_button'), type: 'button', onclick: "previewPDF()", class: 'btn btn-secondary' %>
+                <%= button_tag t('.preview_button'), type: 'button', class: 'btn btn-secondary', id: 'ar_pdf_preview' %>
                 <br>
                 <br>
                 <div class="form-group">
