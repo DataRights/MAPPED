@@ -1,5 +1,5 @@
 getUrl = window.location;
-baseUrl = getUrl .protocol + "//" + getUrl.host;
+baseUrl = getUrl.protocol + "//" + getUrl.host;
 
 updateTemplateContent = (organization_id) ->
   $.ajax

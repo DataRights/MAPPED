@@ -59,7 +59,7 @@ class User < ApplicationRecord
 
 	has_many :user_roles, :dependent => :destroy
 	has_many :roles, through: :user_roles, :dependent => :destroy
-  has_one :address, as: :addressable, :dependent => :destroy
+  has_one :address, as: :addressable, :dependent => :destroy, :inverse_of => :addressable
   has_many :answers, as: :answerable, :dependent => :destroy
   has_many :notifications, :dependent => :destroy
   has_and_belongs_to_many :notification_settings, :dependent => :destroy
