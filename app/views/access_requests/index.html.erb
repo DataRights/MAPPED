@@ -1,3 +1,6 @@
+<% if @download_ar %>
+  <iframe width="1" height="1" frameborder="0" src="<%= downlaod_access_request_path(@download_ar) %>"></iframe>
+<% end %>
 <div class="container" style="margin-top: 50px;">
   <div class="row">
     <div class="col-md-4">
@@ -11,7 +14,7 @@
     </div>
     <div class="col-md-8">
       <% @access_requests.each do |a| %>
-        <h5 class="nonselect" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="true" aria-controls="multiCollapse<%= a.id %>"><img src="Entypo+/controller-play.svg" height="24" align="left" alt=""> 
+        <h5 class="nonselect" data-toggle="collapse" data-target="#multiCollapse<%= a.id %>" aria-expanded="true" aria-controls="multiCollapse<%= a.id %>">
           <%= image_tag "controller-play.svg", height: 24 %>
           <%= a.organization.name %>
           &nbsp;

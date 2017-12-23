@@ -2,18 +2,21 @@
   <div class="col">
     <div>
       <div class="card card-body">
-        <small class="nonselect"><img src="Entypo+/attachment.svg" height="18" alt="">
+        <small class="nonselect">
+          <%= image_tag "attachment.svg", height: 18 %>
           &nbsp;5 attachments</small><hr>
         <small class="nonselect">
-          <a data-toggle="modal" data-target="#exampleModal"><img src="Entypo+/circle-with-plus.svg" height="18" alt="">
+          <a data-toggle="modal" data-target="#exampleModal">
+            <%= image_tag "circle-with-plus.svg", height: 18 %>
             &nbsp;upload response or generate letter</a>
         </small><br/>
         <small>
           <ul class="list-unstyled">
             <li class="media">
-              <img class="mr-3" src="document.jpg" alt="" width="70" height="100">
+              <%= image_tag "document.jpg", class: 'mr-3', height: 100, width: 70 %>
               <div class="media-body">
-                <h6 class="mt-0 mb-1" style="color:green"><img src="Entypo+/download_green.svg" align="left" height="18" alt="">
+                <h6 class="mt-0 mb-1" style="color:green">
+                  <%= image_tag "download_green.svg", height: 18 %>
                   &nbsp;&nbsp;Final response received</h6>
                 <small>March 29, 2018</small><br/>
                 Short description on what it is.<br/>
@@ -21,9 +24,10 @@
               </div>
             </li>
             <li class="media my-4">
-              <img class="mr-3" src="document.jpg" alt="" width="70" height="100">
+              <%= image_tag "document.jpg", class: 'mr-3', height: 100, width: 70 %>
               <div class="media-body">
-                <h6 class="mt-0 mb-1"><img src="Entypo+/upload_grey.svg" align="left" height="18" alt="">
+                <h6 class="mt-0 mb-1">
+                  <%= image_tag "upload_grey.svg", height: 18 %>
                   &nbsp;&nbsp;Follow up letter sent</h6>
                 <small>March 3, 2018</small><br/>
                 Short description on what it is.
@@ -32,7 +36,8 @@
             <li class="media my-4">
               <img class="mr-3" src="" alt="" width="70" height="100">
               <div class="media-body">
-                <h6 class="mt-0 mb-1" style="color:red"><img src="Entypo+/download_red.svg" align="left" height="18" alt="">
+                <h6 class="mt-0 mb-1" style="color:red">
+                  <%= image_tag "download_red.svg", height: 18 %>
                   &nbsp;&nbsp;Request of clarification received</h6>
                 <small>February 27, 2018</small><br/>
                 Short description on what it is.<br/>
@@ -40,18 +45,20 @@
               </div>
             </li>
             <li class="media my-4">
-              <img class="mr-3" src="document.jpg" alt="" width="70" height="100">
+              <%= image_tag "document.jpg", class: 'mr-3', height: 100, width: 70 %>
               <div class="media-body">
-                <h6 class="mt-0 mb-1"><img src="Entypo+/upload_grey.svg" align="left" height="18" alt="">
+                <h6 class="mt-0 mb-1">
+                  <%= image_tag "upload_grey.svg", height: 18 %>
                   &nbsp;&nbsp;Reminder sent</h6>
                 <small>February 15, 2018</small><br/>
                 Short description on what it is.
               </div>
             </li>
             <li class="media my-4">
-              <img class="mr-3" src="document.jpg" alt="" width="70" height="100">
+              <%= image_tag "document.jpg", class: 'mr-3', height: 100, width: 70 %>
               <div class="media-body">
-                <h6 class="mt-0 mb-1"><img src="Entypo+/upload_grey.svg" align="left" height="18" alt="">
+                <h6 class="mt-0 mb-1">
+                  <%= image_tag "upload_grey.svg", height: 18 %>
                   &nbsp;&nbsp;Initial request sent</h6>
                 <small>January 15, 2018</small><br/>
                 Short description on what it is.
@@ -66,31 +73,33 @@
   <div class="col">
     <div class="collapse multi-collapse" id="multiCollapseExample2">
       <div class="card card-body">
-        <small class="nonselect"><img src="Entypo+/chat.svg" height="18" alt="">
+        <small class="nonselect">
+          <%= image_tag "chat.svg", height: 18 %>
           &nbsp;3 comments</small><hr>
         <small class="nonselect">
           <a data-toggle="modal" data-target="#exampleModal4"><img src="Entypo+/circle-with-plus.svg" height="18" alt="">
             &nbsp;add comment</a>
         </small><br/>
-        <small><img src="Entypo+/user.svg" align="left" height="18" alt="">
+        <small>
+          <%= image_tag "user.svg", height: 18 %>
           &nbsp;&nbsp;<strong>Myself</strong><br/>
           <small>March 30, 2018</small><br/>
           All right! Finally I have received their response and actually the data provided there is quite OK. I mean, I'm not missing anything essential. It seems that they are doing it right.</small>
         <hr>
-        <small><img src="Entypo+/user.svg" align="left" height="18" alt="">
+        <small>
+          <%= image_tag "user.svg", height: 18 %>
           &nbsp;&nbsp;<strong>Moderator</strong><br/>
           <small>March 1, 2018</small><br/>
           Please, send the access request letter again to the address specified in their privacy statment.</small>
         <hr>
-        <small><img src="Entypo+/user.svg" align="left" height="18" alt="">
+        <small>
+          <%= image_tag "user.svg", height: 18 %>
           &nbsp;&nbsp;<strong>Myself</strong><br/>
           <small>February 27, 2018</small><br/>
           What a ridiculous response. They are only reffering to a link to a privacy statement on their website. How shall I formulate a good follow up response to their letter?</small>
 
       </div>
-      <p></p>
     </div>
-
   </div>
 
 </div>

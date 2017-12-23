@@ -6,6 +6,11 @@ class AccessRequestsController < ApplicationController
   def index
     @campaign = Campaign.find_by id: params[:campaign_id]
     @access_requests = current_user.access_requests.where(campaign_id: @campaign.id)
+    @download_ar = nil
+    if session['download_ar'] != nil
+      @download_ar = session['download_ar']
+      session['download_ar'] = nil
+    end
   end
 
   def new
@@ -51,6 +56,12 @@ class AccessRequestsController < ApplicationController
     @rendered_template = template_version.render(context)
   end
 
+  def download
+    ar = AccessRequest.find(params[:id])
+    return unless ar.user_id == current_user.id
+    send_data(WickedPdf.new.pdf_from_string(ar.final_text) , :type => :pdf)
+  end
+
   def create
     @access_request = AccessRequest.new
     @access_request.organization_id = params['organization_id']
@@ -64,7 +75,8 @@ class AccessRequestsController < ApplicationController
       @access_request.final_text = params['standard_text']
     end
     @access_request.save!
-    redirect_to campaign_access_requests_path(@access_request.campaign_id)
+    session['download_ar'] = @access_request.id
+    redirect_to campaign_access_requests_path(campaign_id: @access_request.campaign_id)
   end
 
   def preview

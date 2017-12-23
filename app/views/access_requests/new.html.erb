@@ -46,7 +46,7 @@
                       <%= cktext_area_tag(:custom_text, @rendered_template, ckeditor: { toolbar: 'mini'}) %>
                     </div>
                 </div>
-                <%= button_tag t('.preview_button'), type: 'button', class: 'btn btn-secondary', id: 'ar_pdf_preview' %>
+                <%= button_tag t('.preview_button'), type: 'button', data: { "disable-with": t('.generating_preview_pdf') }, class: 'btn btn-secondary', id: 'ar_pdf_preview' %>
                 <br>
                 <br>
                 <div class="form-group">
@@ -60,7 +60,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <%= submit_tag t('.final_button'), class: 'btn btn-primary' %>
+                <%= submit_tag t('.final_button'), id: 'btn_generate_pdf', class: 'btn btn-primary' %>
             <% end %>
             <br/>
         </div>
@@ -68,11 +68,13 @@
     <hr>
 </div> <!-- /container -->
 
-<div id="previewModal" class="modal">
-  <!-- Modal content -->
+<div id="previewModal" class="modal" aria-hidden="true" role="document">
   <div class="modal-content">
-    <div id="preview">
-      <iframe id='iframe_preview' style="border: 0" width="50%" height="600" frameborder="0" scrolling="no"></iframe>
+    <div class="modal-body">
+      <div id="preview">
+        <iframe id='iframe_preview' style="border: 0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+        <span>&nbsp;</span>
+      </div>
     </div>
   </div>
 </div>

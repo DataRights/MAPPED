@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171217203309) do
+ActiveRecord::Schema.define(version: 20171223102558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,7 +69,9 @@ ActiveRecord::Schema.define(version: 20171217203309) do
     t.bigint "answerable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "question_id"
     t.index ["answerable_type", "answerable_id"], name: "index_answers_on_answerable_type_and_answerable_id"
+    t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
   create_table "attachments", force: :cascade do |t|
@@ -445,6 +447,7 @@ ActiveRecord::Schema.define(version: 20171217203309) do
   add_foreign_key "access_rights", "roles"
   add_foreign_key "addresses", "cities"
   add_foreign_key "addresses", "countries"
+  add_foreign_key "answers", "questions"
   add_foreign_key "attachments", "workflow_transitions"
   add_foreign_key "campaigns", "policy_consents"
   add_foreign_key "campaigns", "workflow_types"

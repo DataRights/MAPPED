@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   post 'access_requests/create'
   get  'access_requests/preview'
+  get  'access_request/:id/download', to: 'access_requests#download', as: 'downlaod_access_request'
 
   get 'campaigns', to: 'campaigns#index'
   get 'campaigns/:id/organizations/:sector_id', to: 'campaigns#get_organizations', as: 'get_campaign_organizations'
