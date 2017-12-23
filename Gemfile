@@ -123,7 +123,7 @@ gem 'wkhtmltopdf-binary'
 
 gem 'wicked_pdf'
 
-#gem 'pdfjs_rails'
+gem 'pdfjs_rails'
 
 gem 'sidekiq'
 

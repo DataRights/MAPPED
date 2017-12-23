@@ -33,29 +33,31 @@ $(document).on 'turbolinks:load', ->
       console.log 'Onload e: ' + e
       console.log 'Creating object url using response: ' + oReq.response
       file = window.URL.createObjectURL(oReq.response)
-      PDFJS.disableWorker = true
-      PDFJS.getDocument(file).then (pdf) ->
-        console.log 'get document returned pdf: ' + pdf
-        # Fetch the page.
-        pdf.getPage(1).then (page) ->
-          console.log 'getPage 1: ' + page
-          scale = 1
-          viewport = page.getViewport(scale)
-          # Prepare canvas using PDF page dimensions.
-          canvas = document.getElementById('preview-canvas')
-          context = canvas.getContext('2d')
-          canvas.height = viewport.height
-          canvas.width = viewport.width
-          # Render PDF page into canvas context.
-          renderContext =
-            canvasContext: context
-            viewport: viewport
-          page.render(renderContext).then ->
-            document.getElementById('previewModal').style.display = 'block'
-            return
-          return
-        return
-      return
+      $('#iframe_preview').attr('src', '/pdfjs/web/viewer.html?file=' + file)
+      document.getElementById('previewModal').style.display = 'block'
+      # PDFJS.disableWorker = true
+      # PDFJS.getDocument(file).then (pdf) ->
+      #   console.log 'get document returned pdf: ' + pdf
+      #   # Fetch the page.
+      #   pdf.getPage(1).then (page) ->
+      #     console.log 'getPage 1: ' + page
+      #     scale = 1
+      #     viewport = page.getViewport(scale)
+      #     # Prepare canvas using PDF page dimensions.
+      #     canvas = document.getElementById('preview-canvas')
+      #     context = canvas.getContext('2d')
+      #     canvas.height = viewport.height
+      #     canvas.width = viewport.width
+      #     # Render PDF page into canvas context.
+      #     renderContext =
+      #       canvasContext: context
+      #       viewport: viewport
+      #     page.render(renderContext).then ->
+      #       document.getElementById('previewModal').style.display = 'block'
+      #       return
+      #     return
+      #   return
+      # return
 
     console.log 'Openning access_requests/preview url with template: ' + encodeURIComponent(rendered_template)
     oReq.open 'GET', baseUrl + '/access_requests/preview?rendered_template=' + encodeURIComponent(rendered_template)
