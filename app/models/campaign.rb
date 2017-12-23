@@ -42,6 +42,12 @@ class Campaign < ApplicationRecord
     end
   end
 
+  def count_of_access_requests_by_user(user)
+    Rails.cache.fetch("user/#{user.id}/campaign/#{self.id}/count_of_access_requests", expires_in: 120.minutes) do
+      self.access_requests.where(user_id: user.id).count
+    end
+  end
+
   def self.top_three
     Rails.cache.fetch(Campaign::CAMPAIGN_TOP_THREE_CACHE_NAME, expires_in: 120.minutes) do
       Campaign.last(3)

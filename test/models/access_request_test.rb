@@ -26,5 +26,27 @@ class AccessRequestTest < ActiveSupport::TestCase
     a.campaign = campaign
     assert a.save
     assert_equal old_count + 1, campaign.count_of_access_requests
+
+    b = access_requests(:two)
+    b.campaign = campaign
+    assert b.save
+    assert_equal old_count + 2, campaign.count_of_access_requests
+  end
+
+  test "Creating new access requests should update count_of_access_requests_by_user in campaign" do
+    campaign = campaigns(:one)
+    u = users(:one)
+    old_count = campaign.count_of_access_requests_by_user(u)
+    a = access_requests(:one)
+    a.campaign = campaign
+    a.user = u
+    assert a.save
+    assert_equal old_count + 1, campaign.count_of_access_requests_by_user(u)
+
+    b = access_requests(:two)
+    b.campaign = campaign
+    b.user = u
+    assert b.save
+    assert_equal old_count + 2, campaign.count_of_access_requests_by_user(u)
   end
 end

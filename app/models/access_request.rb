@@ -36,7 +36,8 @@ class AccessRequest < ApplicationRecord
       old_campaign_id = self.changes['campaign_id'].first
       Rails.cache.delete("campaign/#{old_campaign_id}/count_of_access_requests") if old_campaign_id
     end
-    Rails.cache.delete("campaign/#{self.campaign.id}/count_of_access_requests") if campaign
+    Rails.cache.delete("campaign/#{self.campaign_id}/count_of_access_requests") if campaign
+    Rails.cache.delete("user/#{self.user_id}/campaign/#{self.campaign_id}/count_of_access_requests") if campaign
   end
 
   def create_workflow

@@ -11,11 +11,13 @@
     </div>
     <div class="col-md-8">
       <% @access_requests.each do |a| %>
-        <h5>
+        <h5 class="nonselect" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="true" aria-controls="multiCollapse<%= a.id %>"><img src="Entypo+/controller-play.svg" height="24" align="left" alt=""> 
+          <%= image_tag "controller-play.svg", height: 24 %>
           <%= a.organization.name %>
           &nbsp;
           <small><%= a.organization.sector.name %></small>
         </h5>
+        <%= render partial: 'access_requests/templates/history_comments', locals: {a: a} %>
         <p>
           <a class="btn btn-secondary disabled" href="#" role="button" aria-disabled="true">&nbsp;</a>
           <% a.workflow.workflow_transitions.each do |wt| %>

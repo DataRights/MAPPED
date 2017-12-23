@@ -30,12 +30,15 @@ $(document).on 'turbolinks:load', ->
     oReq.responseType = 'blob'
 
     oReq.onload = (e) ->
+      console.log 'Onload e: ' + e
       console.log 'Creating object url using response: ' + oReq.response
       file = window.URL.createObjectURL(oReq.response)
       PDFJS.disableWorker = true
       PDFJS.getDocument(file).then (pdf) ->
+        console.log 'get document returned pdf: ' + pdf
         # Fetch the page.
         pdf.getPage(1).then (page) ->
+          console.log 'getPage 1: ' + page
           scale = 1
           viewport = page.getViewport(scale)
           # Prepare canvas using PDF page dimensions.
