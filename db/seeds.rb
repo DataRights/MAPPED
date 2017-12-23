@@ -41,3 +41,7 @@ unless admin2.roles.include?(admin_role)
   admin2.roles << admin_role
   admin2.save!
 end
+
+WorkflowStateForm.find_or_create_by!(name: 'Evaluate Form', form_path: 'access_requests/templates/evaluation')
+WorkflowStateForm.find_or_create_by!(name: 'Update Status Form', form_path: 'access_requests/templates/update_status')
+WorkflowStateForm.find_or_create_by!(name: 'Awaiting Response', form_path: 'access_requests/templates/awaiting_response')
