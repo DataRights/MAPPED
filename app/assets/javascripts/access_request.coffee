@@ -20,6 +20,7 @@ window.onclick = (event) ->
 $(document).on 'turbolinks:load', ->
 
   $('#ar_pdf_preview').on 'click', ->
+    console.log 'clicked on ar_pdf_preview button'
     rendered_template = ''
     if document.getElementById('textTypeRadioStandard').checked
       rendered_template = document.getElementById('textContentStandard').innerHTML
@@ -29,6 +30,7 @@ $(document).on 'turbolinks:load', ->
     oReq.responseType = 'blob'
 
     oReq.onload = (e) ->
+      console.log 'Creating object url using response: ' + oReq.response
       file = window.URL.createObjectURL(oReq.response)
       PDFJS.disableWorker = true
       PDFJS.getDocument(file).then (pdf) ->
@@ -52,6 +54,7 @@ $(document).on 'turbolinks:load', ->
         return
       return
 
+    console.log 'Openning access_requests/preview url with template: ' + encodeURIComponent(rendered_template)
     oReq.open 'GET', baseUrl + '/access_requests/preview?rendered_template=' + encodeURIComponent(rendered_template)
     oReq.send()
     return
