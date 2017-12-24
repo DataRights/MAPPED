@@ -84,4 +84,17 @@ class AccessRequestsController < ApplicationController
     @rendered_template ||= ''
     send_data(WickedPdf.new.pdf_from_string(@rendered_template) , :type => :pdf, :disposition => 'inline')
   end
+  
+  def comment
+    @ar = AccessRequest.find(params[:id])
+    c = Comment.new
+    c.content = params[:content]
+    c.user = current_user
+    @ar.comments << c
+    if @ar.save
+      @result = 'success'
+    else
+      @result = @ar.errors.full_messages.join(". ")
+    end
+  end
 end

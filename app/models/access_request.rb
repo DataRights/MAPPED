@@ -23,6 +23,7 @@ class AccessRequest < ApplicationRecord
   has_many :tags, :as => :tagable, dependent: :destroy
   has_many :comments, :as => :commentable, dependent: :destroy
   before_save :update_related_caches, if: :campaign_id_changed?
+  before_destroy :update_related_caches
   after_create :create_workflow
 
   validates :user, :organization, :campaign, presence: true

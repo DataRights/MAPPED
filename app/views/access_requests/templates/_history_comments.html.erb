@@ -1,105 +1,111 @@
-<div class="row collapse multi-collapse" id="multiCollapse<%= a.id %>">
-  <div class="col">
-    <div>
+<div id="multiCollapse<%= a.id %>" class="collapse multi-collapse mb-3">
+  <div class="row">
+    <div class="col">
       <div class="card card-body">
         <small class="nonselect">
-          <%= image_tag "attachment.svg", height: 18 %>
-          &nbsp;5 attachments</small><hr>
-        <small class="nonselect">
-          <a data-toggle="modal" data-target="#exampleModal">
+          <a data-toggle="modal" data-target="#upload_letter_<%= a.id %>">
             <%= image_tag "circle-with-plus.svg", height: 18 %>
-            &nbsp;upload response or generate letter</a>
-        </small><br/>
+            &nbsp;
+            <%= t('.upload_response_or_generate_letter') %></a>
+        </small>
+        <br/>
         <small>
           <ul class="list-unstyled">
+            <% a.workflow.workflow_transitions.order('created_at DESC').each do |t| %>
             <li class="media">
+              <% if t.attachments.count > 0 %>
               <%= image_tag "document.jpg", class: 'mr-3', height: 100, width: 70 %>
-              <div class="media-body">
-                <h6 class="mt-0 mb-1" style="color:green">
-                  <%= image_tag "download_green.svg", height: 18 %>
-                  &nbsp;&nbsp;Final response received</h6>
-                <small>March 29, 2018</small><br/>
-                Short description on what it is.<br/>
-                <a href="">Edit this status</a>
-              </div>
-            </li>
-            <li class="media my-4">
-              <%= image_tag "document.jpg", class: 'mr-3', height: 100, width: 70 %>
+              <% end %>
               <div class="media-body">
                 <h6 class="mt-0 mb-1">
                   <%= image_tag "upload_grey.svg", height: 18 %>
-                  &nbsp;&nbsp;Follow up letter sent</h6>
-                <small>March 3, 2018</small><br/>
-                Short description on what it is.
+                  &nbsp;&nbsp;
+                  <%= t.transition.name %>
+                </h6>
+                <small><%= time_ago_in_words(t.created_at) %></small><br/>
               </div>
             </li>
-            <li class="media my-4">
-              <img class="mr-3" src="" alt="" width="70" height="100">
-              <div class="media-body">
-                <h6 class="mt-0 mb-1" style="color:red">
-                  <%= image_tag "download_red.svg", height: 18 %>
-                  &nbsp;&nbsp;Request of clarification received</h6>
-                <small>February 27, 2018</small><br/>
-                Short description on what it is.<br/>
-                <a href="">Upload attachment(s)</a>
-              </div>
-            </li>
-            <li class="media my-4">
-              <%= image_tag "document.jpg", class: 'mr-3', height: 100, width: 70 %>
-              <div class="media-body">
-                <h6 class="mt-0 mb-1">
-                  <%= image_tag "upload_grey.svg", height: 18 %>
-                  &nbsp;&nbsp;Reminder sent</h6>
-                <small>February 15, 2018</small><br/>
-                Short description on what it is.
-              </div>
-            </li>
-            <li class="media my-4">
-              <%= image_tag "document.jpg", class: 'mr-3', height: 100, width: 70 %>
-              <div class="media-body">
-                <h6 class="mt-0 mb-1">
-                  <%= image_tag "upload_grey.svg", height: 18 %>
-                  &nbsp;&nbsp;Initial request sent</h6>
-                <small>January 15, 2018</small><br/>
-                Short description on what it is.
-              </div>
-            </li>
+            <% end %>
           </ul>
         </small>
       </div>
-      <p></p>
     </div>
-  </div>
-  <div class="col">
-    <div class="collapse multi-collapse" id="multiCollapseExample2">
+    <div class="col">
       <div class="card card-body">
         <small class="nonselect">
           <%= image_tag "chat.svg", height: 18 %>
-          &nbsp;3 comments</small><hr>
+          &nbsp;<%= a.comments.count %>
+          <%= t('.comments') %></small><hr>
         <small class="nonselect">
-          <a data-toggle="modal" data-target="#exampleModal4"><img src="Entypo+/circle-with-plus.svg" height="18" alt="">
-            &nbsp;add comment</a>
-        </small><br/>
+          <a data-toggle="modal" data-target="#addCommentModal<%= a.id %>">
+            <%= image_tag "circle-with-plus.svg", height: 18 %>
+            &nbsp;<%= t('.add_comment') %></a>
+        </small>
+        <br/>
+        <% a.comments.each do |c| %>
         <small>
           <%= image_tag "user.svg", height: 18 %>
-          &nbsp;&nbsp;<strong>Myself</strong><br/>
-          <small>March 30, 2018</small><br/>
-          All right! Finally I have received their response and actually the data provided there is quite OK. I mean, I'm not missing anything essential. It seems that they are doing it right.</small>
+          &nbsp;&nbsp;
+          <strong><%= c.user.full_name %></strong>
+          <br/>
+          <small><%= time_ago_in_words(c.created_at) %> <%= t('.ago') %></small>
+          <br/>
+          <%= c.content %>
+        </small>
         <hr>
-        <small>
-          <%= image_tag "user.svg", height: 18 %>
-          &nbsp;&nbsp;<strong>Moderator</strong><br/>
-          <small>March 1, 2018</small><br/>
-          Please, send the access request letter again to the address specified in their privacy statment.</small>
-        <hr>
-        <small>
-          <%= image_tag "user.svg", height: 18 %>
-          &nbsp;&nbsp;<strong>Myself</strong><br/>
-          <small>February 27, 2018</small><br/>
-          What a ridiculous response. They are only reffering to a link to a privacy statement on their website. How shall I formulate a good follow up response to their letter?</small>
-
+        <% end %>
       </div>
     </div>
   </div>
-
 </div>
+
+<div class="modal fade" id="addCommentModal<%= a.id %>" tabindex="-1" role="dialog" aria-labelledby="addCommentModal<%= a.id %>Label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCommentModal<%= a.id %>Label"><%= t('.comment') %></h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+	  <%= form_with(url: access_request_comment_url(a)) do |form| %>
+      <div class="modal-body">
+		  
+         <div class="alert alert-danger alert-dismissible collapse" id="comment_alert<%= a.id %>" role="alert">
+           <span id="comment_alert_message<%= a.id %>"></span>
+           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+             <span aria-hidden="true">×</span>
+           </button>
+         </div>
+
+         <div class="alert alert-success alert-dismissible collapse" id="comment_success<%= a.id %>" role="alert">
+           <span id="comment_success_message<%= a.id %>"></span>
+           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+             <span aria-hidden="true">×</span>
+           </button>
+         </div>
+		  
+		 <div class="form-group">
+			 <%= form.text_area(:content, class: 'form-control' ) %>
+		 </div>
+  
+  		 <label class="form-check-label">
+		     <input class="form-check-input" type="checkbox" value="">
+			 <%= t('.i_would_like_moderator_comment') %>
+ 	  	 </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') %></button>
+		        <%= form.submit t('.send'), id: "send_comment_#{a.id}", data: { "disable-with": t('.sending') }, class: 'btn btn-primary' %>
+      </div>
+	  <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#addCommentModal<%= a.id %>').on('hidden.bs.modal', function () {
+    Turbolinks.visit(window.location.toString(), {action: 'replace'});
+  });
+</script>

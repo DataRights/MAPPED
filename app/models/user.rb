@@ -113,7 +113,7 @@ class User < ApplicationRecord
     self.save!
   end
 
-  def welcome_title
+  def full_name
     if self.first_name or self.last_name
       "#{self.first_name} #{self.last_name}"
     else

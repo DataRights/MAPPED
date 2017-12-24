@@ -149,6 +149,17 @@ en:
         left: left
       evaluation:
         evaluate: 'Evaluate'
+      history_comments:
+        comments: 'Comments'
+        comment: 'Comment'
+        add_comment: 'add comment'
+        upload_response_or_generate_letter: 'upload response or generate letter'
+        close: "Close"
+        send: "Send"
+        sending: 'Sending ...'
+        i_would_like_moderator: "I would like the campaign moderator to react to this comment."
+        comment_success: "Comment sent successfully."
+        ago: "ago"
     new:
       title: 'Create new access request'
       sector_label: 'Sector'
