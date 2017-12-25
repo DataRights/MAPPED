@@ -160,6 +160,15 @@ en:
         i_would_like_moderator: "I would like the campaign moderator to react to this comment."
         comment_success: "Comment sent successfully."
         ago: "ago"
+      send_reminder:
+        text_type_select: 'Text of access request reminder'
+        text_type_standard: 'Standard text'
+        text_type_custom: 'Expanded text'
+        please_note_fields_in_red: 'Please note that fields in red require your personal data.'
+        sending_date_label: 'Date of sending'
+        passport_id_warning: 'Do not forget to attach a copy of your passport/ID card to your access request reminder.'
+        close: "Close"
+        final_button: 'Generate PDF'
     new:
       title: 'Create new access request'
       sector_label: 'Sector'

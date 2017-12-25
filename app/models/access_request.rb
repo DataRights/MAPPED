@@ -47,4 +47,34 @@ class AccessRequest < ApplicationRecord
     wf.access_request = self
     wf.save!
   end
+
+  def get_rendered_template(template_type)
+    @rendered_template ||= AccessRequest.get_rendered_template(template_type, self.user, self.campaign, self.organization)
+  end
+
+  def self.get_rendered_template(template_type, user, campaign, organization)
+    expected_langs = organization.languages
+    accepted_versions = []
+    active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
+    active_templates.each do |template|
+      template.template_versions.where(:active => true).each do |active_version|
+        accepted_versions << active_version if expected_langs.include? active_version.language.to_sym
+      end
+    end
+    return nil if accepted_versions.blank?
+    prefered_lang = user.preferred_language
+    prefered_lang ||= :en
+    result = accepted_versions.detect {|active_version| active_version.language == prefered_lang}
+    result ||= accepted_versions.first
+
+    if result
+      context = TemplateContext.new
+      context.campaign = campaign
+      context.user = user
+      context.organization = organization
+      result.render(context)
+    else
+      nil
+    end
+  end
 end
