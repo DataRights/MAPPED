@@ -1,7 +1,7 @@
 <% if @download_ar %>
   <iframe width="1" height="1" frameborder="0" src="<%= downlaod_access_request_path(@download_ar) %>"></iframe>
 <% end %>
-<div class="container" style="margin-top: 50px;">
+<div class="container mt-5">
   <div class="row">
     <div class="col-md-4">
       <h3><%= @campaign.name %> <small>(<%= @campaign.count_of_access_requests %>)</small></h3>
@@ -20,7 +20,6 @@
           &nbsp;
           <small><%= a.organization.sector.name %></small>
         </h5>
-        <%= render partial: 'access_requests/templates/history_comments', locals: {a: a} %>
         <p>
           <a class="btn btn-secondary disabled" href="#" role="button" aria-disabled="true">&nbsp;</a>
           <% a.workflow.workflow_transitions.each do |wt| %>
@@ -30,6 +29,9 @@
             <%= render partial: a.workflow.workflow_state.workflow_state_form.form_path, locals: {a: a} %>
           <% end %>
         </p>
+		<p>
+		  <%= render partial: 'access_requests/templates/history_comments', locals: {a: a} %>
+		</p>
       <% end %>
     </div>
   </div>

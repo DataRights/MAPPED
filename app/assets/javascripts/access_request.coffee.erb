@@ -21,6 +21,11 @@ window.onclick = (event) ->
   closePreviewModal()
 
 $(document).on 'turbolinks:load', ->
+
+  if $('#textTypeRadioExpanded').is(':checked')
+    $('#textContentStandard').hide()
+    $('#textContentExpanded').show()
+
   $('#ar_pdf_preview').on 'click', ->
     $('#ar_pdf_preview').html("<%= I18n.t('access_requests.new.generating_preview_pdf') %>")
     rendered_template = ''

@@ -35,15 +35,11 @@ class CampaignsController < ApplicationController
     organization = Organization.find_by_id organization_id
     render json: result and return unless organization
 
-    template_version = get_campaign_org_template(current_user, campaign, organization)
-    render json: result and return unless template_version
-
-    context = TemplateContext.new
-    context.campaign = campaign
-    context.user = current_user
-    context.organization = organization
-    result = template_version.render(context)
-
-    render :json => { :success => true, :template => result }
+    template_version = AccessRequest.get_rendered_template(:access_request, current_user, campaign, organization)
+    if template_version
+      render :json => { :success => true, :template => template_version }
+    else
+      render json: result
+    end
   end
 end

@@ -14,7 +14,7 @@
 
 class Transition < ApplicationRecord
 
-  enum ui_form: [ :response_received, :send_reminder ]
+  enum ui_form: [ :response_received, :send_reminder, :cancel ]
 
   belongs_to :from_state, class_name: 'WorkflowState'
   belongs_to :to_state, class_name: 'WorkflowState'

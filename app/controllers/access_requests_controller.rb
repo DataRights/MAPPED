@@ -7,7 +7,7 @@ class AccessRequestsController < ApplicationController
     @campaign = Campaign.find_by id: params[:campaign_id]
     @access_requests = current_user.access_requests.where(campaign_id: @campaign.id)
     @download_ar = nil
-    if session['download_ar'] != nil
+    if session['download_ar']
       @download_ar = session['download_ar']
       session['download_ar'] = nil
     end
@@ -42,18 +42,11 @@ class AccessRequestsController < ApplicationController
     end
 
     organization = Organization.find_by_id(@selected_organization[1])
-    template_version = get_campaign_org_template(current_user, @campaign, organization)
-    unless template_version
+    @rendered_template = AccessRequest.get_rendered_template(:access_request, current_user, @campaign, organization)
+    unless @rendered_template
       flash[:notice] = I18n.t('errors.template_version_not_found')
       redirect_to home_path and return
     end
-
-    context = TemplateContext.new
-    context.campaign = @campaign
-    context.user = current_user
-    context.organization = organization
-
-    @rendered_template = template_version.render(context)
   end
 
   def download
@@ -83,5 +76,18 @@ class AccessRequestsController < ApplicationController
     @rendered_template = params[:rendered_template]
     @rendered_template ||= ''
     send_data(WickedPdf.new.pdf_from_string(@rendered_template) , :type => :pdf, :disposition => 'inline')
+  end
+
+  def comment
+    @ar = AccessRequest.find(params[:id])
+    c = Comment.new
+    c.content = params[:content]
+    c.user = current_user
+    @ar.comments << c
+    if @ar.save
+      @result = 'success'
+    else
+      @result = @ar.errors.full_messages.join(". ")
+    end
   end
 end
