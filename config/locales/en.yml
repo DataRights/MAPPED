@@ -149,6 +149,7 @@ en:
         left: left
       evaluation:
         evaluate: 'Evaluate'
+        save: "Save"
     new:
       title: 'Create new access request'
       sector_label: 'Sector'
