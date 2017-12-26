@@ -45,19 +45,24 @@ module AccessRequestsHelper
         return text_area_tag(attribute_id(question), nil, rows: question.visuals['rows'], cols: question.visuals['cols'])
       end
     elsif question.metadata['answer_type'] == 'number'
-      number_field_tag(attribute_id(question))
+      return number_field_tag(attribute_id(question))
     elsif question.metadata['answer_type'] == 'boolean'
-      check_box_tag(attribute_id(question))
+      return check_box_tag(attribute_id(question))
     elsif question.metadata['answer_type'] == 'date'
-      date_field_tag(attribute_id(question))
+      return date_field_tag(attribute_id(question))
     elsif question.metadata['answer_type'] == 'time'
-      time_field_tag(attribute_id(question))
+      return time_field_tag(attribute_id(question))
     end
   end
 
   def generate_multiple_question(question)
-    return '' unless question.is_a? QuestionMultiple
-    select_tag(attribute_id(question),options_for_select(question.metadata['option_list']))
+    result = ''
+    return result unless question.is_a? QuestionMultiple
+    question.metadata['option_list'].each do |option|
+        result += check_box_tag(attribute_id(question)+'[]',option)
+        result += " #{option} <br>"
+    end
+    result
   end
 
   def generate_select_question(question)
