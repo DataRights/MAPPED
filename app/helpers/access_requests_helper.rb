@@ -66,8 +66,19 @@ module AccessRequestsHelper
   end
 
   def generate_select_question(question)
-    return '' unless question.is_a? QuestionSelectList
-    select_tag(attribute_id(question),options_for_select(question.metadata['option_list']))
+    result = ''
+    return result unless question.is_a? QuestionSelectList
+    return select_tag(attribute_id(question),options_for_select(question.metadata['option_list'])) unless question.visuals
+    if question.visuals['select_type'].nil? || question.visuals['select_type'] == 'select'
+      result = select_tag(attribute_id(question),options_for_select(question.metadata['option_list']))
+    elsif question.visuals['select_type'] == 'radio'
+      sperator = question.visuals['direction'] == 'horizontal' ? '' : '<br>'
+      question.metadata['option_list'].each do |option|
+          result += radio_button_tag(attribute_id(question)+'[]',option)
+          result += " #{option} #{sperator}"
+      end
+    end
+    result
   end
 
   def attribute_id(question)
