@@ -149,7 +149,6 @@ en:
         left: left
       evaluation:
         evaluate: 'Evaluate'
-        save: "Save"
       history_comments:
         comments: 'Comments'
         comment: 'Comment'
