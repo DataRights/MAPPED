@@ -44,6 +44,14 @@ module AccessRequestsHelper
         return text_area_tag(attribute_id(question), nil, rows: question.visuals['rows'])  unless question.visuals['cols']
         return text_area_tag(attribute_id(question), nil, rows: question.visuals['rows'], cols: question.visuals['cols'])
       end
+    elsif question.metadata['answer_type'] == 'number'
+      number_field_tag(attribute_id(question))
+    elsif question.metadata['answer_type'] == 'boolean'
+      check_box_tag(attribute_id(question))
+    elsif question.metadata['answer_type'] == 'date'
+      date_field_tag(attribute_id(question))
+    elsif question.metadata['answer_type'] == 'time'
+      time_field_tag(attribute_id(question))
     end
   end
 
