@@ -35,7 +35,16 @@ module AccessRequestsHelper
 
   def generate_simple_question(question)
     return '' unless question.is_a? QuestionSimple
-    text_field_tag(attribute_id(question))
+    if question.metadata['answer_type'] == 'text'
+      return text_field_tag(attribute_id(question)) unless question.visuals
+      if question.visuals['rows'].nil? || question.visuals['rows'] == 1
+        return text_field_tag(attribute_id(question)) unless question.visuals['cols']
+        return text_field_tag(attribute_id(question),'', size: question.visuals['cols'])
+      else
+        return text_area_tag(attribute_id(question), nil, rows: question.visuals['rows'])  unless question.visuals['cols']
+        return text_area_tag(attribute_id(question), nil, rows: question.visuals['rows'], cols: question.visuals['cols'])
+      end
+    end
   end
 
   def generate_multiple_question(question)
