@@ -36,22 +36,22 @@ module AccessRequestsHelper
   def generate_simple_question(question)
     return '' unless question.is_a? QuestionSimple
     if question.metadata['answer_type'] == 'text'
-      return text_field_tag(attribute_id(question)) unless question.visuals
+      return text_field_tag(attribute_id(question), nil, required: question.mandatory) unless question.visuals
       if question.visuals['rows'].nil? || question.visuals['rows'] == 1
-        return text_field_tag(attribute_id(question)) unless question.visuals['cols']
-        return text_field_tag(attribute_id(question),'', size: question.visuals['cols'])
+        return text_field_tag(attribute_id(question), nil, required: question.mandatory) unless question.visuals['cols']
+        return text_field_tag(attribute_id(question),'', size: question.visuals['cols'], required: question.mandatory)
       else
-        return text_area_tag(attribute_id(question), nil, rows: question.visuals['rows'])  unless question.visuals['cols']
-        return text_area_tag(attribute_id(question), nil, rows: question.visuals['rows'], cols: question.visuals['cols'])
+        return text_area_tag(attribute_id(question), nil, rows: question.visuals['rows'], required: question.mandatory)  unless question.visuals['cols']
+        return text_area_tag(attribute_id(question), nil, rows: question.visuals['rows'], cols: question.visuals['cols'], required: question.mandatory)
       end
     elsif question.metadata['answer_type'] == 'number'
-      return number_field_tag(attribute_id(question))
+      return number_field_tag(attribute_id(question),nil, required: question.mandatory)
     elsif question.metadata['answer_type'] == 'boolean'
-      return check_box_tag(attribute_id(question))
+      return check_box_tag(attribute_id(question),nil, required: question.mandatory)
     elsif question.metadata['answer_type'] == 'date'
-      return date_field_tag(attribute_id(question))
+      return date_field_tag(attribute_id(question),nil, required: question.mandatory)
     elsif question.metadata['answer_type'] == 'time'
-      return time_field_tag(attribute_id(question))
+      return time_field_tag(attribute_id(question),nil, required: question.mandatory)
     end
   end
 
@@ -59,7 +59,7 @@ module AccessRequestsHelper
     result = ''
     return result unless question.is_a? QuestionMultiple
     question.metadata['option_list'].each do |option|
-        result += check_box_tag(attribute_id(question)+'[]',option)
+        result += check_box_tag(attribute_id(question)+'[]', option, required: question.mandatory)
         result += " #{option} <br>"
     end
     result
@@ -68,13 +68,13 @@ module AccessRequestsHelper
   def generate_select_question(question)
     result = ''
     return result unless question.is_a? QuestionSelectList
-    return select_tag(attribute_id(question),options_for_select(question.metadata['option_list'])) unless question.visuals
+    return select_tag(attribute_id(question), options_for_select(question.metadata['option_list']), required: question.mandatory) unless question.visuals
     if question.visuals['select_type'].nil? || question.visuals['select_type'] == 'select'
-      result = select_tag(attribute_id(question),options_for_select(question.metadata['option_list']))
+      result = select_tag(attribute_id(question), options_for_select(question.metadata['option_list']), required: question.mandatory)
     elsif question.visuals['select_type'] == 'radio'
       sperator = question.visuals['direction'] == 'horizontal' ? '' : '<br>'
       question.metadata['option_list'].each do |option|
-          result += radio_button_tag(attribute_id(question)+'[]',option)
+          result += radio_button_tag(attribute_id(question)+'[]', option, required: question.mandatory)
           result += " #{option} #{sperator}"
       end
     end
