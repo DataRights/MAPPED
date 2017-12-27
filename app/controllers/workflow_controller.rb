@@ -23,12 +23,12 @@ class WorkflowController < ApplicationController
     wf = Workflow.find(workflow_id)
     return unless wf.access_request.user_id == current_user.id
     t = Transition.find(transition_id)
-    #@workflow_transition = wf.send_event(t)
+    @workflow_transition = wf.send_event(t)
     @ar = wf.access_request
     if params['commit'] == I18n.t('access_requests.templates.evaluation.evaluate')
       params['answers'].each { |answer_id| Answer.create( result: params['answers'][answer_id],
-                                                          answerable_type: 'Campaign',
-                                                          answerable_id: @ar.campaign.id,
+                                                          answerable_type: 'AccessRequest',
+                                                          answerable_id: @ar.id,
                                                           question_id: answer_id.to_i)}
     end
   end
