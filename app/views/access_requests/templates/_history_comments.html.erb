@@ -71,7 +71,7 @@
       </div>
 	  <%= form_with(url: access_request_comment_url(a)) do |form| %>
       <div class="modal-body">
-		  
+
          <div class="alert alert-danger alert-dismissible collapse" id="comment_alert<%= a.id %>" role="alert">
            <span id="comment_alert_message<%= a.id %>"></span>
            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -85,11 +85,11 @@
              <span aria-hidden="true">×</span>
            </button>
          </div>
-		  
+
 		 <div class="form-group">
 			 <%= form.text_area(:content, class: 'form-control' ) %>
 		 </div>
-  
+
   		 <label class="form-check-label">
 		     <input class="form-check-input" type="checkbox" value="">
 			 <%= t('.i_would_like_moderator_comment') %>

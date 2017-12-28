@@ -10,7 +10,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  type       :string
-#
+#  Valid visuales for text fields are :   rows, cols
 
 class QuestionSimple < Question
 	ANSWER_TYPE = [:number, :text, :boolean, :date, :time]

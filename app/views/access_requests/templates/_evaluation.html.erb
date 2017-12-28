@@ -1,9 +1,11 @@
 <a class="btn btn-info" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button"><%= t('.evaluate') %></a>
-<div class="modal fade bd-example-modal-lg" id="#modal<%= a.id %>" tabindex="-1" role="dialog" aria-labelledby="ModalLabel<%= a.id %>" style="display: none;" aria-hidden="true">
+<%= form_with(model: a.workflow) do |f| %>
+
+<div class="modal fade" id="modal<%= a.id %>" tabindex="-1" role="dialog" aria-labelledby="modal<%= a.id %>Label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="ModalLabel<%= a.id %>">Response evaluation</h5>
+        <h5 class="modal-title" id="ModalLabel"><%= t('.evaluate') %></h5>
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
@@ -25,88 +27,31 @@
           </button>
         </div>
 
-        <%= form_with(model: a.workflow) do |f| %>
         <div class="form-group">
           <div class="form-group">
             <%= f.hidden_field(:id) %>
-            <%= f.select(:transition_id, options_from_collection_for_select(a.workflow.workflow_state.possible_transitions, 'id', 'name'), {}, {class: "form-control", id: "workflow_transition_id"}) %>
+            <% if a.workflow.workflow_state.possible_transitions.size > 1 %>
+              <%= f.select(:transition_id, options_for_select(a.workflow.workflow_state.possible_transitions.map{ |t| [t.name, t.id, { 'data-ui-form' => t.ui_form || "" }] }), {:include_blank => t('.select_blank')}, {class: "form-control", id: "workflow_transition_id_#{a.id}"}) %>
+            <% elsif a.workflow.workflow_state.possible_transitions.size == 1 %>
+              <%= f.hidden_field(:transition_id, :value => a.workflow.workflow_state.possible_transitions.first.id) %>
+            <% end %>
           </div>
-
         </div>
-        Completeness<br>
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-            1
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-            2
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-            3
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
-            4
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5">
-            5
-          </label>
-        </div>
-        <br>
-        Accuracy<br>
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio1" value="option1">
-            1
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio2" value="option2">
-            2
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio3" value="option3">
-            3
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio4" value="option4">
-            4
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio5" value="option5">
-            5
-          </label>
-        </div>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Comments</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
-        </div>
-
+        <% a.campaign.questions.each do |question| %>
+          <%= generate_question_view(question).html_safe %><br>
         <% end %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') %></button>
-        <%= f.submit t('.save'), id: "evaluate_save#{a.id}", data: { "disable-with": t('.saving') }, class: 'btn btn-primary' %>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') %></button>
+          <%= f.submit t('.evaluate'), id: "evaluate_save#{a.id}", data: { "disable-with": t('.saving') }, class: 'btn btn-primary' %>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<% end %>
+
+<script>
+  $('#modal<%= a.id %>').on('hidden.bs.modal', function () {
+    Turbolinks.visit(window.location.toString(), {action: 'replace'});
+  });
+</script>
