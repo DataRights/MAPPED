@@ -66,7 +66,7 @@ class AttachmentsController < ApplicationController
 
   def get_content
     if @attachment && @attachment.content
-      send_data @attachment.content, :type => @attachment.content_type
+      send_data @attachment.content, :filename => "Attachment-#{@attachment.id}-#{@attachment.workflow_transition.workflow.access_request.organization.name}", :type => @attachment.content_type
     else
       render json: {}, status: :ok
     end
@@ -114,7 +114,10 @@ class AttachmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_attachment
-      @attachment = Attachment.find(params[:id])
+      a = Attachment.find(params[:id])
+      if a.workflow_transition.workflow.access_request.user_id == current_user.id
+        @attachment = a
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

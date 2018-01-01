@@ -2,19 +2,20 @@
 #
 # Table name: transitions
 #
-#  id            :integer          not null, primary key
-#  name          :string
-#  from_state_id :integer
-#  to_state_id   :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  timeout_days  :float
-#  ui_form       :integer
+#  id                  :integer          not null, primary key
+#  name                :string
+#  from_state_id       :integer
+#  to_state_id         :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  timeout_days        :float
+#  ui_form             :integer
+#  history_description :string
 #
 
 class Transition < ApplicationRecord
 
-  enum ui_form: [ :response_received, :send_reminder, :cancel ]
+  enum ui_form: [:send_letter]
 
   belongs_to :from_state, class_name: 'WorkflowState'
   belongs_to :to_state, class_name: 'WorkflowState'
@@ -22,7 +23,6 @@ class Transition < ApplicationRecord
   has_and_belongs_to_many :guards
 
   validates :from_state, :to_state, :name, presence: true
-  validates :to_state, uniqueness: { scope: :from_state }
   validate :only_one_timeout_from_one_state
 
   def only_one_timeout_from_one_state

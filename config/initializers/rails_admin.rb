@@ -50,20 +50,25 @@ RailsAdmin.config do |config|
     preview_template
   end
 
+  config.model WorkflowType do
+    navigation_label 'Workflow Definitions'
+    weight 1
+  end
+
   config.model AccessRequest do
-    navigation_label 'Access Requests & Workflows'
-    weight 0
+    navigation_label 'Access Requests'
+    weight 3
   end
 
   config.model User do
     navigation_label 'User Management'
-    weight 1
+    weight 5
     exclude_fields :user_roles, :answers, :notifications
   end
 
   config.model Template do
     navigation_label 'Template Engine'
-    weight 2
+    weight 10
 
     create do
       field :name
@@ -89,22 +94,22 @@ RailsAdmin.config do |config|
 
   config.model Sector do
     navigation_label 'Sectors & Organizations'
-    weight 3
+    weight 15
   end
 
   config.model Question do
     navigation_label 'Survey'
-    weight 4
+    weight 20
   end
 
   config.model Notification do
     navigation_label 'Notification Engine'
-    weight 5
+    weight 25
   end
 
   config.model Comment do
     navigation_label 'General'
-    weight 6
+    weight 30
   end
 
   config.model TemplateVersion do
@@ -181,35 +186,61 @@ RailsAdmin.config do |config|
   end
 
   config.model WorkflowState do
-    parent AccessRequest
+    parent WorkflowType
+  end
+
+  config.model Event do
+    parent WorkflowType
   end
 
   config.model WorkflowTransition do
     parent AccessRequest
   end
 
-  config.model WorkflowType do
+  config.model Letter do
     parent AccessRequest
   end
 
   config.model WorkflowTypeVersion do
-    parent AccessRequest
+    parent WorkflowType
   end
 
   config.model WorkflowState do
-    parent AccessRequest
+    parent WorkflowType
   end
 
   config.model WorkflowStateForm do
-    parent AccessRequest
+    parent WorkflowType
   end
 
   config.model Transition do
-    parent AccessRequest
+    parent WorkflowType
+
+    create do
+      field :name
+      field :history_description
+      field :from_state
+      field :to_state
+      field :timeout_days
+      field :ui_form
+      field :actions
+      field :guards
+    end
+
+    edit do
+      field :name
+      field :history_description
+      field :from_state
+      field :to_state
+      field :timeout_days
+      field :ui_form
+      field :actions
+      field :guards
+    end
   end
 
   config.model Guard do
-    parent AccessRequest
+    parent WorkflowType
   end
 
   config.model Workflow do
@@ -217,13 +248,13 @@ RailsAdmin.config do |config|
   end
 
   config.model CodeAction do
-    parent AccessRequest
+    parent WorkflowType
     label "Action"
     label_plural "Actions"
   end
 
   config.model Campaign do
-    parent AccessRequest
+    parent WorkflowType
 
     create do
       field :name

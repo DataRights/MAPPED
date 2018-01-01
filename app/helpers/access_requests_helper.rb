@@ -19,7 +19,7 @@ module AccessRequestsHelper
     result = ''
     return result unless question
     return result unless question.is_a? Question
-    result = question.title + ' <br>'
+    result = question.title + ' <br />'
     case question.type
     when 'QuestionSimple'
       result += generate_simple_question(question)
@@ -59,7 +59,7 @@ module AccessRequestsHelper
     result = ''
     return result unless question.is_a? QuestionMultiple
     question.metadata['option_list'].each do |option|
-        result += check_box_tag(attribute_id(question)+'[]', option, required: question.mandatory)
+        result += check_box_tag(attribute_id(question)+'[]', option, required: question.mandatory, class: 'form-check-input')
         result += " #{option} <br>"
     end
     result
@@ -68,13 +68,13 @@ module AccessRequestsHelper
   def generate_select_question(question)
     result = ''
     return result unless question.is_a? QuestionSelectList
-    return select_tag(attribute_id(question), options_for_select(question.metadata['option_list']), required: question.mandatory) unless question.visuals
+    return select_tag(attribute_id(question), options_for_select(question.metadata['option_list']), required: question.mandatory, class: 'form-control') unless question.visuals
     if question.visuals['select_type'].nil? || question.visuals['select_type'] == 'select'
-      result = select_tag(attribute_id(question), options_for_select(question.metadata['option_list']), required: question.mandatory)
+      result = select_tag(attribute_id(question), options_for_select(question.metadata['option_list']), required: question.mandatory, class: 'form-control')
     elsif question.visuals['select_type'] == 'radio'
-      sperator = question.visuals['direction'] == 'horizontal' ? '' : '<br>'
+      sperator = question.visuals['direction'] == 'horizontal' ? '&nbsp;&nbsp;' : '<br>'
       question.metadata['option_list'].each do |option|
-          result += radio_button_tag(attribute_id(question)+'[]', option, required: question.mandatory)
+          result += radio_button_tag(attribute_id(question)+'[]', option, required: question.mandatory, class: 'form-check-input')
           result += " #{option} #{sperator}"
       end
     end

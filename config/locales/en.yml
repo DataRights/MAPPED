@@ -59,6 +59,10 @@ en:
     generate_diagram: 'Generate Diagram'
     state_has_already_one_timeout_transition: "State has already one timeout transition: %{transition}"
     send_event_success: 'Operation successfully completed.'
+    transition_is_not_undoable: 'Selected operation is not valid for undo. Only the last operation is valid for rollback.'
+    undo: 'Undo'
+    undo_history: 'Rollback to %{state}'
+    undo_transition_was_successfull: 'Undo operation successfully completed!'
   tfa:
     title: 'Two Factor Authentication'
     help: 'Two-factor authentication, or 2FA, is a way of logging into websites that requires more than just a password. Using a password to log into a website is susceptible to security threats, because it represents a single piece of information a malicious person needs to acquire. The added security that 2FA provides is requiring additional information to sign in.'
@@ -145,11 +149,18 @@ en:
         saving: "Saving..."
         select_blank: 'Please select an action ...'
       awaiting_response:
+        remark: 'Remark'
+        close: "Close"
+        save: "Save"
+        saving: "Saving..."
+        select_blank: 'Please select an action ...'
         awaiting_response: 'Awaiting response'
         left: left
       evaluation:
         evaluate: 'Evaluate'
+        saving: "Saving..."
       history_comments:
+        access_request_created: 'Access request created'
         comments: 'Comments'
         comment: 'Comment'
         add_comment: 'add comment'
@@ -160,8 +171,9 @@ en:
         i_would_like_moderator: "I would like the campaign moderator to react to this comment."
         comment_success: "Comment sent successfully."
         ago: "ago"
-      send_reminder:
-        text_type_select: 'Text of access request reminder'
+        undo: "Undo"
+      send_letter:
+        text_type_select: 'Text of letter'
         text_type_standard: 'Standard text'
         text_type_custom: 'Expanded text'
         please_note_fields_in_red: 'Please note that fields in red require your personal data.'
@@ -169,6 +181,19 @@ en:
         passport_id_warning: 'Do not forget to attach a copy of your passport/ID card to your access request reminder.'
         close: "Close"
         final_button: 'Generate PDF'
+        select_blank: 'Please select an action ...'
+      done:
+        done: 'Done'
+      what_happened_update_status:
+        what_happened: 'What happened?'
+        what_do_you_want_to_do_now: 'What do you want to do now?'
+        upload_attachment: 'Upload Data (Optional)'
+        upload_attachment_description: 'Data description (Optional)'
+        save: "Save"
+        saving: "Saving..."
+        close: "Close"
+        upload_file: 'Upload file'
+        select_blank: 'Please select an option ...'
     new:
       title: 'Create new access request'
       sector_label: 'Sector'

@@ -52,7 +52,7 @@ class AccessRequestsController < ApplicationController
   def download
     ar = AccessRequest.find(params[:id])
     return unless ar.user_id == current_user.id
-    send_data(WickedPdf.new.pdf_from_string(ar.final_text) , :type => :pdf)
+    send_data(WickedPdf.new.pdf_from_string(ar.final_text), :filename => "AccessRequest-#{ar.id}-#{ar.organization.name}" ,:type => :pdf)
   end
 
   def create

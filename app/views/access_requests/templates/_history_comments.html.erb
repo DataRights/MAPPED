@@ -2,30 +2,53 @@
   <div class="row">
     <div class="col">
       <div class="card card-body">
-        <small class="nonselect">
-          <a data-toggle="modal" data-target="#upload_letter_<%= a.id %>">
-            <%= image_tag "circle-with-plus.svg", height: 18 %>
-            &nbsp;
-            <%= t('.upload_response_or_generate_letter') %></a>
-        </small>
-        <br/>
         <small>
           <ul class="list-unstyled">
             <% a.workflow.workflow_transitions.order('created_at DESC').each do |t| %>
-            <li class="media">
+            <li class="media my-4">
               <% if t.attachments.count > 0 %>
-              <%= image_tag "document.jpg", class: 'mr-3', height: 100, width: 70 %>
+                <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70), get_content_path(t.attachments.first) %>
+              <% elsif t.letters.count > 0 %>
+                <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70), download_letter_path(t.letters.first) %>
+              <% else %>
+                <img class="mr-3" src="" alt="" width="70" height="100">
               <% end %>
+              <div class="media-body">
+                <h6 class="mt-0 mb-1">
+                  <% if t.attachments.count > 0 %>
+                    <%= link_to image_tag("download_green.svg", height: 18), get_content_path(t.attachments.first) %>
+                  <% elsif t.letters.count > 0 %>
+                    <%= link_to image_tag("upload_grey.svg", height: 18), download_letter_path(t.letters.first) %>
+                  <% else %>
+                    <%= image_tag "upload_grey.svg", height: 18 %>
+                  <% end %>
+                  &nbsp;&nbsp;
+                  <%= t.transition.history_description.blank? ? t.transition.name : t.transition.history_description %>
+                </h6>
+                <small><%= time_ago_in_words(t.created_at) %> <%= t('.ago') %></small>
+                <br/>
+                <%= t.event&.title %>
+                <br />
+                <%= t.remarks %>
+                <br />
+                <% if a.workflow.workflow_transitions.order('created_at DESC').first.id == t.id %>
+                  <%= link_to t('.undo'), {controller: "workflow", action: "undo", workflow_transition_id: t.id}, method: :post %>
+                <% end %>
+              </div>
+            </li>
+            <% end %>
+            <li class="media my-4">
+              <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70), downlaod_access_request_path(a) %>
+              <%=  %>
               <div class="media-body">
                 <h6 class="mt-0 mb-1">
                   <%= image_tag "upload_grey.svg", height: 18 %>
                   &nbsp;&nbsp;
-                  <%= t.transition.name %>
+                  <%= t('.access_request_created') %>
                 </h6>
-                <small><%= time_ago_in_words(t.created_at) %></small><br/>
+                <small><%= time_ago_in_words(a.created_at) %> <%= t('.ago') %></small><br/>
               </div>
             </li>
-            <% end %>
           </ul>
         </small>
       </div>
@@ -60,7 +83,7 @@
 </div>
 
 <div class="modal fade" id="addCommentModal<%= a.id %>" tabindex="-1" role="dialog" aria-labelledby="addCommentModal<%= a.id %>Label" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addCommentModal<%= a.id %>Label"><%= t('.comment') %></h5>

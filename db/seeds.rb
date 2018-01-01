@@ -45,3 +45,5 @@ end
 WorkflowStateForm.find_or_create_by!(name: 'Evaluate Form', form_path: 'access_requests/templates/evaluation')
 WorkflowStateForm.find_or_create_by!(name: 'Update Status Form', form_path: 'access_requests/templates/update_status')
 WorkflowStateForm.find_or_create_by!(name: 'Awaiting Response', form_path: 'access_requests/templates/awaiting_response')
+WorkflowStateForm.find_or_create_by!(name: 'Done', form_path: 'access_requests/templates/done')
+WorkflowStateForm.find_or_create_by!(name: 'What Happened? Update Status', form_path: 'access_requests/templates/what_happened_update_status')

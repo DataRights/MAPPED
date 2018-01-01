@@ -10,9 +10,8 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  type       :string
-#  In Visuals you can set select_type  it can be `select`  or `radio`  default is `select`
-#  if you choose `radio` as select_type in your visual you can also choose direction of rendering
-#  by default it is `vertical` but you can choose to have `horizontal` radio buttons 
+#  visuals    :jsonb
+#
 
 class QuestionSelectList < Question
 	def validate_metadata

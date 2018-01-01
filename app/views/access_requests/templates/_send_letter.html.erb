@@ -1,4 +1,8 @@
 <div class="form-group">
+    <%= f.label :letter_type, t('.letter_type') %>
+    <%= f.select :letter_type, Letter.letter_types.keys.to_a, {:include_blank => t('.select_blank')}, {class: "form-control", required:"required"} %>
+</div>
+<div class="form-group">
     <label for="customText"><%= t('.text_type_select') %></label>
     <div class="form-check">
         <label class="form-check-label">
@@ -25,9 +29,9 @@
     </div>
 </div>
 <div class="form-group">
-      <%= label_tag(:sending_date, t('.sending_date_label')) %>
+      <%= label_tag(:sent_date, t('.sending_date_label')) %>
       <br>
-      <%= date_field_tag(:sending_date, Date.today)%>
+      <%= date_field_tag(:sent_date, Date.today)%>
 </div>
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
     <strong><%= t('.passport_id_warning') %></strong>

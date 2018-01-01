@@ -10,7 +10,8 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  type       :string
-#  Valid visuales for text fields are :   rows, cols
+#  visuals    :jsonb
+#
 
 class QuestionSimple < Question
 	ANSWER_TYPE = [:number, :text, :boolean, :date, :time]

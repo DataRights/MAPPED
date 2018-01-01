@@ -1,4 +1,8 @@
-<a class="btn btn-warning" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button"><%= t('.awaiting_response') %></a>
+<a class="btn btn-warning" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button">
+  <%= t('.awaiting_response') %>
+</a>
 <% if a.workflow.workflow_state.possible_transitions.where.not(timeout_days: nil).first %>
   ( <%= distance_of_time_in_words (a.workflow.updated_at + a.workflow.workflow_state.possible_transitions.where.not(timeout_days: nil).first.timeout_days.days), Time.now %> <%= t('.left') %> )
 <% end %>
+
+<%= render partial: 'access_requests/templates/update_status', locals: {a: a, hide_button: true} %>

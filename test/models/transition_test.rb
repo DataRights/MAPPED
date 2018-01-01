@@ -2,14 +2,15 @@
 #
 # Table name: transitions
 #
-#  id            :integer          not null, primary key
-#  name          :string
-#  from_state_id :integer
-#  to_state_id   :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  timeout_days  :float
-#  ui_form       :integer
+#  id                  :integer          not null, primary key
+#  name                :string
+#  from_state_id       :integer
+#  to_state_id         :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  timeout_days        :float
+#  ui_form             :integer
+#  history_description :string
 #
 
 require 'test_helper'

@@ -36,7 +36,7 @@ class Workflow < ApplicationRecord
     send_event(Transition.find(transition_id))
   end
 
-  def send_event(transition)
+  def send_event(transition, event_id=nil, remarks=nil)
     unless self.workflow_state.possible_transitions.include?(transition)
       raise I18n.t('errors.transition_does_not_exist_in_current_state')
     end
@@ -44,6 +44,8 @@ class Workflow < ApplicationRecord
     wt = WorkflowTransition.new
     wt.transition = transition
     wt.workflow = self
+    (wt.event_id = event_id) if event_id
+    wt.remarks = remarks
     wt.execute
     wt.save
     self.save

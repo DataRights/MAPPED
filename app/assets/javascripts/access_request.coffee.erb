@@ -61,14 +61,17 @@ $(document).on 'turbolinks:load', ->
           updateTemplateContent e[0][1]
         return
     return
+    
   $('#organization_id').on 'change', ->
     updateTemplateContent $(this).val()
     return
+
   $('#textTypeRadioStandard').on 'change', ->
     if $(this).is(':checked') and $(this).val() == 'standard'
       $('#textContentStandard').show()
       $('#textContentExpanded').hide()
     return
+
   $('#textTypeRadioExpanded').on 'change', ->
     if $(this).is(':checked') and $(this).val() == 'expanded'
       $('#textContentStandard').hide()

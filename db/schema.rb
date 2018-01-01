@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171226223219) do
+ActiveRecord::Schema.define(version: 20180101092952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -168,6 +168,14 @@ ActiveRecord::Schema.define(version: 20171226223219) do
     t.index ["notification_id"], name: "index_email_notifications_on_notification_id"
   end
 
+  create_table "events", force: :cascade do |t|
+    t.bigint "workflow_state_id"
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["workflow_state_id"], name: "index_events_on_workflow_state_id"
+  end
+
   create_table "guards", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -181,6 +189,18 @@ ActiveRecord::Schema.define(version: 20171226223219) do
     t.bigint "guard_id", null: false
     t.bigint "transition_id", null: false
     t.index ["guard_id", "transition_id"], name: "index_guards_transitions_on_guard_id_and_transition_id"
+  end
+
+  create_table "letters", force: :cascade do |t|
+    t.integer "letter_type"
+    t.string "suggested_text"
+    t.string "final_text"
+    t.string "remarks"
+    t.bigint "workflow_transition_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "sent_date"
+    t.index ["workflow_transition_id"], name: "index_letters_on_workflow_transition_id"
   end
 
   create_table "notification_settings", force: :cascade do |t|
@@ -297,6 +317,7 @@ ActiveRecord::Schema.define(version: 20171226223219) do
     t.datetime "updated_at", null: false
     t.float "timeout_days"
     t.integer "ui_form"
+    t.string "history_description"
     t.index ["from_state_id"], name: "index_transitions_on_from_state_id"
     t.index ["to_state_id"], name: "index_transitions_on_to_state_id"
   end
@@ -410,6 +431,9 @@ ActiveRecord::Schema.define(version: 20171226223219) do
     t.jsonb "internal_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remarks"
+    t.bigint "event_id"
+    t.index ["event_id"], name: "index_workflow_transitions_on_event_id"
     t.index ["failed_action_id"], name: "index_workflow_transitions_on_failed_action_id"
     t.index ["failed_guard_id"], name: "index_workflow_transitions_on_failed_guard_id"
     t.index ["transition_id"], name: "index_workflow_transitions_on_transition_id"
@@ -455,6 +479,8 @@ ActiveRecord::Schema.define(version: 20171226223219) do
   add_foreign_key "cities", "countries"
   add_foreign_key "comments", "users"
   add_foreign_key "email_notifications", "notifications"
+  add_foreign_key "events", "workflow_states"
+  add_foreign_key "letters", "workflow_transitions"
   add_foreign_key "notifications", "access_requests"
   add_foreign_key "notifications", "users"
   add_foreign_key "organizations", "sectors"
@@ -470,6 +496,7 @@ ActiveRecord::Schema.define(version: 20171226223219) do
   add_foreign_key "workflow_states", "workflow_state_forms"
   add_foreign_key "workflow_states", "workflow_type_versions"
   add_foreign_key "workflow_transitions", "code_actions", column: "failed_action_id"
+  add_foreign_key "workflow_transitions", "events"
   add_foreign_key "workflow_transitions", "guards", column: "failed_guard_id"
   add_foreign_key "workflow_transitions", "transitions"
   add_foreign_key "workflow_transitions", "workflows"

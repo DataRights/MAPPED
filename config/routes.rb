@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'letter/:id/download', to: 'letters#download', as: 'download_letter'
+
   get 'campaign/:campaign_id/access_requests', to: 'access_requests#index', as: 'campaign_access_requests'
 
   get 'campaign/:campaign_id/access_request/new', to: 'access_requests#new', as: 'campaign_access_request_new'
@@ -20,6 +22,7 @@ Rails.application.routes.draw do
   # Workflow
   get 'workflow/diagram/:id', to: 'workflow#diagram'
   patch 'workflow', to: 'workflow#send_event'
+  post 'workflow/undo/:workflow_transition_id', to: 'workflow#undo'
 
   get 'user/profile/edit', to: 'users#edit'
   get 'user/profile/campaign/:campaign_id', to: 'users#edit', as: 'user_profile_for_campaign'

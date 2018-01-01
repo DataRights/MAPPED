@@ -10,11 +10,13 @@
 #  action_failed_message   :string
 #  failed_guard_message    :string
 #  status                  :string
+#  rollback_failed_actions :jsonb
+#  performed_actions       :jsonb
 #  internal_data           :jsonb
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  performed_actions       :jsonb
-#  rollback_failed_actions :jsonb
+#  remarks                 :string
+#  event_id                :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

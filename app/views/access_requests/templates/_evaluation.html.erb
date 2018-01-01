@@ -2,7 +2,7 @@
 <%= form_with(model: a.workflow) do |f| %>
 
 <div class="modal fade" id="modal<%= a.id %>" tabindex="-1" role="dialog" aria-labelledby="modal<%= a.id %>Label" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="ModalLabel"><%= t('.evaluate') %></h5>
@@ -38,11 +38,13 @@
           </div>
         </div>
         <% a.campaign.questions.each do |question| %>
-          <%= generate_question_view(question).html_safe %><br>
+          <div class="form-group">
+            <%= generate_question_view(question).html_safe %><br>
+          </div>
         <% end %>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') %></button>
-          <%= f.submit t('.evaluate'), id: "evaluate_save#{a.id}", data: { "disable-with": t('.saving') }, class: 'btn btn-primary' %>
+          <%= f.submit t('.evaluate'), id: "update_status_save#{a.id}", data: { "disable-with": t('.saving') }, class: 'btn btn-primary' %>
         </div>
       </div>
     </div>

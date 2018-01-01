@@ -10,11 +10,13 @@
 #  action_failed_message   :string
 #  failed_guard_message    :string
 #  status                  :string
+#  rollback_failed_actions :jsonb
+#  performed_actions       :jsonb
 #  internal_data           :jsonb
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  performed_actions       :jsonb
-#  rollback_failed_actions :jsonb
+#  remarks                 :string
+#  event_id                :integer
 #
 
 class WorkflowTransition < ApplicationRecord
@@ -22,7 +24,9 @@ class WorkflowTransition < ApplicationRecord
   belongs_to :transition
   belongs_to :failed_action, class_name: 'CodeAction', optional: true
   belongs_to :failed_guard, class_name: 'Guard', optional: true
+  belongs_to :event, optional: true
   has_many   :attachments, dependent: :destroy
+  has_many   :letters, dependent: :destroy
 
   # should return state, success:false/true, message (in case of error, error_message)
   def execute
@@ -33,6 +37,16 @@ class WorkflowTransition < ApplicationRecord
       self.failed_action.nil?
     ensure
       self.save!
+    end
+  end
+
+  def undo
+    if is_undoable
+      t = get_or_create_undo_transition
+      self.workflow.send_event(t)
+      {:success => true, :message => I18n.t('workflow.undo_transition_was_successfull')}
+    else
+      {:success => false, :message => I18n.t('workflow.transition_is_not_undoable')}
     end
   end
 
@@ -83,4 +97,20 @@ class WorkflowTransition < ApplicationRecord
     end
   end
 
+  def get_or_create_undo_transition
+    t = Transition.where(from_state_id: self.transition.to_state_id, to_state_id: self.transition.from_state_id).first
+    unless t
+      t = Transition.new
+      t.from_state_id = self.transition.to_state_id
+      t.to_state_id = self.transition.from_state_id
+      t.name = I18n.t('workflow.undo')
+      t.history_description = I18n.t('workflow.undo_history', state: t.to_state.name)
+      t.save!
+    end
+    t
+  end
+
+  def is_undoable
+    self.workflow.workflow_transitions.order('created_at DESC').first.id == self.id
+  end
 end
