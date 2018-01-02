@@ -7,18 +7,18 @@
             <% a.workflow.workflow_transitions.order('created_at DESC').each do |t| %>
             <li class="media my-4">
               <% if t.attachments.count > 0 %>
-                <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70), get_content_path(t.attachments.first) %>
+                <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70), get_content_path(t.attachments.first), target: "_blank" %>
               <% elsif t.letters.count > 0 %>
-                <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70), download_letter_path(t.letters.first) %>
+                <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70), download_letter_path(t.letters.first), target: "_blank" %>
               <% else %>
                 <img class="mr-3" src="" alt="" width="70" height="100">
               <% end %>
               <div class="media-body">
                 <h6 class="mt-0 mb-1">
                   <% if t.attachments.count > 0 %>
-                    <%= link_to image_tag("download_green.svg", height: 18), get_content_path(t.attachments.first) %>
+                    <%= link_to image_tag("download_green.svg", height: 18), get_content_path(t.attachments.first), target: "_blank" %>
                   <% elsif t.letters.count > 0 %>
-                    <%= link_to image_tag("upload_grey.svg", height: 18), download_letter_path(t.letters.first) %>
+                    <%= link_to image_tag("upload_grey.svg", height: 18), download_letter_path(t.letters.first), target: "_blank" %>
                   <% else %>
                     <%= image_tag "upload_grey.svg", height: 18 %>
                   <% end %>
@@ -38,7 +38,7 @@
             </li>
             <% end %>
             <li class="media my-4">
-              <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70), downlaod_access_request_path(a) %>
+              <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70), downlaod_access_request_path(a), target: "_blank" %>
               <%=  %>
               <div class="media-body">
                 <h6 class="mt-0 mb-1">
