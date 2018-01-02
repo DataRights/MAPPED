@@ -66,6 +66,9 @@
           <%= f.label :remarks, t('.remark') %>
           <%= f.text_area(:remarks, class: 'form-control') %>
         </div>
+        <div class="form-group">
+          <%= f.hidden_field(:current_form, value: 'update_status', id: "workflow_current_form#{a.id}" ) %>
+        </div>
         <div id="send_letter<%= a.id %>" class="collapse dynamic">
           <%= render partial: 'access_requests/templates/send_letter', locals: {a: a, f: f} %>
         </div>
@@ -87,7 +90,8 @@
   $('#<%= "workflow_transition_id_#{a.id}" %>').change(function() {
     $('.dynamic').hide();
     var ui_form = $('option:selected', this).attr('data-ui-form');
-    if (ui_form != null && ui_form != '') {
+    $('#workflow_current_form<%= a.id %>').val(ui_form);
+    if (ui_form != undefined && ui_form != '') {
       $('#' + ui_form + "<%= a.id %>").show();
     }
   });

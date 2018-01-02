@@ -1,6 +1,6 @@
 <div class="form-group">
     <%= f.label :letter_type, t('.letter_type') %>
-    <%= f.select :letter_type, Letter.letter_types.keys.to_a, {:include_blank => t('.select_blank')}, {class: "form-control"} %>
+    <%= f.select :letter_type, Letter.letter_types.keys.to_a, {}, {class: "form-control"} %>
 </div>
 <div class="form-group">
     <label for="customText"><%= t('.text_type_select') %></label>

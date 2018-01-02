@@ -15,6 +15,11 @@ class WorkflowController < ApplicationController
   end
 
   def send_event
+
+    p "*******************************************"
+    p "Params: #{params}"
+    p "*******************************************"
+
     workflow_id = params[:workflow][:id]
     transition_id = params[:workflow][:transition_id]
     wf = Workflow.find(workflow_id)
@@ -34,7 +39,7 @@ class WorkflowController < ApplicationController
       attachment.save!
     end
 
-    if params[:standard_text]
+    if params[:workflow][:current_form] == 'send_letter'
       l = Letter.new
       l.sent_date = params[:sent_date]
       l.workflow_transition_id = @workflow_transition.id

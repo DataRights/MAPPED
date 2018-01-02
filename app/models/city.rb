@@ -13,6 +13,7 @@ class City < ApplicationRecord
   belongs_to :country
   validates_presence_of :name
   validates_uniqueness_of :name, scope: :country_id
+  has_many :addresses, :dependent => :destroy
 
   def context_value
     {'name' => name}
