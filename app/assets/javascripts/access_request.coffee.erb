@@ -11,15 +11,6 @@ updateTemplateContent = (organization_id) ->
       return
   return
 
-closePreviewModal = () ->
-  modal = document.getElementById('previewModal')
-  if event.target == modal
-    modal.style.display = 'none'
-  return
-
-window.onclick = (event) ->
-  closePreviewModal()
-
 $(document).on 'turbolinks:load', ->
 
   if $('#textTypeRadioExpanded').is(':checked')
@@ -35,11 +26,9 @@ $(document).on 'turbolinks:load', ->
       rendered_template = CKEDITOR.instances['custom_text'].getData()
     oReq = new XMLHttpRequest
     oReq.responseType = 'blob'
-
     oReq.onload = (e) ->
       file = window.URL.createObjectURL(oReq.response)
       $('#iframe_preview').attr('src', '/pdfjs/web/viewer.html?file=' + file)
-      document.getElementById('previewModal').style.display = 'block'
       $('#ar_pdf_preview').html("<%= I18n.t('access_requests.new.preview_button') %>")
 
     oReq.open 'GET', baseUrl + '/access_requests/preview?rendered_template=' + encodeURIComponent(rendered_template)
@@ -61,7 +50,7 @@ $(document).on 'turbolinks:load', ->
           updateTemplateContent e[0][1]
         return
     return
-    
+
   $('#organization_id').on 'change', ->
     updateTemplateContent $(this).val()
     return
