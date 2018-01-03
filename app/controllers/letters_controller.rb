@@ -5,7 +5,8 @@ class LettersController < ApplicationController
 
   def download
     if @letter
-      send_data(WickedPdf.new.pdf_from_string(@letter.final_text), :filename => "Letter-#{@letter.id}-#{@letter.workflow_transition.workflow.access_request.organization.name}", :type => :pdf)
+      pdf = WickedPdf.new.pdf_from_string(@letter.final_text.html_safe, encoding: 'UTF-8')
+      send_data(pdf, :filename => "Letter-#{@letter.id}-#{@letter.workflow_transition.workflow.access_request.organization.name}", :type => :pdf)
     end
   end
 

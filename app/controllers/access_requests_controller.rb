@@ -5,7 +5,7 @@ class AccessRequestsController < ApplicationController
 
   def index
     @campaign = Campaign.find_by id: params[:campaign_id]
-    @access_requests = current_user.access_requests.where(campaign_id: @campaign.id)
+    @access_requests = current_user.access_requests.where(campaign_id: @campaign.id).order('created_at DESC')
     @download_ar = nil
     if session['download_ar']
       @download_ar = session['download_ar']
@@ -52,7 +52,8 @@ class AccessRequestsController < ApplicationController
   def download
     ar = AccessRequest.find(params[:id])
     return unless ar.user_id == current_user.id
-    send_data(WickedPdf.new.pdf_from_string(ar.final_text), :filename => "AccessRequest-#{ar.id}-#{ar.organization.name}" ,:type => :pdf)
+    pdf = WickedPdf.new.pdf_from_string(ar.final_text.html_safe, encoding: 'UTF-8')
+    send_data(pdf, :filename => "AccessRequest-#{ar.id}-#{ar.organization.name}" ,:type => :pdf)
   end
 
   def create
@@ -75,7 +76,8 @@ class AccessRequestsController < ApplicationController
   def preview
     @rendered_template = params[:rendered_template]
     @rendered_template ||= ''
-    send_data(WickedPdf.new.pdf_from_string(@rendered_template) , :type => :pdf, :disposition => 'inline')
+    pdf = WickedPdf.new.pdf_from_string(@rendered_template, encoding: 'UTF-8')
+    send_data(pdf, :type => :pdf, :disposition => 'inline')
   end
 
   def comment
