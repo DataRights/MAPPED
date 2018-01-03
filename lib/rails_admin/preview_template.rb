@@ -50,7 +50,8 @@ module RailsAdmin
             @rendered_template = @object.render(context)
 
             if params[:commit] == 'PDF'
-              send_data(WickedPdf.new.pdf_from_string(@rendered_template) , :type => :pdf, :disposition => 'inline')
+              pdf = WickedPdf.new.pdf_from_string(@rendered_template.html_safe, encoding: 'UTF-8')
+              send_data(pdf, :type => :pdf, :disposition => 'inline')
             else
               render action: @action.template_name
             end

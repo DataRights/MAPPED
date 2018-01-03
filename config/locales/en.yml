@@ -209,3 +209,4 @@ en:
       passport_id_warning: 'Do not forget to attach a copy of your passport/ID card to your access request.'
       final_button: 'Generate Final PDF'
       please_note_fields_in_red: 'Please note that fields in red require your personal data.'
+      preview_modal_title: 'Preview'
