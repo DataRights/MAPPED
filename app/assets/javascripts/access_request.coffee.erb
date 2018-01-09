@@ -6,7 +6,7 @@ updateTemplateContent = (organization_id) ->
     url: baseUrl + '/campaigns/' + $('#campaign_id').val() + '/organizations/' + organization_id + '/template'
     type: 'GET'
     success: (e) ->
-      $('#textContentStandard').html(e.template)
+      $('#standard_text').val(e.template)
       CKEDITOR.instances['custom_text'].setData e.template
       return
   return

@@ -53,7 +53,7 @@
               </li>
               <% if current_user.can?(:admin_login) %>
               <li class="nav-item">
-                <%= link_to t('.admin'), :rails_admin, class:"nav-link" %>
+                <%= link_to t('.admin'), :rails_admin, class:"nav-link", :"data-turbolinks" => false %>
               </li>
               <% end %>
             <% end %>
