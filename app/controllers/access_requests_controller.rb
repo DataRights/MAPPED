@@ -40,7 +40,6 @@ class AccessRequestsController < ApplicationController
       flash[:notice] = I18n.t('errors.organization_not_found')
       redirect_to home_path and return
     end
-
     organization = Organization.find_by_id(@selected_organization[1])
     @rendered_template = AccessRequest.get_rendered_template(:access_request, current_user, @campaign, organization)
     unless @rendered_template
@@ -52,7 +51,7 @@ class AccessRequestsController < ApplicationController
   def download
     ar = AccessRequest.find(params[:id])
     return unless ar.user_id == current_user.id
-    pdf = WickedPdf.new.pdf_from_string(ar.final_text.html_safe, encoding: 'UTF-8')
+    pdf = WickedPdf.new.pdf_from_string(ar.final_text&.html_safe, encoding: 'UTF-8')
     send_data(pdf, :filename => "AccessRequest-#{ar.id}-#{ar.organization.name}" ,:type => :pdf)
   end
 
