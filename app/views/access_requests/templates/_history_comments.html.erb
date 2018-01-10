@@ -7,11 +7,11 @@
             <% a.workflow.workflow_transitions.order('created_at DESC').each do |t| %>
             <li class="media my-4">
               <% if t.attachments.count > 0 %>
-                <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70), get_content_path(t.attachments.first), target: "_blank" %>
+                <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70, style: 'border: 1px solid black'), get_content_path(t.attachments.first), target: "_blank" %>
               <% elsif t.letters.count > 0 %>
-                <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70), download_letter_path(t.letters.first), target: "_blank" %>
+                <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70, style: 'border: 1px solid black'), download_letter_path(t.letters.first), target: "_blank" %>
               <% else %>
-                <img class="mr-3" src="" alt="" width="70" height="100">
+                <a href="#"><%= image_tag("empty.png", class: 'mr-3', height: 100, width: 70, style: 'border: 1px solid black') %></a>
               <% end %>
               <div class="media-body">
                 <h6 class="mt-0 mb-1">
@@ -32,14 +32,69 @@
                 <%= t.remarks %>
                 <br />
                 <% if a.workflow.workflow_transitions.order('created_at DESC').first.id == t.id %>
+                  <a href="#" data-toggle="modal" data-target="#modal_edit<%= a.id %>"><%= t('.edit') %></a>
+                  -
                   <%= link_to t('.undo'), {controller: "workflow", action: "undo", workflow_transition_id: t.id}, method: :post %>
+
+                  <div class="modal fade" id="modal_edit<%= a.id %>" tabindex="-1" role="dialog" aria-labelledby="editWorkflowModalLabel<%= a.id %>" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="editWorkflowModalLabel<%= a.id %>"><%= t('.edit_status_title') %></h5>
+
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+
+                          <div class="alert alert-danger alert-dismissible collapse" id="update_transition_alert<%= a.id %>" role="alert">
+                            <span id="update_alert_message<%= a.id %>"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                          </div>
+
+                          <div class="alert alert-success alert-dismissible collapse" id="update_transition_success<%= a.id %>" role="alert">
+                            <span id="update_success_message<%= a.id %>"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                          </div>
+
+                          <% @last_wt = a.workflow.workflow_transitions.order('created_at DESC').first %>
+                          <%= form_with(model: @last_wt) do |f| %>
+                            <%= f.hidden_field(:id, value: @last_wt.id) %>
+
+                            <% if @last_wt.event_id %>
+                            <div class="form-group">
+                              <%= f.label :event_description, t('.what_happened') %>
+                              <%= f.select(:event_id, options_for_select(Event.where(workflow_state_id: a.workflow.workflow_state_id).map{ |t| [t.title, t.id] }, @last_wt.event_id), {}, {class: "form-control", required:"required"}) %>
+                            </div>
+                            <% end %>
+
+                            <div class="form-group"
+                              <label for="remarks"><%= t('.remark') %>:</label>
+                              <%= f.text_area(:remarks, class: 'form-control') %>
+                            </div>
+
+                          </div>
+
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') %></button>
+                            <%= f.submit t('.save'), id: "remarks_update#{a.id}", data: { "disable-with": t('.saving') }, class: 'btn btn-primary' %>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+
                 <% end %>
               </div>
             </li>
             <% end %>
             <li class="media my-4">
-              <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70), downlaod_access_request_path(a), target: "_blank" %>
-              <%=  %>
+              <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70, style: 'border: 1px solid black'), downlaod_access_request_path(a), target: "_blank" %>
               <div class="media-body">
                 <h6 class="mt-0 mb-1">
                   <%= image_tag "upload_grey.svg", height: 18 %>
@@ -128,6 +183,10 @@
 </div>
 
 <script>
+  $('#modal_edit<%= a.id %>').on('hidden.bs.modal', function () {
+    Turbolinks.visit(window.location.toString(), {action: 'replace'});
+  });
+
   $('#addCommentModal<%= a.id %>').on('hidden.bs.modal', function () {
     Turbolinks.visit(window.location.toString(), {action: 'replace'});
   });

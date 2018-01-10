@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   patch 'workflow', to: 'workflow#send_event'
   post 'workflow/undo/:workflow_transition_id', to: 'workflow#undo'
 
+  # workflow_transitions
+  patch 'workflow_transition', to: 'workflow_transition#update'
+
   get 'user/profile/edit', to: 'users#edit'
   get 'user/profile/campaign/:campaign_id', to: 'users#edit', as: 'user_profile_for_campaign'
   match 'users/profile', to: 'users#update', via: [:patch, :put]

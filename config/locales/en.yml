@@ -172,6 +172,14 @@ en:
         comment_success: "Comment sent successfully."
         ago: "ago"
         undo: "Undo"
+        edit: "Edit this status"
+        edit_status_title: "Edit last status"
+        save: "Save"
+        saving: "Saving..."
+        update_remarks_success: "Update status was successful."
+        update_remarks_error: "Update status failed! %{status}"
+        remark: 'Remark'
+        what_happened: 'What happened?'
       send_letter:
         text_type_select: 'Text of letter'
         text_type_standard: 'Standard text'

@@ -42,6 +42,10 @@
             <%= generate_question_view(question).html_safe %><br>
           </div>
         <% end %>
+        <div class="form-group"
+          <label for="remarks"><%= t('.remark') %>:</label>
+          <%= f.text_area(:remarks, class: 'form-control') %>
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') %></button>
           <%= f.submit t('.evaluate'), id: "update_status_save#{a.id}", data: { "disable-with": t('.saving') }, class: 'btn btn-primary' %>
