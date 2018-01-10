@@ -1,5 +1,6 @@
 class WorkflowTransitionController < ApplicationController
   def update
+    return unless params.include?(:workflow_transition)
     wt_id = params[:workflow_transition][:id]
     wt = WorkflowTransition.find(wt_id)
     wt.remarks = params[:workflow_transition][:remarks]
