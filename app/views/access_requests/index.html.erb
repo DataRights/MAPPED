@@ -13,8 +13,9 @@
       </p>
     </div>
     <div class="col-md-8">
+      <div id="accordion" role="tablist" aria-multiselectable="true">
       <% @access_requests.each do |a| %>
-        <h5 class="nonselect" data-toggle="collapse" data-target="#multiCollapse<%= a.id %>" aria-expanded="true" aria-controls="multiCollapse<%= a.id %>">
+        <h5 class="nonselect" data-toggle="collapse" data-parent="#accordion" data-target="#multiCollapse<%= a.id %>" aria-expanded="true" aria-controls="multiCollapse<%= a.id %>">
           <%= image_tag "controller-play.svg", height: 24 %>
           <%= a.organization.name %>
           &nbsp;
@@ -29,10 +30,11 @@
             <%= render partial: a.workflow.workflow_state.workflow_state_form.form_path, locals: {a: a} %>
           <% end %>
         </p>
-		<p>
-		  <%= render partial: 'access_requests/templates/history_comments', locals: {a: a} %>
-		</p>
+    		<p>
+    		  <%= render partial: 'access_requests/templates/history_comments', locals: {a: a} %>
+    		</p>
       <% end %>
+      </div>
     </div>
   </div>
 </div>

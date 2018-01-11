@@ -15,7 +15,7 @@
 
 class Transition < ApplicationRecord
 
-  enum ui_form: [:send_letter]
+  enum ui_form: [:send_letter, :access_request_date]
 
   belongs_to :from_state, class_name: 'WorkflowState'
   belongs_to :to_state, class_name: 'WorkflowState'

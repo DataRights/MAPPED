@@ -17,5 +17,6 @@
 //= require bootstrap-sprockets
 //= require bootstrap-toggle
 //= require ckeditor/init
+//= require js.cookie
 //= require_tree .
 //= require_self

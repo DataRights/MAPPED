@@ -34,6 +34,9 @@
           <%= f.hidden_field(:id) %>
           <%= f.select(:transition_id, options_for_select(a.workflow.workflow_state.possible_transitions.map{ |t| [t.name, t.id, { 'data-ui-form' => t.ui_form || "" }] }), {:include_blank => t('.select_blank')}, {class: "form-control", id: "workflow_transition_id_#{a.id}", required:"required"}) %>
         </div>
+        <div id="access_request_date<%= a.id %>" class="collapse dynamic">
+          <%= render partial: 'access_requests/templates/access_request_date', locals: {a: a, f: f} %>
+        </div>
         <div class="form-group"
           <label for="remarks"><%= t('.remark') %>:</label>
           <%= f.text_area(:remarks, class: 'form-control') %>

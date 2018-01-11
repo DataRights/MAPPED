@@ -5,7 +5,7 @@ class AccessRequestsController < ApplicationController
 
   def index
     @campaign = Campaign.find_by id: params[:campaign_id]
-    @access_requests = current_user.access_requests.where(campaign_id: @campaign.id).order('created_at DESC')
+    @access_requests = current_user.access_requests.includes(:campaign, :comments, organization: [:sector, address: [:city, :country]], workflow: [{workflow_state: [:workflow_state_form, :possible_transitions]}, {workflow_transitions: [:transition, :event] }]).where(campaign_id: @campaign.id).order('created_at DESC')
     @download_ar = nil
     if session['download_ar']
       @download_ar = session['download_ar']

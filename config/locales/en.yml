@@ -183,6 +183,7 @@ en:
         upload_attachment: 'Edit uploaded data (Optional)'
         upload_attachment_description: 'Edit data description (Optional)'
         upload_file: 'Upload file'
+        letter_text: 'Edit your letter:'
       send_letter:
         text_type_select: 'Text of letter'
         text_type_standard: 'Standard text'
@@ -193,6 +194,8 @@ en:
         close: "Close"
         final_button: 'Generate PDF'
         select_blank: 'Please select an action ...'
+      access_request_date:
+        sent_date: 'Date of sending'
       done:
         done: 'Done'
       what_happened_update_status:
