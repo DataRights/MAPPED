@@ -180,6 +180,9 @@ en:
         update_remarks_error: "Update status failed! %{status}"
         remark: 'Remark'
         what_happened: 'What happened?'
+        upload_attachment: 'Edit uploaded data (Optional)'
+        upload_attachment_description: 'Edit data description (Optional)'
+        upload_file: 'Upload file'
       send_letter:
         text_type_select: 'Text of letter'
         text_type_standard: 'Standard text'

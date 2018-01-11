@@ -3,9 +3,26 @@ class WorkflowTransitionController < ApplicationController
     return unless params.include?(:workflow_transition)
     wt_id = params[:workflow_transition][:id]
     wt = WorkflowTransition.find(wt_id)
+    @a = wt.workflow.access_request
     wt.remarks = params[:workflow_transition][:remarks]
     wt.event_id = params[:workflow_transition][:event_id]
-    @a = wt.workflow.access_request
+
+    if params[:workflow_transition].include?(:attachment_description)
+      attachment = wt.attachments.first
+      attachment.title = params[:workflow_transition][:attachment_description]
+
+      unless params[:workflow_transition][:attachment_file].blank?
+        attachment.content = params[:workflow_transition][:attachment_file].read
+        attachment.content_type = params[:workflow_transition][:attachment_file].content_type
+      end
+
+      unless attachment.save
+        @status = attachment.errors.full_messages
+        return
+      end
+    end
+
+
     if wt.save
       @status = 'success'
     else
