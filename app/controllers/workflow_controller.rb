@@ -15,11 +15,6 @@ class WorkflowController < ApplicationController
   end
 
   def send_event
-
-    p "*******************************************"
-    p "Params: #{params}"
-    p "*******************************************"
-
     workflow_id = params[:workflow][:id]
     transition_id = params[:workflow][:transition_id]
     wf = Workflow.find(workflow_id)
@@ -54,6 +49,11 @@ class WorkflowController < ApplicationController
     end
 
     @ar = wf.access_request
+    if params[:workflow][:sent_date]
+      @ar.sent_date = params[:workflow][:sent_date]
+      @ar.save!
+    end
+
     if params['commit'] == I18n.t('access_requests.templates.evaluation.evaluate')
       params['answers'].each do |answer_id|
         a = Answer.find_by(question_id: answer_id.to_i, answerable_type: 'AccessRequest', answerable_id: @ar.id)

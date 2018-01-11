@@ -29,25 +29,7 @@
 
         <div class="form-group">
           <%= f.label :event_description, t('.what_happened') %>
-          <%= f.select(:event_id, options_for_select(Event.where(workflow_state_id: a.workflow.workflow_state_id).map{ |t| [t.title, t.id] }), {:include_blank => t('.select_blank')}, {class: "form-control", required:"required"}) %>
-          <!--
-            <select id="workflow_event_description" name="workflow[event_description]" class="form-control">
-              <option><%= t('.i_have_not_received_anything') %></option>
-              <option><%= t('.i_received_an_email_call_letter_but_no_data') %></option>
-              <option><%= t('.they_asked_me_to_visit') %></option>
-              <option><%= t('.they_asked_me_to_call') %></option>
-              <option><%= t('.they_asked_for_clarification') %></option>
-              <option><%= t('.they_sent_acknowledgement') %></option>
-              <option><%= t('.they_can_not_verify_my_identity') %></option>
-              <option><%= t('.they_dont_know_me') %></option>
-              <option><%= t('.some_personal_data_received') %></option>
-              <option><%= t('.request_to_be_more_specific_about_data') %></option>
-              <option><%= t('.they_asked_me_to_fill_a_form') %></option>
-              <option><%= t('.i_called_visited_them') %></option>
-              <option><%= t('.they_asked_me_to_call_visit_but_i_didnt') %></option>
-              <option><%= t('.other') %></option>
-            </select>
-          -->
+          <%= f.select(:event_id, options_for_select(Event.where(workflow_state_id: a.workflow.workflow_state_id).order('display_order').map{ |t| [t.title, t.id] }), {:include_blank => t('.select_blank')}, {class: "form-control", required:"required"}) %>
         </div>
         <div class="form-group">
           <%= f.label :attachment_file, t('.upload_attachment') %>

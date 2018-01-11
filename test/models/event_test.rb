@@ -7,6 +7,7 @@
 #  title             :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  display_order     :integer
 #
 
 require 'test_helper'

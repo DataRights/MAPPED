@@ -13,6 +13,9 @@ updateTemplateContent = (organization_id) ->
 
 $(document).on 'turbolinks:load', ->
 
+  last = Cookies.get('active_accordion')
+  $("#" + last).addClass("show") if last? and $('#' + last).length
+
   if $('#textTypeRadioExpanded').is(':checked')
     $('#textContentStandard').hide()
     $('#textContentExpanded').show()
@@ -66,4 +69,9 @@ $(document).on 'turbolinks:load', ->
       $('#textContentStandard').hide()
       $('#textContentExpanded').show()
     return
+
+  $("#accordion").on 'shown.bs.collapse', (e) ->
+      Cookies.set('active_accordion', e.target.id)
+      return
+
   return

@@ -133,3 +133,8 @@ gem 'rmagick'
 
 # For memcached
 gem 'dalli'
+
+# N + 1 Queries
+gem 'bullet', group: 'development'
+
+gem 'js_cookie_rails'
