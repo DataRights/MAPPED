@@ -1,0 +1,13 @@
+app:
+  build: .
+  command: bundle exec rails server -p 3000 -b '0.0.0.0'
+  volumes:
+    - /Users/mani47/Projects/mapped:/usr/src/app
+  ports:
+    - "3000:3000"
+  environment:
+    - DB_HOST=$DB_DOCKER_HOST
+    - DB_USERNAME=$DB_USERNAME
+    - DB_PASSWORD=$DB_PASSWORD
+    - DB_PORT=$DB_PORT
+    - MAPPED_TOTP_ENCRYPTION_KEY='UWsV8/Lz3Dr4qmQHNKGxj885nWt0+BETAZrbvsV/21yH5RC/7MBlW2fxB3tP97PyH5ryen/ZV1uoBQHhPCDWPg=='

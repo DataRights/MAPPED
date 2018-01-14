@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.5'
+ruby '2.3.6'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -134,7 +134,7 @@ gem 'rmagick'
 # For memcached
 gem 'dalli'
 
-# N + 1 Queries
+# N + Queries
 gem 'bullet', group: 'development'
 
 gem 'js_cookie_rails'
