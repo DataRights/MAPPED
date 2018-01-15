@@ -60,4 +60,8 @@ Rails.application.configure do
   end
 
   config.discourse_server = "http://54.37.74.210/"
+
+  config.exceptions_app = self.routes
+
+  config.web_console.whitelisted_ips = ['127.0.0.1','172.17.0.1']
 end

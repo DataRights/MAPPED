@@ -94,4 +94,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.discourse_server = "http://54.37.74.210/"
+
+  config.exceptions_app = self.routes
 end
