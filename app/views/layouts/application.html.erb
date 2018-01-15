@@ -10,7 +10,7 @@
 
   <body>
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="/">
         <%= image_tag "datarights.svg", height: 24 %>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="<%= t '.toggle_navigation' %>">
@@ -32,7 +32,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<%= notifications_index_path %>">
                   <%= t '.notifications' %>
                   <% if @unread_notifications_count > 0 %>
                     <span class="badge badge-danger"><%= @unread_notifications_count %></span>
@@ -40,7 +40,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"><%= t '.forum' %></a>
+                <a class="nav-link" href="http://forum.datarighs.me"><%= t '.forum' %></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#"><%= t '.faq' %></a>

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UserMailerTest < ActionMailer::TestCase
   test "digest_notification should send all the pending notifications of a user in one email" do
-     u = users(:test_user)
+     u = users(:three)
      u.notification_settings << notification_settings(:email_daily)
      assert u.save
 
@@ -37,7 +37,7 @@ class UserMailerTest < ActionMailer::TestCase
   end
 
   test 'custom_invitation should send a custom invitation email' do
-      u = users(:test_user)
+      u = users(:three)
 
       assert_equal 0, ActionMailer::Base.deliveries.count
       perform_enqueued_jobs do

@@ -16,11 +16,11 @@
 one:
   user: one
   access_request: one
-  title: MyString
-  content: MyString
+  title: Sample Notification Title One
+  content: Sample Notification Content One
 
 two:
   user: two
   access_request: two
-  title: MyString
-  content: MyString
+  title: Sample Notification Title Two
+  content: Sample Notification Content Two
