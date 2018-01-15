@@ -4,7 +4,7 @@ class AccessRequestsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    @user = users(:test_user)
+    @user = users(:three)
     @user.confirm
     sign_in @user
     Campaign.create(:name => Campaign::DEFAULT_CAMPAIGN_NAME) unless Campaign.find_by(:name => Campaign::DEFAULT_CAMPAIGN_NAME)

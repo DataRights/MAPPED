@@ -53,11 +53,14 @@ one:
   email: 'one@datarights.me'
   notification_settings: web, email_instantly
   confirmed_at: '2018-12-07 19:34'
+  first_name: 'Charlie'
 
 two:
   email: 'two@datarights.me'
   confirmed_at: '2018-12-07 19:34'
+  first_name: 'Charlie'
+  last_name: 'Root'
 
-test_user:
+three:
   email: 'test@test.com'
   confirmed_at: '2018-12-07 19:34'

@@ -55,7 +55,7 @@ class UserTest < ActiveSupport::TestCase
 		researcher = roles(:researcher)
 		access_rights(:researcher_view_user)
 
-		user = users(:test_user)
+		user = users(:three)
 		UserRole.create(user: user, role: researcher)
 
 		assert user.can?(:view_user)
@@ -103,5 +103,14 @@ class UserTest < ActiveSupport::TestCase
 		old_count = User.cached_count
 		User.create!(email: 'test@test12.com', password_confirmation: 'test123', password: 'test123')
 		assert_equal old_count + 1, User.cached_count
+	end
+
+	test 'full_name should return concatenation of first name and last name if they are null it should return email' do
+		u1 = users(:one)
+		u2 = users(:two)
+		u3 = users(:three)
+		assert_equal 'Charlie ', u1.full_name
+		assert_equal 'Charlie Root', u2.full_name
+		assert_equal u3.email, u3.full_name
 	end
 end

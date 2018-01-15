@@ -9,7 +9,7 @@ class TemplateContextTest < ActiveSupport::TestCase
 		assert_not context.valid?
 		assert_includes context.errors[:user], 'Invalid user'
 
-		context.user = users(:test_user)
+		context.user = users(:three)
 		assert context.valid?
 	end
 

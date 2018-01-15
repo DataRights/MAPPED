@@ -134,6 +134,9 @@ en:
         email: "Email Address"
         password: "Password (minimum 6 characters)"
         password_confirmation: "Password confirmation"
+  notifications:
+    index:
+      you_have_no_notification: 'You have no notifications.'
   access_requests:
     templates:
       update_status:

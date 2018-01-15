@@ -17,7 +17,7 @@ class NotificationTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   test 'send_daily_digest should send all notifications in one email' do
-    u = users(:test_user)
+    u = users(:three)
     u.notification_settings << notification_settings(:email_daily)
     assert u.save
 
@@ -57,7 +57,7 @@ class NotificationTest < ActiveSupport::TestCase
   end
 
   test 'send_weekly_digest should send all notifications in one email' do
-    u = users(:test_user)
+    u = users(:three)
     u.notification_settings << notification_settings(:email_weekly)
     assert u.save
 

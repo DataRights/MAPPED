@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col">
+      <h3><%= t('layouts.application.notifications') %></h3>
+      <div class="list-group mt-4">
+        <% @web_notifications.each do |wn| %>
+          <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"><%= wn.notification.title %></h5>
+              <small><%= time_ago_in_words(wn.created_at) %> <%= t('access_requests.templates.history_comments.ago') %></small>
+            </div>
+            <p class="mb-1"><%= wn.notification.content %></p>
+          </a>
+        <% end %>
+
+        <% if @web_notifications.count == 0 %>
+            <p class="mb-1"><%= t('.you_have_no_notification') %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
