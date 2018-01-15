@@ -43,4 +43,6 @@ Rails.application.routes.draw do
   post 'attachments/content', to: 'attachments#new_content', as: 'new_content'
 
   get 'attachments/:id/thumbnail', to: 'attachments#thumbnail', as: 'thumbnail'
+
+  get 'discourse/sso' => 'discourse_sso#sso'
 end
