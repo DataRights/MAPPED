@@ -58,4 +58,6 @@ Rails.application.configure do
     Bullet.rails_logger = true
     Bullet.add_footer = true
   end
+
+  config.discourse_server = "http://54.37.74.210/"
 end

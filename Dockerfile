@@ -44,7 +44,7 @@ RUN dpkg-divert --add --rename --divert /opt/google/chrome/google-chrome.real /o
     chmod 755 /opt/google/chrome/google-chrome
 
 # Default configuration
-ENV DISPLAY :20.0
+ENV DISPLAY :99.0
 ENV SCREEN_GEOMETRY "1440x900x24"
 ENV CHROMEDRIVER_PORT 4444
 ENV CHROMEDRIVER_WHITELISTED_IPS "127.0.0.1,172.17.0.2"
