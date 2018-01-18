@@ -41,6 +41,9 @@ class UsersController < ApplicationController
         tc = TemplateContext.new
         tc.user = current_user
         @content = tv.render(tc).html_safe
+        if @upc.content.blank?
+          @upc.content = @content
+        end
       end
     end
   end
@@ -72,10 +75,10 @@ class UsersController < ApplicationController
   private
 
   def policy_consent_params
-    params.require(:user_policy_consents).permit(:id, :approved)
+    params.require(:user_policy_consents).permit(:id, :approved, :content)
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :preferred_language, :campaign_id, notification_setting_ids: [], address_attributes: [:line1, :line2, :post_code, :city_name, :country_id], user_policy_consents_attributes:[:id, :approved])
+    params.require(:user).permit(:first_name, :last_name, :preferred_language, :campaign_id, notification_setting_ids: [], address_attributes: [:line1, :line2, :post_code, :city_name, :country_id], user_policy_consents_attributes:[:id, :approved, :content])
   end
 end

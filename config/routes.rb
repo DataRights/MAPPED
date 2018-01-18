@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'consents/index'
+
+  get 'consents/show'
+
+  get 'consents/revoke'
+
   get 'notifications/index'
 
   get 'errors/not_found'

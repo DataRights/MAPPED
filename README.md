@@ -64,11 +64,7 @@ If this is the first time you are running the application and you want to setup 
 
 `docker exec -it mapped_app_1 bash`
 
-And run:
-
-`./run_tests`
-
-or
+And run tests to make sure everything is ok:
 
 `rake test`
 

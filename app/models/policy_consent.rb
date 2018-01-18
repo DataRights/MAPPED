@@ -9,6 +9,7 @@
 #  mandatory   :boolean          default(FALSE)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  description :string
 #
 
 class PolicyConsent < ApplicationRecord

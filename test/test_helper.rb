@@ -3,8 +3,8 @@ require 'coveralls'
 
 SimpleCov.start do
   formatter SimpleCov::Formatter::MultiFormatter::new([
-    SimpleCov::Formatter::HTMLFormatter,
-    Coveralls::SimpleCov::Formatter,
+    SimpleCov::Formatter::HTMLFormatter
+    #Coveralls::SimpleCov::Formatter,
   ])
   add_filter "/test/"
   add_filter "/config/"
@@ -26,10 +26,10 @@ require 'capybara/rails'
 require 'capybara/minitest'
 
 class ActionDispatch::IntegrationTest
-  # Make the Capybara DSL available in all integration tests
-  include Capybara::DSL
-  # Make `assert_*` methods behave like Minitest assertions
-  include Capybara::Minitest::Assertions
+  # # Make the Capybara DSL available in all integration tests
+  # include Capybara::DSL
+  # # Make `assert_*` methods behave like Minitest assertions
+  # include Capybara::Minitest::Assertions
 
   # Reset sessions and driver between tests
   # Use super wherever this method is redefined in your individual test classes

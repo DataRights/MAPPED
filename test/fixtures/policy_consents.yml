@@ -9,18 +9,21 @@
 #  mandatory   :boolean          default(FALSE)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  description :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
   template: one
-  title: MyString
+  title: Policy Consent One Title
+  description: Policy Consent One Description
   type_of: 1
   mandatory: false
 
 two:
   template: two
-  title: MyString
+  title: Policy Consent Two Title
+  description: Policy Consent Two Description
   type_of: 1
   mandatory: false

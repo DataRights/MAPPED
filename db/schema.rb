@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180111110021) do
+ActiveRecord::Schema.define(version: 20180118072023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -250,6 +250,7 @@ ActiveRecord::Schema.define(version: 20180111110021) do
     t.boolean "mandatory", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
     t.index ["template_id"], name: "index_policy_consents_on_template_id"
   end
 
@@ -331,6 +332,7 @@ ActiveRecord::Schema.define(version: 20180111110021) do
     t.datetime "revoked_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "content"
     t.index ["policy_consent_id"], name: "index_user_policy_consents_on_policy_consent_id"
     t.index ["user_id"], name: "index_user_policy_consents_on_user_id"
   end

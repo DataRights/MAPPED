@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+
+      <h3><%= t('.overview_of_consents') %></h3><br>
+      <table class="table" id="consents">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col"><%= t('.name') %></th>
+            <th scope="col"><%= t('.description') %></th>
+            <th scope="col"><%= t('.actions') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @row = 0 %>
+          <% current_user.user_policy_consents.each do |upc| %>
+          <tr id="upc<%= upc.id %>">
+            <td><%= (@row = @row + 1) %></td>
+            <td><%= upc.policy_consent.title %></td>
+            <td>
+              <small><%= upc.policy_consent.description %></small>
+            </td>
+            <td>
+              <a href="#"><%= t('.view') %></a>
+              |
+              <a href="#"><%= t('.revoke') %></a>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <br>
+    </div>
+  </div>
+</div>

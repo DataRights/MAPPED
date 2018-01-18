@@ -9,6 +9,7 @@
           <%= @content %>
           <% if @content %>
             <%= f.fields_for(:user_policy_consents, @upc) do |upc| %>
+              <%= upc.hidden_field(:content) %>
               <%= upc.hidden_field(:id) %>
               <%= upc.check_box :approved %> <%= t('.consent_check_box') %>
               <% if @upc.approved %>
