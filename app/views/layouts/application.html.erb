@@ -46,9 +46,6 @@
                 <a class="nav-link" href="#"><%= t '.faq' %></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"><%= t '.help_desk' %></a>
-              </li>
-              <li class="nav-item">
                 <%= link_to t('.my_profile'), :user_profile_edit, class:"nav-link" %>
               </li>
               <% if current_user.can?(:admin_login) %>
@@ -59,7 +56,18 @@
             <% end %>
             </ul>
         <% if user_signed_in? %>
-            <a class="nav-link disabled" href="#"><%= t('.welcome') %> <%= current_user.full_name %>!</a>
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown_user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= t('.welcome') %> <%= current_user.full_name %>!
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdown_user">
+                  <%= link_to t('tfa.title'), :users_tfa, class: 'dropdown-item' %>
+                  <%= link_to t('.change_password'), :edit_user_registration, class: 'dropdown-item' %>
+                </div>
+              </li>
+            </ul>
+
             <%= button_to(t('user_links.logout'), destroy_user_session_path, {method: :delete, class: 'btn btn-secondary btn-sm'}) %>
         <% else %>
             <%= button_to(t('user_links.login'), new_user_session_path, {class: 'btn btn-secondary btn-sm'}) %>

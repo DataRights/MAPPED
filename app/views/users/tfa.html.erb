@@ -1,35 +1,38 @@
-<div class="panel panel-default devise-bs">
-  <div class="panel-heading">
-    <h4><%= t('tfa.title') %></h4>
-  </div>
-  <div class="panel-body">
-      <div>
-        <%= t('tfa.help') %>
-      </div>
-      <br />
-
-      <% if !current_user.otp_required_for_login %>
-        <%= button_to t('tfa.enable'), users_enable_otp_path, :method => :post %>
-      <% end %>
-
-      <% if current_user.otp_required_for_login %>
-        <%= button_to t('tfa.disable'), users_disable_otp_path, :method => :post %>
-        <br />
-
-        <div>
-          <%= t('tfa.scan_qr_code') %>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <div class="panel panel-default devise-bs">
+        <div class="panel-heading">
+          <h4><%= t('tfa.title') %></h4>
         </div>
-        <br />
-        <div>
-        <%= raw RQRCode::render_qrcode(current_user.otp_provisioning_uri(current_user.email, issuer: t('project_name')),
-                                       :svg,
-                                       :level => :l,
-                                       :unit => 2) %>
+        <div class="panel-body">
+            <div>
+              <%= t('tfa.help') %>
+            </div>
+            <br />
+
+            <% if !current_user.otp_required_for_login %>
+              <%= button_to t('tfa.enable'), users_enable_otp_path, :method => :post %>
+            <% end %>
+
+            <% if current_user.otp_required_for_login %>
+              <%= button_to t('tfa.disable'), users_disable_otp_path, :method => :post %>
+              <br />
+
+              <div>
+                <%= t('tfa.scan_qr_code') %>
+              </div>
+              <br />
+              <div>
+              <%= raw RQRCode::render_qrcode(current_user.otp_provisioning_uri(current_user.email, issuer: t('project_name')),
+                                             :svg,
+                                             :level => :l,
+                                             :unit => 2) %>
+              </div>
+              <br>
+            <% end %>
         </div>
-        <br>
-      <% end %>
-      <div>
-      <br /><%= link_to t('.back_to_admin_panel', default: 'Back To Dashboard'), rails_admin_path %>
       </div>
+    </div>
   </div>
 </div>
