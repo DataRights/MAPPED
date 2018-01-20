@@ -1,0 +1,64 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+en:
+  devise:
+    confirmations:
+      confirmed: "Uw e-mailadres is succesvol bevestigd."
+      send_instructions: "U ontvangt binnen enkele minuten een e-mail met instructies voor het bevestigen van uw e-mailadres"
+      send_paranoid_instructions: "Als uw e-mailadres in onze database staat, ontvangt u binnen enkele minuten een e-mail met instructies voor het bevestigen van uw e-mailadres."
+    failure:
+      already_authenticated: "U bent al aangemeld."
+      inactive: "Uw account is nog niet geactiveerd."
+      invalid: "Ongeldig %{authentication_keys} of wachtwoord."
+      locked: "Uw account is geblokkeerd."
+      last_attempt: "U heeft nog één poging voordat uw account wordt geblokkeerd."
+      not_found_in_database: "Ongeldig %{authentication_keys} of wachtwoord."
+      timeout: "Uw sessie is verlopen. Meldt u zich alstublieft opnieuw aan om door te gaan."
+      unauthenticated: "U moet inloggen of zich aanmelden voordat u verder kunt gaan."
+      unconfirmed: "U moet uw e-mailadres bevestigen voordat u verder kunt gaan."
+    mailer:
+      confirmation_instructions:
+        subject: "Bevestigingsinstructies"
+      reset_password_instructions:
+        subject: "Reset wachtwoord instructies"
+      unlock_instructions:
+        subject: "Ontgrendel instructies"
+      email_changed:
+        subject: "E-mail gewijzigd"
+      password_change:
+        subject: "Wachtwoord gewijzigd"
+    omniauth_callbacks:
+      failure: "Kon u niet verifieren via %{kind} omdat \"%{reason}\"."
+      success: "Succesvol geverifieerd via %{kind} account."
+    passwords:
+      no_token: "U kunt deze pagina niet openen zonder afkomstig te zijn van een e-mail voor het opnieuw instellen van uw wachtwoord. Als u afkomstig bent van een e-mail voor het opnieuw instellen van uw wachtwoord, controleer dan of u wel de volledige link hebt gebruikt."
+      send_instructions: "U ontvangt binnen enkele minuten een e-mail met instructies voor het opnieuw instellen van uw wachtwoord."
+      send_paranoid_instructions: "Als uw e-mailadres in onze database staat, ontvangt u binnen enkele minuten een wachtwoordherstellink op uw e-mailadres."
+      updated: "Uw wachtwoord is succesvol gewijzigd. U bent nu aangemeld."
+      updated_not_active: "Uw wachtwoord is succesvol gewijzigd."
+    registrations:
+      destroyed: "Tot ziens! Uw account is succesvol geannuleerd. We hopen u snel weer te zien."
+      signed_up: "Welkom! U hebt succesvol een account aangemaakt."
+      signed_up_but_inactive: "U heeft succesvol een account aangemaakt, maar we konden u niet aanmelden omdat uw account nog niet is geactiveerd."
+      signed_up_but_locked: "U heeft succesvol een account aangemaakt, maar we konden u niet aanmelden omdat uw account is vergrendeld."
+      signed_up_but_unconfirmed: "Er is een bericht met een bevestigingslink naar uw e-mailadres verzonden. Volg de link om uw account te activeren."
+      update_needs_confirmation: "U heeft uw account bijgewerkt, maar we moeten uw nieuwe e-mailadres nog verifiëren. Controleer uw e-mail en volg de bevestigingslink om uw nieuwe e-mailadres te bevestigen."
+      updated: "Uw account is bijgewerkt."
+    sessions:
+      signed_in: "Succesvol aangemeld."
+      signed_out: "Succesvol afgemeld."
+      already_signed_out: "Succesvol afgemeld."
+    unlocks:
+      send_instructions: "U ontvangt binnen enkele minuten een e-mail met instructies voor het ontgrendelen van uw account."
+      send_paranoid_instructions: "Als uw account bestaat, ontvangt u binnen een paar minuten een e-mail met instructies voor het ontgrendelen van uw account."
+      unlocked: "Uw account is succesvol ontgrendeld. Meld u aan om verder te gaan."
+  errors:
+    messages:
+      already_confirmed: "was al bevestigd, probeer je aan te melden"
+      confirmation_period_expired: "moet binnen% {period} worden bevestigd, vraag een nieuwe aan"
+      expired: "is verlopen, vraag een nieuwe aan"
+      not_found: "niet gevonden"
+      not_locked: "was niet geblokkeerd"
+      not_saved:
+        one: "1 fout verhindert dat deze %{resource} wordt opgeslagen:"
+other: "%{count} fouten verhinderen deze %{resource} te worden opgeslagen:"
