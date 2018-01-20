@@ -14,7 +14,7 @@
         </thead>
         <tbody>
           <% @row = 0 %>
-          <% current_user.user_policy_consents.each do |upc| %>
+          <% current_user.user_policy_consents.where(approved: true).each do |upc| %>
           <tr id="upc<%= upc.id %>">
             <td><%= (@row = @row + 1) %></td>
             <td><%= upc.policy_consent.title %></td>
@@ -24,7 +24,7 @@
             <td>
               <a href="#"><%= t('.view') %></a>
               |
-              <a href="#"><%= t('.revoke') %></a>
+              <%= link_to t('.revoke'), revoke_consent_path(upc) %>
             </td>
           </tr>
           <% end %>

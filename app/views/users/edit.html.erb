@@ -1,5 +1,7 @@
 <div class="container" style="padding-top: 3em;">
-  <h1 class="display-4"><%= @title %></h1>
+  <h1 class="display-4">
+    <%= @title %>
+  </h1>
   <br />
   <div class="col-md-8">
     <%= form_for(@user, url: users_profile_path(:user)) do |f| %>

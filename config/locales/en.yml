@@ -86,6 +86,7 @@ en:
       home: 'Home'
       welcome: 'Welcome'
       change_password: 'Change Password'
+      consents: Consents
   notificaitons:
     diget_email_subject: 'Your digest DataRights notifications'
     insert_failed: "Inserting notification in database failed with error: %{errors}"

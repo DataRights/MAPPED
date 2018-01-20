@@ -21,11 +21,9 @@ class UsersController < ApplicationController
     @campaign_id = nil
 
     @title = I18n.t('users.edit.title')
-    if @user.first_name.blank? and @user.last_name.blank?
-       @title = I18n.t('users.edit.title_before_you_start')
-    end
-
+    
     if params.include?(:campaign_id)
+      @title = I18n.t('users.edit.title_before_you_start')
       campaign = Campaign.find(params[:campaign_id])
       return unless campaign
       @campaign_id = campaign.id
