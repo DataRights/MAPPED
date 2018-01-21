@@ -24,7 +24,7 @@
             <td>
               <a href="#"><%= t('.view') %></a>
               |
-              <%= link_to t('.revoke'), revoke_consent_path(upc) %>
+              <%= link_to t('.revoke'), revoke_consent_path(upc), :method => 'delete' %>
             </td>
           </tr>
           <% end %>

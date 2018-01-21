@@ -20,8 +20,8 @@ class UserPolicyConsentTest < ActiveSupport::TestCase
   #   assert true
   # end
   test 'approved and revoked should update the value of approved_date and revoke' do
-    upc = user_policy_consents(:one)
-    assert upc.approved.nil?
+    upc = user_policy_consents(:four)
+    assert_not upc.approved
     assert upc.approved_date.nil?
     assert upc.revoked_date.nil?
     upc.approved = true

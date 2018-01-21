@@ -27,3 +27,10 @@ two:
   description: Policy Consent Two Description
   type_of: 1
   mandatory: false
+
+three:
+  template: two
+  title: Policy Consent Three Title
+  description: Policy Consent Three Description
+  type_of: 1
+  mandatory: false

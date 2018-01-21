@@ -38,7 +38,9 @@ class ConsentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get revoke" do
-    get consents_revoke_url
-    assert_response :success
+    assert_changes -> { user_policy_consents(:one).reload.approved } do
+      delete revoke_consent_url(user_policy_consents(:one).id)
+    end
+    assert_redirected_to consents_index_url
   end
 end

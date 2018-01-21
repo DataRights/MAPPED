@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   get 'consents/show'
 
-  get 'consent/:id/revoke', :to => 'consents#revoke', as: 'revoke_consent'
+  delete 'consent/:id/revoke', :to => 'consents#revoke', as: 'revoke_consent'
 
   get 'notifications/index'
 

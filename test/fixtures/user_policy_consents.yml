@@ -18,7 +18,7 @@
 one:
   user: one
   policy_consent: one
-  approved:
+  approved: true
   approved_date:
   revoked_date:
   content: Policy consent one sample body acceptted by user one
@@ -26,7 +26,7 @@ one:
 two:
   user: two
   policy_consent: two
-  approved:
+  approved: true
   approved_date:
   revoked_date:
   content: Policy consent one sample body acceptted by user two
@@ -34,7 +34,15 @@ two:
 three:
   user: one
   policy_consent: two
-  approved:
+  approved: true
   approved_date:
   revoked_date:
   content: Policy consent two sample body acceptted by user one
+
+four:
+  user: one
+  policy_consent: three
+  approved:
+  approved_date:
+  revoked_date:
+  content: Policy consent three sample body acceptted by user one
