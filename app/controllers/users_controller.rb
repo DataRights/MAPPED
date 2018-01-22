@@ -21,11 +21,9 @@ class UsersController < ApplicationController
     @campaign_id = nil
 
     @title = I18n.t('users.edit.title')
-    if @user.first_name.blank? and @user.last_name.blank?
-       @title = I18n.t('users.edit.title_before_you_start')
-    end
 
     if params.include?(:campaign_id)
+      @title = I18n.t('users.edit.title_before_you_start')
       campaign = Campaign.find(params[:campaign_id])
       return unless campaign
       @campaign_id = campaign.id
@@ -34,13 +32,16 @@ class UsersController < ApplicationController
       return unless pc
       @upc = UserPolicyConsent.find_or_create_by user_id: current_user.id, policy_consent_id: pc.id
       if @upc.approved && !current_user.first_name.blank? && !current_user.last_name.blank?
-        return redirect_to campaign_access_request_new_path(@campaign_id)
+        redirect_to campaign_access_request_new_path(@campaign_id) and return
       end
       tv = TemplateVersion.find_by template_id: pc.template_id, active: true
       if tv
         tc = TemplateContext.new
         tc.user = current_user
         @content = tv.render(tc).html_safe
+        if @upc.content.blank?
+          @upc.content = @content
+        end
       end
     end
   end
@@ -60,9 +61,9 @@ class UsersController < ApplicationController
     unless campaign_id.blank?
       campaign = Campaign.find(campaign_id)
       if success
-        redirect_to campaign_access_requests_path(campaign_id)
+        redirect_to campaign_access_requests_path(campaign_id) and return
       else
-        redirect_to user_profile_for_campaign_path(campaign)
+        redirect_to user_profile_for_campaign_path(campaign) and return
       end
     else
       redirect_to user_profile_edit_path
@@ -72,10 +73,10 @@ class UsersController < ApplicationController
   private
 
   def policy_consent_params
-    params.require(:user_policy_consents).permit(:id, :approved)
+    params.require(:user_policy_consents).permit(:id, :approved, :content)
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :preferred_language, :campaign_id, notification_setting_ids: [], address_attributes: [:line1, :line2, :post_code, :city_name, :country_id], user_policy_consents_attributes:[:id, :approved])
+    params.require(:user).permit(:first_name, :last_name, :preferred_language, :campaign_id, notification_setting_ids: [], address_attributes: [:line1, :line2, :post_code, :city_name, :country_id], user_policy_consents_attributes:[:id, :approved, :content])
   end
 end

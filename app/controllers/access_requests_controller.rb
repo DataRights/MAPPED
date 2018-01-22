@@ -4,7 +4,17 @@ class AccessRequestsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @access_requests = []
     @campaign = Campaign.find_by id: params[:campaign_id]
+    pc = @campaign.policy_consent
+    pc = PolicyConsent.find_by(type_of: :campaign) if pc.nil?
+    if pc
+      upc = UserPolicyConsent.find_or_create_by user_id: current_user.id, policy_consent_id: pc.id
+      unless upc.approved
+        redirect_to user_profile_for_campaign_path(@campaign) and return
+      end
+    end
+
     @access_requests = current_user.access_requests.includes(:campaign, :comments, organization: [:sector, address: [:city, :country]], workflow: [{workflow_state: [:workflow_state_form, :possible_transitions]}, {workflow_transitions: [:transition, :event] }]).where(campaign_id: @campaign.id).order('created_at DESC')
     @download_ar = nil
     if session['download_ar']

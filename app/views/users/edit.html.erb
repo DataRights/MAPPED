@@ -1,5 +1,7 @@
 <div class="container" style="padding-top: 3em;">
-  <h1 class="display-4"><%= @title %></h1>
+  <h1 class="display-4">
+    <%= @title %>
+  </h1>
   <br />
   <div class="col-md-8">
     <%= form_for(@user, url: users_profile_path(:user)) do |f| %>
@@ -9,6 +11,7 @@
           <%= @content %>
           <% if @content %>
             <%= f.fields_for(:user_policy_consents, @upc) do |upc| %>
+              <%= upc.hidden_field(:content) %>
               <%= upc.hidden_field(:id) %>
               <%= upc.check_box :approved %> <%= t('.consent_check_box') %>
               <% if @upc.approved %>

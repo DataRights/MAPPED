@@ -85,6 +85,8 @@ en:
       partners: 'Partners'
       home: 'Home'
       welcome: 'Welcome'
+      change_password: 'Change Password'
+      consents: Consents
   notificaitons:
     diget_email_subject: 'Your digest DataRights notifications'
     insert_failed: "Inserting notification in database failed with error: %{errors}"
@@ -137,6 +139,14 @@ en:
   notifications:
     index:
       you_have_no_notification: 'You have no notifications.'
+  consents:
+    index:
+      overview_of_consents: 'Overview of Consents'
+      name: 'Name'
+      description: 'Description'
+      actions: 'Actions'
+      view: 'View'
+      revoke: 'Revoke'
   access_requests:
     templates:
       update_status:

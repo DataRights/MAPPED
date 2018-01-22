@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'consents/index'
+
+  get 'consents/show'
+
+  delete 'consent/:id/revoke', :to => 'consents#revoke', as: 'revoke_consent'
+
   get 'notifications/index'
 
   get 'errors/not_found'

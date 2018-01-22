@@ -10,6 +10,7 @@
 #  revoked_date      :datetime
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  content           :text
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -17,13 +18,31 @@
 one:
   user: one
   policy_consent: one
-  approved:
+  approved: true
   approved_date:
   revoked_date:
+  content: Policy consent one sample body acceptted by user one
 
 two:
   user: two
   policy_consent: two
+  approved: true
+  approved_date:
+  revoked_date:
+  content: Policy consent one sample body acceptted by user two
+
+three:
+  user: one
+  policy_consent: two
+  approved: true
+  approved_date:
+  revoked_date:
+  content: Policy consent two sample body acceptted by user one
+
+four:
+  user: one
+  policy_consent: three
   approved:
   approved_date:
   revoked_date:
+  content: Policy consent three sample body acceptted by user one

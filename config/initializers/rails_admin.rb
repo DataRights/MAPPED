@@ -11,6 +11,9 @@ RailsAdmin.config do |config|
     'Invitition' => '/users/invitation/new'
   }
 
+  # showing id field
+  config.default_hidden_fields = []
+
   ### Popular gems integration
 
   ## == Devise ==
@@ -85,6 +88,7 @@ RailsAdmin.config do |config|
     end
 
     list do
+      field :id
       field :name
       field :template_type
       field :template_versions
