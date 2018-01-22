@@ -27,6 +27,10 @@ class AccessRequest < ApplicationRecord
   before_destroy :update_related_caches
   after_create :create_workflow
 
+  attr_accessor :expanded
+  attr_accessor :standard
+  attr_accessor :sector_id
+
   validates :user, :organization, :campaign, presence: true
 
   def context_value

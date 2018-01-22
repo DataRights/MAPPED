@@ -15,16 +15,13 @@ Rails.application.routes.draw do
 
   get 'letter/:id/download', to: 'letters#download', as: 'download_letter'
 
-  get 'campaign/:campaign_id/access_requests', to: 'access_requests#index', as: 'campaign_access_requests'
+  resources :campaigns, only: [:index] do
+    resources :access_requests, except: [:delete, :show]
+  end
 
-  get 'campaign/:campaign_id/access_request/new', to: 'access_requests#new', as: 'campaign_access_request_new'
-
-  post 'access_requests/create'
   get  'access_requests/preview'
   get  'access_request/:id/download', to: 'access_requests#download', as: 'downlaod_access_request'
   post 'access_request/:id/comment', to: 'access_requests#comment', as: 'access_request_comment'
-
-  get 'campaigns', to: 'campaigns#index'
   get 'campaigns/:id/organizations/:sector_id', to: 'campaigns#get_organizations', as: 'get_campaign_organizations'
   get 'campaigns/:id/organizations/:organization_id/template', to: 'campaigns#get_organization_template', as: 'get_campaign_organization_template'
 

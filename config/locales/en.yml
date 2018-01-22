@@ -186,6 +186,7 @@ en:
         ago: "ago"
         undo: "Undo"
         edit: "Edit this status"
+        edit_access_request: "Edit access request"
         edit_status_title: "Edit last status"
         save: "Save"
         saving: "Saving..."
@@ -222,7 +223,11 @@ en:
         upload_file: 'Upload file'
         select_blank: 'Please select an option ...'
     new:
-      title: 'Create new access request'
+      preview_button: 'Preview PDF'
+      generating_preview_pdf: 'Generating PDF Preview ...'
+    form:
+      create_title: 'Create new access request'
+      edit_title: 'Edit access request'
       sector_label: 'Sector'
       organization_label: 'Organization'
       click_here: 'Click here'

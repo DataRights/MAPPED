@@ -3,11 +3,12 @@ baseUrl = getUrl.protocol + "//" + getUrl.host;
 
 updateTemplateContent = (organization_id) ->
   $.ajax
-    url: baseUrl + '/campaigns/' + $('#campaign_id').val() + '/organizations/' + organization_id + '/template'
+    url: baseUrl + '/campaigns/' + $('#access_request_campaign_id').val() + '/organizations/' + organization_id + '/template'
     type: 'GET'
     success: (e) ->
-      $('#standard_text').val(e.template)
-      CKEDITOR.instances['custom_text'].setData e.template
+      $('#access_request_standard_text').val(e.template)
+      $('#textContentStandard').html(e.template)
+      CKEDITOR.instances['access_request_final_text'].setData e.template
       return
   return
 
@@ -26,7 +27,7 @@ $(document).on 'turbolinks:load', ->
     if ($('#textTypeRadioStandard').is(':checked'))
       rendered_template = $('#textContentStandard').html()
     else if ($('#textTypeRadioExpanded').is(':checked'))
-      rendered_template = CKEDITOR.instances['custom_text'].getData()
+      rendered_template = CKEDITOR.instances['access_request_final_text'].getData()
     oReq = new XMLHttpRequest
     oReq.responseType = 'blob'
     oReq.onload = (e) ->
@@ -38,23 +39,23 @@ $(document).on 'turbolinks:load', ->
     oReq.send()
     return
 
-  $('#sector_id').on 'change', ->
+  $('#access_request_sector_id').on 'change', ->
     $.ajax
-      url: baseUrl + '/campaigns/' + $('#campaign_id').val() + '/organizations/' + $(this).val()
+      url: baseUrl + '/campaigns/' + $('#access_request_campaign_id').val() + '/organizations/' + $(this).val()
       type: 'GET'
       success: (e) ->
-        $('#organization_id').children().remove()
+        $('#access_request_organization_id').children().remove()
         listitems = []
         $.each e, (key, value) ->
           listitems += '<option value="' + value[1] + '">' + value[0] + '</option>'
           return
-        $('#organization_id').append listitems
+        $('#access_request_organization_id').append listitems
         if listitems.length > 0
           updateTemplateContent e[0][1]
         return
     return
 
-  $('#organization_id').on 'change', ->
+  $('#access_request_organization_id').on 'change', ->
     updateTemplateContent $(this).val()
     return
 

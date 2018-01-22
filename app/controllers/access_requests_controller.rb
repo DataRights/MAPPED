@@ -2,6 +2,7 @@ class AccessRequestsController < ApplicationController
   include AccessRequestsHelper
 
   before_action :authenticate_user!
+  before_action :find_access_request, except: [:index, :new, :create, :preview]
 
   def index
     @access_requests = []
@@ -24,25 +25,23 @@ class AccessRequestsController < ApplicationController
   end
 
   def new
+    @access_request = AccessRequest.new
+    @access_request.sent_date = Date.today
     campaign_id = params[:campaign_id]
     campaign_id = Campaign.find_by(:name => Campaign::DEFAULT_CAMPAIGN_NAME) unless campaign_id
     unless campaign_id
       flash[:notice] = I18n.t('errors.campaign_not_found')
       redirect_to home_path and return
     end
-    @campaign = Campaign.find_by_id  campaign_id
+    @campaign = Campaign.find campaign_id
     unless @campaign
       flash[:notice] = I18n.t('errors.campaign_not_found')
       redirect_to home_path and return
     end
-    @campaign_id = @campaign.id
-    @campaign_name = @campaign.name
+    @access_request.campaign_id = @campaign.id
     @campaign_count = AccessRequest.where('campaign_id = ? AND user_id = ?', @campaign.id,current_user.id).count
-    @campaign_desc = @campaign.expanded_description
-
     @sectors = get_sectors(@campaign)
     @selected_sector = @sectors.first
-
     @organizations = get_campaign_organizations(@campaign, Sector.find_by_id(@selected_sector[1]))  if @selected_sector
     @organizations ||= []
     @selected_organization = @organizations.first
@@ -56,30 +55,37 @@ class AccessRequestsController < ApplicationController
       flash[:notice] = I18n.t('errors.template_version_not_found')
       redirect_to home_path and return
     end
-  end
-
-  def download
-    ar = AccessRequest.find(params[:id])
-    return unless ar.user_id == current_user.id
-    pdf = WickedPdf.new.pdf_from_string(ar.final_text&.html_safe, encoding: 'UTF-8')
-    send_data(pdf, :filename => "AccessRequest-#{ar.id}-#{ar.organization.name}" ,:type => :pdf)
+    @access_request.suggested_text = @rendered_template&.html_safe
+    @access_request.final_text = @rendered_template
   end
 
   def create
-    @access_request = AccessRequest.new
-    @access_request.organization_id = params['organization_id']
+    @access_request = AccessRequest.new(access_request_params)
     @access_request.user = current_user
-    @access_request.sent_date = params['sending_date']
-    @access_request.campaign_id = params['campaign_id']
-    @access_request.suggested_text = params['standard_text']
-    if params['textTypeRadios'] == 'expanded'
-      @access_request.final_text = params['custom_text']
-    else
-      @access_request.final_text = params['standard_text']
+    unless params['textTypeRadios'] == 'expanded'
+      @access_request.final_text = @access_request.suggested_text
     end
-    @access_request.save!
-    session['download_ar'] = @access_request.id
-    redirect_to campaign_access_requests_path(campaign_id: @access_request.campaign_id)
+    if @access_request.save
+      session['download_ar'] = @access_request.id
+      redirect_to campaign_access_requests_path(campaign_id: @access_request.campaign_id)
+    else
+      render 'new'
+    end
+  end
+
+  def edit
+    @campaign = Campaign.find params[:campaign_id]
+    @campaign_count = AccessRequest.where('campaign_id = ? AND user_id = ?', @campaign.id,current_user.id).count
+    @rendered_template = @access_request.final_text
+  end
+
+  def update
+    if @access_request.update(access_request_params)
+      session['download_ar'] = @access_request.id
+      redirect_to campaign_access_requests_path(campaign_id: @access_request.campaign_id)
+    else
+      render 'edit'
+    end
   end
 
   def preview
@@ -89,16 +95,33 @@ class AccessRequestsController < ApplicationController
     send_data(pdf, :type => :pdf, :disposition => 'inline')
   end
 
+  def download
+    pdf = WickedPdf.new.pdf_from_string(@access_request.final_text&.html_safe, encoding: 'UTF-8')
+    send_data(pdf, :filename => "AccessRequest-#{@access_request.id}-#{@access_request.organization.name}" ,:type => :pdf)
+  end
+
   def comment
-    @ar = AccessRequest.find(params[:id])
     c = Comment.new
     c.content = params[:content]
     c.user = current_user
-    @ar.comments << c
-    if @ar.save
+    @access_request.comments << c
+    if @access_request.save
       @result = 'success'
     else
-      @result = @ar.errors.full_messages.join(". ")
+      @result = @access_request.errors.full_messages.join(". ")
     end
+  end
+
+  private
+   def access_request_params
+     params.require(:access_request).permit(:organization_id, :campaign_id, :sent_date, :suggested_text, :final_text)
+   end
+
+   def find_access_request
+    @access_request = AccessRequest.find(params[:id])
+    unless @access_request.user_id == current_user.id
+      head(500)
+    end
+
   end
 end

@@ -3,7 +3,7 @@ module AccessRequestsHelper
     return [] unless campaign
     return [] unless campaign.is_a? Campaign
     return Sector.all.map { |sector| [sector.name, sector.id] } if campaign.name == Campaign::DEFAULT_CAMPAIGN_NAME
-    campaign.organizations.map(&:sector).map {|sector| [sector.name, sector.id]}.uniq
+    campaign.organizations.includes(:sector).map(&:sector).map {|sector| [sector.name, sector.id]}.uniq
   end
 
   def get_campaign_organizations(campaign, sector)
