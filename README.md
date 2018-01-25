@@ -136,3 +136,7 @@ This creates a .git/hooks/pre-commit script which will check your git config and
 # Deployment instructions
 
 Deployments are done using Heroku, any push to master branch will trigger a deploy to Heroku.
+
+# License
+
+MAPPED is released under the GNU GENERAL PUBLIC LICENSE version 3.

@@ -1,4 +1,7 @@
 class WorkflowTransitionController < ApplicationController
+
+  before_action :authenticate_user!
+
   def update
     return unless params.include?(:workflow_transition)
     wt_id = params[:workflow_transition][:id]

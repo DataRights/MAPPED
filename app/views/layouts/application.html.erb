@@ -43,7 +43,7 @@
                 <a class="nav-link" href="http://forum.datarights.me"><%= t '.forum' %></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"><%= t '.faq' %></a>
+                <%= link_to t('.faq'), faq_index_path, class: 'nav-link' %>
               </li>
               <li class="nav-item">
                 <%= link_to t('.my_profile'), :user_profile_edit, class:"nav-link" %>
