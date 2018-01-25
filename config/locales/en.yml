@@ -147,6 +147,7 @@ en:
       actions: 'Actions'
       view: 'View'
       revoke: 'Revoke'
+      consent_view_title: 'Consent'
   access_requests:
     templates:
       update_status:
