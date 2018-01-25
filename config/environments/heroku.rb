@@ -111,7 +111,7 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :sidekiq
 
-  config.discourse_server = "http://54.37.74.210/"
+  config.discourse_server = "http://forum.datarights.me/"
 
   config.exceptions_app = self.routes
 

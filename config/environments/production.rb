@@ -93,7 +93,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.discourse_server = "http://54.37.74.210/"
+  config.discourse_server = "http://forum.datarights.me/"
 
   config.exceptions_app = self.routes
 end
