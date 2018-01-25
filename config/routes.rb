@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'faq/index'
+
   get 'consents/index'
 
   get 'consents/show'

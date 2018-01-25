@@ -16,5 +16,5 @@ class Template < ApplicationRecord
   has_many :comments, :as => :commentable, dependent: :destroy
   validates_presence_of :name, :template_type
 
-  enum template_type:  [:access_request, :reminder, :followup, :custom, :notification, :terms_of_service]
+  enum template_type:  [:access_request, :reminder, :followup, :custom, :notification, :terms_of_service, :faq]
 end
