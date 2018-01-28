@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :get_campaigns
   before_action :get_count_of_unread_notifications
+  before_action :set_locale
 
   protected
 
@@ -19,6 +20,11 @@ class ApplicationController < ActionController::Base
     if current_user
       @unread_notifications_count = WebNotification.unread_web_notifications(current_user.id)
     end
+  end
+
+  def set_locale
+    I18n.locale = cookies[:locale] || I18n.default_locale
+    cookies[:locale] = I18n.locale
   end
 
 end

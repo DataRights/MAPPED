@@ -1,0 +1,267 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+nl:
+  project_name: 'DataRights'
+  user_links:
+    sign_up: "Sign Up"
+    login: "Login"
+    logout: "Logout"
+    forgot_your_password: "Forgot your password?"
+    didnt_receive_confirmation: "Didn't receive confirmation instructions?"
+    didnt_receive_unlock: "Didn't receive unlock instructions?"
+  invalid_parameters: "Invalid Parameters!"
+  validations:
+    invalid_class_name: "Class name not found in code base!"
+    invalid_method_name: "Method name not found in class methods."
+    workflow_type_is_active: "In order to edit a workflow it should not be active and it should not have active instances!"
+    initial_state_is_mandatory: "For activating the workflow having an initial state is mandatory!"
+    workflow_type_should_be_active: 'For creating a new workflow, Workflow type should be active!'
+    action_internal_data_required: 'Internal data parameter in mandatory for this action.'
+    template_id_mandatory_internal_data: 'template_id is mandatory for internal data of this action.'
+    template_id_not_found: 'template_id not found!'
+    attachment_max_size: 'maximum attachment size is 1.5MB'
+  errors:
+    transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
+    campaign_not_found: 'Campaign is not found'
+    organization_not_found: 'Organization not found'
+    template_version_not_found: 'Template version not found'
+  workflow:
+    no_state_to_generate_diagram: 'Workflow has no state to generate a diagram!'
+    generate_diagram: 'Generate Diagram'
+    state_has_already_one_timeout_transition: "State has already one timeout transition: %{transition}"
+    send_event_success: 'Operation successfully completed.'
+    transition_is_not_undoable: 'Selected operation is not valid for undo. Only the last operation is valid for rollback.'
+    undo: 'Undo'
+    undo_history: 'Rollback to %{state}'
+    undo_transition_was_successfull: 'Undo operation successfully completed!'
+  tfa:
+    title: 'Two Factor Authentication'
+    help: 'Two-factor authentication, or 2FA, is a way of logging into websites that requires more than just a password. Using a password to log into a website is susceptible to security threats, because it represents a single piece of information a malicious person needs to acquire. The added security that 2FA provides is requiring additional information to sign in.'
+    enable: 'Enable 2FA'
+    disable: 'Disable 2FA'
+    scan_qr_code: 'Scan this QRCode with Google Authenticator, Authy or any other mobile app that supports two factor authentication via TOTP.'
+  rollback_method_does_not_exist_for_action: 'Rollback method does not exist for action'
+  layouts:
+    application:
+      page_html_title: 'DataRights'
+      toggle_navigation: 'Navigatie omschakelen'
+      my_profile: 'Mijn profiel'
+      campaigns: 'Campagnes'
+      notifications: 'Meldingen'
+      forum: 'Forum'
+      faq: 'FAQ'
+      help_desk: 'Helpdesk'
+      disclaimer: 'Copyright © 2017-2018 Delft University of Technology'
+      admin: 'Administratie Paneel'
+      partners: 'Partners'
+      home: 'Startpagina'
+      welcome: 'Welkom'
+      change_password: 'Verander wachtwoord'
+      consents: 'Toestemming'
+      attachments: 'Bijlagen'
+  notificaitons:
+    diget_email_subject: 'Your digest DataRights notifications'
+    insert_failed: "Inserting notification in database failed with error: %{errors}"
+  home:
+    index:
+      join_us: 'Join us!'
+      participant_landing_message_part1: "<strong>datarights.me</strong> is a platform that helps citizens to send access requests to organizations. An access request is a request by a citizen to receive from an organization (information about) the personal data that that organization is processing in relation to him/her. The right to receive a swift, complete and understandable answer to such a request, called right of access, is guaranteed under European law in order to promote citizen empowerment."
+      participant_landing_message_part2: "<strong>datarights.me</strong> provides a structured process in order to facilitate making use of the right of access to citizens. Moreover it is a platform where citizens come together to make use of this right as part of a citizens collective, and create crowd-sourced and crowd-interpreted knowledge of data practices in society. This should eventually help to initiate a re-balancing of power between citizens, governments and corporations."
+      edit_your_profile: 'Edit your personal profile'
+      more_information: 'More Information'
+      previous: 'Previous'
+      next: 'Next'
+      my_profile: 'My Profile'
+      requests_sent: 'Requests sent'
+      responses: 'Responses'
+      participants: 'Participants'
+      organizations: 'Organizations'
+  campaigns:
+    index:
+      general_text: 'This is a general text about campaigns assigned/available to the participant, what we are currently busy with in terms of research, etc etc. It could also be a place for general info relevant for the new participant. After first viewing this part of the interface can also dissapear...'
+      learn_more: 'Learn more'
+      join_campaign: 'Join campaign'
+  users:
+    edit:
+      title: 'Profile'
+      title_before_you_start: 'Before you start...'
+      first_name_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
+      first_name_help_title: 'Why do we ask for your first name?'
+      last_name_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
+      last_name_help_title: 'Why do we ask for your last name?'
+      notification_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
+      notification_help_title: 'Why do we send you notification?'
+      address_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
+      address_help_title: 'Why do we ask for your address?'
+      lang_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
+      lang_help_title: 'Why do we ask for your preferred language?'
+      submit: 'Submit'
+      consent_check_box: 'I agree to the conditions above.'
+      already_approved_at: "(Consent already approved at: %{approved_date})"
+      profile_success: 'Profile information successfully updated!'
+  common:
+    campaign_not_found: 'Campaign not found!'
+    create_new_ar: 'Create new access request'
+  helpers:
+    label:
+      user:
+        email: "Email Address"
+        password: "Password (minimum 6 characters)"
+        password_confirmation: "Password confirmation"
+  notifications:
+    index:
+      you_have_no_notification: 'You have no notifications.'
+  consents:
+    index:
+      overview_of_consents: 'Overview of Consents'
+      name: 'Name'
+      description: 'Description'
+      actions: 'Actions'
+      view: 'View'
+      revoke: 'Revoke'
+      consent_view_title: 'Consent'
+  attachments:
+    index:
+      attachments_title: 'Attachments'
+      title: 'Title'
+      content_type: 'Content Type'
+      actions: 'Actions'
+      show: 'Show'
+      edit: 'Edit'
+      destroy: 'Destroy'
+      are_you_sure_about_deleting: 'Are you sure?'
+    edit:
+      edit_attachment: 'Edit Attachment'
+      edit_file: 'Blackout File'
+      new_file: 'New File'
+      show: 'Show'
+      attachment_list: 'Attachments List'
+    show:
+      edit_attachment: 'Edit Attachment'
+      attachment_list: 'Attachments List'
+  access_requests:
+    templates:
+      update_status:
+        update_status: 'Update Status'
+        what_is_it: 'What is it?'
+        remark: 'Remark'
+        acknowledgement: 'Acknowledgement/confirmation'
+        request_clarification: 'Request of clarification'
+        cant_verify_your_identity: "We can't verify your identity"
+        we_dont_know_you: "We don't know you"
+        close: "Close"
+        save: "Save"
+        saving: "Saving..."
+        select_blank: 'Please select an action ...'
+      awaiting_response:
+        remark: 'Remark'
+        close: "Close"
+        save: "Save"
+        saving: "Saving..."
+        select_blank: 'Please select an action ...'
+        awaiting_response: 'Awaiting response'
+        left: left
+      evaluation:
+        evaluate: 'Evaluate'
+        saving: "Saving..."
+      history_comments:
+        access_request_created: 'Access request created'
+        comments: 'Comments'
+        comment: 'Comment'
+        add_comment: 'add comment'
+        upload_response_or_generate_letter: 'upload response or generate letter'
+        close: "Close"
+        send: "Send"
+        sending: 'Sending ...'
+        i_would_like_moderator: "I would like the campaign moderator to react to this comment."
+        comment_success: "Comment sent successfully."
+        ago: "ago"
+        undo: "Undo"
+        edit: "Edit this status"
+        edit_access_request: "Edit access request"
+        edit_status_title: "Edit last status"
+        save: "Save"
+        saving: "Saving..."
+        update_remarks_success: "Update status was successful."
+        update_remarks_error: "Update status failed! %{status}"
+        remark: 'Remark'
+        what_happened: 'What happened?'
+        upload_attachment: 'Edit uploaded data (Optional)'
+        upload_attachment_description: 'Edit data description (Optional)'
+        upload_file: 'Upload file'
+        letter_text: 'Edit your letter:'
+      send_letter:
+        text_type_select: 'Text of letter'
+        text_type_standard: 'Standard text'
+        text_type_custom: 'Expanded text'
+        please_note_fields_in_red: 'Please note that fields in red require your personal data.'
+        sending_date_label: 'Date of sending'
+        passport_id_warning: 'Do not forget to attach a copy of your passport/ID card to your access request reminder.'
+        close: "Close"
+        final_button: 'Generate PDF'
+        select_blank: 'Please select an action ...'
+      access_request_date:
+        sent_date: 'Date of sending'
+      done:
+        done: 'Done'
+      what_happened_update_status:
+        what_happened: 'What happened?'
+        what_do_you_want_to_do_now: 'What do you want to do now?'
+        upload_attachment: 'Upload Data (Optional)'
+        upload_attachment_description: 'Data description (Optional)'
+        save: "Save"
+        saving: "Saving..."
+        close: "Close"
+        upload_file: 'Upload file'
+        select_blank: 'Please select an option ...'
+        i_want_to_blackout: 'I want to blackout some parts of attachment.'
+    new:
+      preview_button: 'Preview PDF'
+      generating_preview_pdf: 'Generating PDF Preview ...'
+    form:
+      create_title: 'Create new access request'
+      edit_title: 'Edit access request'
+      sector_label: 'Sector'
+      organization_label: 'Organization'
+      click_here: 'Click here'
+      organization_help: 'for more information about the selected organization on our wiki page.'
+      text_type_select: 'Text of access request'
+      text_type_standard: 'Standard text'
+      text_type_custom: 'Expanded text'
+      preview_button: 'Preview PDF'
+      generating_preview_pdf: 'Generating PDF Preview ...'
+      sending_date_label: 'Date of sending'
+      passport_id_warning: 'Do not forget to attach a copy of your passport/ID card to your access request.'
+      final_button: 'Generate Final PDF'
+      please_note_fields_in_red: 'Please note that fields in red require your personal data.'
+      preview_modal_title: 'Preview'
+      select_blank: 'Please select an item ...'

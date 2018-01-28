@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'languages/set'
+
   get 'faq/index'
 
   get 'consents/index'
