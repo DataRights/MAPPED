@@ -9,7 +9,7 @@
               <h5 class="mb-1"><%= wn.notification.title %></h5>
               <small><%= time_ago_in_words(wn.created_at) %> <%= t('access_requests.templates.history_comments.ago') %></small>
             </div>
-            <p class="mb-1"><%= wn.notification.content %></p>
+            <p class="mb-1"><%= wn.notification.content&.html_safe %></p>
           </a>
         <% end %>
 
