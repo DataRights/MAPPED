@@ -74,6 +74,17 @@
         <% else %>
             <%= button_to(t('user_links.login'), new_user_session_path, {class: 'btn btn-secondary btn-sm'}) %>
         <% end %>
+        &nbsp; &nbsp;
+        <ul class="navbar-nav">
+          <li class="nav-item">
+          <% unless I18n.locale == :en %>
+            <%= link_to "English", languages_set_path(lang: :en), class: 'nav-link' %>
+          <% end %>
+          <% unless I18n.locale == :nl %>
+            <%= link_to "Dutch", languages_set_path(lang: :nl), class: 'nav-link' %>
+          <% end %>
+          </li>
+        </ul>
       </div>
     </nav>
 
