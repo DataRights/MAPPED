@@ -35,7 +35,13 @@
                   <%= t.remarks %>
                   <br />
                 <% end %>
+                <% if t.attachments.count > 0 %>
+                <%= link_to 'Edit Attachment', edit_attachment_path(t.attachments.first) %>
+                <% else %>
+                <%= link_to 'Add Attachment', new_attachment_path(workflow_transition_id: t.id) %>
+                <% end %>
                 <% if a.workflow.workflow_transitions.order('created_at DESC').first.id == t.id %>
+                  &nbsp;-&nbsp;
                   <a href="#" data-toggle="modal" data-target="#modal_edit<%= a.id %>"><%= t('.edit') %></a>
                   -
                   <%= link_to t('.undo'), {controller: "workflow", action: "undo", workflow_transition_id: t.id}, method: :post %>
