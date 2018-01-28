@@ -155,19 +155,23 @@ nl:
       title: 'Title'
       content_type: 'Content Type'
       actions: 'Actions'
+      download: 'Download'
       show: 'Show'
       edit: 'Edit'
       destroy: 'Destroy'
       are_you_sure_about_deleting: 'Are you sure?'
     edit:
       edit_attachment: 'Edit Attachment'
-      edit_file: 'Blackout File'
-      new_file: 'New File'
       show: 'Show'
       attachment_list: 'Attachments List'
     show:
       edit_attachment: 'Edit Attachment'
       attachment_list: 'Attachments List'
+    new:
+      new_attachment: 'New Attachment'
+    form:
+      edit_file: 'Blackout File'
+      new_file: 'New File'
   access_requests:
     templates:
       update_status:

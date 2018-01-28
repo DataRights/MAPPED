@@ -1,11 +1,10 @@
 <div class="container">
   <div class="row mt-5">
     <div class="col-4">
-      <h3><%= t('.edit_attachment') %></h3>
+      <h3><%= t('.new_attachment') %></h3>
       <br />
       <%= render 'form', attachment: @attachment %>
       <br />
-      <%= link_to t('.show'), @attachment %> |
       <%= link_to t('.attachment_list'), attachments_path %>
     </div>
   </div>

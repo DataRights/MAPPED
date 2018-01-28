@@ -7,15 +7,18 @@
           <thead class="thead-light">
             <tr>
               <th scope="col"><%= t('.title') %></th>
+              <th scope="col"><%= t('.access_request') %></th>
               <th scope="col"><%= t('.content_type') %></th>
-              <th scope="col" colspan="3"><%= t('.actions') %></th>
+              <th scope="col" colspan="4"><%= t('.actions') %></th>
             </tr>
           </thead>
           <tbody>
             <% @attachments.each do |attachment| %>
               <tr>
                 <td><%= attachment.title %></td>
+                <td><%= attachment.workflow_transition.workflow.access_request.organization.name %></td>
                 <td><%= attachment.content_type %></td>
+                <td><%= link_to t('.download'), get_content_path(attachment), target: "_blank" %></td>
                 <td><%= link_to t('.show'), attachment %></td>
                 <td><%= link_to t('.edit'), edit_attachment_path(attachment) %></td>
                 <td><%= link_to t('.destroy'), attachment, method: :delete, data: { confirm: t('.are_you_sure_about_deleting') } %></td>
