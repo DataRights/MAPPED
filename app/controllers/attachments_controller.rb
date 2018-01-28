@@ -10,6 +10,32 @@ class AttachmentsController < ApplicationController
     @attachments = Attachment.joins(workflow_transition: {workflow: :access_request}).where(access_requests: {user_id: current_user.id}).all
   end
 
+  # GET /attachments/new
+  def new
+    @attachment = Attachment.new
+    workflow_transition = WorkflowTransition.find(params[:workflow_transition_id])
+    unless workflow_transition.workflow.access_request.user_id == current_user.id
+      redirect_to attachments_path and return
+    end
+    @attachment.workflow_transition_id = workflow_transition.id
+  end
+
+  # POST /attachments
+  # POST /attachments.json
+  def create
+    @attachment = Attachment.new(attachment_params)
+
+   respond_to do |format|
+     if @attachment.save
+       format.html { redirect_to @attachment, notice: 'Attachment was successfully created.' }
+       format.json { render :show, status: :created, location: @attachment }
+     else
+       format.html { render :new }
+       format.json { render json: @attachment.errors, status: :unprocessable_entity }
+     end
+   end
+  end
+
   # GET /attachments/1
   # GET /attachments/1.json
   def show
@@ -73,6 +99,19 @@ class AttachmentsController < ApplicationController
     end
   end
 
+  def new_content
+    @attachment = Attachment.new()
+    @attachment.workflow_transition_id =  params['workflow_transition_id'].to_i
+    @attachment.title = params['image'].original_filename
+    @attachment.content_type = params['image'].content_type
+    @attachment.content = params['image'].tempfile.read
+    if @attachment.save
+      render json: { success: true, error: ''}, status: :ok
+    else
+      render json: { success: false, error: @attachment.errors}, status: :ok
+    end
+  end
+
   def thumbnail
     if @attachment && @attachment.content
       geom = "#{THUMBNAIL_SIZE}x#{THUMBNAIL_SIZE}"
@@ -102,7 +141,7 @@ class AttachmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def attachment_params
-      params.require(:attachment).permit(:title, :content_type, :workflow_transition_id)
+      params.require(:attachment).permit(:title, :content_type, :content, :workflow_transition_id)
     end
 
 end

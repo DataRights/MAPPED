@@ -17,29 +17,19 @@ function newFileSelected() {
   var selectedFile = document.getElementById('new_file').files[0]
   if (selectedFile) {
     if (selectedFile.type == 'application/pdf')   {
-      var fileTypeElement = document.getElementById("content_type");
-      if  (fileTypeElement) {
-        fileTypeElement.value = 'image/jpeg'
-      }
-      var fileName = selectedFile.name
-      var fileNameElement = document.getElementById("title");
-      if  (fileName && fileNameElement) {
-        fileNameElement.value = fileName
+      $("content_type").val('image/jpeg');
+      if ($("#title").val() == '') {
+        $("#title").val(selectedFile.name)
       }
       convertPDF(URL.createObjectURL(selectedFile))
-    } else {
+    }
+    else {
       var reader = new FileReader();
       reader.onload = function() {
-        var fileType = selectedFile.type
-        var fileTypeElement = document.getElementById("content_type");
-        if  (fileType && fileTypeElement) {
-          fileTypeElement.value = fileType
-        }
-
-        var fileName = selectedFile.name
-        var fileNameElement = document.getElementById("title");
-        if  (fileName && fileNameElement) {
-          fileNameElement.value = fileName
+        var fileType =
+        $("#content_type").val(selectedFile.type);
+        if ($("#title").val() == '') {
+          $("#title").val(selectedFile.name)
         }
         var fileContent = this.result
         var ptro = createBlackOutTool();
@@ -61,23 +51,8 @@ function createBlackOutTool() {
       formData.append('authenticity_token',AUTH_TOKEN);
       formData.append('workflow_transition_id',workflow_transition_id);
 
-      var newFileType = 'image/jpeg'
-      var fileTypeElement = document.getElementById("content_type");
-      if (fileTypeElement) {
-        var fileTypeElementValue = fileTypeElement.value
-        if (fileTypeElementValue) {
-          newFileType = fileTypeElementValue
-        }
-      }
-
-      var newFileName = image.suggestedFileName('jpeg')
-      var fileNameElement = document.getElementById("title");
-      if (fileNameElement) {
-        var fileNameElementValue = fileNameElement.value
-        if (fileNameElementValue) {
-          newFileName = fileNameElementValue
-        }
-      }
+      var newFileType = $("#content_type").val();
+      var newFileName = $("#title").val();
 
       formData.append('image', image.asBlob(newFileType), newFileName);
       jQuery.ajax({
@@ -94,7 +69,8 @@ function createBlackOutTool() {
             }
             else {
               done(true);
-              window.location.reload();
+              window.location.href = '/attachments';
+              //window.location.reload();
             }
           },
           failure: function(xhr) {
