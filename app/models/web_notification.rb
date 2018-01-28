@@ -25,4 +25,8 @@ class WebNotification < ApplicationRecord
   def update_unread_cache
     Rails.cache.delete("notifications/#{self.notification.user_id}/unread_count")
   end
+
+  def self.update_unread_cache_by_user(user_id)
+    Rails.cache.delete("notifications/#{user_id}/unread_count")
+  end
 end
