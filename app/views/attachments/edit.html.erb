@@ -1,6 +1,46 @@
-<h1>Editing Attachment</h1>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-4">
+      <h3><%= t('.edit_attachment') %></h3>
+      <br />
+      <%= form_with(model: @attachment, local: true, id: :attachment) do |form| %>
+        <div class="form-group">
+          <%= form.label :title %>
+          <%= form.text_field :title, id: :title, class: "form-control", required: true %>
+        </div>
+        <div class="form-group">
+          <%= form.label :content_type %>
+          <%= form.text_field :content_type, id: :contnt_type, disabled: :true, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= form.hidden_field :workflow_transition_id %>
+        </div>
+        <% if @attachment && !@attachment.content.blank? %>
+          <div class="form-group">
+            <%= form.label :content %>
+            <a href="#" onclick="showContentEditor(false);return false;">
+              <%= image_tag thumbnail_path(@attachment.id), size: '100X100', class: "form-control" %>
+            </a>
+          </div>
+        <% end %>
+        <div class="form-group">
+          <input type="file" id="new_file" style="display:none" onchange="newFileSelected()">
+          <%= link_to t('.edit_file'), '#', onclick: "showContentEditor(false);return false;" %>
+           &nbsp;|&nbsp;
+          <%= link_to t('.new_file'), '#', onclick: "uploadNewFile();return false;" %>
+        </div>
+        <canvas id="pdf-canvas" style="display:none"></canvas>
+        <br>
+        <br>
 
-<%= render 'form', attachment: @attachment %>
+        <div class="actions">
+          <%= form.submit class: 'btn btn-primary' %>
+        </div>
+      <% end %>
 
-<%= link_to 'Show', @attachment %> |
-<%= link_to 'Back', attachments_path %>
+      <br />
+      <%= link_to t('.show'), @attachment %> |
+      <%= link_to t('.attachment_list'), attachments_path %>
+    </div>
+  </div>
+</div>

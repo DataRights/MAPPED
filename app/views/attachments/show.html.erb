@@ -1,11 +1,17 @@
-<p id="notice"><%= notice %></p>
-<b>Title:</b> <%= @attachment.title%>
-<b>Content Type:</b>  <%= @attachment.content_type %>
-<br>
-<% if @attachment && !@attachment.content.blank? %>
-  <%= image_tag thumbnail_path(@attachment.id) %>
-<% end %>
-<br>
-
-<%= link_to 'Edit', edit_attachment_path(@attachment) %> |
-<%= link_to 'Back', attachments_path %>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-4">
+      <h3><%= @attachment.title %></h3>
+      <br />
+      <div class="form-group">
+        <%= label_tag :content_type, @attachment.content_type %>
+        <br />
+        <% if @attachment && !@attachment.content.blank? %>
+          <%= image_tag(thumbnail_path(@attachment.id), size: '150x150', style: 'border: solid black 1px') %>
+        <% end %>
+      </div>
+      <%= link_to t('.edit_attachment'), edit_attachment_path(@attachment) %> |
+      <%= link_to t('.attachment_list'), attachments_path %>
+    </div>
+  </div>
+</div>

@@ -48,7 +48,7 @@ en:
     action_internal_data_required: 'Internal data parameter in mandatory for this action.'
     template_id_mandatory_internal_data: 'template_id is mandatory for internal data of this action.'
     template_id_not_found: 'template_id not found!'
-    attachment_max_size: 'maximum attachment size is 500k'
+    attachment_max_size: 'maximum attachment size is 1.5MB'
   errors:
     transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
     campaign_not_found: 'Campaign is not found'
@@ -87,6 +87,7 @@ en:
       welcome: 'Welcome'
       change_password: 'Change Password'
       consents: Consents
+      attachments: Attachments
   notificaitons:
     diget_email_subject: 'Your digest DataRights notifications'
     insert_failed: "Inserting notification in database failed with error: %{errors}"
@@ -148,6 +149,25 @@ en:
       view: 'View'
       revoke: 'Revoke'
       consent_view_title: 'Consent'
+  attachments:
+    index:
+      attachments_title: 'Attachments'
+      title: 'Title'
+      content_type: 'Content Type'
+      actions: 'Actions'
+      show: 'Show'
+      edit: 'Edit'
+      destroy: 'Destroy'
+      are_you_sure_about_deleting: 'Are you sure?'
+    edit:
+      edit_attachment: 'Edit Attachment'
+      edit_file: 'Blackout File'
+      new_file: 'New File'
+      show: 'Show'
+      attachment_list: 'Attachments List'
+    show:
+      edit_attachment: 'Edit Attachment'
+      attachment_list: 'Attachments List'
   access_requests:
     templates:
       update_status:
@@ -223,6 +243,7 @@ en:
         close: "Close"
         upload_file: 'Upload file'
         select_blank: 'Please select an option ...'
+        i_want_to_blackout: 'I want to blackout some parts of attachment.'
     new:
       preview_button: 'Preview PDF'
       generating_preview_pdf: 'Generating PDF Preview ...'

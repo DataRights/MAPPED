@@ -80,14 +80,29 @@ function createBlackOutTool() {
       }
 
       formData.append('image', image.asBlob(newFileType), newFileName);
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST','content', true);
-      xhr.onload = xhr.onerror = function () {
-        done(false);
-      };
-      xhr.send(formData);
+      jQuery.ajax({
+          url: 'content',
+          data: formData,
+          processData: false,
+          contentType: false,
+          dataType: 'json',
+          type: "POST",
+          success: function(data) {
+            if (data.success == false) {
+              alert(data.error.content[0]);
+              done(false);
+            }
+            else {
+              done(true);
+              window.location.reload();
+            }
+          },
+          failure: function(xhr) {
+            console.log(xhr);
+          },
+      });
     }
-  })
+  });
 }
 
 function showPdfImage(canvases) {
