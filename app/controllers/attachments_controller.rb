@@ -3,11 +3,11 @@ class AttachmentsController < ApplicationController
 
   before_action :authenticate_user!
 
-  THUMBNAIL_SIZE = 50
+  THUMBNAIL_SIZE = 100
   # GET /attachments
   # GET /attachments.json
   def index
-    @attachments = Attachment.all
+    @attachments = Attachment.joins(workflow_transition: {workflow: :access_request}).where(access_requests: {user_id: current_user.id}).all
   end
 
   # GET /attachments/1
@@ -15,29 +15,8 @@ class AttachmentsController < ApplicationController
   def show
   end
 
-  # GET /attachments/new
-  def new
-    @attachment = Attachment.new
-  end
-
   # GET /attachments/1/edit
   def edit
-  end
-
-  # POST /attachments
-  # POST /attachments.json
-  def create
-    @attachment = Attachment.new(attachment_params)
-
-    respond_to do |format|
-      if @attachment.save
-        format.html { redirect_to @attachment, notice: 'Attachment was successfully created.' }
-        format.json { render :show, status: :created, location: @attachment }
-      else
-        format.html { render :new }
-        format.json { render json: @attachment.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /attachments/1
@@ -48,8 +27,19 @@ class AttachmentsController < ApplicationController
         format.html { redirect_to @attachment, notice: 'Attachment was successfully updated.' }
         format.json { render :show, status: :ok, location: @attachment }
       else
-        format.html { render :edit }
-        format.json { render json: @attachment.errors, status: :unprocessable_entity }
+        format.html {
+
+          if @attachment.errors.any?
+            errors = '<ul>'
+            @attachment.errors.full_messages.each do |message|
+              errors = "#{errors}<li>#{message}</li>"
+            end
+            errors = '</ul>'
+            flash[:alert] = errors
+          end
+          render :edit
+        }
+        format.json { render json: {success: false, errors: @attachment.errors}, status: :unprocessable_entity }
       end
     end
   end
@@ -76,20 +66,10 @@ class AttachmentsController < ApplicationController
     @attachment.title = params['image'].original_filename
     @attachment.content_type = params['image'].content_type
     @attachment.content = params['image'].tempfile.read
-    @attachment.save!
-    render json: {}, status: :ok
-  end
-
-  def new_content
-    @attachment = Attachment.new()
-    @attachment.workflow_transition_id =  params['workflow_transition_id'].to_i
-    @attachment.title = params['image'].original_filename
-    @attachment.content_type = params['image'].content_type
-    @attachment.content = params['image'].tempfile.read
     if @attachment.save
-      render json: {}, status: :ok
+      render json: { success: true, error: ''}, status: :ok
     else
-      render json: {}, status: :fail
+      render json: { success: false, error: @attachment.errors}, status: :ok
     end
   end
 

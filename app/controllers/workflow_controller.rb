@@ -17,6 +17,7 @@ class WorkflowController < ApplicationController
   def send_event
     workflow_id = params[:workflow][:id]
     transition_id = params[:workflow][:transition_id]
+    attachment = nil
     wf = Workflow.find(workflow_id)
     return unless wf.access_request.user_id == current_user.id
     t = Transition.find(transition_id)
@@ -64,6 +65,10 @@ class WorkflowController < ApplicationController
           Answer.create( result: params['answers'][answer_id], answerable_type: 'AccessRequest', answerable_id: @ar.id, question_id: answer_id.to_i)
         end
       end
+    end
+
+    if attachment && params[:workflow].include?(:do_blackout) && params[:workflow][:do_blackout]
+      redirect_to edit_attachment_path(attachment)
     end
   end
 
