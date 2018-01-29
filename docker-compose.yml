@@ -1,8 +1,8 @@
 app:
   build: .
-  command: bundle exec rails server -p 3000 -b '0.0.0.0'
+  command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails server -p 3000 -b '0.0.0.0'"
   volumes:
-    - /Users/mani47/Projects/mapped:/usr/src/app
+    - .:/usr/src/app
   ports:
     - "3000:3000"
   environment:
