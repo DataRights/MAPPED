@@ -33,9 +33,9 @@ Add this lines:
 
 `export DB_DOCKER_HOST='docker.for.mac.host.internal'`
 
-`export DB_USERNAME='mani47'`
+`export DB_USERNAME='YOUR_POSTGRES_USERNAME'`
 
-`export DB_PASSWORD=''`
+`export DB_PASSWORD='YOUR_POSTGRES_PASSWORD'`
 
 `export DB_PORT=5432`
 

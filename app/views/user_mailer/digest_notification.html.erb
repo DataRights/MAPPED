@@ -2,7 +2,7 @@
 <strong><%= e.notification.title %></strong>
 <hr />
 <p>
-<%= e.notification.content %>
+<%= e.notification.content&.html_safe %>
 </p>
 <br />
 <br />
