@@ -54,19 +54,33 @@ class AccessRequest < ApplicationRecord
   end
 
   def get_rendered_template(template_type)
-    @rendered_template ||= AccessRequest.get_rendered_template(template_type, self.user, self.campaign, self.organization)
+    @rendered_template ||= AccessRequest.get_rendered_template(template_type, self.user, self.campaign, self.organization, self)
   end
 
-  def self.get_rendered_template(template_type, user, campaign, organization)
+  def self.get_rendered_template(template_type, user, campaign, organization, access_request=nil)
+    return nil unless organization.sector
     expected_langs = organization.languages
     accepted_versions = []
+    if template_type.class == :String
+      template_type = template_type.to_sym
+    end
+
+    unless Template.template_types.include?(template_type)
+      return ''
+    end
+
     active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
+    return nil if active_templates.blank?
     active_templates.each do |template|
       template.template_versions.where(:active => true).each do |active_version|
         accepted_versions << active_version if expected_langs.include? active_version.language.to_sym
       end
     end
-    return nil if accepted_versions.blank?
+
+    if accepted_versions.blank? # If did not found any template with specified language return the first active template
+      accepted_versions << active_templates.first.template_versions.where(:active => true).first
+    end
+
     prefered_lang = user.preferred_language
     prefered_lang ||= :en
     result = accepted_versions.detect {|active_version| active_version.language == prefered_lang}
@@ -74,6 +88,8 @@ class AccessRequest < ApplicationRecord
 
     if result
       context = TemplateContext.new
+      context.access_request = access_request
+      context.workflow = access_request.workflow
       context.campaign = campaign
       context.user = user
       context.organization = organization

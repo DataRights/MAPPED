@@ -1,7 +1,7 @@
 getUrl = window.location;
 baseUrl = getUrl.protocol + "//" + getUrl.host;
 
-updateTemplateContent = (organization_id) ->
+updateTemplateContentByOrganization = (organization_id) ->
   $.ajax
     url: baseUrl + '/campaigns/' + $('#access_request_campaign_id').val() + '/organizations/' + organization_id + '/template'
     type: 'GET'
@@ -39,6 +39,19 @@ $(document).on 'turbolinks:load', ->
     oReq.send()
     return
 
+  $('.send_letter_type').on 'change', ->
+    access_request_id = $(this).attr('data-ar-id')
+    template_type = $(this).val()
+    $.ajax
+      url: baseUrl + '/access_request/' + access_request_id + '/template/' + template_type
+      type: 'GET'
+      success: (e) ->
+        $('#access_request_standard_text').val(e.template)
+        $('#textContentStandard').html(e.template)
+        CKEDITOR.instances['custom_text'].setData e.template
+        return
+    return
+
   $('#access_request_sector_id').on 'change', ->
     $.ajax
       url: baseUrl + '/campaigns/' + $('#access_request_campaign_id').val() + '/organizations/' + $(this).val()
@@ -51,12 +64,12 @@ $(document).on 'turbolinks:load', ->
           return
         $('#access_request_organization_id').append listitems
         if listitems.length > 0
-          updateTemplateContent e[0][1]
+          updateTemplateContentByOrganization e[0][1]
         return
     return
 
   $('#access_request_organization_id').on 'change', ->
-    updateTemplateContent $(this).val()
+    updateTemplateContentByOrganization $(this).val()
     return
 
   $('#textTypeRadioStandard').on 'change', ->
