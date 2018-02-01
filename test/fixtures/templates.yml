@@ -13,9 +13,16 @@
 
 ar:
   name: AccessRequest
+  template_type: :access_request
 
 follow:
   name: FollowUp
 
 ar_created_reminder:
   name: AccessRequestCreatedReminder
+  template_type: :reminder
+
+ar_second_reminder:
+  name: AccessRequestCreatedSecondReminder
+  template_type: :'second reminder'
+  sectors: health

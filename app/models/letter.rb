@@ -15,6 +15,6 @@
 
 class Letter < ApplicationRecord
   belongs_to :workflow_transition
-  enum letter_type: [:reminder, :clarification, :question]
+  enum letter_type: [:reminder, :'second reminder', :clarification, :question]
   validates_presence_of :letter_type
 end

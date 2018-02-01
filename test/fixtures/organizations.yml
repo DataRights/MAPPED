@@ -20,12 +20,12 @@
 
 one:
   name: Acibadem Hospital
-  sector: Health
+  sector: health
 
 hospital1:
   name: Hospital1
-  sector: Health
+  sector: health
 
 two:
   name: Airport1
-  sector: Transport
+  sector: transport

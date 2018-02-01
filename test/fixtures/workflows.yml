@@ -21,3 +21,8 @@ two:
   workflow_type_version: two
   workflow_state: two
   access_request: two
+
+three:
+  workflow_type_version: one
+  workflow_state: one
+  access_request: three

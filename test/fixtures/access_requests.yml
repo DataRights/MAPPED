@@ -20,13 +20,21 @@
 one:
   organization: one
   user: one
-  meta_data: 
+  meta_data:
   sent_date: 2017-11-06 11:33:17
   data_received_date: 2017-11-06 11:33:17
 
 two:
   organization: two
   user: two
-  meta_data: 
+  meta_data:
+  sent_date: 2017-11-06 11:33:17
+  data_received_date: 2017-11-06 11:33:17
+
+three:
+  organization: one
+  user: three
+  campaign: one
+  meta_data:
   sent_date: 2017-11-06 11:33:17
   data_received_date: 2017-11-06 11:33:17

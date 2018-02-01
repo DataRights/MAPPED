@@ -112,6 +112,10 @@ class AccessRequestsController < ApplicationController
     end
   end
 
+  def template
+    render :json => { :success => true, :template => @access_request.get_rendered_template(params[:template_type].to_sym) }
+  end
+
   private
    def access_request_params
      params.require(:access_request).permit(:organization_id, :campaign_id, :sent_date, :suggested_text, :final_text)
@@ -120,7 +124,7 @@ class AccessRequestsController < ApplicationController
    def find_access_request
     @access_request = AccessRequest.find(params[:id])
     unless @access_request.user_id == current_user.id
-      head(500)
+      raise "Access Request does not belong to your user: #{@access_request.user_id} != #{current_user.id}"
     end
 
   end

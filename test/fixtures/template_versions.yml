@@ -31,3 +31,10 @@ reminder1:
   template: ar_created_reminder
   content: "The access request {{ access_request.id }} has been created on DataRights.me and it's ready for sending to organization {{ organization.name }}. Currently status of your workflow is: {{ workflow.workflow_state }}"
   active: true
+
+reminder2:
+  version: 1
+  template: ar_second_reminder
+  content: "The access request to {{ access_request.id }} has been created on DataRights.me and it's ready for sending to organization {{ organization.name }}. Currently status of your workflow is: {{ workflow.workflow_state }}"
+  active: true
+  language: en
