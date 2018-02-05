@@ -32,44 +32,44 @@
 nl:
   project_name: 'DataRights'
   user_links:
-    sign_up: "Sign Up"
-    login: "Login"
-    logout: "Logout"
-    forgot_your_password: "Forgot your password?"
-    didnt_receive_confirmation: "Didn't receive confirmation instructions?"
-    didnt_receive_unlock: "Didn't receive unlock instructions?"
-  invalid_parameters: "Invalid Parameters!"
+    sign_up: "Account Aanmaken"
+    login: "Aanmelden"
+    logout: "Afmelden"
+    forgot_your_password: "Wachtwoord vergeten?"
+    didnt_receive_confirmation: "Geen bevestigingsinstructies ontvangen?"
+    didnt_receive_unlock: "Geen ontgrendel instructies ontvangen?"
+  invalid_parameters: "Ongeldige parameters!"
   validations:
-    invalid_class_name: "Class name not found in code base!"
-    invalid_method_name: "Method name not found in class methods."
-    workflow_type_is_active: "In order to edit a workflow it should not be active and it should not have active instances!"
-    initial_state_is_mandatory: "For activating the workflow having an initial state is mandatory!"
-    workflow_type_should_be_active: 'For creating a new workflow, Workflow type should be active!'
-    action_internal_data_required: 'Internal data parameter in mandatory for this action.'
-    template_id_mandatory_internal_data: 'template_id is mandatory for internal data of this action.'
-    template_id_not_found: 'template_id not found!'
-    attachment_max_size: 'maximum attachment size is 1.5MB'
+    invalid_class_name: "Klassenaam niet gevonden in codebasis!"
+    invalid_method_name: "Naam van methode niet gevonden in klassemethoden."
+    workflow_type_is_active: "Om een ​​workflow te kunnen bewerken, zou deze niet actief moeten zijn en er zouden geen actieve exemplaren moeten zijn!"
+    initial_state_is_mandatory: "Voor het activeren van de workflow is een startstatus verplicht!"
+    workflow_type_should_be_active: 'Voor het maken van een nieuwe workflow moet het workflowtype actief zijn!'
+    action_internal_data_required: 'Interne gegevensparameter verplicht voor deze actie.'
+    template_id_mandatory_internal_data: 'template_id is verplicht voor interne gegevens van deze actie.'
+    template_id_not_found: 'template_id niet gevonden!'
+    attachment_max_size: 'maximale grootte van de bijlage is 1,5 MB'
   errors:
-    transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
-    campaign_not_found: 'Campaign is not found'
-    organization_not_found: 'Organization not found'
-    template_version_not_found: 'Template version not found'
+    transition_does_not_exist_in_current_state: 'Overgang bestaat niet in huidige staat'
+    campaign_not_found: 'Campagne is niet gevonden'
+    organization_not_found: 'Organisatie niet gevonden'
+    template_version_not_found: 'Sjabloonversie niet gevonden'
   workflow:
-    no_state_to_generate_diagram: 'Workflow has no state to generate a diagram!'
-    generate_diagram: 'Generate Diagram'
-    state_has_already_one_timeout_transition: "State has already one timeout transition: %{transition}"
-    send_event_success: 'Operation successfully completed.'
-    transition_is_not_undoable: 'Selected operation is not valid for undo. Only the last operation is valid for rollback.'
-    undo: 'Undo'
-    undo_history: 'Rollback to %{state}'
-    undo_transition_was_successfull: 'Undo operation successfully completed!'
+    no_state_to_generate_diagram: 'Workflow heeft geen status om een ​​diagram te genereren!'
+    generate_diagram: 'Diagram genereren'
+    state_has_already_one_timeout_transition: "Staat heeft al één time-outtransitie: %{transition}"
+    send_event_success: 'Operatie is voltooid.'
+    transition_is_not_undoable: 'Geselecteerde bewerking kan niet ongedaan worden gemaakt. Alleen de laatste bewerking kan worden teruggedraaid'
+    undo: 'Ongedaan maken'
+    undo_history: 'Terugdraaien naar %{state}'
+    undo_transition_was_successfull: 'Ongedaan maken is voltooid!'
   tfa:
-    title: 'Two Factor Authentication'
-    help: 'Two-factor authentication, or 2FA, is a way of logging into websites that requires more than just a password. Using a password to log into a website is susceptible to security threats, because it represents a single piece of information a malicious person needs to acquire. The added security that 2FA provides is requiring additional information to sign in.'
-    enable: 'Enable 2FA'
-    disable: 'Disable 2FA'
-    scan_qr_code: 'Scan this QRCode with Google Authenticator, Authy or any other mobile app that supports two factor authentication via TOTP.'
-  rollback_method_does_not_exist_for_action: 'Rollback method does not exist for action'
+    title: 'Twee-ledige Verificatie'
+    help: 'Twee-ledige Verificatie, of 2LV, is een manier om in te loggen op websites waarvoor meer nodig is dan alleen een wachtwoord. Het gebruik van enkel een wachtwoord om in te loggen op een website is vatbaar voor beveiligingsbedreigingen, omdat een kwaadwillend persoon enkel het wachtwoord hoeft te bemachtigen. De extra beveiliging die 2LV biedt, vereist aanvullende informatie om in te loggen.'
+    enable: 'Schakel 2LV in'
+    disable: 'Schakel 2LV uit'
+    scan_qr_code: 'Scan deze QRCode met Google Authenticator, Authy of een andere mobiele app die Twee-ledige Verificatie ondersteunt via TOTP.'
+  rollback_method_does_not_exist_for_action: 'Rollback-methode bestaat niet voor actie'
   layouts:
     application:
       page_html_title: 'DataRights'
@@ -89,183 +89,183 @@ nl:
       consents: 'Toestemming'
       attachments: 'Bijlagen'
   notificaitons:
-    diget_email_subject: 'Your digest DataRights notifications'
-    insert_failed: "Inserting notification in database failed with error: %{errors}"
+    diget_email_subject: 'Uw DataRights meldingen'
+    insert_failed: "Het invoegen van de notificatie in database is mislukt met fout: %{errors}"
   home:
     index:
-      join_us: 'Join us!'
-      participant_landing_message_part1: "<strong>datarights.me</strong> is a platform that helps citizens to send access requests to organizations. An access request is a request by a citizen to receive from an organization (information about) the personal data that that organization is processing in relation to him/her. The right to receive a swift, complete and understandable answer to such a request, called right of access, is guaranteed under European law in order to promote citizen empowerment."
-      participant_landing_message_part2: "<strong>datarights.me</strong> provides a structured process in order to facilitate making use of the right of access to citizens. Moreover it is a platform where citizens come together to make use of this right as part of a citizens collective, and create crowd-sourced and crowd-interpreted knowledge of data practices in society. This should eventually help to initiate a re-balancing of power between citizens, governments and corporations."
-      edit_your_profile: 'Edit your personal profile'
-      more_information: 'More Information'
-      previous: 'Previous'
-      next: 'Next'
-      my_profile: 'My Profile'
-      requests_sent: 'Requests sent'
-      responses: 'Responses'
-      participants: 'Participants'
-      organizations: 'Organizations'
+      join_us: 'Doe mee!'
+      participant_landing_message_part1: "<strong>datarights.me</strong> is een platform dat burgers helpt om inzageverzoeken te verzenden naar organisaties. Een inzageverzoek is een verzoek van een burger om van een organisatie (informatie over) de persoonlijke gegevens te ontvangen die de organisatie in relatie tot hem / haar verwerkt. Het recht om een ​​snel, volledig en begrijpelijk antwoord te krijgen op een dergelijk verzoek, het recht inzage, is via Europese wetgeving gewaarborgd om de positie van de burger te versterken. "
+      participant_landing_message_part2: "<strong>datarights.me</strong> biedt een gestructureerd proces om het gebruik van het recht op inzage voor de burger te vergemakkelijken. Bovendien is het een platform waar burgers samenkomen om van dit recht gebruik te maken als onderdeel van een burgerscollectief, om crowd-sourced en crowd-interpreted kennis van gegevenspraktijken in de samenleving te creëren. Op deze manier beginnen we aan een herverdeling van de macht tussen burgers, overheden en bedrijven."
+      edit_your_profile: 'Bewerk je persoonlijke profiel'
+      more_information: 'Meer informatie'
+      previous: 'Vorige'
+      next: 'Volgende'
+      my_profile: 'Mijn profiel'
+      requests_sent: 'Verzonden verzoeken'
+      responses: 'Antwoorden'
+      participants: 'Deelnemers'
+      organizations: 'Organisaties'
   campaigns:
     index:
-      general_text: 'This is a general text about campaigns assigned/available to the participant, what we are currently busy with in terms of research, etc etc. It could also be a place for general info relevant for the new participant. After first viewing this part of the interface can also dissapear...'
-      learn_more: 'Learn more'
-      join_campaign: 'Join campaign'
+      general_text: 'Dit is een algemene tekst over campagnes die voor de deelnemer beschikbaar zijn, waarmee we momenteel bezig zijn op het gebied van onderzoek, enz. Het kan ook een plaats zijn voor algemene informatie die relevant is voor de nieuwe deelnemer. Wanneer deze,ededeling eenmaal is bekeken, kan dit deel van de interface ook verdwijnen ... '
+      learn_more: 'Meer informatie''
+      join_campaign: 'Doe mee aan campagne'
   users:
     edit:
-      title: 'Profile'
-      title_before_you_start: 'Before you start...'
-      first_name_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
-      first_name_help_title: 'Why do we ask for your first name?'
-      last_name_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
-      last_name_help_title: 'Why do we ask for your last name?'
-      notification_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
-      notification_help_title: 'Why do we send you notification?'
-      address_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
-      address_help_title: 'Why do we ask for your address?'
-      lang_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
-      lang_help_title: 'Why do we ask for your preferred language?'
-      submit: 'Submit'
-      consent_check_box: 'I agree to the conditions above.'
-      already_approved_at: "(Consent already approved at: %{approved_date})"
-      profile_success: 'Profile information successfully updated!'
+      title: 'Profiel'
+      title_before_you_start: 'Voordat u begint ...'
+      first_name_help_content: 'Wij vragen om uw voornaam zodat wij deze kunnen toevoegen aan de inzageverzoeken die u via datarights.me doet. Een organisatie moet weten met wie ze te maken hebben om aan een inzageverzoek te kunnen voldoen'
+      first_name_help_title: ''Waarom vragen we om uw voornaam?'
+      last_name_help_content: 'Wij vragen om uw achternaam zodat wij deze kunnen toevoegen aan de inzageverzoeken die u via datarights.me doet. Een organisatie moet weten met wie ze te maken hebben om aan een inzageverzoek te kunnen voldoen'
+      last_name_help_title: 'Waarom vragen we om uw achternaam?'
+      notification_help_content: 'Datarights.me geeft meldingen om u te hepen het inzageproces bij te houden. Zo krijgt u bijvoorbeeld een melding wanneer de termijn waarbinnen een organisatie dient te antwoorden voorbij is"    '
+      notification_help_title: 'Waarom willen we u meldingen sturen?'
+      address_help_content: 'Wij vragen om uw adres zodat wij deze kunnen toevoegen aan de inzageverzoeken die u via datarights.me doet. Een organisatie moet weten met wie ze te maken hebben om aan een inzageverzoek te kunnen voldoen. Daarnaast is dit het adres waar de organisatie het anwtoord op het inzageverzoek naar to kan sturen'
+      address_help_title: 'Waarom vragen we om uw adres?'
+      lang_help_content: 'Wij vragen naar uw voorkeurstaal zodat wij datarights.me in uw eigen taal kunnen aanbieden.'
+      lang_help_title: 'Waarom vragen we naar uw voorkeurstaal?'
+      submit: 'Verzenden'
+      consent_check_box: 'Ik ga akkoord met de bovenstaande voorwaarden.'
+      already_approved_at: "(Toestemming al gegeven op: %{approved_date})"
+      profile_success: 'Profielinformatie succesvol bijgewerkt!'
   common:
-    campaign_not_found: 'Campaign not found!'
-    create_new_ar: 'Create new access request'
+    campaign_not_found: 'Campagne niet gevonden!'
+    create_new_ar: 'Nieuw inzageverzoek maken'
   helpers:
     label:
       user:
-        email: "Email Address"
-        password: "Password (minimum 6 characters)"
-        password_confirmation: "Password confirmation"
+        email: "Email Adres"
+        password: "Wachtwoord (minimaal 6 tekens)"
+        password_confirmation: "Herhaal Wachtwoord"
   notifications:
     index:
-      you_have_no_notification: 'You have no notifications.'
+      you_have_no_notification: ''U heeft geen meldingen.'
   consents:
     index:
-      overview_of_consents: 'Overview of Consents'
-      name: 'Name'
-      description: 'Description'
-      actions: 'Actions'
-      view: 'View'
-      revoke: 'Revoke'
-      consent_view_title: 'Consent'
+      overview_of_consents: 'Overzicht van toestemmingen die u heeft gegeven'
+      name: 'Naam'
+      description: 'Beschrijving'
+      actions: 'Acties'
+      view: 'Inzien'
+      revoke: 'Intrekken'
+      consent_view_title: 'Toestemming'
   attachments:
     index:
-      attachments_title: 'Attachments'
-      title: 'Title'
-      content_type: 'Content Type'
-      actions: 'Actions'
+      attachments_title: 'Bijlagen'
+      title: 'Titel'
+      content_type: 'Inhoudstype'
+      actions: 'Acties'
       download: 'Download'
-      show: 'Show'
-      edit: 'Edit'
-      destroy: 'Destroy'
-      are_you_sure_about_deleting: 'Are you sure?'
+      show: 'Inzien'
+      edit: 'Bewerken'
+      destroy: 'Vernietigen'
+      are_you_sure_about_deleting: 'Weet u het zeker?'
     edit:
-      edit_attachment: 'Edit Attachment'
-      show: 'Show'
-      attachment_list: 'Attachments List'
+      edit_attachment: 'Bijlage Bewerken'
+      show: 'Inzien'
+      attachment_list: 'Lijst van Bijlagen'
     show:
-      edit_attachment: 'Edit Attachment'
-      attachment_list: 'Attachments List'
+      edit_attachment: 'Bijlage Bewerken'
+      attachment_list: 'Lijst van Bijlagen'
     new:
-      new_attachment: 'New Attachment'
+      new_attachment: 'Nieuwe Bijlage'
     form:
-      edit_file: 'Blackout File'
-      new_file: 'New File'
+      edit_file: 'Bestand Bewerken'
+      new_file: 'Nieuw Bestand'
   access_requests:
     templates:
       update_status:
-        update_status: 'Update Status'
-        what_is_it: 'What is it?'
-        remark: 'Remark'
-        acknowledgement: 'Acknowledgement/confirmation'
-        request_clarification: 'Request of clarification'
-        cant_verify_your_identity: "We can't verify your identity"
-        we_dont_know_you: "We don't know you"
-        close: "Close"
-        save: "Save"
-        saving: "Saving..."
-        select_blank: 'Please select an action ...'
+        update_status: 'Status aanpassen'
+        what_is_it: 'Wat is het?'
+        remark: 'Opmerking'
+        acknowledgement: 'Ontvangstbevestiging'
+        request_clarification: 'Verzoek om verduidelijking van het inzageverzoek'
+        cant_verify_your_identity: "We kunnen uw identiteit niet vaststellen"
+        we_dont_know_you: "We kenne u niet"
+        close: "Sluit"
+        save: "Opslaan"
+        saving: "Opslaan ..."
+        select_blank: 'Selecteer alstublieft een actie ...'
       awaiting_response:
-        remark: 'Remark'
-        close: "Close"
-        save: "Save"
-        saving: "Saving..."
-        select_blank: 'Please select an action ...'
-        awaiting_response: 'Awaiting response'
-        left: left
+        remark: 'Opmerking'
+        close: "Sluiten"
+        save: "Oplsaan"
+        saving: "Opslaan ..."
+        select_blank: 'Selecteer alstublieft een actie ...'
+        awaiting_response: 'In afwachting van reactie'
+        left: Links
       evaluation:
-        evaluate: 'Evaluate'
-        saving: "Saving..."
+        evaluate: 'Evalueer'
+        saving: "Opslaan ..."
       history_comments:
-        access_request_created: 'Access request created'
-        comments: 'Comments'
-        comment: 'Comment'
-        add_comment: 'add comment'
-        upload_response_or_generate_letter: 'upload response or generate letter'
-        close: "Close"
-        send: "Send"
-        sending: 'Sending ...'
-        i_would_like_moderator: "I would like the campaign moderator to react to this comment."
-        comment_success: "Comment sent successfully."
-        ago: "ago"
-        undo: "Undo"
-        edit: "Edit this status"
-        edit_access_request: "Edit access request"
-        edit_status_title: "Edit last status"
-        save: "Save"
-        saving: "Saving..."
-        update_remarks_success: "Update status was successful."
-        update_remarks_error: "Update status failed! %{status}"
-        remark: 'Remark'
-        what_happened: 'What happened?'
-        upload_attachment: 'Edit uploaded data (Optional)'
-        upload_attachment_description: 'Edit data description (Optional)'
-        upload_file: 'Upload file'
-        letter_text: 'Edit your letter:'
+        access_request_created: 'Inzageverzoek aangemaakt'
+        comments: 'Opmerkingen'
+        comment: 'Opmerking'
+        add_comment: 'Opmerking toevoegen'
+        upload_response_or_generate_letter: 'Antwoord uploaden of herinneringsbrief genereren'
+        close: "Sluiten"
+        send: "Versturen"
+        sending: 'Versturen ...'
+        i_would_like_moderator: "Ik zou graag zien dat de moderator van de campagne reageert op deze opmerking."
+        comment_success: "Reactie verzonden."
+        ago: "geleden"
+        undo: "Ongedaan maken"
+        edit: "Bewerk deze status"
+        edit_access_request: "Wijzig inzageverzoek"
+        edit_status_title: "Laatste status aanpassen"
+        save: "Opslaan"
+        saving: "Oplsaan ..."
+        update_remarks_success:"Status update is geslaagd."
+        update_remarks_error: "Status update is mislukt! %{status}"
+        remark: 'Opmerking'
+        what_happened: 'Wat is er gebeurd?'
+        upload_attachment: 'Bewerk geüploade gegevens (optioneel)'
+        upload_attachment_description: 'Gegevensbeschrijving bewerken (optioneel)'
+        upload_file: 'Upload bestand'
+        letter_text: 'Bewerk uw brief:'
       send_letter:
-        text_type_select: 'Text of letter'
-        text_type_standard: 'Standard text'
-        text_type_custom: 'Expanded text'
-        please_note_fields_in_red: 'Please note that fields in red require your personal data.'
-        sending_date_label: 'Date of sending'
-        passport_id_warning: 'Do not forget to attach a copy of your passport/ID card to your access request reminder.'
-        close: "Close"
-        final_button: 'Generate PDF'
-        select_blank: 'Please select an action ...'
+        text_type_select: 'Tekst van de brief'
+        text_type_standard: 'Standaard tekst'
+        text_type_custom: 'Aangepaste tekst'
+        please_note_fields_in_red: 'Houd er rekening mee dat voor de rode velden u uw persoonlijke gegevens dient in te vullen'
+        sending_date_label: 'Verzenddatum'
+        passport_id_warning: 'Vergeet niet een kopie van uw paspoort of ID-kaart bij te voegen aan uw inzageverzoek of herinneringsverzoek.'
+        close: "Sluiten"
+        final_button: 'PDF genereren'
+        select_blank: 'Selecteer een actie ...'
       access_request_date:
-        sent_date: 'Date of sending'
+        sent_date: 'Verzenddatum'
       done:
-        done: 'Done'
+        done: 'Klaar'
       what_happened_update_status:
-        what_happened: 'What happened?'
-        what_do_you_want_to_do_now: 'What do you want to do now?'
-        upload_attachment: 'Upload Data (Optional)'
-        upload_attachment_description: 'Data description (Optional)'
-        save: "Save"
-        saving: "Saving..."
-        close: "Close"
-        upload_file: 'Upload file'
-        select_blank: 'Please select an option ...'
-        i_want_to_blackout: 'I want to blackout some parts of attachment.'
+        what_happened: 'Wat is er gebeurd?'
+        what_do_you_want_to_do_now: 'Wat wilt u nu doen?'
+        upload_attachment: 'Upload gegevens (optioneel)'
+        upload_attachment_description: 'Beschrijving van de gegevens (optioneel)'
+        save: "Opslaan"
+        saving: "Opslaan..."
+        close: "Sluiten"
+        upload_file: 'Upload bestand'
+        select_blank: 'Selecteer een optie ...''
+        i_want_to_blackout: 'Ik wil sommige delen van de bijlage zwart maken.'
     new:
-      preview_button: 'Preview PDF'
-      generating_preview_pdf: 'Generating PDF Preview ...'
+      preview_button: 'Voorbeeld PDF'
+      generating_preview_pdf: 'Voorbeeld PDF genereren ...'
     form:
-      create_title: 'Create new access request'
-      edit_title: 'Edit access request'
+      create_title: 'Nieuw inzageverzoek maken'
+      edit_title: 'Inzageverzoek wijzigen'
       sector_label: 'Sector'
-      organization_label: 'Organization'
-      click_here: 'Click here'
-      organization_help: 'for more information about the selected organization on our wiki page.'
-      text_type_select: 'Text of access request'
-      text_type_standard: 'Standard text'
-      text_type_custom: 'Expanded text'
-      preview_button: 'Preview PDF'
-      generating_preview_pdf: 'Generating PDF Preview ...'
-      sending_date_label: 'Date of sending'
-      passport_id_warning: 'Do not forget to attach a copy of your passport/ID card to your access request.'
-      final_button: 'Generate Final PDF'
-      please_note_fields_in_red: 'Please note that fields in red require your personal data.'
-      preview_modal_title: 'Preview'
-      select_blank: 'Please select an item ...'
+      organization_label: 'Organisatie'
+      click_here: 'Klik hier'
+      organization_help: 'voor meer informatie over de geselecteerde organisatie op onze wikipagina.'
+      text_type_select: 'Tekst van het inzageverzoek'
+      text_type_standard: 'Standaard tekst'
+      text_type_custom: 'Aangepaste tekt'
+      preview_button: 'Voorbeeld PDF'
+      generating_preview_pdf: 'Voorbeeld PDF genereren ...'
+      sending_date_label: 'Verzenddatum'
+      passport_id_warning: 'Vergeet niet een kopie van uw paspoort of ID-kaart als bijlage toe te voegen aan uw inzageverzoek.'
+      final_button: 'PDF genereren'
+      please_note_fields_in_red: 'Houd er rekening mee dat voor de rode velden u uw persoonlijke gegevens dient in te vullen.'
+      preview_modal_title: 'Voorbeeld'
+select_blank: 'Selecteer een item ...'
