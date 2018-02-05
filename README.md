@@ -46,6 +46,7 @@ And then reload the variables:
 7- Build and up using docker-compose
 
 `docker-compose build`
+
 `docker-compose up`
 
 If this is the first time you are running the application and you want to setup the database use these commands to create the database:
