@@ -88,7 +88,7 @@ class AccessRequest < ApplicationRecord
 
     if result
       context = TemplateContext.new
-      if access_request
+      if access_request && access_request&.workflow
         context.access_request = access_request
         context.workflow = access_request.workflow
       end
