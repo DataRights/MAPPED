@@ -108,14 +108,14 @@ nl:
   campaigns:
     index:
       general_text: 'Dit is een algemene tekst over campagnes die voor de deelnemer beschikbaar zijn, waarmee we momenteel bezig zijn op het gebied van onderzoek, enz. Het kan ook een plaats zijn voor algemene informatie die relevant is voor de nieuwe deelnemer. Wanneer deze,ededeling eenmaal is bekeken, kan dit deel van de interface ook verdwijnen ... '
-      learn_more: 'Meer informatie''
+      learn_more: 'Meer informatie'
       join_campaign: 'Doe mee aan campagne'
   users:
     edit:
       title: 'Profiel'
       title_before_you_start: 'Voordat u begint ...'
       first_name_help_content: 'Wij vragen om uw voornaam zodat wij deze kunnen toevoegen aan de inzageverzoeken die u via datarights.me doet. Een organisatie moet weten met wie ze te maken hebben om aan een inzageverzoek te kunnen voldoen'
-      first_name_help_title: ''Waarom vragen we om uw voornaam?'
+      first_name_help_title: 'Waarom vragen we om uw voornaam?'
       last_name_help_content: 'Wij vragen om uw achternaam zodat wij deze kunnen toevoegen aan de inzageverzoeken die u via datarights.me doet. Een organisatie moet weten met wie ze te maken hebben om aan een inzageverzoek te kunnen voldoen'
       last_name_help_title: 'Waarom vragen we om uw achternaam?'
       notification_help_content: 'Datarights.me geeft meldingen om u te hepen het inzageproces bij te houden. Zo krijgt u bijvoorbeeld een melding wanneer de termijn waarbinnen een organisatie dient te antwoorden voorbij is"    '
@@ -139,7 +139,7 @@ nl:
         password_confirmation: "Herhaal Wachtwoord"
   notifications:
     index:
-      you_have_no_notification: ''U heeft geen meldingen.'
+      you_have_no_notification: 'U heeft geen meldingen.'
   consents:
     index:
       overview_of_consents: 'Overzicht van toestemmingen die u heeft gegeven'
@@ -215,7 +215,7 @@ nl:
         edit_status_title: "Laatste status aanpassen"
         save: "Opslaan"
         saving: "Oplsaan ..."
-        update_remarks_success:"Status update is geslaagd."
+        update_remarks_success: "Status update is geslaagd."
         update_remarks_error: "Status update is mislukt! %{status}"
         remark: 'Opmerking'
         what_happened: 'Wat is er gebeurd?'
@@ -246,7 +246,7 @@ nl:
         saving: "Opslaan..."
         close: "Sluiten"
         upload_file: 'Upload bestand'
-        select_blank: 'Selecteer een optie ...''
+        select_blank: 'Selecteer een optie ...'
         i_want_to_blackout: 'Ik wil sommige delen van de bijlage zwart maken.'
     new:
       preview_button: 'Voorbeeld PDF'
@@ -268,4 +268,4 @@ nl:
       final_button: 'PDF genereren'
       please_note_fields_in_red: 'Houd er rekening mee dat voor de rode velden u uw persoonlijke gegevens dient in te vullen.'
       preview_modal_title: 'Voorbeeld'
-select_blank: 'Selecteer een item ...'
+      select_blank: 'Selecteer een item ...'
