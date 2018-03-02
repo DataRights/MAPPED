@@ -12,7 +12,31 @@ updateTemplateContentByOrganization = (organization_id) ->
       return
   return
 
+updateOrganizationsBySector = (sector_id) ->
+  $.ajax
+    url: baseUrl + '/campaigns/' + $('#access_request_campaign_id').val() + '/organizations/' + sector_id
+    type: 'GET'
+    success: (e) ->
+      $('#access_request_organization_id').children().remove()
+      listitems = []
+      $.each e, (key, value) ->
+        listitems += '<option value="' + value[1] + '">' + value[0] + '</option>'
+        return
+      $('#access_request_organization_id').append listitems
+      if Cookies.get('organization')
+        $('#access_request_organization_id').val(Cookies.get('organization'))
+        Cookies.remove('organization')
+      if listitems.length > 0
+        updateTemplateContentByOrganization e[0][1]
+      return
+  return
+
 $(document).on 'turbolinks:load', ->
+  if Cookies.get('organization')
+    sector_id = $('#access_request_sector_id option:contains(Others)').val()
+    if sector_id
+      $('#access_request_sector_id').val(sector_id)
+      updateOrganizationsBySector(sector_id)
 
   last = Cookies.get('active_accordion')
   $("#" + last).addClass("show") if last? and $('#' + last).length
@@ -53,20 +77,7 @@ $(document).on 'turbolinks:load', ->
     return
 
   $('#access_request_sector_id').on 'change', ->
-    $.ajax
-      url: baseUrl + '/campaigns/' + $('#access_request_campaign_id').val() + '/organizations/' + $(this).val()
-      type: 'GET'
-      success: (e) ->
-        $('#access_request_organization_id').children().remove()
-        listitems = []
-        $.each e, (key, value) ->
-          listitems += '<option value="' + value[1] + '">' + value[0] + '</option>'
-          return
-        $('#access_request_organization_id').append listitems
-        if listitems.length > 0
-          updateTemplateContentByOrganization e[0][1]
-        return
-    return
+    updateOrganizationsBySector(this.value)
 
   $('#access_request_organization_id').on 'change', ->
     updateTemplateContentByOrganization $(this).val()

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  post 'organizations', :to => 'organization#create'
+
   get 'languages/set'
 
   get 'faq/index'

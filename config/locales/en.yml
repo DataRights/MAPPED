@@ -257,6 +257,7 @@ en:
       sector_label: 'Sector'
       organization_label: 'Organization'
       click_here: 'Click here'
+      add_organization: 'to add a new organization to above list.'
       organization_help: 'for more information about the selected organization on our wiki page.'
       text_type_select: 'Text of access request'
       text_type_standard: 'Standard text'
@@ -269,3 +270,9 @@ en:
       please_note_fields_in_red: 'Please note that fields in red require your personal data.'
       preview_modal_title: 'Preview'
       select_blank: 'Please select an item ...'
+      save: 'Save'
+      saving: 'Saving Organization ...'
+      add_organization_modal_title: 'Add a new organization'
+      privacy_policy_url: 'Privacy Policy URL'
+      address_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
+      address_help_title: "Why do we ask for organization's address?"

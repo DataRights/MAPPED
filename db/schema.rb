@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180118072023) do
+ActiveRecord::Schema.define(version: 20180301162053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20180118072023) do
     t.bigint "addressable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
     t.index ["city_id"], name: "index_addresses_on_city_id"
     t.index ["country_id"], name: "index_addresses_on_country_id"
@@ -240,7 +241,12 @@ ActiveRecord::Schema.define(version: 20180118072023) do
     t.text "custom_3"
     t.text "custom_3_desc"
     t.string "languages", default: [], array: true
+    t.string "privacy_policy_url"
+    t.boolean "approved", default: true
+    t.bigint "suggested_by_user_id"
+    t.index ["name"], name: "index_organizations_on_name", unique: true
     t.index ["sector_id"], name: "index_organizations_on_sector_id"
+    t.index ["suggested_by_user_id"], name: "index_organizations_on_suggested_by_user_id"
   end
 
   create_table "policy_consents", force: :cascade do |t|
@@ -487,6 +493,7 @@ ActiveRecord::Schema.define(version: 20180118072023) do
   add_foreign_key "notifications", "access_requests"
   add_foreign_key "notifications", "users"
   add_foreign_key "organizations", "sectors"
+  add_foreign_key "organizations", "users", column: "suggested_by_user_id"
   add_foreign_key "policy_consents", "templates"
   add_foreign_key "template_versions", "templates"
   add_foreign_key "transitions", "workflow_states", column: "from_state_id"

@@ -2,27 +2,32 @@
 #
 # Table name: organizations
 #
-#  id            :integer          not null, primary key
-#  name          :string
-#  sector_id     :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  custom_1      :text
-#  custom_1_desc :text
-#  custom_2      :text
-#  custom_2_desc :text
-#  custom_3      :text
-#  custom_3_desc :text
-#  languages     :string           default([]), is an Array
+#  id                   :integer          not null, primary key
+#  name                 :string
+#  sector_id            :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  custom_1             :text
+#  custom_1_desc        :text
+#  custom_2             :text
+#  custom_2_desc        :text
+#  custom_3             :text
+#  custom_3_desc        :text
+#  languages            :string           default([]), is an Array
+#  privacy_policy_url   :string
+#  approved             :boolean          default(TRUE)
+#  suggested_by_user_id :integer
 #
 
 class Organization < ApplicationRecord
   belongs_to :sector
+  belongs_to :suggested_by_user, class_name: "User", optional: true
   has_one :address, as: :addressable, :dependent => :destroy, :inverse_of => :addressable
   has_and_belongs_to_many :campaigns
   has_many :tags, :as => :tagable, dependent: :destroy
   has_many :comments, :as => :commentable, dependent: :destroy
   validates_presence_of :address, :languages, :name
+  validates :name, uniqueness: { case_sensitive: false, message: ": Another organization with the same name exists!"}
   accepts_nested_attributes_for :address
 
   def context_value

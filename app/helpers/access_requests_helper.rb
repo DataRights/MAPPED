@@ -11,8 +11,8 @@ module AccessRequestsHelper
     return [] unless campaign.is_a? Campaign
     return [] unless sector
     return [] unless sector.is_a? Sector
-    return Organization.where(sector: sector).map {|organization| [organization.name, organization.id]}.uniq if campaign.name == Campaign::DEFAULT_CAMPAIGN_NAME
-    campaign.organizations.where(sector: sector).map {|organization| [organization.name, organization.id]}.uniq
+    return Organization.where(sector: sector).where('approved=true or suggested_by_user_id=?', current_user.id).map {|organization| [organization.name, organization.id]}.uniq if campaign.name == Campaign::DEFAULT_CAMPAIGN_NAME
+    campaign.organizations.where(sector: sector).where('approved=true or suggested_by_user_id=?', current_user.id).map {|organization| [organization.name, organization.id]}.uniq
   end
 
   def generate_question_view(question)
