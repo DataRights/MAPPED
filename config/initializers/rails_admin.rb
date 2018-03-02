@@ -296,6 +296,8 @@ RailsAdmin.config do |config|
     list do
       field :name
       field :sector
+      field :approved
+      field :suggested_by_user
       field :custom_1
       field :custom_1_desc
       field :custom_2
@@ -311,6 +313,8 @@ RailsAdmin.config do |config|
     create do
       field :name
       field :sector
+      field :approved
+      field :suggested_by_user
       field :custom_1
       field :custom_1_desc
       field :custom_2
@@ -326,6 +330,8 @@ RailsAdmin.config do |config|
     edit do
       field :name
       field :sector
+      field :approved
+      field :suggested_by_user
       field :custom_1
       field :custom_1_desc
       field :custom_2
