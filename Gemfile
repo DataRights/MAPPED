@@ -138,3 +138,6 @@ gem 'dalli'
 gem 'bullet', group: 'development'
 
 gem 'js_cookie_rails'
+
+# Poltergeist is a driver for Capybara. It allows you to run your Capybara tests on a headless WebKit browser, provided by PhantomJS.
+# gem 'poltergeist'

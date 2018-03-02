@@ -26,6 +26,7 @@ class AccessRequestsController < ApplicationController
 
   def new
     @access_request = AccessRequest.new
+    @organization = Organization.new
     @access_request.sent_date = Date.today
     campaign_id = params[:campaign_id]
     campaign_id = Campaign.find_by(:name => Campaign::DEFAULT_CAMPAIGN_NAME) unless campaign_id

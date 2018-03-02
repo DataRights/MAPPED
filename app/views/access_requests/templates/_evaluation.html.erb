@@ -28,14 +28,12 @@
         </div>
 
         <div class="form-group">
-          <div class="form-group">
             <%= f.hidden_field(:id) %>
             <% if a.workflow.workflow_state.possible_transitions.size > 1 %>
               <%= f.select(:transition_id, options_for_select(a.workflow.workflow_state.possible_transitions.map{ |t| [t.name, t.id, { 'data-ui-form' => t.ui_form || "" }] }), {:include_blank => t('.select_blank')}, {class: "form-control", id: "workflow_transition_id_#{a.id}"}) %>
             <% elsif a.workflow.workflow_state.possible_transitions.size == 1 %>
               <%= f.hidden_field(:transition_id, :value => a.workflow.workflow_state.possible_transitions.first.id) %>
             <% end %>
-          </div>
         </div>
         <% a.campaign.questions.each do |question| %>
           <div class="form-group">
