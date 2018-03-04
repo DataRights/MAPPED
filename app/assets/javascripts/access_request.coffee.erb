@@ -1,26 +1,23 @@
-getUrl = window.location;
-baseUrl = getUrl.protocol + "//" + getUrl.host;
-
 updateTemplateContentByOrganization = (organization_id) ->
-  $.ajax
-    url: baseUrl + '/campaigns/' + $('#access_request_campaign_id').val() + '/organizations/' + organization_id + '/template'
+  cid = $('#access_request_campaign_id').val()
+  url = "/campaigns/#{cid}/organizations/#{organization_id}/template"
+  $.ajax url,
     type: 'GET'
     success: (e) ->
       $('#access_request_standard_text').val(e.template)
       $('#textContentStandard').html(e.template)
       CKEDITOR.instances['access_request_final_text'].setData e.template
-      return
-  return
 
 updateOrganizationsBySector = (sector_id) ->
-  $.ajax
-    url: baseUrl + '/campaigns/' + $('#access_request_campaign_id').val() + '/organizations/' + sector_id
+  cid = $('#access_request_campaign_id').val()
+  url = "/campaigns/#{cid}/organizations/#{sector_id}"
+  $.ajax url,
     type: 'GET'
     success: (e) ->
       $('#access_request_organization_id').children().remove()
       listitems = []
       $.each e, (key, value) ->
-        listitems += '<option value="' + value[1] + '">' + value[0] + '</option>'
+        listitems += '<option value="'+value[1]+'">'+value[0]+'</option>'
         return
       $('#access_request_organization_id').append listitems
       if Cookies.get('organization')
@@ -28,8 +25,6 @@ updateOrganizationsBySector = (sector_id) ->
         Cookies.remove('organization')
       if listitems.length > 0
         updateTemplateContentByOrganization e[0][1]
-      return
-  return
 
 $(document).on 'turbolinks:load', ->
   if Cookies.get('organization')
@@ -46,57 +41,51 @@ $(document).on 'turbolinks:load', ->
     $('#textContentExpanded').show()
 
   $('#ar_pdf_preview').on 'click', ->
-    $('#ar_pdf_preview').html("<%= I18n.t('access_requests.new.generating_preview_pdf') %>")
-    rendered_template = ''
+    p_preview = "<%= I18n.t('access_requests.new.generating_preview_pdf') %>"
+    $('#ar_pdf_preview').html(p_preview)
+    rendered = ''
     if ($('#textTypeRadioStandard').is(':checked'))
-      rendered_template = $('#textContentStandard').html()
+      rendered = $('#textContentStandard').html()
     else if ($('#textTypeRadioExpanded').is(':checked'))
-      rendered_template = CKEDITOR.instances['access_request_final_text'].getData()
+      rendered = CKEDITOR.instances['access_request_final_text'].getData()
     oReq = new XMLHttpRequest
     oReq.responseType = 'blob'
     oReq.onload = (e) ->
       file = window.URL.createObjectURL(oReq.response)
       $('#iframe_preview').attr('src', '/pdfjs/web/viewer.html?file=' + file)
-      $('#ar_pdf_preview').html("<%= I18n.t('access_requests.new.preview_button') %>")
-
-    oReq.open 'GET', baseUrl + '/access_requests/preview?rendered_template=' + encodeURIComponent(rendered_template)
+      preview_btn = "<%= I18n.t('access_requests.new.preview_button') %>"
+      $('#ar_pdf_preview').html(preview_btn)
+    enc_render = encodeURIComponent(rendered)
+    url = "/access_requests/preview?rendered_template=#{enc_render}"
+    oReq.open 'GET', url
     oReq.send()
-    return
 
   $('.send_letter_type').on 'change', ->
-    access_request_id = $(this).attr('data-ar-id')
-    template_type = $(this).val()
+    ar_id = $(this).attr('data-ar-id')
+    temp_type = $(this).val()
     $.ajax
-      url: baseUrl + '/access_request/' + access_request_id + '/template/' + template_type
+      url: "/access_request/#{ar_id}/template/#{temp_type}"
       type: 'GET'
       success: (e) ->
         $('#access_request_standard_text').val(e.template)
         $('#textContentStandard').html(e.template)
         CKEDITOR.instances['custom_text'].setData e.template
-        return
-    return
 
   $('#access_request_sector_id').on 'change', ->
     updateOrganizationsBySector(this.value)
 
   $('#access_request_organization_id').on 'change', ->
     updateTemplateContentByOrganization $(this).val()
-    return
 
   $('#textTypeRadioStandard').on 'change', ->
     if $(this).is(':checked') and $(this).val() == 'standard'
       $('#textContentStandard').show()
       $('#textContentExpanded').hide()
-    return
 
   $('#textTypeRadioExpanded').on 'change', ->
     if $(this).is(':checked') and $(this).val() == 'expanded'
       $('#textContentStandard').hide()
       $('#textContentExpanded').show()
-    return
 
   $("#accordion").on 'shown.bs.collapse', (e) ->
-      Cookies.set('active_accordion', e.target.id)
-      return
-
-  return
+    Cookies.set('active_accordion', e.target.id)

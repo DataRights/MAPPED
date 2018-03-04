@@ -194,6 +194,7 @@ en:
         select_blank: 'Please select an action ...'
         awaiting_response: 'Awaiting response'
         left: left
+        passed: passed
       evaluation:
         evaluate: 'Evaluate'
         saving: "Saving..."

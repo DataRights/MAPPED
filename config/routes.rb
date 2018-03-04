@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   get 'users/tfa'
   post 'users/enable_otp'
   post 'users/disable_otp'
+  get 'user/has_otp', to: 'users#has_otp'
 
   root 'home#index'
   get 'home', to: 'home#index'

@@ -1,6 +1,16 @@
 class UsersController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:has_otp]
+
+  def has_otp
+    u = User.find_by email: params[:email]
+    @has_otp = u&.otp_required_for_login ? true : false
+    p "has_otp: #{@has_otp}"
+    respond_to do |format|
+      format.html
+      format.json { render json: @has_otp }
+    end
+  end
 
   def disable_otp
     current_user.disable_otp!

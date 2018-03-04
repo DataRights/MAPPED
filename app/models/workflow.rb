@@ -17,10 +17,12 @@ class Workflow < ApplicationRecord
   has_many :workflow_transitions, dependent: :destroy
   validates :workflow_type_version, :workflow_state, :access_request, presence: true
   validate :workflow_type_should_be_active
-  after_create :check_transition_timeout
+  after_create :set_transition_timeout
   before_validation(on: :create) do
    self.workflow_state = WorkflowState.where(workflow_type_version: self.workflow_type_version, is_initial_state: true).first
   end
+
+  include ActionView::Helpers::DateHelper
 
   def workflow_type_should_be_active
     unless self.workflow_type_version && self.workflow_type_version.active
@@ -52,12 +54,27 @@ class Workflow < ApplicationRecord
     wt
   end
 
-  def check_transition_timeout
+  def set_transition_timeout
     self.workflow_state.possible_transitions.each do |t|
       unless t.timeout_days.nil?
         TransitionTimeoutJob.set(wait: t.timeout_days.days).perform_later(self.id, self.workflow_state.id, t.id)
         break
       end
+    end
+  end
+
+  def has_timout_transition?
+    workflow_state.possible_transitions.where.not(timeout_days: nil).first
+  end
+
+  def timeout_distance
+    if has_timout_transition?
+      t = workflow_state.possible_transitions.where.not(timeout_days: nil).first
+      timeout = updated_at + t.timeout_days.days
+      distance = distance_of_time_in_words timeout, Time.now
+      left = I18n.t('access_requests.templates.awaiting_response.left')
+      passed = I18n.t('access_requests.templates.awaiting_response.passed')
+      Time.now > timeout ? "(#{distance} #{passed})" : "(#{distance} #{left})"
     end
   end
 end
