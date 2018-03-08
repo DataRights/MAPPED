@@ -6,7 +6,9 @@ app:
   ports:
     - "3000:3000"
   environment:
-    - WEB_CONCURRENCY=1
+    - WEB_CONCURRENCY=3
+    - RAILS_ENV=production
+    - SECRET_KEY_BASE=$SECRET_KEY_BASE
     - DB_HOST=$DB_DOCKER_HOST
     - DB_USERNAME=$DB_USERNAME
     - DB_PASSWORD=$DB_PASSWORD
