@@ -1,86 +1,50 @@
 <div class="container">
   <div class="row mt-5">
     <div class="col-md-7">
-        <h1 class="display-4" style="padding-bottom: 10px"><%= t '.join_us' %></h1>
-        <div class="row" style="padding-right: 32px">
-              <!-- card 1 -->
-              <div class="col-sm" style="padding-right:0;">
-                 <div class="card bg-light mb-3 text-center" style="max-width: 20rem;">
-                    <div class="card-header"><small><%= t('.requests_sent') %></small></div>
-                    <div class="card-body">
-                      <h2 class="card-title"><%= @requests_sent %></h2>
-                    </div>
-                 </div>
-              </div>
+      <h1 class="display-4" style="padding-bottom: 10px"><%= t '.join_us' %></h1>
+      <div class="row" style="padding-right: 32px">
 
-              <!-- card 2 -->
-              <div class="col-sm" style="padding-right:0;">
-                 <div class="card bg-light mb-3 text-center" style="max-width: 20rem;">
-                    <div class="card-header"><small><%= t('.responses') %></small></div>
-                    <div class="card-body">
-                      <h2 class="card-title"><%= @responses %></h2>
-                    </div>
-                 </div>
-              </div>
+        <%= render partial: 'stats' %>
 
-              <!-- card 3 -->
-              <div class="col-sm" style="padding-right:0;">
-                 <div class="card bg-light mb-3 text-center" style="max-width: 20rem;">
-                    <div class="card-header"><small><%= t('.participants') %></small></div>
-                    <div class="card-body">
-                      <h2 class="card-title"><%= @participants %></h2>
-                    </div>
-                </div>
+        <p style="padding-right: 12px; padding-top: 10px; padding-bottom: 10px;">
+          <%= t('.participant_landing_message_part1').html_safe %>
+        </p>
+        <div style="padding-right: 18px;">
+          <div id="carouselExampleIndicators" class="carousel slide border" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <%= image_tag "datarights_screenshot_1.jpg", class: "d-block w-100" %>
               </div>
-
-              <!-- card 4 -->
-              <div class="col-sm" style="padding-right:0;">
-                 <div class="card bg-light mb-3 text-center" style="max-width: 20rem;">
-                    <div class="card-header"><small><%= t('.organizations') %></small></div>
-                    <div class="card-body">
-                      <h2 class="card-title"><%= @organizations %></h2>
-                    </div>
-                 </div>
+              <div class="carousel-item">
+                <%= image_tag "datarights_screenshot_2.jpg", class: "d-block w-100" %>
               </div>
-
-              <p style="padding-right: 12px; padding-top: 10px; padding-bottom: 10px;">
-                <%= t('.participant_landing_message_part1').html_safe %>
-              </p>
-              <div style="padding-right: 18px;">
-                <div id="carouselExampleIndicators" class="carousel slide border" data-ride="carousel">
-                  <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                  </ol>
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <%= image_tag "datarights_screenshot_1.jpg", class: "d-block w-100" %>
-                    </div>
-                    <div class="carousel-item">
-                      <%= image_tag "datarights_screenshot_2.jpg", class: "d-block w-100" %>
-                    </div>
-                    <div class="carousel-item">
-                      <%= image_tag "datarights_screenshot_3.jpg", class: "d-block w-100" %>
-                    </div>
-                  </div>
-                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only"><%= t('.previous') %></span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only"><%= t('.next') %></span>
-                  </a>
-                </div>
-               </div>
-               <p style="padding-right: 12px; padding-top: 10px; padding-bottom: 10px;">
-                 <%= t('.participant_landing_message_part2').html_safe %>
-               </p>
-               <p>
-                 <a class="btn btn-primary btn-lg" href="#" role="button"><%= t '.more_information' %> &raquo;</a>
-               </p>
+              <div class="carousel-item">
+                <%= image_tag "datarights_screenshot_3.jpg", class: "d-block w-100" %>
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only"><%= t('.previous') %></span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only"><%= t('.next') %></span>
+            </a>
+          </div>
         </div>
+        <p style="padding-right: 12px; padding-top: 10px; padding-bottom: 10px;">
+          <%= t('.participant_landing_message_part2').html_safe %>
+        </p>
+        <p>
+          <a class="btn btn-primary btn-lg" href="#" role="button"><%= t '.more_information' %>
+            &raquo;</a>
+        </p>
+      </div>
     </div>
     <div class="col-md-5 jumbotron">
       <h3><%= t('.sign_up') %></h3>

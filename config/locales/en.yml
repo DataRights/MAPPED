@@ -75,6 +75,8 @@ en:
       page_html_title: 'DataRights'
       toggle_navigation: 'Toggle navigation'
       my_profile: 'My profile'
+      profile: 'Profile'
+      edit_profile: 'Edit Profile'
       campaigns: 'Campaigns'
       notifications: 'Notifications'
       forum: 'Forum'

@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    @content = nil
+    @consent = nil
     @campaign_id = nil
 
     @title = I18n.t('users.edit.title')
@@ -48,9 +48,9 @@ class UsersController < ApplicationController
       if tv
         tc = TemplateContext.new
         tc.user = current_user
-        @content = tv.render(tc).html_safe
+        @consent = tv.render(tc).html_safe
         if @upc.content.blank?
-          @upc.content = @content
+          @upc.content = @consent
         end
       end
     end

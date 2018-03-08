@@ -1,6 +1,7 @@
 app:
   build: .
-  command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+  #command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+  command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails server"
   volumes:
     - .:/usr/src/app
   ports:
