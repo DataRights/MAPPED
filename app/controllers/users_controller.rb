@@ -1,6 +1,16 @@
 class UsersController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:has_otp]
+
+  def has_otp
+    u = User.find_by email: params[:email]
+    @has_otp = u&.otp_required_for_login ? true : false
+    p "has_otp: #{@has_otp}"
+    respond_to do |format|
+      format.html
+      format.json { render json: @has_otp }
+    end
+  end
 
   def disable_otp
     current_user.disable_otp!
@@ -17,7 +27,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    @content = nil
+    @consent = nil
     @campaign_id = nil
 
     @title = I18n.t('users.edit.title')
@@ -38,9 +48,9 @@ class UsersController < ApplicationController
       if tv
         tc = TemplateContext.new
         tc.user = current_user
-        @content = tv.render(tc).html_safe
+        @consent = tv.render(tc).html_safe
         if @upc.content.blank?
-          @upc.content = @content
+          @upc.content = @consent
         end
       end
     end

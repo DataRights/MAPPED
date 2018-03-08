@@ -5,6 +5,10 @@ class CampaignsController < ApplicationController
 
   def index
     @campaigns = Campaign.top_three
+    @requests_sent = AccessRequest.cached_count
+    @responses = 0 # ??
+    @participants = User.cached_count
+    @organizations = Organization.cached_count
   end
 
   def get_organizations

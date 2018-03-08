@@ -8,10 +8,11 @@ $(document).on "turbolinks:load", ->
     others = 'Others'
     exists = false
     $('#access_request_sector_id option').each ->
-        if this.text == others
-            exists = true
-            this.selected = true
-            $('#access_request_sector_id').val(this.value).trigger('change')
-            return false # breaks each loop
+      if this.text == others
+        exists = true
+        this.selected = true
+        $('#access_request_sector_id').val(this.value).trigger('change')
+        return false # breaks each loop
 
-    Turbolinks.visit(window.location.toString(), {action: 'replace'}) unless exists
+    url = window.location.toString()
+    Turbolinks.visit(url, {action: 'replace'}) unless exists

@@ -8,8 +8,8 @@
 
       <div class="form-row">
         <div class="form-group col-md-12">
-          <%= @content %>
-          <% if @content %>
+          <%= @consent %>
+          <% if @consent %>
             <%= f.fields_for(:user_policy_consents, @upc) do |upc| %>
               <%= upc.hidden_field(:content) %>
               <%= upc.hidden_field(:id) %>

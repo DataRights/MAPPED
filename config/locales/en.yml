@@ -75,6 +75,8 @@ en:
       page_html_title: 'DataRights'
       toggle_navigation: 'Toggle navigation'
       my_profile: 'My profile'
+      profile: 'Profile'
+      edit_profile: 'Edit Profile'
       campaigns: 'Campaigns'
       notifications: 'Notifications'
       forum: 'Forum'
@@ -194,6 +196,7 @@ en:
         select_blank: 'Please select an action ...'
         awaiting_response: 'Awaiting response'
         left: left
+        passed: passed
       evaluation:
         evaluate: 'Evaluate'
         saving: "Saving..."

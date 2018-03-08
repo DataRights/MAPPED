@@ -148,7 +148,7 @@
             &nbsp;<%= t('.add_comment') %></a>
         </small>
         <br/>
-        <% a.comments.each do |c| %>
+        <% a.comments.includes(:user).each do |c| %>
         <small>
           <%= image_tag "user.svg", height: 18, align: 'left' %>
           &nbsp;

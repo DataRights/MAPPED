@@ -15,8 +15,8 @@
             <%= f.password_field :password, autocomplete: 'off', class: 'form-control' %>
           </div>
 
-          <div class="form-group">
-            <%= f.label :otp_attempt, 'One Time Password (Only if two Factor authentication enabled)' %>
+          <div id="otp_fields" class="form-group collapse">
+            <%= f.label :otp_attempt, 'One Time Password' %>
             <%= f.text_field :otp_attempt, autocomplete: 'off', class: 'form-control' %>
           </div>
 

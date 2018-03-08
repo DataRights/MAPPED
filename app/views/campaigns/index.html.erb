@@ -1,15 +1,22 @@
 <div class="jumbotron">
   <div class="container">
     <h1 class="display-3"><%= t('layouts.application.campaigns') %></h1>
-    <p>
+    <p class='mt-5'>
       <%= t('.general_text') %>
     </p>
+    <!--
     <p>
       <a class="btn btn-primary btn-lg" href="#" role="button"><%= t('.learn_more') %> »</a>
     </p>
+    -->
   </div>
 </div>
 <div class="container">
+  <div class="row mt-5">
+    <%= render partial: '/home/stats' %>
+  </div>
+</div>
+<div class="container mt-5">
   <% @campaigns.each do |c| %>
     <div class="row">
       <div class="col-md-4">
