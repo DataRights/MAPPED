@@ -81,7 +81,7 @@ class WorkflowTransition < ApplicationRecord
     if self.failed_action.nil?
       self.status = :success
       self.workflow.workflow_state = self.transition.to_state
-      self.workflow.check_transition_timeout
+      self.workflow.set_transition_timeout
     end
   end
 

@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  devise_for :users, :controllers => { :invitations => 'users/invitations' }
+  devise_for :users, :controllers => { :invitations => 'users/invitations', :registrations => 'users/registrations' }
 
   # Workflow
   get 'workflow/diagram/:id', to: 'workflow#diagram'
@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   get 'users/tfa'
   post 'users/enable_otp'
   post 'users/disable_otp'
+  get 'user/has_otp', to: 'users#has_otp'
 
   root 'home#index'
   get 'home', to: 'home#index'
