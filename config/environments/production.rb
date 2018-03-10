@@ -59,7 +59,7 @@ Rails.application.configure do
 
   # Config for devise links in the emails
   # TODO: Change this to the actual hostname of mapped project
-  config.action_mailer.default_url_options = { host: 'localhost' }
+  config.action_mailer.default_url_options = { host: ENV['HOST'] }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
@@ -93,7 +93,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.discourse_server = "http://forum.datarights.me/"
+  config.discourse_server = ENV['DISCOURSE_SERVER']
 
   config.exceptions_app = self.routes
 end
