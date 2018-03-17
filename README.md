@@ -1,5 +1,5 @@
-[![Coverage Status](https://coveralls.io/repos/github/DataRights/MAPPED/badge.svg?branch=develop)](https://coveralls.io/github/DataRights/MAPPED?branch=develop)
-[![Build status](https://travis-ci.org/data-in-sight/datarights.svg?branch=develop)](https://travis-ci.org/data-in-sight/datarights)
+[![Coverage Status](https://coveralls.io/repos/github/datarights/DataInSight/badge.svg?branch=develop)](https://coveralls.io/github/datarights/DataInSight?branch=develop)
+[![Build status](https://travis-ci.org/datarights/DataInSight.svg?branch=develop)](https://travis-ci.org/datarights/DataInSight)
 
 # MAPPED
 
