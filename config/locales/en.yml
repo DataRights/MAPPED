@@ -30,11 +30,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  project_name: 'DataRights'
+  project_name: 'DataInSight'
   user_links:
     sign_up: "Sign Up"
-    login: "Login"
-    logout: "Logout"
+    login: "Sign In"
+    logout: "Sign Out"
     forgot_your_password: "Forgot your password?"
     didnt_receive_confirmation: "Didn't receive confirmation instructions?"
     didnt_receive_unlock: "Didn't receive unlock instructions?"
@@ -51,7 +51,7 @@ en:
     attachment_max_size: 'maximum attachment size is 1.5MB'
   errors:
     transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
-    campaign_not_found: 'Campaign is not found'
+    campaign_not_found: 'Campaign not found'
     organization_not_found: 'Organization not found'
     template_version_not_found: 'Template version not found'
   workflow:
@@ -64,7 +64,7 @@ en:
     undo_history: 'Rollback to %{state}'
     undo_transition_was_successfull: 'Undo operation successfully completed!'
   tfa:
-    title: 'Two Factor Authentication'
+    title: 'Manage 2FA'
     help: 'Two-factor authentication, or 2FA, is a way of logging into websites that requires more than just a password. Using a password to log into a website is susceptible to security threats, because it represents a single piece of information a malicious person needs to acquire. The added security that 2FA provides is requiring additional information to sign in.'
     enable: 'Enable 2FA'
     disable: 'Disable 2FA'
@@ -72,11 +72,11 @@ en:
   rollback_method_does_not_exist_for_action: 'Rollback method does not exist for action'
   layouts:
     application:
-      page_html_title: 'DataRights'
+      page_html_title: 'DataInSight'
       toggle_navigation: 'Toggle navigation'
       my_profile: 'My profile'
-      profile: 'Profile'
-      edit_profile: 'Edit Profile'
+      profile: 'Settings'
+      edit_profile: 'Edit Name/Address'
       campaigns: 'Campaigns'
       notifications: 'Notifications'
       forum: 'Forum'
@@ -88,16 +88,16 @@ en:
       home: 'Home'
       welcome: 'Welcome'
       change_password: 'Change Password'
-      consents: Consents
-      attachments: Attachments
+      consents: 'Manage Consents'
+      attachments: 'Manage Attachments'
   notificaitons:
-    diget_email_subject: 'Your digest DataRights notifications'
+    diget_email_subject: 'Your digest DataInSight notifications'
     insert_failed: "Inserting notification in database failed with error: %{errors}"
   home:
     index:
       join_us: 'Join us!'
-      participant_landing_message_part1: "<strong>datarights.me</strong> is a platform that helps citizens to send access requests to organizations. An access request is a request by a citizen to receive from an organization (information about) the personal data that that organization is processing in relation to him/her. The right to receive a swift, complete and understandable answer to such a request, called right of access, is guaranteed under European law in order to promote citizen empowerment."
-      participant_landing_message_part2: "<strong>datarights.me</strong> provides a structured process in order to facilitate making use of the right of access to citizens. Moreover it is a platform where citizens come together to make use of this right as part of a citizens collective, and create crowd-sourced and crowd-interpreted knowledge of data practices in society. This should eventually help to initiate a re-balancing of power between citizens, governments and corporations."
+      participant_landing_message_part1: "<strong>DataInSight</strong> is a collaborative project that helps citizens send <i>data access requests</i> and share their experiences and findings. An access request is a _right_ that allows a citizen to ask any organization whether they have collected _personal data_ about them, and if so, what they use it for. Receiving a timely, complete, and understandable answer is guaranteed under European law."
+      participant_landing_message_part2: "<strong>DataInSight</strong> promotes exercising the right of access in a collective manner—to create _crowdsourced knowledge_ about actual data practices. Such knowledge increases accountability and helps restore balance among citizens, private firms, and public agencies collecting personal data. You can read more about our <a href="https://www.petsymposium.org/2017/papers/hotpets/rights-of-access.pdf" target="_blank">research design</a> and the results of our <a href="https://ssrn.com/abstract=3107292" target="_blank">pilot study</a>."
       edit_your_profile: 'Edit your personal profile'
       more_information: 'More Information'
       previous: 'Previous'
@@ -136,8 +136,8 @@ en:
   helpers:
     label:
       user:
-        email: "Email Address"
-        password: "Password (minimum 6 characters)"
+        email: "Email address"
+        password: "Password"
         password_confirmation: "Password confirmation"
   notifications:
     index:
