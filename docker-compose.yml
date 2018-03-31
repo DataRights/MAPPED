@@ -1,6 +1,6 @@
 app:
   build: .
-  command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+  command: /bin/sh -c "rm -f tmp/pids/server.pid && (rake db:migrate 2>/dev/null || rake db:setup) && bundle exec puma -C config/puma.rb"
   volumes:
     - .:/usr/src/app
   ports:

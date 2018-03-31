@@ -9,7 +9,7 @@ end
 # Begin Default rails gems #
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.1'
 # Use PostgreSQL as the database for Active Record
 gem 'pg', '~> 0.21'
 # Use Puma as the app server
@@ -138,6 +138,9 @@ gem 'dalli'
 gem 'bullet', group: 'development'
 
 gem 'js_cookie_rails'
+
+# A Ruby gem that provides the ISO 639-2 and ISO 639-1 data sets along with some convenience methods for accessing different entries and entry fields. The data comes from the LOC ISO 639-2 UTF-8 data set.
+gem 'iso639'
 
 # Poltergeist is a driver for Capybara. It allows you to run your Capybara tests on a headless WebKit browser, provided by PhantomJS.
 # gem 'poltergeist'

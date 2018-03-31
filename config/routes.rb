@@ -25,11 +25,13 @@ Rails.application.routes.draw do
     resources :access_requests, except: [:delete, :show]
   end
 
-  get  'access_requests/preview'
-  get  'access_request/:id/download', to: 'access_requests#download', as: 'downlaod_access_request'
   post 'access_request/:id/comment', to: 'access_requests#comment', as: 'access_request_comment'
-  get  'access_request/:id/template/:template_type', to: 'access_requests#template', as: 'access_request_template'
+  get 'access_requests/preview'
+  get 'access_request/:id/download', to: 'access_requests#download', as: 'downlaod_access_request'
+  get 'access_request/:id/template/:template_type', to: 'access_requests#template', as: 'access_request_template'
+  get 'access_request/possible_templates/:organization_id', to: 'access_requests#possible_templates', as: 'access_request_possible_templates'
   get 'campaigns/:id/organizations/:sector_id', to: 'campaigns#get_organizations', as: 'get_campaign_organizations'
+  get 'campaigns/:id/organizations/:organization_id/template/:template_version_id', to: 'campaigns#get_organization_template', as: 'get_campaign_organization_template_with_lang'
   get 'campaigns/:id/organizations/:organization_id/template', to: 'campaigns#get_organization_template', as: 'get_campaign_organization_template'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

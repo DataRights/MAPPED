@@ -279,3 +279,4 @@ en:
       privacy_policy_url: 'Privacy Policy URL'
       address_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
       address_help_title: "Why do we ask for organization's address?"
+      template_label: Template
