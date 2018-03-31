@@ -1,6 +1,21 @@
+loadTemplates = (organization_id) ->
+  url = "/access_request/possible_templates/#{organization_id}"
+  $.ajax url,
+    type: 'GET'
+    success: (e) ->
+      $('#access_request_template_version_id').children().remove()
+      listitems = []
+      $.each e.templates, (key, value) ->
+        listitems += "<option value='#{value[0]}'>#{value[1]}</option>"
+
+      $('#access_request_template_version_id').append listitems
+      updateTemplateContentByOrganization organization_id
+
 updateTemplateContentByOrganization = (organization_id) ->
   cid = $('#access_request_campaign_id').val()
   url = "/campaigns/#{cid}/organizations/#{organization_id}/template"
+  url = "#{url}/#{$('#access_request_template_version_id').val()}"
+
   $.ajax url,
     type: 'GET'
     success: (e) ->
@@ -8,7 +23,7 @@ updateTemplateContentByOrganization = (organization_id) ->
       $('#textContentStandard').html(e.template)
       CKEDITOR.instances['access_request_final_text'].setData e.template
 
-updateOrganizationsBySector = (sector_id) ->
+sectorChanged = (sector_id) ->
   cid = $('#access_request_campaign_id').val()
   url = "/campaigns/#{cid}/organizations/#{sector_id}"
   $.ajax url,
@@ -18,20 +33,22 @@ updateOrganizationsBySector = (sector_id) ->
       listitems = []
       $.each e, (key, value) ->
         listitems += '<option value="'+value[1]+'">'+value[0]+'</option>'
-        return
+
       $('#access_request_organization_id').append listitems
       if Cookies.get('organization')
         $('#access_request_organization_id').val(Cookies.get('organization'))
         Cookies.remove('organization')
       if listitems.length > 0
-        updateTemplateContentByOrganization e[0][1]
+        loadTemplates(e[0][1])
+      else
+        $('#access_request_template_version_id').children().remove()
 
 $(document).on 'turbolinks:load', ->
   if Cookies.get('organization')
     sector_id = $('#access_request_sector_id option:contains(Others)').val()
     if sector_id
       $('#access_request_sector_id').val(sector_id)
-      updateOrganizationsBySector(sector_id)
+      sectorChanged(sector_id)
 
   last = Cookies.get('active_accordion')
   $("#" + last).addClass("show") if last? and $('#' + last).length
@@ -72,10 +89,14 @@ $(document).on 'turbolinks:load', ->
         CKEDITOR.instances['custom_text'].setData e.template
 
   $('#access_request_sector_id').on 'change', ->
-    updateOrganizationsBySector(this.value)
+    sectorChanged(this.value)
 
   $('#access_request_organization_id').on 'change', ->
     updateTemplateContentByOrganization $(this).val()
+
+  $('#access_request_template_version_id').on 'change', ->
+    org_id = $('#access_request_organization_id').val()
+    updateTemplateContentByOrganization org_id
 
   $('#textTypeRadioStandard').on 'change', ->
     if $(this).is(':checked') and $(this).val() == 'standard'

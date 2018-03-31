@@ -30,6 +30,7 @@ class AccessRequest < ApplicationRecord
   attr_accessor :expanded
   attr_accessor :standard
   attr_accessor :sector_id
+  attr_accessor :template_version_id
 
   validates :user, :organization, :campaign, presence: true
 
@@ -53,14 +54,36 @@ class AccessRequest < ApplicationRecord
     wf.save!
   end
 
-  def get_rendered_template(template_type)
-    @rendered_template ||= AccessRequest.get_rendered_template(template_type, self.user, self.campaign, self.organization, self)
+  def self.available_templates(template_type, organization)
+    return [] unless organization.sector
+
+    if template_type.class == :String
+      template_type = template_type.to_sym
+    end
+
+    return [] unless Template.template_types.include?(template_type)
+
+    active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
+    return [] if active_templates.blank?
+
+    template_versions = []
+
+    active_templates.each do |template|
+      template.template_versions.where(:active => true).each do |tv|
+        template_versions << tv unless template_versions.include?(tv)
+      end
+    end
+
+    template_versions
   end
 
-  def self.get_rendered_template(template_type, user, campaign, organization, access_request=nil)
+  def get_rendered_template(template_type, template_version=nil)
+    @rendered_template ||= AccessRequest.get_rendered_template(template_type, self.user, self.campaign, self.organization, self, template_version)
+  end
+
+  def self.get_rendered_template(template_type, user, campaign, organization, access_request=nil, template_version=nil)
     return nil unless organization.sector
-    expected_langs = organization.languages
-    accepted_versions = []
+
     if template_type.class == :String
       template_type = template_type.to_sym
     end
@@ -71,20 +94,20 @@ class AccessRequest < ApplicationRecord
 
     active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
     return nil if active_templates.blank?
-    active_templates.each do |template|
-      template.template_versions.where(:active => true).each do |active_version|
-        accepted_versions << active_version if expected_langs.include? active_version.language.to_sym
+
+    template_versions = []
+    active_templates.each do |t|
+      t.template_versions.where(:active => true).each do |tv|
+        template_versions << tv unless template_versions.include?(tv)
       end
     end
 
-    if accepted_versions.blank? # If did not found any template with specified language return the first active template
-      accepted_versions << active_templates.first.template_versions.where(:active => true).first
+    result = nil
+    if template_version
+      result = template_versions.detect {|t| t.id == template_version.id}
+    else
+      result = template_versions.first
     end
-
-    prefered_lang = user.preferred_language
-    prefered_lang ||= :en
-    result = accepted_versions.detect {|active_version| active_version.language == prefered_lang}
-    result ||= accepted_versions.first
 
     if result
       context = TemplateContext.new

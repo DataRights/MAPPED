@@ -22,17 +22,22 @@
         <div class="form-group">
           <%= label_tag(:sector_id, t('.sector_label')) %>
           <br>
-          <%= f.select(:sector_id, options_for_select(@sectors,@selected_sector), {}, {class: "form-control", required: true}) %>
+          <%= f.select(:sector_id, options_for_select(@sectors,@selected_sector), {}, {class: "form-control", include_blank: false}) %>
         </div>
         <div class="form-group">
           <%= f.label(:organization_id, t('.organization_label')) %>
           <br>
-          <%= f.select(:organization_id, options_for_select(@organizations,@selected_organization), {}, {class: "form-control", required: true}) %>
+          <%= f.select(:organization_id, options_for_select(@organizations,@selected_organization), {}, {class: "form-control", include_blank: false}) %>
         </div>
         <div class="m-3">
           <small>
             <a href="#" data-toggle="modal" data-target="#addOrganizationModal" role="button"> <%= t('.click_here') %></a> <%= t('.add_organization') %>
           </small>
+        </div>
+        <div class="form-group">
+          <%= f.label(:template_version_id, t('.template_label')) %>
+          <br>
+          <%= f.select(:template_version_id, options_for_select(@templates.pluck(:version, :id),@selected_template.id), {}, {class: "form-control", include_blank: false}) %>
         </div>
         <!-- TODO: after creating wiki pages for organization uncomment this line
         <div class="m-3">

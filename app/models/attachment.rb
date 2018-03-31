@@ -11,6 +11,8 @@
 #  workflow_transition_id :integer
 #
 
+# response category: post, email, ..., ?
+
 class Attachment < ApplicationRecord
   belongs_to :workflow_transition
   has_many :tags, :as => :tagable, dependent: :destroy

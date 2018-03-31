@@ -2,7 +2,7 @@ class AccessRequestsController < ApplicationController
   include AccessRequestsHelper
 
   before_action :authenticate_user!
-  before_action :find_access_request, except: [:index, :new, :create, :preview]
+  before_action :find_access_request, except: [:index, :new, :create, :preview, :possible_templates]
 
   def index
     @access_requests = []
@@ -28,6 +28,8 @@ class AccessRequestsController < ApplicationController
     @access_request = AccessRequest.new
     @organization = Organization.new
     @access_request.sent_date = Date.today
+    @templates = []
+    @selected_template = nil
     campaign_id = params[:campaign_id]
     campaign_id = Campaign.find_by(:name => Campaign::DEFAULT_CAMPAIGN_NAME) unless campaign_id
     unless campaign_id
@@ -51,7 +53,17 @@ class AccessRequestsController < ApplicationController
       redirect_to home_path and return
     end
     organization = Organization.find_by_id(@selected_organization[1])
-    @rendered_template = AccessRequest.get_rendered_template(:access_request, current_user, @campaign, organization)
+    @templates = AccessRequest.available_templates(:access_request, organization)
+    @selected_template ||= begin
+      if @templates.blank?
+        nil
+      elsif mylang_version = @templates.detect {|t| t.language == current_user.preferred_language}
+        mylang_version
+      else
+        @templates.first
+      end
+    end
+    @rendered_template = AccessRequest.get_rendered_template(:access_request, current_user, @campaign, organization, nil, @selected_template)
     unless @rendered_template
       flash[:notice] = I18n.t('errors.template_version_not_found')
       redirect_to home_path and return
@@ -78,6 +90,16 @@ class AccessRequestsController < ApplicationController
     @campaign = Campaign.find params[:campaign_id]
     @campaign_count = AccessRequest.where('campaign_id = ? AND user_id = ?', @campaign.id,current_user.id).count
     @rendered_template = @access_request.final_text
+    @templates = AccessRequest.available_templates(:access_request, @access_request.organization)
+    @selected_template ||= begin
+      if @templates.blank?
+        nil
+      elsif mylang_version = @templates.detect {|t| t.language == current_user.preferred_language}
+        mylang_version
+      else
+        @templates.first
+      end
+    end
   end
 
   def update
@@ -113,8 +135,13 @@ class AccessRequestsController < ApplicationController
     end
   end
 
+  def possible_templates
+    organization = Organization.find params[:organization_id]
+    render json: {success: true, templates: AccessRequest.available_templates(:access_request, organization).pluck(:id, :version)}
+  end
+
   def template
-    render :json => { :success => true, :template => @access_request.get_rendered_template(params[:template_type].to_sym) }
+    render json: { success: true, template: @access_request.get_rendered_template(params[:template_type].to_sym) }
   end
 
   private
@@ -127,6 +154,5 @@ class AccessRequestsController < ApplicationController
     unless @access_request.user_id == current_user.id
       raise "Access Request does not belong to your user: #{@access_request.user_id} != #{current_user.id}"
     end
-
-  end
+   end
 end

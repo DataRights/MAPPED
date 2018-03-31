@@ -36,9 +36,11 @@
                   <% end %>
                 </a>
               </li>
+              <!--
               <li class="nav-item">
                 <a class="nav-link" href="<%= Rails.configuration.discourse_server || '#' %>"><%= t '.forum' %></a>
               </li>
+              -->
               <li class="nav-item">
                 <%= link_to t('.faq'), faq_index_path, class: 'nav-link' %>
               </li>
@@ -61,8 +63,8 @@
                   </a>
                   <div class="dropdown-menu" aria-labelledby="dropdown_user">
                     <%= link_to t('.edit_profile'), :user_profile_edit, class:"dropdown-item" %>
-                    <%= link_to t('tfa.title'), :users_tfa, class: 'dropdown-item' %>
                     <%= link_to t('.change_password'), :edit_user_registration, class: 'dropdown-item' %>
+                    <%= link_to t('tfa.title'), :users_tfa, class: 'dropdown-item' %>
                     <%= link_to t('.consents'), :consents_index, class: 'dropdown-item' %>
                     <%= link_to t('.attachments'), :attachments, class: 'dropdown-item' %>
                   </div>
