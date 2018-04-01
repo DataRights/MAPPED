@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <h1 class="display-4">
+    <%= t('.title') %>
+  </h1>
+
+  <div class="col-md-8 mt-5">
+    <%= form_for(@user, url: notifications_update_path(:user)) do |f| %>
+
+    <fieldset>
+      <div class="form-row" data-turbolinks="false">
+        <div class="form-group col-md-12">
+          <%= f.collection_check_boxes(:notification_setting_ids, NotificationSetting.all, :id, :name) do |b| %>
+            <%= b.label class: "d-block", :"data-value" => b.value do %>
+              <%= b.check_box(class: "toggle", :"data-value" => b.value, :"data-toggle" => 'toggle', :"data-onstyle" => 'success', :"data-offstyle" => 'danger') + "&nbsp; &nbsp;".html_safe + b.text %>
+            <% end %>
+          <% end %>
+        </div>
+        <script type="text/javascript">
+          $('input[type="checkbox"].toggle').bootstrapToggle(); // assumes the checkboxes have the class "toggle" to fix problem with turbolinks
+        </script>
+      </div>
+    </fieldset>
+
+    <%= f.submit t('.submit'), class: "btn btn-primary" %>
+
+<% end %>
+
+  </div>
+</div>

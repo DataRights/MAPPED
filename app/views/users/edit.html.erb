@@ -1,4 +1,4 @@
-<div class="container" style="padding-top: 3em;">
+<div class="container mt-5">
   <h1 class="display-4">
     <%= @title %>
   </h1>
@@ -48,24 +48,6 @@
           <%= f.select(:preferred_language, [['English', 'en'], ['Dutch', 'nl']], {}, {class: "form-control w-50"}) %>
         </div>
       </div>
-
-      <br />
-      <fieldset>
-        <legend>Notification Settings <%= image_tag "info_with_circle.svg", height: 16, style: 'cursor: pointer', role: 'button', :"data-toggle" => 'popover', :"data-content" => t('.notification_help_content'), :"data-original-title" => t('.notification_help_title'), :"aria-describedby" => 'popover769085' %></legend>
-        <br />
-        <div class="form-row" data-turbolinks="false">
-          <div class="form-group col-md-12">
-            <%= f.collection_check_boxes(:notification_setting_ids, NotificationSetting.all, :id, :name) do |b| %>
-              <%= b.label class: "d-block", :"data-value" => b.value do %>
-                <%= b.check_box(class: "toggle", :"data-value" => b.value, :"data-toggle" => 'toggle', :"data-onstyle" => 'success', :"data-offstyle" => 'danger') + "&nbsp; &nbsp;".html_safe + b.text %>
-              <% end %>
-            <% end %>
-          </div>
-          <script type="text/javascript">
-            $('input[type="checkbox"].toggle').bootstrapToggle(); // assumes the checkboxes have the class "toggle" to fix problem with turbolinks
-          </script>
-        </div>
-      </fieldset>
 
       <br />
       <fieldset>

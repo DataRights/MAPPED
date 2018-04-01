@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   delete 'consent/:id/revoke', :to => 'consents#revoke', as: 'revoke_consent'
 
   get 'notifications/index'
+  get 'notifications/settings'
+  match 'notifications/update', to: 'notifications#update', via: [:patch, :put]
 
   get 'errors/not_found'
   get 'errors/internal_server_error'

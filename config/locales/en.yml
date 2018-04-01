@@ -79,6 +79,8 @@ en:
       edit_profile: 'Edit Profile'
       campaigns: 'Campaigns'
       notifications: 'Notifications'
+      view_notifications: 'View Notifications'
+      notifications_settings: 'Notification Settings'
       forum: 'Forum'
       faq: 'FAQ'
       help_desk: 'Helpdesk'
@@ -120,8 +122,6 @@ en:
       first_name_help_title: 'Why do we ask for your first name?'
       last_name_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
       last_name_help_title: 'Why do we ask for your last name?'
-      notification_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
-      notification_help_title: 'Why do we send you notification?'
       address_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
       address_help_title: 'Why do we ask for your address?'
       lang_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
@@ -142,6 +142,12 @@ en:
   notifications:
     index:
       you_have_no_notification: 'You have no notifications.'
+    settings:
+      title: 'Notification Settings'
+      notification_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
+      notification_help_title: 'Why do we send you notification?'
+      submit: 'Submit'
+      success: 'Notification settings successfully updated!'
   consents:
     index:
       overview_of_consents: 'Overview of Consents'

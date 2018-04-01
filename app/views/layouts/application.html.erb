@@ -11,7 +11,7 @@
   <body>
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
       <a class="navbar-brand" href="/">
-        <%= image_tag "datarights.svg", height: 24 %>
+        <%= image_tag "datainsight.svg", height: 24 %>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="<%= t '.toggle_navigation' %>">
         <span class="navbar-toggler-icon"></span>
@@ -29,12 +29,24 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="<%= notifications_index_path %>">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdown_notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <%= t '.notifications' %>
+                    <% if @unread_notifications_count > 0 %>
+                      <span class="badge badge-danger"><%= @unread_notifications_count %></span>
+                    <% end %>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown_user">
+                    <%= link_to t('.view_notifications'), :notifications_index, class:"dropdown-item" %>
+                    <%= link_to t('.notifications_settings'), :notifications_settings, class:"dropdown-item" %>
+                  </div>
+                </li>
+                <!-- <a class="nav-link" href="<%= notifications_index_path %>">
                   <%= t '.notifications' %>
                   <% if @unread_notifications_count > 0 %>
                     <span class="badge badge-danger"><%= @unread_notifications_count %></span>
                   <% end %>
-                </a>
+                </a> -->
               </li>
               <!--
               <li class="nav-item">
