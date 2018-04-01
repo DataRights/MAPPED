@@ -1,6 +1,9 @@
 <div class="container">
   <div class="row mt-5">
     <div class="col">
+      <div class="float-right">
+        <%= link_to t('.notification_settings'), notifications_settings_path, class: 'btn btn-primary' %>
+      </div>
       <h3><%= t('layouts.application.notifications') %></h3>
       <div class="list-group mt-4">
         <% @web_notifications.each do |wn| %>
