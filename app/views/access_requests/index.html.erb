@@ -23,7 +23,7 @@
         </h5>
         <p>
           <a class="btn btn-secondary disabled" href="#" role="button" aria-disabled="true">&nbsp;</a>
-          <% a.workflow.workflow_transitions.each do |wt| %>
+          <% a.workflow.workflow_transitions.joins(:transition).where(transitions: {transition_type: :event}).each do |wt| %>
             <a class="btn btn-secondary disabled" href="#" role="button" aria-disabled="true">&nbsp;</a>
           <% end %>
           <% if a.workflow.workflow_state.workflow_state_form %>

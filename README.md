@@ -9,134 +9,32 @@ This README documents steps that are necessary to set the development environmen
 
 # Using Docker
 
-1- Install PostgreSQL on your system.
-
-2- Edit pg_hba.conf file and add this line:
-
-`host    all             all             172.17.0.0/16           trust`
-
-3- Edit /etc/hosts and add this line:
-
-`172.17.0.1      localhost`
-
-4- Restart PostgreSQL.
-
-5- Create the docker image
-
-`docker build -t mapped .`
-
-6- Create environment variables for your docker images, for example on macOS:
-
-`vi ~/.profile`
-
-Add this lines:
-
-`export DB_DOCKER_HOST='docker.for.mac.host.internal'`
-
-`export DB_USERNAME='YOUR_POSTGRES_USERNAME'`
-
-`export DB_PASSWORD='YOUR_POSTGRES_PASSWORD'`
-
-`export DB_PORT=5432`
-
-And then reload the variables:
-
-`source ~/.profile`
-
-7- Build and up using docker-compose
+1- Build and run app using docker-compose
 
 `docker-compose build`
 
 `docker-compose up`
 
-If this is the first time you are running the application and you want to setup the database use these commands to create the database:
-
-8- Create the database for the first time:
+2- For running tests you can go to docker bash
 
 `docker exec -it mapped_app_1 bash`
 
-`bundle exec rake db:create`
+And then run tests to make sure everything is ok:
 
-`bundle exec rake db:migrate`
-
-`bundle exec rake db:seed`
-
-9- For running tests you can go to docker bash
-
-`docker exec -it mapped_app_1 bash`
-
-And run tests to make sure everything is ok:
-
-`rake test`
+`rails test`
 
 
-# Without Docker
-
-### Ruby version
-
-We are using the latest stable version of Ruby 2.3. You can install it using [rvm](https://rvm.io).
-
-### System dependencies
-
-This steps should work on macOS and different distros of Linux as well as other Unix based operating systems.
-
-Install bundler if it's not already installed:
-
-`gem install bundler`
-
-Go to the root directory of project and run:
-
-`bundle install`
-
-### Chrome and ChromeDriver
-
-In order to run system tests using rake test:system make sure you have Chrome and [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/) installed.
-
-### capybara-webkit
-
-[Installing Qt and compiling capybara webkit](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit)
-
-### Configuration
-
-Define DB_USERNAME and DB_PASSWORD environment variables to make config/database.yml work.
-We are using PostgreSQL 9.6.5 and some specific PostgreSQL features like JSONB.
-
-Generate a random key using irb:
-`SecureRandom.base64(64)`
-
-and export the key `MAPPED_TOTP_ENCRYPTION_KEY` with the above value. for example:
-
-`export MAPPED_TOTP_ENCRYPTION_KEY='UWsV8/Lz3Dr4qmQHNKGxj885nWt0+BETAZrbvsV/21yH5RC/7MBlW2fxB3tP97PyH5ryen/ZV1uoBQHhPCDWPg=='`
-
-Instead of exporting all these environment variables, you can also create a config/local_env.yml file and define all these variables in there. This file is in .gitignore and will not pushed into Git.
-
-### Database creation and initalization
-
-`bundle exec rake db:setup`
-
-### How to run the test suite
-
-Tests are using simplecov and Coverall to generate coverage reports.
-
-`bundle exec rake test:system test`
-
-Or you can use:
-
-`./run_tests`
-
-### Enabling Git pre-hooks for CI
-
-`pre-commit install`
-
-This creates a .git/hooks/pre-commit script which will check your git config and run checks that are enabled. modify the file .git/hooks/pre-commit and remove all the lines and add these lines:
-
-`RAILS_ENV=test bundle exec rake test:system test`
-
-`bundle exec rake assets:precompile`
-
-# Deployment instructions
+# Deployment on Heroku
 
 Deployments are done using Heroku, any push to master branch will trigger a deploy to Heroku.
+
+# Deployment on servers using Docker
+
+Define all the environment variables defined in docker-compose-production.yml and the run these commands:
+
+`docker-compose -f docker-compose-production.yml build`
+
+`docker-compose -f docker-compose-production.yml up -d`
 
 # License
 

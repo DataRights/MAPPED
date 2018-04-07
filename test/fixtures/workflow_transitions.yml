@@ -22,9 +22,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   workflow: one
   transition: one
-  status: MyString
+  status: success
   failed_action: one
   action_failed_message: MyString
   failed_guard: one
@@ -32,6 +33,7 @@ one:
   internal_data:
 
 two:
+  id: 2
   workflow: two
   transition: two
   status: MyString
@@ -39,4 +41,37 @@ two:
   action_failed_message: MyString
   failed_guard: two
   failed_guard_message: MyString
+  internal_data:
+
+wt_access_request_created:
+  id: 3
+  workflow: four
+  transition: access_request_created
+  status: success
+  failed_action:
+  action_failed_message:
+  failed_guard:
+  failed_guard_message:
+  internal_data:
+
+wt_ar_sent:
+  id: 4
+  workflow: four
+  transition: ar_sent
+  status: success
+  failed_action:
+  action_failed_message:
+  failed_guard:
+  failed_guard_message:
+  internal_data:
+
+wt_data_came_back_transition:
+  id: 5
+  workflow: four
+  transition: data_came_back_transition
+  status: success
+  failed_action:
+  action_failed_message:
+  failed_guard:
+  failed_guard_message:
   internal_data:

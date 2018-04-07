@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180301162053) do
+ActiveRecord::Schema.define(version: 20180406074726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -326,6 +326,8 @@ ActiveRecord::Schema.define(version: 20180301162053) do
     t.float "timeout_days"
     t.integer "ui_form"
     t.string "history_description"
+    t.integer "display_order", default: 10
+    t.integer "transition_type", default: 0
     t.index ["from_state_id"], name: "index_transitions_on_from_state_id"
     t.index ["to_state_id"], name: "index_transitions_on_to_state_id"
   end

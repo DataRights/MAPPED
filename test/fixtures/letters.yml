@@ -20,11 +20,11 @@ one:
   suggested_text: MyString
   final_text: MyString
   remarks: MyString
-  workflow_transition: one
+  workflow_transition_id: 1
 
 two:
   letter_type: 1
   suggested_text: MyString
   final_text: MyString
   remarks: MyString
-  workflow_transition: two
+  workflow_transition_id: 2

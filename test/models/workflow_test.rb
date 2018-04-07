@@ -27,4 +27,22 @@ class WorkflowTest < ActiveSupport::TestCase
     assert_equal 1, wf.errors.messages[:workflow_type_version].count, "There should be one error about workflow_type_version in code: #{wf.errors.messages[:workflow_type_version]}"
     assert_equal I18n.t('validations.workflow_type_should_be_active'), wf.errors.messages[:workflow_type_version].first
   end
+
+  test "Using undo user should be able to rollback multiple transitions" do
+    wt = workflow_transitions(:wt_data_came_back_transition)
+    wf = wt.workflow
+    assert_equal workflow_states(:data_came_back), wf.workflow_state
+
+    result = wf.undo
+    assert_equal true, result[:success], result[:message]
+    assert_equal workflow_states(:waiting_for_the_organization_reply), wf.workflow_state
+
+    result = wf.undo
+    assert_equal true, result[:success], result[:message]
+    assert_equal workflow_states(:waiting_to_send_the_ar), wf.workflow_state
+
+    result = wf.undo
+    assert_equal true, result[:success], result[:message]
+    assert_equal workflow_states(:waiting_for_ar_creation), wf.workflow_state
+  end
 end

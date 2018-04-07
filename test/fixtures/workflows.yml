@@ -26,3 +26,8 @@ three:
   workflow_type_version: one
   workflow_state: one
   access_request: three
+
+four:
+  workflow_type_version: version_one_point_o_mapped_social
+  workflow_state: data_came_back
+  access_request: four

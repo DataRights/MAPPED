@@ -17,10 +17,10 @@ one:
   title: MyString
   content_type: MyString
   content:
-  workflow_transition: one
+  workflow_transition_id: 1
 
 two:
   title: MyString
   content_type: MyString
   content:
-  workflow_transition: two
+  workflow_transition_id: 2

@@ -64,3 +64,7 @@ two:
 three:
   email: 'test@test.com'
   confirmed_at: '2018-12-07 19:34'
+
+four:
+  email: 'foo@bar.com'
+  confirmed_at: '2018-12-07 19:34'

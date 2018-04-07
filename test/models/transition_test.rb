@@ -11,6 +11,8 @@
 #  timeout_days        :float
 #  ui_form             :integer
 #  history_description :string
+#  display_order       :integer          default(10)
+#  transition_type     :integer          default("event")
 #
 
 require 'test_helper'

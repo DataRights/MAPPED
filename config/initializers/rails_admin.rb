@@ -227,6 +227,8 @@ RailsAdmin.config do |config|
       field :to_state
       field :timeout_days
       field :ui_form
+      field :transition_type
+      field :display_order
       field :actions
       field :guards
     end
@@ -237,7 +239,9 @@ RailsAdmin.config do |config|
       field :from_state
       field :to_state
       field :timeout_days
+      field :transition_type
       field :ui_form
+      field :display_order
       field :actions
       field :guards
     end

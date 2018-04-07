@@ -1,4 +1,4 @@
-FROM ruby:2.3
+FROM ruby:2.5.1
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
@@ -15,6 +15,8 @@ RUN apt-get update \
   graphviz \
   qt5-default \
 	libqt5webkit5-dev \
+  xvfb \
+  libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x libqt4-webkit libqt4-dev \
   zlib1g-dev liblzma-dev wget unzip libgconf2-4 libnss3 nodejs \
     && rm -rf /var/lib/apt/lists/*
 

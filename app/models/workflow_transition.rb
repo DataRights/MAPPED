@@ -40,16 +40,6 @@ class WorkflowTransition < ApplicationRecord
     end
   end
 
-  def undo
-    if is_undoable
-      t = get_or_create_undo_transition
-      self.workflow.send_event(t)
-      {:success => true, :message => I18n.t('workflow.undo_transition_was_successfull')}
-    else
-      {:success => false, :message => I18n.t('workflow.transition_is_not_undoable')}
-    end
-  end
-
   private
 
   def check_guards
@@ -95,22 +85,5 @@ class WorkflowTransition < ApplicationRecord
         self.rollback_failed_actions << {action_id: action.id, error_message: rollback_result[:message]}
       end
     end
-  end
-
-  def get_or_create_undo_transition
-    t = Transition.where(from_state_id: self.transition.to_state_id, to_state_id: self.transition.from_state_id).first
-    unless t
-      t = Transition.new
-      t.from_state_id = self.transition.to_state_id
-      t.to_state_id = self.transition.from_state_id
-      t.name = I18n.t('workflow.undo')
-      t.history_description = I18n.t('workflow.undo_history', state: t.to_state.name)
-      t.save!
-    end
-    t
-  end
-
-  def is_undoable
-    self.workflow.workflow_transitions.order('created_at DESC').first.id == self.id
   end
 end
