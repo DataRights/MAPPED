@@ -1,5 +1,7 @@
 <% unless defined? hide_button  %>
-  <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button"><%= t('.update_status') %></a>
+  <a class="<%= a.workflow.workflow_state.button_css_class %>" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button" style="<%= a.workflow.workflow_state.button_style %>">
+    <%= a.workflow.workflow_state.button_text %>
+  </a>
 <% end %>
 
 <%= form_with(model: a.workflow) do |f| %>

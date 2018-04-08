@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180406074726) do
+ActiveRecord::Schema.define(version: 20180408063644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -425,6 +425,9 @@ ActiveRecord::Schema.define(version: 20180406074726) do
     t.datetime "updated_at", null: false
     t.boolean "is_initial_state", default: false
     t.bigint "workflow_state_form_id"
+    t.string "button_text"
+    t.string "button_css_class", default: "btn"
+    t.string "button_style"
     t.index ["workflow_state_form_id"], name: "index_workflow_states_on_workflow_state_form_id"
     t.index ["workflow_type_version_id"], name: "index_workflow_states_on_workflow_type_version_id"
   end

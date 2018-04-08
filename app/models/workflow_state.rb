@@ -9,6 +9,9 @@
 #  updated_at               :datetime         not null
 #  is_initial_state         :boolean          default(FALSE)
 #  workflow_state_form_id   :integer
+#  button_text              :string
+#  button_css_class         :string           default("btn")
+#  button_style             :string
 #
 
 class WorkflowState < ApplicationRecord

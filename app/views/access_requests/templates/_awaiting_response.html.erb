@@ -1,5 +1,5 @@
-<a class="btn btn-warning" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button">
-  <%= t('.awaiting_response') %>
+<a class="<%= a.workflow.workflow_state.button_css_class %>" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button" style="<%= a.workflow.workflow_state.button_style %>">
+  <%= a.workflow.workflow_state.button_text %>
 </a>
 <%= a.workflow.timeout_distance %>
 

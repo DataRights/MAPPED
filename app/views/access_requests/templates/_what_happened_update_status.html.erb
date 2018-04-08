@@ -1,4 +1,6 @@
-<a class="btn btn-danger" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button"><%= t('.update_status') %></a>
+<a class="<%= a.workflow.workflow_state.button_css_class %>" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button" style="<%= a.workflow.workflow_state.button_style %>">
+  <%= a.workflow.workflow_state.button_text %>
+</a>
 <%= form_with(model: a.workflow, id: "update_status_form_#{a.id}") do |f| %>
 
 <div class="modal fade" id="modal<%= a.id %>" tabindex="-1" role="dialog" aria-labelledby="modal<%= a.id %>Label" aria-hidden="true">
