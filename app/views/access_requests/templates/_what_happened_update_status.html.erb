@@ -1,5 +1,7 @@
-<a class="btn btn-danger" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button"><%= t('.update_status') %></a>
-<%= form_with(model: a.workflow) do |f| %>
+<a class="<%= a.workflow.workflow_state.button_css_class %>" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button" style="<%= a.workflow.workflow_state.button_style %>">
+  <%= a.workflow.workflow_state.button_text %>
+</a>
+<%= form_with(model: a.workflow, id: "update_status_form_#{a.id}") do |f| %>
 
 <div class="modal fade" id="modal<%= a.id %>" tabindex="-1" role="dialog" aria-labelledby="modal<%= a.id %>Label" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -33,7 +35,7 @@
         </div>
         <div class="form-group">
           <%= f.label :attachment_file, t('.upload_attachment') %>
-          <%= f.file_field :attachment_file %>
+          <%= f.file_field :attachment_file, id: "workflow_attachment_file_#{a.id}" %>
         </div>
         <div class="form-group">
           <%= f.label :attachment_description, t('.upload_attachment_description') %>
@@ -46,7 +48,7 @@
         <div class="form-group">
           <%= t('.what_do_you_want_to_do_now') %>
           <%= f.hidden_field(:id) %>
-          <%= f.select(:transition_id, options_for_select(a.workflow.workflow_state.possible_transitions.map{ |t| [t.name, t.id, { 'data-ui-form' => t.ui_form || "" }] }), {:include_blank => t('.select_blank')}, {class: "form-control", id: "workflow_transition_id_#{a.id}", required:"required"}) %>
+          <%= f.select(:transition_id, options_for_select(a.workflow.workflow_state.possible_transitions.where(transition_type: :event).map{ |t| [t.name, t.id, { 'data-ui-form' => t.ui_form || "" }] }), {:include_blank => t('.select_blank')}, {class: "form-control", id: "workflow_transition_id_#{a.id}", required:"required"}) %>
         </div>
         <div class="form-group">
           <%= f.label :remarks, t('.remark') %>
@@ -80,5 +82,15 @@
     if (ui_form != undefined && ui_form != '') {
       $('#' + ui_form + "<%= a.id %>").show();
     }
+  });
+
+  // Bug fix for Safari 11.1 and later:
+  // https://github.com/rails/rails/issues/32440
+  // https://stackoverflow.com/questions/49614091/safari-11-1-ajax-xhr-form-submission-fails-when-inputtype-file-is-empty/49708973#49708973
+  $("#update_status_save<%= a.id %>").click(function() {
+    if($("#workflow_attachment_file_<%= a.id %>").val() === "") {
+      $("#workflow_attachment_file_<%= a.id %>").remove();
+    }
+    return true;
   });
 </script>

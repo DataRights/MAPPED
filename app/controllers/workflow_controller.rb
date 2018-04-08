@@ -67,7 +67,7 @@ class WorkflowController < ApplicationController
       end
     end
 
-    if attachment && params[:workflow].include?(:do_blackout) && params[:workflow][:do_blackout]
+    if attachment && params[:workflow].include?(:do_blackout) && params[:workflow][:do_blackout] == "1"
       redirect_to edit_attachment_path(attachment)
     end
   end
@@ -75,7 +75,7 @@ class WorkflowController < ApplicationController
   def undo
     wt = WorkflowTransition.find_by(id: params[:workflow_transition_id])
     return unless wt.workflow.access_request.user_id == current_user.id
-    result = wt.undo
+    result = wt.workflow.undo
     if result[:success] == true
       flash[:success] = result[:message]
     else

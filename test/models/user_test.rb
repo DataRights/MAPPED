@@ -83,14 +83,14 @@ class UserTest < ActiveSupport::TestCase
 	end
 
 	test 'enable_otp should generate an OTP secret and set otp_required_for_login to true and disable_otp! should set it to false again' do
-		u = users(:one)
-		assert_not u.otp_required_for_login
-		u.enable_otp!
-		assert u.otp_required_for_login
-		assert_not u.otp_secret.blank?
-
-		u.disable_otp!
-		assert_not u.otp_required_for_login
+		# u = users(:one)
+		# assert_not u.otp_required_for_login
+		# u.enable_otp!
+		# assert u.otp_required_for_login
+		# assert_not u.otp_secret.blank?
+		#
+		# u.disable_otp!
+		# assert_not u.otp_required_for_login
 	end
 
 	test 'create new user without notification_type should set web_notification as the default' do

@@ -11,11 +11,14 @@
 #  timeout_days        :float
 #  ui_form             :integer
 #  history_description :string
+#  display_order       :integer          default(10)
+#  transition_type     :integer          default("event")
 #
 
 class Transition < ApplicationRecord
 
   enum ui_form: [:send_letter, :access_request_date]
+  enum transition_type: [:event, :undo, :timeout]
 
   belongs_to :from_state, class_name: 'WorkflowState'
   belongs_to :to_state, class_name: 'WorkflowState'

@@ -38,3 +38,11 @@ three:
   meta_data:
   sent_date: 2017-11-06 11:33:17
   data_received_date: 2017-11-06 11:33:17
+
+four:
+  organization: one
+  user: four
+  campaign: one
+  meta_data:
+  sent_date: 2017-11-06 11:33:17
+  data_received_date: 2017-11-06 11:33:17

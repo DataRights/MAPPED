@@ -46,8 +46,6 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.5.2)
-      public_suffix (>= 2.0.2, < 4.0)
     annotate (2.7.2)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
@@ -69,18 +67,6 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11.0)
     byebug (9.1.0)
-    capybara (2.15.4)
-      addressable
-      mini_mime (>= 0.1.3)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (~> 2.0)
-    capybara-webkit (1.1.0)
-      capybara (~> 2.0, >= 2.0.2)
-      json
-    childprocess (0.8.0)
-      ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
     chunky_png (1.3.8)
     climate_control (0.2.0)
@@ -120,6 +106,10 @@ GEM
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
     docile (1.1.5)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     encryptor (3.0.0)
     erubi (1.7.1)
     execjs (2.7.0)
@@ -189,7 +179,6 @@ GEM
     powerpack (0.1.1)
     pre-commit (0.37.0)
       pluginator (~> 1.5)
-    public_suffix (3.0.0)
     puma (3.10.0)
     rack (2.0.4)
     rack-pjax (1.0.0)
@@ -270,7 +259,6 @@ GEM
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
     ruby_http_client (3.2.0)
-    rubyzip (1.2.1)
     sass (3.5.5)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -282,9 +270,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    selenium-webdriver (3.6.0)
-      childprocess (~> 0.5)
-      rubyzip (~> 1.0)
     sendgrid-ruby (5.1.0)
       ruby_http_client (~> 3.2)
       sinatra (>= 1.4.7, < 3)
@@ -343,8 +328,6 @@ GEM
     websocket-extensions (0.1.3)
     wicked_pdf (1.1.0)
     wkhtmltopdf-binary (0.12.3.1)
-    xpath (2.1.0)
-      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -355,8 +338,6 @@ DEPENDENCIES
   bootstrap-toggle-rails
   bullet
   byebug
-  capybara (~> 2.13)
-  capybara-webkit
   ckeditor!
   coffee-rails (~> 4.2)
   coveralls
@@ -365,6 +346,7 @@ DEPENDENCIES
   devise-bootstrap-views
   devise-two-factor
   devise_invitable (~> 1.7.0)
+  dotenv-rails
   iso639
   jbuilder (~> 2.5)
   jquery-rails
@@ -385,7 +367,6 @@ DEPENDENCIES
   rubocop
   ruby-graphviz (~> 1.2, >= 1.2.3)
   sass-rails (~> 5.0)
-  selenium-webdriver
   sendgrid-ruby
   sidekiq
   simplecov
@@ -399,7 +380,7 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 RUBY VERSION
-   ruby 2.3.6p384
+   ruby 2.5.1p57
 
 BUNDLED WITH
    1.16.1

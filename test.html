@@ -1,0 +1,83 @@
+<form enctype="multipart/form-data" action="http://localhost:3000/workflow" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="t2heWk1wBaXhc98Di+d9BLSxiUq0Vk8ydV94fnuI9wf1bcsB5VxQhG/IyKj6mwZUkPSA0+7pgpJi4q+oFbm5vg==">
+
+<div class="modal fade show" id="modal43" tabindex="-1" role="dialog" aria-labelledby="modal43Label" style="display: block; padding-left: 0px;">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="statusUpdateModalLabel"><span class="translation_missing" title="translation missing: en.access_requests.templates.what_happened_update_status.update_status">Update Status</span></h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="alert alert-danger alert-dismissible collapse" id="send_event_alert43" role="alert">
+          <span id="alert_message43"></span>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+
+        <div class="alert alert-success alert-dismissible collapse" id="send_event_success43" role="alert">
+          <span id="success_message43"></span>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label for="workflow_event_description">What happened?</label>
+          <select class="form-control" required="required" name="workflow[event_id]"><option value="">Please select an option ...</option>
+<option value="1">I haven't received anything</option>
+<option value="9">I received (some) personal data</option>
+<option value="2">I received an email/letter/call, but no data</option>
+<option value="8">I received a statement that they don't know me</option>
+<option value="6">I received a letter of acknowledgement / confirmation</option>
+<option value="5">I received a request of identity verification</option>
+<option value="7">I received a statement that they can't verify my identity</option>
+<option value="10">I received a request to be more specific</option>
+<option value="11">I received a request to fill in a form</option>
+<option value="3">I received a request to visit them</option>
+<option value="4">I received a request to call them</option>
+<option value="12">I called/visited them</option>
+<option value="13">I received a request to call/visit them, but I didn't</option>
+<option value="14">Other</option></select>
+        </div>
+        <div class="form-group">
+          <label for="workflow_attachment_file">Upload Data (Optional)</label>
+          <input type="file" name="workflow[attachment_file]">
+        </div>
+        <div class="form-group">
+          <label for="workflow_attachment_description">Data description (Optional)</label>
+          <textarea class="form-control" name="workflow[attachment_description]"></textarea>
+        </div>
+        <div class="form-group">
+          <input name="workflow[do_blackout]" type="hidden" value="0"><input type="checkbox" value="1" name="workflow[do_blackout]">
+          <label for="workflow_do_blackout">I want to blackout some parts of attachment.</label>
+        </div>
+        <div class="form-group">
+          What do you want to do now?
+          <input type="hidden" value="44" name="workflow[id]">
+          <select class="form-control" id="workflow_transition_id_43" required="required" name="workflow[transition_id]"><option value="">Please select an option ...</option>
+<option data-ui-form="send_letter" value="21">I want to send a letter or reminder</option>
+<option data-ui-form="" value="22">I'm going to call / visit them</option>
+<option data-ui-form="" value="23">I want to wait for organization</option>
+<option data-ui-form="" value="24">I'm finished with my request</option></select>
+        </div>
+        <div class="form-group">
+          <label for="workflow_remarks"><span class="translation_missing" title="translation missing: en.access_requests.templates.what_happened_update_status.remark">Remark</span></label>
+          <textarea class="form-control" name="workflow[remarks]"></textarea>
+        </div>
+        <div class="form-group">
+          <input value="update_status" id="workflow_current_form43" type="hidden" name="workflow[current_form]">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" name="commit" value="Save" id="update_status_save43" data-disable-with="Saving..." class="btn btn-primary">
+      </div>
+    </div>
+  </div>
+</div>
+</form>

@@ -46,7 +46,7 @@
 class User < ApplicationRecord
 
   # Configuration for TOTP
-  devise :invitable, :two_factor_authenticatable,
+  devise :two_factor_authenticatable,
          :otp_secret_encryption_key => ENV['MAPPED_TOTP_ENCRYPTION_KEY']
 
   attribute :otp_secret

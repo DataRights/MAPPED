@@ -1,5 +1,6 @@
 require 'simplecov'
 require 'coveralls'
+require 'dotenv/load'
 
 SimpleCov.start do
   formatter SimpleCov::Formatter::MultiFormatter::new([
@@ -22,8 +23,8 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
-require 'capybara/rails'
-require 'capybara/minitest'
+#require 'capybara/rails'
+#require 'capybara/minitest'
 
 class ActionDispatch::IntegrationTest
   # # Make the Capybara DSL available in all integration tests
@@ -34,8 +35,8 @@ class ActionDispatch::IntegrationTest
   # Reset sessions and driver between tests
   # Use super wherever this method is redefined in your individual test classes
   def teardown
-    Capybara.reset_sessions!
-    Capybara.use_default_driver
+    #Capybara.reset_sessions!
+    #Capybara.use_default_driver
   end
 
 end

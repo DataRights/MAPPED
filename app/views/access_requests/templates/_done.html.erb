@@ -1,1 +1,3 @@
-<a class="btn btn-success" href="#" role="button"><%= t('.done') %></a>
+<a class="<%= a.workflow.workflow_state.button_css_class %>" style="<%= a.workflow.workflow_state.button_style %>" href="#" role="button">
+  <%= a.workflow.workflow_state.button_text %>
+</a>

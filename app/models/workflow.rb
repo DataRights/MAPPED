@@ -54,6 +54,17 @@ class Workflow < ApplicationRecord
     wt
   end
 
+  def undo
+      t = get_or_create_undo_transition
+      if t
+        self.workflow_state.reload
+        send_event(t)
+        {:success => true, :message => I18n.t('workflow.undo_transition_was_successfull')}
+      else
+        {:success => false, :message => I18n.t('workflow.transition_is_not_undoable')}
+      end
+  end
+
   def set_transition_timeout
     self.workflow_state.possible_transitions.each do |t|
       unless t.timeout_days.nil?
@@ -76,5 +87,23 @@ class Workflow < ApplicationRecord
       passed = I18n.t('access_requests.templates.awaiting_response.passed')
       Time.now > timeout ? "(#{distance} #{passed})" : "(#{distance} #{left})"
     end
+  end
+
+  private
+
+  def get_or_create_undo_transition
+    wt = workflow_transitions.joins(:transition).where.not(transitions: {transition_type: :undo}).where(transitions: {to_state_id: self.workflow_state_id}).order("ID DESC").first
+    return nil unless wt
+    t = Transition.where(from_state_id: self.workflow_state_id, to_state_id: wt.transition.from_state_id, transition_type: :undo).first
+    unless t
+      t = Transition.new
+      t.transition_type = 'undo'
+      t.from_state_id = self.workflow_state_id
+      t.to_state_id = wt.transition.from_state_id
+      t.name = 'Undo'
+      t.history_description = "Rollback to #{wt.transition.from_state.name}"
+      t.save!
+    end
+    t
   end
 end

@@ -11,6 +11,8 @@
 #  timeout_days        :float
 #  ui_form             :integer
 #  history_description :string
+#  display_order       :integer          default(10)
+#  transition_type     :integer          default("event")
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -39,21 +41,31 @@ ar_sent:
   name: Access Request sent
   from_state: waiting_to_send_the_ar
   to_state: waiting_for_the_organization_reply
+  transition_type: 0
 
 data_came_back_transition:
   name: Organization replied to access request by providing data
   from_state: waiting_for_the_organization_reply
   to_state: data_came_back
+  transition_type: 0
+
+go_back_to_waiting_for_the_organization_reply:
+  name: data is invalid I sent a letter to them
+  from_state: data_came_back
+  to_state: waiting_for_the_organization_reply
+  transition_type: 0
 
 another_letter_needed_by_organization:
   name: Organization replied to access request by asking for more letters and questions
   from_state: waiting_for_the_organization_reply
   to_state: organization_needs_more_letters
+  transition_type: 0
 
 letter_sent_to_organization:
   name: Letter sent
   from_state: organization_needs_more_letters
   to_state: waiting_for_the_organization_reply
+  transition_type: 0
 
 took_long_to_get_reply_from_organization:
   name: Organization did not replied in 30 days
