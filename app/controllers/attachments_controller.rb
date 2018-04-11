@@ -114,16 +114,17 @@ class AttachmentsController < ApplicationController
 
   def thumbnail
     if @attachment && @attachment.content
+      content = @attachment.content
+      content_type = @attachment.content_type
       geom = "#{THUMBNAIL_SIZE}x#{THUMBNAIL_SIZE}"
-      image = Magick::Image.from_blob(@attachment.content).first
+      image = Magick::Image.from_blob(content).first
       image.change_geometry!(geom) { |cols, rows| image.thumbnail! cols, rows }
-
       bg = Magick::Image.new(THUMBNAIL_SIZE+6, THUMBNAIL_SIZE+6) { self.background_color = 'gray75' }
       bg = bg.raise(3,3)
-
       thumbnail = image.composite(bg, Magick::CenterGravity, Magick::DstOverCompositeOp)
 
-      send_data thumbnail.to_blob, :type => @attachment.content_type
+      content_type = 'image/png' if content_type.downcase.include?('pdf')
+      send_data thumbnail.to_blob, :type => content_type
     else
       send_data '', :type => ''
     end

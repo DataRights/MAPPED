@@ -13,11 +13,12 @@
             </tr>
           </thead>
           <tbody>
-            <% @attachments.each do |attachment| %>
+            <% @attachments.order(created_at: :desc).each do |attachment| %>
               <tr>
                 <td><%= attachment.title %></td>
                 <td><%= attachment.workflow_transition.workflow.access_request.organization.name %></td>
                 <td><%= attachment.content_type %></td>
+                <td><%= distance_of_time_in_words(Time.now, attachment.created_at) %> ago</td>
                 <td><%= link_to t('.download'), get_content_path(attachment), target: "_blank" %></td>
                 <td><%= link_to t('.show'), attachment %></td>
                 <td><%= link_to t('.edit'), edit_attachment_path(attachment) %></td>

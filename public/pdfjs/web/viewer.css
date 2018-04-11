@@ -54,7 +54,6 @@ select {
 }
 
 #viewerContainer:-moz-full-screen {
-  position: absolute;
   top: 0px;
   border-top: 2px solid transparent;
   background-color: #404040;
@@ -932,7 +931,7 @@ html[dir='rtl'] .verticalToolbarSeparator {
 }
 
 .horizontalToolbarSeparator {
-  display: block;
+  display: block; 
   margin: 0 0 4px 0;
   height: 1px;
   width: 100%;
@@ -1542,3 +1541,4 @@ canvas {
     display: none;
   }
 }
+

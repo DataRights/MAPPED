@@ -22,17 +22,20 @@ class WorkflowController < ApplicationController
     return unless wf.access_request.user_id == current_user.id
     t = Transition.find(transition_id)
     @workflow_transition = wf.send_event(t, params[:workflow][:event_id], params[:workflow][:remarks])
-    if params[:workflow][:attachment_file]
-      attachment = Attachment.new
-      attachment.content = params[:workflow][:attachment_file].read
-      attachment.content_type = params[:workflow][:attachment_file].content_type
-      if params[:workflow][:attachment_description]
-        attachment.title = params[:workflow][:attachment_description]
-      else
-        attachment.title = params[:workflow][:attachment_file].original_filename
+
+    if params[:workflow][:attachment_file] && params[:workflow][:attachment_file].count > 0
+      params[:workflow][:attachment_file].each do |f|
+        attachment = Attachment.new
+        attachment.content = f.read
+        attachment.content_type = f.content_type
+        if params[:workflow][:attachment_description] && !params[:workflow][:attachment_description].blank?
+          attachment.title = params[:workflow][:attachment_description]
+        else
+          attachment.title = f.original_filename
+        end
+        attachment.workflow_transition_id = @workflow_transition.id
+        attachment.save!
       end
-      attachment.workflow_transition_id = @workflow_transition.id
-      attachment.save!
     end
 
     if params[:workflow][:current_form] == 'send_letter'

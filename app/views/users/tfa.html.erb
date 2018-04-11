@@ -24,7 +24,7 @@
               </div>
               <br />
               <div>
-              <%= raw RQRCode::render_qrcode(current_user.otp_provisioning_uri(current_user.email, issuer: t('project_name')),
+              <%= raw RQRCode::render_qrcode(current_user.otp_provisioning_uri(current_user.email, issuer: Rails.env.development? ? 'Mapped Development' : t('project_name')),
                                              :svg,
                                              :level => :l,
                                              :unit => 2) %>

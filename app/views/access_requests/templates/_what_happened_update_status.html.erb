@@ -31,20 +31,25 @@
 
         <div class="form-group">
           <%= f.label :event_description, t('.what_happened') %>
-          <%= f.select(:event_id, options_for_select(Event.where(workflow_state_id: a.workflow.workflow_state_id).order('display_order').map{ |t| [t.title, t.id] }), {:include_blank => t('.select_blank')}, {class: "form-control", required:"required"}) %>
+          <%= f.select(:event_id, options_for_select(Event.where(workflow_state_id: a.workflow.workflow_state_id).order('display_order').map{ |t| [t.title, t.id] }), {:include_blank => t('.select_blank')}, {class: "form-control event_id_dropdown", required:"required", 'data-ar-id' => a.id}) %>
         </div>
-        <div class="form-group">
-          <%= f.label :attachment_file, t('.upload_attachment') %>
-          <%= f.file_field :attachment_file, id: "workflow_attachment_file_#{a.id}" %>
+
+        <div id="upload_attachment_<%= a.id %>" class="collapse dynamic">
+          <div class="form-group">
+            <%= f.label :attachment_file, t('.upload_attachment') %>
+            <%= f.file_field 'attachment_file', id: "workflow_attachment_file_#{a.id}", multiple: true %>
+          </div>
+          <div class="form-group">
+            <%= f.label :attachment_description, t('.upload_attachment_description') %>
+            <%= f.text_area(:attachment_description, class: 'form-control') %>
+          </div>
         </div>
-        <div class="form-group">
-          <%= f.label :attachment_description, t('.upload_attachment_description') %>
-          <%= f.text_area(:attachment_description, class: 'form-control') %>
-        </div>
+        <!--
         <div class="form-group">
           <%= f.check_box(:do_blackout) %>
           <%= f.label :do_blackout, t('.i_want_to_blackout') %>
         </div>
+        -->
         <div class="form-group">
           <%= t('.what_do_you_want_to_do_now') %>
           <%= f.hidden_field(:id) %>
