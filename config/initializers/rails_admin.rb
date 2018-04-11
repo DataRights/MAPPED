@@ -3,7 +3,7 @@ RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::PreviewTemplat
 
 RailsAdmin.config do |config|
 
-  config.main_app_name = ["MAPPED", "Dashboard"]
+  config.main_app_name = ["DataInSight", "Dashboard"]
 
   config.navigation_static_label = "Tools"
   config.navigation_static_links = {

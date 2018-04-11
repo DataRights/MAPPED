@@ -60,7 +60,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # End Default rails gems #
 
-# Begin gems added for MAPPED project #
+# Begin gems added for DataInSight project #
 
 # Use devise for user management and authentication solution
 gem 'devise', '~> 4.3'
