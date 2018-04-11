@@ -34,7 +34,7 @@
           <%= f.select(:event_id, options_for_select(Event.where(workflow_state_id: a.workflow.workflow_state_id).order('display_order').map{ |t| [t.title, t.id] }), {:include_blank => t('.select_blank')}, {class: "form-control event_id_dropdown", required:"required", 'data-ar-id' => a.id}) %>
         </div>
 
-        <div id="upload_attachment_<%= a.id %>" class="collapse dynamic">
+        <div id="upload_attachment_<%= a.id %>" class="collapse dynamic dynamic_events">
           <div class="form-group">
             <%= f.label :attachment_file, t('.upload_attachment') %>
             <%= f.file_field 'attachment_file', id: "workflow_attachment_file_#{a.id}", multiple: true %>
@@ -62,7 +62,7 @@
         <div class="form-group">
           <%= f.hidden_field(:current_form, value: 'update_status', id: "workflow_current_form#{a.id}" ) %>
         </div>
-        <div id="send_letter<%= a.id %>" class="collapse dynamic">
+        <div id="send_letter<%= a.id %>" class="collapse dynamic_transitions">
           <%= render partial: 'access_requests/templates/send_letter', locals: {a: a, f: f} %>
         </div>
       </div>
@@ -81,7 +81,7 @@
   });
 
   $('#<%= "workflow_transition_id_#{a.id}" %>').change(function() {
-    $('.dynamic').hide();
+    $('.dynamic_transitions').hide();
     var ui_form = $('option:selected', this).attr('data-ui-form');
     $('#workflow_current_form<%= a.id %>').val(ui_form);
     if (ui_form != undefined && ui_form != '') {
