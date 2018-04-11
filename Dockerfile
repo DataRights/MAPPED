@@ -13,10 +13,6 @@ RUN apt-get update \
 	nodejs \
   lsof \
   graphviz \
-  qt5-default \
-	libqt5webkit5-dev \
-  xvfb \
-  libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x libqt4-webkit libqt4-dev \
   zlib1g-dev liblzma-dev wget unzip libgconf2-4 libnss3 nodejs \
     && rm -rf /var/lib/apt/lists/*
 

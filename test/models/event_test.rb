@@ -8,6 +8,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  display_order     :integer
+#  ui_form           :integer
 #
 
 require 'test_helper'

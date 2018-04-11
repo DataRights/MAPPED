@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'events/:id', :to => 'events#find'
+
   post 'organizations', :to => 'organization#create'
 
   get 'languages/set'

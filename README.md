@@ -7,13 +7,13 @@ MAPPED is a platform that helps citizens to send access requests to organization
 
 This README documents steps that are necessary to set the development environment for application up and running.
 
-# Using Docker
+# Using Docker for Development
 
 1- Build and run app using docker-compose
 
-`docker-compose build`
+`docker-compose -f docker-compose-development.yml build`
 
-`docker-compose up`
+`docker-compose -f docker-compose-development.yml up`
 
 2- For running tests you can go to docker bash
 
@@ -30,11 +30,11 @@ Deployments are done using Heroku, any push to master branch will trigger a depl
 
 # Deployment on servers using Docker
 
-Define all the environment variables defined in docker-compose-production.yml and the run these commands:
+Define all the environment variables defined in docker-compose.yml and the run these commands:
 
-`docker-compose -f docker-compose-production.yml build`
+`docker-compose build`
 
-`docker-compose -f docker-compose-production.yml up -d`
+`docker-compose up -d`
 
 # License
 

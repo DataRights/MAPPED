@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db:
+    image: postgres:10.3
+    volumes:
+      - ./data:/var/lib/postgresql/data
+  app:
+    build: .
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && (rake db:migrate 2>/dev/null || rake db:setup) && bundle exec puma -C config/puma.rb"
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3000:3000"
+    environment:
+      - WEB_CONCURRENCY=1
+      - RAILS_ENV=development
+      - DB_HOST=db
+      - MAPPED_TOTP_ENCRYPTION_KEY=rZ/Dyy2D/YrIN1nQNkRA0nQ3PInj4PU34WOoWWJVDUM5FEC6zCa1dpUBD2yyKcmbEPW+Zk7EtjdkC0MFJ5KdEg==
+      - DISCOURSE_SSO_SECRET=jDM3nDB6jTenovom9nG8Ys0FPn0ltRnvAm5PXyC5LnNp/xoEV3A6Uim4h8lD9QFMfd/G1zA5gGt+HSR0gfG7nQ==
+      - SECRET_KEY_BASE=ebfe8481a5cdae55bb13d1d5d7024527769bb5d63fb05f7a02181f888c482014d84f0fd6c4fb979f45a1faf56005eb006969470aeb5293b135e98fef37af7c5a
+      - HOST=http://localhost
+      - RAILS_SERVE_STATIC_FILES='true'
+      - SENDGRID_USERNAME=$SENDGRID_USERNAME
+      - SENDGRID_PASSWORD=$SENDGRID_PASSWORD
+    depends_on:
+      - db

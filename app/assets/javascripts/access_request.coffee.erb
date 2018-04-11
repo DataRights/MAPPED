@@ -77,6 +77,20 @@ $(document).on 'turbolinks:load', ->
     oReq.open 'GET', url
     oReq.send()
 
+  $('.event_id_dropdown').on 'change', ->
+    event_id = $(this).val()
+    ar_id = $(this).attr('data-ar-id')
+    $.ajax
+      url: "/events/#{event_id}"
+      type: 'GET'
+      success: (e) ->
+        console.log "#{e.ui_form}_#{ar_id}.show()"
+        if e.ui_form == '' || e.ui_form == null
+          $(".dynamic_events").hide()
+        else
+          $("##{e.ui_form}_#{ar_id}").show()
+
+
   $('.send_letter_type').on 'change', ->
     ar_id = $(this).attr('data-ar-id')
     temp_type = $(this).val()
