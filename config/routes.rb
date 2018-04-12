@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'content/:template_type', :to => 'dynamic#authorized_content'
+  get 'content/public/:template_type', :to => 'dynamic#anonymous_content'
+
   get 'events/:id', :to => 'events#find'
 
   post 'organizations', :to => 'organization#create'

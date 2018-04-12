@@ -63,18 +63,18 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.smtp_settings = {
-    user_name: ENV['SENDGRID_USERNAME'],
-    password: ENV['SENDGRID_PASSWORD'],
-    domain: 'herokumanager.com',
-    address: 'smtp.sendgrid.net',
-    port: 587,
-    authentication: :plain,
-    enable_starttls_auto: true
+    user_name: '',
+    password: '',
+    domain: 'tudelft.nl',
+    address: 'dutmail.tudelft.nl',
+    port: 25,
+    authentication: :none,
+    #enable_starttls_auto: true
   }
 
   config.action_mailer.default_options = {
-      :from => 'mapped@herokumanager.com',
-      :reply_to => 'mapped@herokumanager.com'
+      :from => 'datainsight-tbm@tudelft.nl',
+      :reply_to => 'datainsight-tbm@tudelft.nl'
   }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
