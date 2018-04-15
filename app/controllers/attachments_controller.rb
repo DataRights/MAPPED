@@ -82,7 +82,7 @@ class AttachmentsController < ApplicationController
 
   def get_content
     if @attachment && @attachment.content
-      send_data @attachment.content, :filename => "Attachment-#{@attachment.id}-#{@attachment.workflow_transition.workflow.access_request.organization.name}", :type => @attachment.content_type
+      send_data @attachment.content, :filename => @attachment.title, :type => @attachment.content_type
     else
       render json: {}, status: :ok
     end
@@ -135,7 +135,8 @@ class AttachmentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_attachment
       a = Attachment.find(params[:id])
-      if a.workflow_transition.workflow.access_request.user_id == current_user.id
+      if (a.workflow_transition && a.workflow_transition.workflow.access_request.user_id == current_user.id) or
+         (a.response && a.response.access_request.user_id == current_user.id)
         @attachment = a
       end
     end

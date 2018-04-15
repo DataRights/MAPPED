@@ -248,13 +248,14 @@ en:
         select_blank: 'Please select an action ...'
       access_request_date:
         sent_date: 'Date of sending'
+        access_request_sending_method: 'Sending Method'
       done:
         done: 'Done'
       what_happened_update_status:
         what_happened: 'What happened?'
         what_do_you_want_to_do_now: 'What do you want to do now?'
-        upload_attachment: 'Upload Data (Optional)'
-        upload_attachment_description: 'Data description (Optional)'
+        upload_attachment: 'Upload Attachments (Optional)'
+        upload_attachment_description: 'File description (Optional)'
         save: "Save"
         saving: "Saving..."
         close: "Close"

@@ -68,6 +68,16 @@ RailsAdmin.config do |config|
     weight 6
   end
 
+  config.model Response do
+    navigation_label 'Access Requests'
+    weight 7
+  end
+
+  config.model ResponseType do
+    navigation_label 'Access Requests'
+    weight 8
+  end
+
   config.model User do
     navigation_label 'User Management'
     weight 5

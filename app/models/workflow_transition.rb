@@ -28,6 +28,12 @@ class WorkflowTransition < ApplicationRecord
   has_many   :attachments, dependent: :destroy
   has_many   :letters, dependent: :destroy
 
+  attr_accessor :title
+
+  def title
+    "#{transition.from_state.name} => #{transition.to_state.name}"
+  end
+
   # should return state, success:false/true, message (in case of error, error_message)
   def execute
     begin

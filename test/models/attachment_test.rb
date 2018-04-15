@@ -9,6 +9,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  workflow_transition_id :integer
+#  response_id            :integer
 #
 
 require 'test_helper'

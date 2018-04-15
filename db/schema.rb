@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180415035345) do
+ActiveRecord::Schema.define(version: 20180415071315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(version: 20180415035345) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "workflow_transition_id"
+    t.bigint "response_id"
+    t.index ["response_id"], name: "index_attachments_on_response_id"
     t.index ["workflow_transition_id"], name: "index_attachments_on_workflow_transition_id"
   end
 
@@ -275,6 +277,23 @@ ActiveRecord::Schema.define(version: 20180415035345) do
     t.datetime "updated_at", null: false
     t.string "type"
     t.jsonb "visuals"
+  end
+
+  create_table "response_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.bigint "response_type_id"
+    t.text "description"
+    t.datetime "received_date"
+    t.bigint "access_request_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["access_request_id"], name: "index_responses_on_access_request_id"
+    t.index ["response_type_id"], name: "index_responses_on_response_type_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -500,6 +519,7 @@ ActiveRecord::Schema.define(version: 20180415035345) do
   add_foreign_key "addresses", "cities"
   add_foreign_key "addresses", "countries"
   add_foreign_key "answers", "questions"
+  add_foreign_key "attachments", "responses"
   add_foreign_key "attachments", "workflow_transitions"
   add_foreign_key "campaigns", "policy_consents"
   add_foreign_key "campaigns", "workflow_types"
@@ -513,6 +533,8 @@ ActiveRecord::Schema.define(version: 20180415035345) do
   add_foreign_key "organizations", "sectors"
   add_foreign_key "organizations", "users", column: "suggested_by_user_id"
   add_foreign_key "policy_consents", "templates"
+  add_foreign_key "responses", "access_requests"
+  add_foreign_key "responses", "response_types"
   add_foreign_key "template_versions", "templates"
   add_foreign_key "transitions", "workflow_states", column: "from_state_id"
   add_foreign_key "transitions", "workflow_states", column: "to_state_id"

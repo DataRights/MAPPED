@@ -38,6 +38,31 @@ class WorkflowController < ApplicationController
       end
     end
 
+    if params[:workflow][:ui_form] && params[:workflow][:ui_form] == 'response_received'
+      response = Response.new
+      response.response_type = ResponseType.find(params[:workflow][:response_type_id])
+      response.description = params[:workflow][:response_description]
+      response.received_date = params[:workflow][:response_received_date]
+      response.access_request_id = wf.access_request.id
+      response.save!
+
+      if params[:workflow][:response_attachment_file] && params[:workflow][:response_attachment_file].count > 0
+        params[:workflow][:response_attachment_file].each do |f|
+          attachment = Attachment.new
+          attachment.content = f.read
+          attachment.content_type = f.content_type
+          if params[:workflow][:response_attachment_title] && !params[:workflow][:response_attachment_title].blank?
+            attachment.title = params[:workflow][:response_attachment_title]
+          else
+            attachment.title = f.original_filename
+          end
+          attachment.response_id = response.id
+          attachment.workflow_transition_id = @workflow_transition.id
+          attachment.save!
+        end
+      end
+    end
+
     if params[:workflow][:current_form] == 'send_letter'
       l = Letter.new
       l.sent_date = params[:sent_date]

@@ -1,0 +1,29 @@
+<div class="form-group">
+  <%= f.label :response_type, t('.response_type') %>
+  <br />
+  <%= f.select(:response_type_id, options_for_select(ResponseType.all.pluck(:name, :id)), {}, {class: "form-control", include_blank: false}) %>
+</div>
+
+<div class="form-group">
+  <%= f.label :response_description, t('.description') %>
+  <br />
+  <%= f.text_area :response_description, {class: "form-control"} %>
+</div>
+
+<div class="form-group">
+  <%= f.label :response_attachment_file, t('.response_attachments') %>
+  <br />
+  <%= f.file_field :response_attachment_file, id: "workflow_response_attachment_file_#{a.id}", multiple: true, class: 'form-control' %>
+</div>
+
+<div class="form-group">
+  <%= f.label :response_attachment_title, t('.response_attachment_title') %>
+  <br />
+  <%= f.text_field(:response_attachment_title, class: 'form-control') %>
+</div>
+
+<div class="form-group">
+  <%= f.label :response_received_date, t('.received_date') %>
+  <br />
+  <%= f.date_field :response_received_date, {class: "form-control", value: Date.today} %>
+</div>

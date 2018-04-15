@@ -22,6 +22,12 @@ class Workflow < ApplicationRecord
    self.workflow_state = WorkflowState.where(workflow_type_version: self.workflow_type_version, is_initial_state: true).first
   end
 
+  attr_accessor :title
+
+  def title
+    "#{workflow_type_version.workflow_type.name}: #{access_request.user.email} - #{access_request.organization.name} "
+  end
+
   include ActionView::Helpers::DateHelper
 
   def workflow_type_should_be_active

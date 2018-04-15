@@ -38,6 +38,7 @@ class AccessRequest < ApplicationRecord
   attr_accessor :sector_id
   attr_accessor :template_version_id
   attr_accessor :existing
+  attr_accessor :title
 
   validates :user, :organization, :campaign, presence: true
 
@@ -49,6 +50,10 @@ class AccessRequest < ApplicationRecord
   #   message: I18n.t('validations.access_request_file_content_type') }, if: :access_request_file
 
   MAX_SIZE = 5048*1024
+
+  def title
+    "#{organization.name} - #{user.email}"
+  end
 
   def existing=(value)
     value = true if value == 'true'

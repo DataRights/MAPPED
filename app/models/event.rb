@@ -13,7 +13,7 @@
 
 class Event < ApplicationRecord
   belongs_to :workflow_state
-  enum ui_form: [:upload_attachment]
+  enum ui_form: [:upload_attachment, :response_received]
 
   validates_presence_of :title
 end
