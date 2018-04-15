@@ -20,13 +20,13 @@ SendingMethod.find_or_create_by!(name: 'Other')
 
 
 unless admin1
-  User.create!(email: 'mm.mani@gmail.com', password_confirmation: 'eybaba13', password: 'eybaba13')
+  User.create!(email: 'mm.mani@gmail.com', password_confirmation: 'eybaba13', password: 'eybaba13', approved: true)
   admin1 = User.find_by email: 'mm.mani@gmail.com'
   admin1.confirm
 end
 
 unless admin2
-  User.create!(email: 'shahriar.b@gmail.com', password_confirmation: 'eybaba13', password: 'eybaba13')
+  User.create!(email: 'shahriar.b@gmail.com', password_confirmation: 'eybaba13', password: 'eybaba13', approved: true)
   admin2 = User.find_by email: 'shahriar.b@gmail.com'
   admin2.confirm
 end
@@ -55,3 +55,5 @@ WorkflowStateForm.find_or_create_by!(name: 'Done', form_path: 'access_requests/t
 WorkflowStateForm.find_or_create_by!(name: 'What Happened? Update Status', form_path: 'access_requests/templates/what_happened_update_status')
 
 Sector.find_or_create_by(name: 'Others')
+
+Setting.find_or_create_by!(key: 'auto_approved_user_domains', value: '*', description: 'Comma seperated list of domains that do not need any admin approval for sign up. * means all domains are allowed and auto approved.')

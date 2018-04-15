@@ -90,7 +90,7 @@
 
             <%= button_to(t('user_links.logout'), destroy_user_session_path, {method: :delete, class: 'btn btn-secondary btn-sm'}) %>
         <% else %>
-            <%= button_to(t('user_links.login'), new_user_session_path, {class: 'btn btn-secondary btn-sm'}) %>
+            <%= link_to(t('user_links.login'), new_user_session_path, {class: 'btn btn-secondary btn-sm'}) %>
         <% end %>
         &nbsp; &nbsp;
         <% if user_signed_in? && current_user.can?(:admin_login) %>

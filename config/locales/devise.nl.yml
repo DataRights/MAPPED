@@ -17,6 +17,7 @@ nl:
       timeout: "Je sessie is verlopen, log alsjeblieft opnieuw in om verder te gaan."
       unauthenticated: "Je moet eerst inloggen of aanmelden, voordat je verder kunt gaan."
       unconfirmed: "Je moet eerst je account bevestigen, voordat je verder kunt gaan"
+      not_approved: 'Your account has not been approved by your administrator yet.'
     mailer:
       confirmation_instructions:
         subject: "Bevestigingsinstructies"
@@ -41,6 +42,8 @@ nl:
       signed_up_but_unconfirmed: "Een e-mail met een bevestigings URL is verstuurd. Gebruik de URL om je account te activeren."
       update_needs_confirmation: "Je account is succesvol gewijzigd, echter hebben moet je nog wel je e-mail adres verifiëren."
       updated: "Je account is succesvol gewijzigd"
+      user:
+        signed_up_but_not_approved: 'You have signed up successfully but your account has not been approved by your administrator yet'
     sessions:
       signed_in: "Succesvvol ingelogd"
       signed_out: "Succesvol uitgelogd"

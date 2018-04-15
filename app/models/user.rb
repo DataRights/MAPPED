@@ -41,6 +41,7 @@
 #  invited_by_type           :string
 #  invited_by_id             :integer
 #  invitations_count         :integer          default(0)
+#  approved                  :boolean          default(FALSE), not null
 #
 
 class User < ApplicationRecord
@@ -70,6 +71,7 @@ class User < ApplicationRecord
   has_many :access_requests, dependent: :destroy
 
   before_create :add_default_notification_settings
+  after_create :check_approved
 
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :user_policy_consents
@@ -80,6 +82,7 @@ class User < ApplicationRecord
     if notification_settings.nil? or notification_settings.count == 0
       notification_settings << NotificationSetting.find_by(notification_type: 'web_notification')
     end
+    true
   end
 
 	def can?(action)
@@ -118,6 +121,30 @@ class User < ApplicationRecord
       "#{self.first_name} #{self.last_name}"
     else
       self.email
+    end
+  end
+
+  def check_approved
+    s = Setting.find_by key: 'auto_approved_user_domains'
+    return true unless s
+
+    whitelist_domains = s.value.split(',')
+    whitelist_domains.each do |domain|
+      if domain == '*' || email.downcase.end_with?(domain.strip.downcase)
+        self.update_attribute(:approved, true)
+      end
+    end
+  end
+
+  def active_for_authentication?
+    super && approved?
+  end
+
+  def inactive_message
+    if !approved?
+      :not_approved
+    else
+      super # Use whatever other message
     end
   end
 end

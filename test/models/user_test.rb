@@ -41,6 +41,7 @@
 #  invited_by_type           :string
 #  invited_by_id             :integer
 #  invitations_count         :integer          default(0)
+#  approved                  :boolean          default(FALSE), not null
 #
 
 require 'test_helper'

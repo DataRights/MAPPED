@@ -81,7 +81,49 @@ RailsAdmin.config do |config|
   config.model User do
     navigation_label 'User Management'
     weight 5
-    exclude_fields :user_roles, :answers, :notifications
+    #exclude_fields :user_roles, :answers, :notifications
+
+    create do
+      field :email
+      field :password
+      field :password_confirmation
+      field :otp_required_for_login
+      field :first_name
+      field :last_name
+      field :preferred_language
+      field :approved
+      field :roles
+      field :notification_settings
+    end
+
+    edit do
+      field :email
+      field :password
+      field :password_confirmation
+      field :otp_required_for_login
+      field :first_name
+      field :last_name
+      field :preferred_language
+      field :approved
+      field :roles
+      field :notification_settings
+    end
+
+    list do
+      field :email
+      field :otp_required_for_login
+      field :first_name
+      field :last_name
+      field :preferred_language
+      field :approved
+      field :sign_in_count
+      field :last_sign_in_at
+      field :confirmed_at
+      field :failed_attempts
+      field :roles
+      field :notification_settings
+    end
+
   end
 
   config.model Template do
@@ -127,6 +169,11 @@ RailsAdmin.config do |config|
   end
 
   config.model Comment do
+    navigation_label 'General'
+    weight 30
+  end
+
+  config.model Setting do
     navigation_label 'General'
     weight 30
   end
