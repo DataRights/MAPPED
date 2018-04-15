@@ -55,6 +55,8 @@ class WorkflowController < ApplicationController
     @ar = wf.access_request
     if params[:workflow][:sent_date]
       @ar.sent_date = params[:workflow][:sent_date]
+      @ar.sending_method_id = params[:workflow][:sending_method_id]
+      @ar.sending_method_remarks = params[:workflow][:remarks]
       @ar.save!
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180411085620) do
+ActiveRecord::Schema.define(version: 20180415035345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,8 +26,13 @@ ActiveRecord::Schema.define(version: 20180411085620) do
     t.bigint "campaign_id"
     t.text "suggested_text"
     t.text "final_text"
+    t.binary "access_request_file"
+    t.string "access_request_file_content_type"
+    t.bigint "sending_method_id"
+    t.string "sending_method_remarks"
     t.index ["campaign_id"], name: "index_access_requests_on_campaign_id"
     t.index ["organization_id"], name: "index_access_requests_on_organization_id"
+    t.index ["sending_method_id"], name: "index_access_requests_on_sending_method_id"
     t.index ["user_id"], name: "index_access_requests_on_user_id"
   end
 
@@ -291,6 +296,12 @@ ActiveRecord::Schema.define(version: 20180411085620) do
     t.index ["template_id"], name: "index_sectors_templates_on_template_id"
   end
 
+  create_table "sending_methods", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.string "tagable_type"
@@ -483,6 +494,7 @@ ActiveRecord::Schema.define(version: 20180411085620) do
   end
 
   add_foreign_key "access_requests", "organizations"
+  add_foreign_key "access_requests", "sending_methods"
   add_foreign_key "access_requests", "users"
   add_foreign_key "access_rights", "roles"
   add_foreign_key "addresses", "cities"

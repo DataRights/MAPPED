@@ -17,11 +17,14 @@ class Attachment < ApplicationRecord
   belongs_to :workflow_transition
   has_many :tags, :as => :tagable, dependent: :destroy
   has_many :comments, :as => :commentable, dependent: :destroy
-  validate :max_size
+  validate :max_size, if: :content
 
-  MAX_SIZE = 2048*1024
+  # validates :content_type, inclusion: { in: %w(application/pdf image/jpeg image/png application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document text/plain),
+  #   message: I18n.t('validations.attachment_content_type') }, if: :content
+
+  MAX_SIZE = 5048*1024
 
   def max_size
-    errors.add(:content, I18n.t('validations.attachment_max_size')) if content && content.size > MAX_SIZE
+    errors.add(:content, I18n.t('validations.attachment_max_size')) if content.size > MAX_SIZE
   end
 end

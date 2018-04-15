@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   resources :campaigns, only: [:index] do
     resources :access_requests, except: [:delete, :show]
+    get 'access_requests/existing', to: 'access_requests#new'
   end
 
   post 'access_request/:id/comment', to: 'access_requests#comment', as: 'access_request_comment'

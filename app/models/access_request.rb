@@ -2,23 +2,28 @@
 #
 # Table name: access_requests
 #
-#  id                 :integer          not null, primary key
-#  organization_id    :integer
-#  user_id            :integer
-#  meta_data          :jsonb
-#  sent_date          :datetime
-#  data_received_date :datetime
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  campaign_id        :integer
-#  suggested_text     :text
-#  final_text         :text
+#  id                               :integer          not null, primary key
+#  organization_id                  :integer
+#  user_id                          :integer
+#  meta_data                        :jsonb
+#  sent_date                        :datetime
+#  data_received_date               :datetime
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
+#  campaign_id                      :integer
+#  suggested_text                   :text
+#  final_text                       :text
+#  access_request_file              :binary
+#  access_request_file_content_type :string
+#  sending_method_id                :integer
+#  sending_method_remarks           :string
 #
 
 class AccessRequest < ApplicationRecord
   belongs_to :organization
   belongs_to :user
   belongs_to :campaign
+  belongs_to :sending_method, optional: true
   has_one :workflow, dependent: :destroy
   has_many :answers, as: :answerable, dependent: :destroy
   has_many :tags, :as => :tagable, dependent: :destroy
@@ -26,13 +31,43 @@ class AccessRequest < ApplicationRecord
   before_save :update_related_caches, if: :campaign_id_changed?
   before_destroy :update_related_caches
   after_create :create_workflow
+  after_initialize :set_existing
 
   attr_accessor :expanded
   attr_accessor :standard
   attr_accessor :sector_id
   attr_accessor :template_version_id
+  attr_accessor :existing
 
   validates :user, :organization, :campaign, presence: true
+
+  validates :access_request_file, presence: true, if: :existing
+
+  validate :max_size, if: :access_request_file
+
+  # validates :access_request_file_content_type, inclusion: { in: %w(application/pdf image/jpeg image/png application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document text/plain),
+  #   message: I18n.t('validations.access_request_file_content_type') }, if: :access_request_file
+
+  MAX_SIZE = 5048*1024
+
+  def existing=(value)
+    value = true if value == 'true'
+    value = false if value == 'false'
+    value = false if value.blank?
+    @existing = value
+  end
+
+  def set_existing
+    if self.access_request_file
+      @existing = true
+    else
+      @existing = false
+    end
+  end
+
+  def max_size
+    errors.add(:access_request_file, I18n.t('validations.attachment_max_size')) if access_request_file.size > MAX_SIZE
+  end
 
   def context_value
     { 'id' => id, 'data_received_date' => self.data_received_date, 'sent_date' => self.sent_date }

@@ -48,7 +48,9 @@ en:
     action_internal_data_required: 'Internal data parameter in mandatory for this action.'
     template_id_mandatory_internal_data: 'template_id is mandatory for internal data of this action.'
     template_id_not_found: 'template_id not found!'
-    attachment_max_size: 'maximum attachment size is 1.5MB'
+    attachment_max_size: 'maximum attachment size is 5 MB'
+    access_request_file_content_type: 'Ivalid access request type! Only JPEG, PNG images, PDF files, Text and Office documents are allowed.'
+    attachment_content_type: 'Invalid attachment type! Only JPEG, PNG images, PDF files, Text and Office documents are allowed.'
   errors:
     transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
     campaign_not_found: 'Campaign not found'
@@ -134,6 +136,7 @@ en:
   common:
     campaign_not_found: 'Campaign not found!'
     create_new_ar: 'Create new access request'
+    upload_existing_ar: 'Upload an existing access request'
   helpers:
     label:
       user:
@@ -263,6 +266,7 @@ en:
       generating_preview_pdf: 'Generating PDF Preview ...'
     form:
       create_title: 'Create new access request'
+      upload_existing_ar: 'Upload an existing access request'
       edit_title: 'Edit access request'
       sector_label: 'Sector'
       organization_label: 'Organization'
@@ -287,3 +291,4 @@ en:
       address_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
       address_help_title: "Why do we ask for organization's address?"
       template_label: Template
+      submit_upload_ar: 'Upload Access Request'

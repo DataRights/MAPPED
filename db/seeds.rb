@@ -13,6 +13,12 @@ NotificationSetting.find_or_create_by!(name: 'Email Instantly', notification_typ
 NotificationSetting.find_or_create_by!(name: 'Email Daily Digest', notification_type: 'email_daily_digest')
 NotificationSetting.find_or_create_by!(name: 'Email Weekly Digest', notification_type: 'email_weekly_digest')
 
+SendingMethod.find_or_create_by!(name: 'Post')
+SendingMethod.find_or_create_by!(name: 'Email')
+SendingMethod.find_or_create_by!(name: 'Web Form')
+SendingMethod.find_or_create_by!(name: 'Other')
+
+
 unless admin1
   User.create!(email: 'mm.mani@gmail.com', password_confirmation: 'eybaba13', password: 'eybaba13')
   admin1 = User.find_by email: 'mm.mani@gmail.com'

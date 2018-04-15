@@ -2,17 +2,21 @@
 #
 # Table name: access_requests
 #
-#  id                 :integer          not null, primary key
-#  organization_id    :integer
-#  user_id            :integer
-#  meta_data          :jsonb
-#  sent_date          :datetime
-#  data_received_date :datetime
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  campaign_id        :integer
-#  suggested_text     :text
-#  final_text         :text
+#  id                               :integer          not null, primary key
+#  organization_id                  :integer
+#  user_id                          :integer
+#  meta_data                        :jsonb
+#  sent_date                        :datetime
+#  data_received_date               :datetime
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
+#  campaign_id                      :integer
+#  suggested_text                   :text
+#  final_text                       :text
+#  access_request_file              :binary
+#  access_request_file_content_type :string
+#  sending_method_id                :integer
+#  sending_method_remarks           :string
 #
 
 require 'test_helper'

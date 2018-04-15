@@ -63,6 +63,11 @@ RailsAdmin.config do |config|
     weight 3
   end
 
+  config.model SendingMethod do
+    navigation_label 'Access Requests'
+    weight 6
+  end
+
   config.model User do
     navigation_label 'User Management'
     weight 5

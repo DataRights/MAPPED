@@ -26,6 +26,7 @@ class AccessRequestsController < ApplicationController
 
   def new
     @access_request = AccessRequest.new
+    @access_request.existing = request.url.include?('existing')
     @organization = Organization.new
     @access_request.sent_date = Date.today
     @templates = []
@@ -78,36 +79,56 @@ class AccessRequestsController < ApplicationController
     unless params['textTypeRadios'] == 'expanded'
       @access_request.final_text = @access_request.suggested_text
     end
+
+    if @access_request.existing# user attached existing access request file
+      @access_request.final_text = nil
+      @access_request.suggested_text = nil
+      if @access_request.access_request_file
+        @access_request.access_request_file_content_type = @access_request.access_request_file&.content_type
+        @access_request.access_request_file = @access_request.access_request_file.read
+      end
+    end
+
     if @access_request.save
-      session['download_ar'] = @access_request.id
+      session['download_ar'] = @access_request.id unless @access_request.existing
       redirect_to campaign_access_requests_path(campaign_id: @access_request.campaign_id)
+    elsif @access_request.existing
+      redirect_to campaign_access_requests_existing_path(campaign_id: @access_request.campaign_id), alert: @access_request.errors.full_messages.join(',')
     else
-      render 'new'
+      render 'new', alert: @access_request.errors.full_messages.join(',')
     end
   end
 
   def edit
     @campaign = Campaign.find params[:campaign_id]
     @campaign_count = AccessRequest.where('campaign_id = ? AND user_id = ?', @campaign.id,current_user.id).count
-    @rendered_template = @access_request.final_text
-    @templates = AccessRequest.available_templates(:access_request, @access_request.organization)
-    @selected_template ||= begin
-      if @templates.blank?
-        nil
-      elsif mylang_version = @templates.detect {|t| t.language == current_user.preferred_language}
-        mylang_version
-      else
-        @templates.first
+
+    unless @access_request.existing
+      @rendered_template = @access_request.final_text
+      @templates = AccessRequest.available_templates(:access_request, @access_request.organization)
+      @selected_template ||= begin
+        if @templates.blank?
+          nil
+        elsif mylang_version = @templates.detect {|t| t.language == current_user.preferred_language}
+          mylang_version
+        else
+          @templates.first
+        end
       end
     end
   end
 
   def update
-    if @access_request.update(access_request_params)
-      session['download_ar'] = @access_request.id
+    @access_request.assign_attributes(access_request_params)
+    if @access_request.existing && params[:access_request][:access_request_file]
+      @access_request.access_request_file_content_type = @access_request.access_request_file&.content_type
+      @access_request.access_request_file = @access_request.access_request_file.read
+    end
+    if @access_request.save
+      session['download_ar'] = @access_request.id unless @access_request.existing
       redirect_to campaign_access_requests_path(campaign_id: @access_request.campaign_id)
     else
-      render 'edit'
+      redirect_to edit_campaign_access_request_path(campaign_id: @access_request.campaign_id, id: @access_request.id), alert: @access_request.errors.full_messages.join(',')
     end
   end
 
@@ -119,8 +140,12 @@ class AccessRequestsController < ApplicationController
   end
 
   def download
-    pdf = WickedPdf.new.pdf_from_string(@access_request.final_text&.html_safe, encoding: 'UTF-8')
-    send_data(pdf, :filename => "AccessRequest-#{@access_request.id}-#{@access_request.organization.name}" ,:type => :pdf)
+    if @access_request.final_text.blank?
+      send_data(@access_request.access_request_file, :filename => "AccessRequest-#{@access_request.id}-#{@access_request.organization.name}", :type => @access_request.access_request_file_content_type)
+    else
+      pdf = WickedPdf.new.pdf_from_string(@access_request.final_text&.html_safe, encoding: 'UTF-8')
+      send_data(pdf, :filename => "AccessRequest-#{@access_request.id}-#{@access_request.organization.name}" ,:type => :pdf)
+    end
   end
 
   def comment
@@ -146,7 +171,7 @@ class AccessRequestsController < ApplicationController
 
   private
    def access_request_params
-     params.require(:access_request).permit(:organization_id, :campaign_id, :sent_date, :suggested_text, :final_text)
+     params.require(:access_request).permit(:organization_id, :campaign_id, :sent_date, :suggested_text, :final_text, :existing, :access_request_file, :sending_method_id, :sending_method_remarks)
    end
 
    def find_access_request
