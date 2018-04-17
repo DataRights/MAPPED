@@ -19,6 +19,10 @@ test:
   <<: *default
   database: mapped_test
 
+staging:
+  <<: *default
+  database: mapped_staging
+
 production:
   <<: *default
   database: mapped

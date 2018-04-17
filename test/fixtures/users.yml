@@ -55,17 +55,21 @@ one:
   notification_settings: web, email_instantly
   confirmed_at: '2018-12-07 19:34'
   first_name: 'Charlie'
+  approved: true
 
 two:
   email: 'two@datarights.me'
   confirmed_at: '2018-12-07 19:34'
   first_name: 'Charlie'
   last_name: 'Root'
+  approved: true
 
 three:
   email: 'test@test.com'
   confirmed_at: '2018-12-07 19:34'
+  approved: true
 
 four:
   email: 'foo@bar.com'
   confirmed_at: '2018-12-07 19:34'
+  approved: true
