@@ -19,6 +19,12 @@ class UserPolicyConsent < ApplicationRecord
 
   before_save :set_dates, if: :approved_changed?
 
+  attr_accessor :title
+
+  def title
+    policy_consent.title
+  end
+
   def set_dates
     if self.approved
       self.approved_date = Time.now

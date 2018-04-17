@@ -14,4 +14,10 @@ class UserRole < ApplicationRecord
 	belongs_to :role
 
 	validates :user, uniqueness: { scope: :role }
+
+	attr_accessor :title
+
+  def title
+    role.name
+  end
 end
