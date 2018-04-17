@@ -63,13 +63,12 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.smtp_settings = {
-    user_name: '',
-    password: '',
+    user_name: nil,
+    password: nil,
     domain: 'tudelft.nl',
     address: 'dutmail.tudelft.nl',
     port: 25,
-    authentication: nil,
-    #enable_starttls_auto: true
+    authentication: nil
   }
 
   config.action_mailer.default_options = {
