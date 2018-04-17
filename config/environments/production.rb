@@ -68,7 +68,7 @@ Rails.application.configure do
     domain: 'tudelft.nl',
     address: 'dutmail.tudelft.nl',
     port: 25,
-    authentication: :none,
+    authentication: nil,
     #enable_starttls_auto: true
   }
 
