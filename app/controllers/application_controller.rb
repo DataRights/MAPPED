@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   before_action :get_count_of_unread_notifications
   before_action :set_locale
 
+  def require_admin
+    current_user && current_user.can?(:admin_login)
+  end
+
   protected
 
   def configure_permitted_parameters

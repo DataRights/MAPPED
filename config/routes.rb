@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  mount Blazer::Engine, at: "reports"
+
   get 'content/:template_type', :to => 'dynamic#authorized_content'
   get 'content/public/:template_type', :to => 'dynamic#anonymous_content'
 

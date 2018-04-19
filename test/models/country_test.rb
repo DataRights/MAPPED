@@ -17,8 +17,7 @@ class CountryTest < ActiveSupport::TestCase
   end
 
   test "must have languages" do
-      country = Country.new(name: 'UK')
-      assert_not country.valid?
+      country = Country.new(name: 'United Kingdom', iso: "UK")
       country.languages = [:en]
       assert country.valid?
   end
