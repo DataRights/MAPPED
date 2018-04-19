@@ -89,8 +89,8 @@ class Workflow < ApplicationRecord
       t = workflow_state.possible_transitions.where.not(timeout_days: nil).first
       timeout = updated_at + t.timeout_days.days
       distance = distance_of_time_in_words timeout, Time.now
-      left = I18n.t('access_requests.templates.awaiting_response.left')
-      passed = I18n.t('access_requests.templates.awaiting_response.passed')
+      left = I18n.t('access_requests.templates.state_forms.timeout_state.left')
+      passed = I18n.t('access_requests.templates.state_forms.timeout_state.passed')
       Time.now > timeout ? "(#{distance} #{passed})" : "(#{distance} #{left})"
     end
   end

@@ -48,7 +48,7 @@ en:
       user:
         signed_up_but_not_approved: 'You have signed up successfully but your account has not been approved by your administrator yet'
     sessions:
-      signed_in: "Signed in successfully."
+      signed_in: ""
       signed_out: "Signed out successfully."
       already_signed_out: "Signed out successfully."
     unlocks:

@@ -28,6 +28,8 @@ class AccessRequest < ApplicationRecord
   has_many :answers, as: :answerable, dependent: :destroy
   has_many :tags, :as => :tagable, dependent: :destroy
   has_many :comments, :as => :commentable, dependent: :destroy
+  has_many :responses, dependent: :destroy
+  has_many :notifications, dependent: :destroy
   before_save :update_related_caches, if: :campaign_id_changed?
   before_destroy :update_related_caches
   after_create :create_workflow

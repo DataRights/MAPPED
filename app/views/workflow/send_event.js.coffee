@@ -1,4 +1,4 @@
-<% if @workflow_transition.status == 'success' %>
+<% if @errors.nil? %>
 $('#modal<%= @ar.id %>').modal('hide')
 #$('#send_event_alert<%= @ar.id %>').hide()
 #$('#send_event_success<%= @ar.id %>').show()
@@ -7,5 +7,5 @@ $('#modal<%= @ar.id %>').modal('hide')
 <% else %>
 $('#send_event_success<%= @ar.id %>').hide()
 $('#send_event_alert<%= @ar.id %>').show()
-$('#alert_message<%= @ar.id %>').html '<%= "#{@workflow_transition.action_failed_message} - #{@workflow_transition.failed_guard_message}" %>'
+$('#alert_message<%= @ar.id %>').html '<%= "#{@errors}" %>'
 <% end %>

@@ -17,7 +17,7 @@
 
 class Transition < ApplicationRecord
 
-  enum ui_form: [:send_letter, :access_request_date]
+  enum ui_form: [:empty, :send_letter, :access_request_date, :response_received, :upload_attachment]
   enum transition_type: [:event, :undo, :timeout]
 
   belongs_to :from_state, class_name: 'WorkflowState'

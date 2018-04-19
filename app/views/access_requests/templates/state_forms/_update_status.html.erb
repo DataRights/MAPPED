@@ -2,6 +2,7 @@
   <a class="<%= a.workflow.workflow_state.button_css_class %>" href="#" data-toggle="modal" data-target="#modal<%= a.id %>" role="button" style="<%= a.workflow.workflow_state.button_style %>">
     <%= a.workflow.workflow_state.button_text %>
   </a>
+  <%= a.workflow.timeout_distance %>
 <% end %>
 
 <%= form_with(model: a.workflow) do |f| %>
@@ -31,14 +32,21 @@
             <span aria-hidden="true">×</span>
           </button>
         </div>
-
+        <%= f.hidden_field(:ui_form, id: "ui_form_#{a.id}") %>
         <div class="form-group">
           <%= f.hidden_field(:id) %>
           <%= f.select(:transition_id, options_for_select(a.workflow.workflow_state.possible_transitions.where(transition_type: :event).map{ |t| [t.name, t.id, { 'data-ui-form' => t.ui_form || "" }] }), {:include_blank => t('.select_blank')}, {class: "form-control", id: "workflow_transition_id_#{a.id}", required:"required"}) %>
         </div>
         <div id="access_request_date<%= a.id %>" class="collapse dynamic">
-          <%= render partial: 'access_requests/templates/access_request_date', locals: {a: a, f: f} %>
+          <%= render partial: 'access_requests/templates/transition_forms/access_request_date', locals: {a: a, f: f} %>
         </div>
+        <div id="response_received<%= a.id %>" class="collapse dynamic">
+          <%= render partial: 'access_requests/templates/transition_forms/response_received', locals: {a: a, f: f} %>
+        </div>
+        <div id="upload_attachment<%= a.id %>" class="collapse dynamic">
+          <%= render partial: 'access_requests/templates/transition_forms/upload_attachment', locals: {a: a, f: f} %>
+        </div>
+
         <div class="form-group"
           <label for="remarks"><%= t('.remark') %>:</label>
           <%= f.text_area(:remarks, class: 'form-control') %>
@@ -47,12 +55,12 @@
           <%= f.hidden_field(:current_form, value: 'update_status', id: 'workflow_current_form') %>
         </div>
         <div id="send_letter<%= a.id %>" class="collapse dynamic">
-          <%= render partial: 'access_requests/templates/send_letter', locals: {a: a, f: f} %>
+          <%= render partial: 'access_requests/templates/transition_forms/send_letter', locals: {a: a, f: f} %>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') %></button>
-        <%= f.submit t('.save'), id: "update_status_save#{a.id}", data: { "disable-with": t('.saving') }, class: 'btn btn-primary' %>
+        <%= f.submit t('.save'), id: "update_status_save#{a.id}", data: { "disable-with": t('.saving'), "ar-id": "#{a.id}" }, class: 'btn btn-primary update_status' %>
       </div>
     </div>
   </div>
@@ -70,6 +78,10 @@
     $('#workflow_current_form').val(ui_form);
     if (ui_form != undefined && ui_form != '') {
       $('#' + ui_form + "<%= a.id %>").show();
+      $('#ui_form_<%= a.id %>').val(ui_form);
+    }
+    else {
+      $('#ui_form_<%= a.id %>').val('');
     }
   });
 </script>

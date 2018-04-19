@@ -53,6 +53,16 @@ RailsAdmin.config do |config|
     preview_template
   end
 
+  config.model SendingMethod do
+    navigation_label 'Workflow Definitions'
+    weight 6
+  end
+
+  config.model ResponseType do
+    navigation_label 'Workflow Definitions'
+    weight 8
+  end
+
   config.model WorkflowType do
     navigation_label 'Workflow Definitions'
     weight 1
@@ -63,19 +73,9 @@ RailsAdmin.config do |config|
     weight 3
   end
 
-  config.model SendingMethod do
-    navigation_label 'Access Requests'
-    weight 6
-  end
-
   config.model Response do
     navigation_label 'Access Requests'
     weight 7
-  end
-
-  config.model ResponseType do
-    navigation_label 'Access Requests'
-    weight 8
   end
 
   config.model User do

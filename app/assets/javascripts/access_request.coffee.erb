@@ -126,3 +126,20 @@ $(document).on 'turbolinks:load', ->
 
   $("#accordion").on 'shown.bs.collapse', (e) ->
     Cookies.set('active_accordion', e.target.id)
+
+  # Bug fix for Safari 11.1 and later:
+  # https://github.com/rails/rails/issues/32440
+  # https://stackoverflow.com/questions/49614091/safari-11-1-ajax-xhr-form-submission-fails-when-inputtype-file-is-empty/49708973#49708973
+  $(".update_status").on 'click', ->
+    ar_id = $(this).attr('data-ar-id')
+    attachment_files = $("#workflow_attachment_file_#{ar_id}")
+    response_attachments_files = $("#workflow_response_attachment_files_#{ar_id}")
+    if attachment_files != undefined && (attachment_files.val() == undefined || attachment_files.val() == "")
+      console.log 'inside empty attachment_files block!'
+      attachment_files.remove()
+
+    if response_attachments_files != undefined && (response_attachments_files.val() == undefined || response_attachments_files.val() == "")
+      console.log 'inside empty response_attachment_files block!'
+      response_attachments_files.remove()
+
+    return true;

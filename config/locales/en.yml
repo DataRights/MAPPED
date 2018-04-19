@@ -186,30 +186,6 @@ en:
       new_file: 'New File'
   access_requests:
     templates:
-      update_status:
-        update_status: 'Update Status'
-        what_is_it: 'What is it?'
-        remark: 'Remark'
-        acknowledgement: 'Acknowledgement/confirmation'
-        request_clarification: 'Request of clarification'
-        cant_verify_your_identity: "We can't verify your identity"
-        we_dont_know_you: "We don't know you"
-        close: "Close"
-        save: "Save"
-        saving: "Saving..."
-        select_blank: 'Please select an action ...'
-      awaiting_response:
-        remark: 'Remark'
-        close: "Close"
-        save: "Save"
-        saving: "Saving..."
-        select_blank: 'Please select an action ...'
-        awaiting_response: 'Awaiting response'
-        left: left
-        passed: passed
-      evaluation:
-        evaluate: 'Evaluate'
-        saving: "Saving..."
       history_comments:
         access_request_created: 'Access request created'
         comments: 'Comments'
@@ -236,32 +212,66 @@ en:
         upload_attachment_description: 'Edit data description (Optional)'
         upload_file: 'Upload file'
         letter_text: 'Edit your letter:'
-      send_letter:
-        text_type_select: 'Text of letter'
-        text_type_standard: 'Standard text'
-        text_type_custom: 'Expanded text'
-        please_note_fields_in_red: 'Please note that fields in red require your personal data.'
-        sending_date_label: 'Date of sending'
-        passport_id_warning: 'Do not forget to attach a copy of your passport/ID card to your access request reminder.'
-        close: "Close"
-        final_button: 'Generate PDF'
-        select_blank: 'Please select an action ...'
-      access_request_date:
-        sent_date: 'Date of sending'
-        access_request_sending_method: 'Sending Method'
-      done:
-        done: 'Done'
-      what_happened_update_status:
-        what_happened: 'What happened?'
-        what_do_you_want_to_do_now: 'What do you want to do now?'
-        upload_attachment: 'Upload Attachments (Optional)'
-        upload_attachment_description: 'File description (Optional)'
-        save: "Save"
-        saving: "Saving..."
-        close: "Close"
-        upload_file: 'Upload file'
-        select_blank: 'Please select an option ...'
-        i_want_to_blackout: 'I want to blackout some parts of attachment.'
+      state_forms:
+        update_status:
+          update_status: 'Update Status'
+          what_is_it: 'What is it?'
+          remark: 'Remark'
+          acknowledgement: 'Acknowledgement/confirmation'
+          request_clarification: 'Request of clarification'
+          cant_verify_your_identity: "We can't verify your identity"
+          we_dont_know_you: "We don't know you"
+          close: "Close"
+          save: "Save"
+          saving: "Saving..."
+          select_blank: 'Please select an action ...'
+        timeout_state:
+          remark: 'Remark'
+          close: "Close"
+          save: "Save"
+          saving: "Saving..."
+          select_blank: 'Please select an action ...'
+          awaiting_response: 'Awaiting response'
+          left: left
+          passed: passed
+        evaluation:
+          evaluate: 'Evaluate'
+          saving: "Saving..."
+        empty:
+          done: 'Done'
+        what_happened_update_status:
+          what_happened: 'What happened?'
+          what_do_you_want_to_do_now: 'What do you want to do now?'
+          upload_attachment: 'Upload Attachments (Optional)'
+          upload_attachment_description: 'File description (Optional)'
+          save: "Save"
+          saving: "Saving..."
+          close: "Close"
+          upload_file: 'Upload file'
+          select_blank: 'Please select an option ...'
+          i_want_to_blackout: 'I want to blackout some parts of attachment.'
+      transition_forms:
+        send_letter:
+          text_type_select: 'Text of letter'
+          text_type_standard: 'Standard text'
+          text_type_custom: 'Expanded text'
+          please_note_fields_in_red: 'Please note that fields in red require your personal data.'
+          sending_date_label: 'Date of sending'
+          passport_id_warning: 'Do not forget to attach a copy of your passport/ID card to your access request reminder.'
+          close: "Close"
+          final_button: 'Generate PDF'
+          select_blank: 'Please select an action ...'
+        access_request_date:
+          sent_date: 'Date of sending'
+          access_request_sending_method: 'Sending Method'
+        response_received:
+          response_type: 'What did they communicate?'
+          description: "Additional description"
+          response_attachments: 'Attachments (if any)'
+          received_date: 'When?'
+        upload_attachment:
+          upload_attachment: 'Upload Attachments (Optional)'
+          upload_attachment_description: 'File description (Optional)'
     new:
       preview_button: 'Preview PDF'
       generating_preview_pdf: 'Generating PDF Preview ...'

@@ -45,7 +45,7 @@ nl:
       user:
         signed_up_but_not_approved: 'You have signed up successfully but your account has not been approved by your administrator yet'
     sessions:
-      signed_in: "Succesvvol ingelogd"
+      signed_in: ""
       signed_out: "Succesvol uitgelogd"
     unlocks:
       send_instructions: "Je zult een e-mail met instructies ontvangen over hoe je jouw account moet unlocken over een paar minuten."
