@@ -53,34 +53,22 @@ RailsAdmin.config do |config|
     preview_template
   end
 
-  config.model SendingMethod do
-    navigation_label 'Workflow Definitions'
-    weight 6
-  end
 
-  config.model ResponseType do
-    navigation_label 'Workflow Definitions'
-    weight 8
-  end
+  config.excluded_models = ["Event", "City", "Blazer::Audit", "Blazer::Check", "Blazer::Dashboard", "Blazer::DashboardQuery", "Blazer::Query"]
 
-  config.model WorkflowType do
-    navigation_label 'Workflow Definitions'
-    weight 1
-  end
+
+  ####################################################################
+  #                     BEGIN TOP MENU ITEMS
+  ####################################################################
 
   config.model AccessRequest do
     navigation_label 'Access Requests'
-    weight 3
-  end
-
-  config.model Response do
-    navigation_label 'Access Requests'
-    weight 7
+    weight 1
   end
 
   config.model User do
     navigation_label 'User Management'
-    weight 5
+    weight 10
     #exclude_fields :user_roles, :answers, :notifications
 
     create do
@@ -126,9 +114,24 @@ RailsAdmin.config do |config|
 
   end
 
+  config.model Sector do
+    navigation_label 'Sectors & Organizations'
+    weight 20
+  end
+
+  config.model Notification do
+    navigation_label 'Notification Management'
+    weight 30
+  end
+
+  config.model Question do
+    navigation_label 'Survey Management'
+    weight 40
+  end
+
   config.model Template do
-    navigation_label 'Template Engine'
-    weight 10
+    navigation_label 'Template Definition'
+    weight 50
 
     create do
       field :name
@@ -153,29 +156,38 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.model Sector do
-    navigation_label 'Sectors & Organizations'
-    weight 15
-  end
-
-  config.model Question do
-    navigation_label 'Survey'
-    weight 20
-  end
-
-  config.model Notification do
-    navigation_label 'Notification Engine'
-    weight 25
-  end
-
-  config.model Comment do
-    navigation_label 'General'
-    weight 30
+  config.model WorkflowType do
+    navigation_label 'Workflow Definitions'
+    weight 60
   end
 
   config.model Setting do
-    navigation_label 'General'
-    weight 30
+    navigation_label 'General Settings'
+    weight 70
+  end
+
+  config.model Guard do
+    navigation_label 'Development Settings'
+    weight 80
+  end
+
+  ####################################################################
+  #                     END TOP MENU ITEMS
+  ####################################################################
+
+
+
+
+
+
+
+
+  config.model Response do
+    parent AccessRequest
+  end
+
+  config.model Comment do
+    parent User
   end
 
   config.model TemplateVersion do
@@ -218,6 +230,14 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model SendingMethod do
+    parent WorkflowType
+  end
+
+  config.model ResponseType do
+    parent WorkflowType
+  end
+
   config.model Answer do
     parent Question
   end
@@ -238,15 +258,10 @@ RailsAdmin.config do |config|
     parent User
   end
 
-  config.model City do
-    parent User
-  end
-
   config.model Country do
     parent User
     edit do
       field :name
-      field :cities
       field :languages, :pg_string_array
     end
   end
@@ -255,9 +270,9 @@ RailsAdmin.config do |config|
     parent WorkflowType
   end
 
-  config.model Event do
-    parent WorkflowType
-  end
+  # config.model Event do
+  #   parent WorkflowType
+  # end
 
   config.model WorkflowTransition do
     parent AccessRequest
@@ -276,7 +291,7 @@ RailsAdmin.config do |config|
   end
 
   config.model WorkflowStateForm do
-    parent WorkflowType
+    parent Guard
   end
 
   config.model Transition do
@@ -309,16 +324,12 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.model Guard do
-    parent WorkflowType
-  end
-
   config.model Workflow do
     parent AccessRequest
   end
 
   config.model CodeAction do
-    parent WorkflowType
+    parent Guard
     label "Action"
     label_plural "Actions"
   end
@@ -420,7 +431,7 @@ RailsAdmin.config do |config|
   end
 
   config.model NotificationSetting do
-    parent Notification
+    parent Setting
   end
 
   config.model Attachment do
