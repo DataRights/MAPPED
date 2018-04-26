@@ -7,10 +7,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  languages  :string           default([]), is an Array
+#  iso        :string
 #
 
 class Country < ApplicationRecord
-  has_many :cities, dependent: :destroy
   has_many :addresses, :dependent => :destroy
   #validates_presence_of :languages
 

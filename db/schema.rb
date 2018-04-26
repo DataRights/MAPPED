@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419140015) do
+ActiveRecord::Schema.define(version: 20180425175937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20180419140015) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
+    t.string "city_name"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
     t.index ["city_id"], name: "index_addresses_on_city_id"
     t.index ["country_id"], name: "index_addresses_on_country_id"
@@ -174,14 +175,6 @@ ActiveRecord::Schema.define(version: 20180419140015) do
     t.bigint "user_id", null: false
     t.bigint "campaign_id", null: false
     t.index ["user_id", "campaign_id"], name: "index_campaigns_users_on_user_id_and_campaign_id"
-  end
-
-  create_table "cities", force: :cascade do |t|
-    t.string "name"
-    t.bigint "country_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["country_id"], name: "index_cities_on_country_id"
   end
 
   create_table "code_actions", force: :cascade do |t|
@@ -581,14 +574,12 @@ ActiveRecord::Schema.define(version: 20180419140015) do
   add_foreign_key "access_requests", "sending_methods"
   add_foreign_key "access_requests", "users"
   add_foreign_key "access_rights", "roles"
-  add_foreign_key "addresses", "cities"
   add_foreign_key "addresses", "countries"
   add_foreign_key "answers", "questions"
   add_foreign_key "attachments", "responses"
   add_foreign_key "attachments", "workflow_transitions"
   add_foreign_key "campaigns", "policy_consents"
   add_foreign_key "campaigns", "workflow_types"
-  add_foreign_key "cities", "countries"
   add_foreign_key "comments", "users"
   add_foreign_key "email_notifications", "notifications"
   add_foreign_key "events", "workflow_states"

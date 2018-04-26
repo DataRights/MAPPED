@@ -7,6 +7,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  languages  :string           default([]), is an Array
+#  iso        :string
 #
 
 require 'test_helper'

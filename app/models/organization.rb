@@ -26,7 +26,8 @@ class Organization < ApplicationRecord
   has_and_belongs_to_many :campaigns
   has_many :tags, :as => :tagable, dependent: :destroy
   has_many :comments, :as => :commentable, dependent: :destroy
-  validates_presence_of :address, :languages, :name
+  before_save :set_default_language
+  validates_presence_of :address
   validates :name, uniqueness: { case_sensitive: false, message: ": Another organization with the same name exists!"}
   accepts_nested_attributes_for :address
 
@@ -41,6 +42,12 @@ class Organization < ApplicationRecord
     result['custom_3_desc'] = custom_3_desc if custom_3_desc
     result['address'] = address.context_value if address
     result
+  end
+
+  def set_default_language
+    if self[:languages].blank?
+      self.languages = 'en'
+    end
   end
 
   def languages

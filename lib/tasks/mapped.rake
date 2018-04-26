@@ -6,7 +6,6 @@ namespace :mapped do
   end
 
   task :seed_countries => :environment do
-    City.all.update_all(country_id: nil)
     Address.all.update_all(country_id: nil)
     Country.delete_all
     Country.create(:id=>1,:iso=>"AD",:name=>"Andorra")

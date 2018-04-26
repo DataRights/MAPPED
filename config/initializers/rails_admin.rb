@@ -54,7 +54,7 @@ RailsAdmin.config do |config|
   end
 
 
-  config.excluded_models = ["Event", "City", "Blazer::Audit", "Blazer::Check", "Blazer::Dashboard", "Blazer::DashboardQuery", "Blazer::Query"]
+  config.excluded_models = ["Event", "Blazer::Audit", "Blazer::Check", "Blazer::Dashboard", "Blazer::DashboardQuery", "Blazer::Query"]
 
 
   ####################################################################
