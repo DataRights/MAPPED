@@ -26,7 +26,7 @@ class AccessRequestsController < ApplicationController
 
   def new
     @access_request = AccessRequest.new
-    @access_request.existing = request.url.include?('existing')
+    @access_request.ar_method = 'template'
     @organization = Organization.new
     @access_request.sent_date = Date.today
     @templates = []
@@ -69,66 +69,75 @@ class AccessRequestsController < ApplicationController
       flash[:notice] = I18n.t('errors.template_version_not_found')
       redirect_to home_path and return
     end
-    @access_request.suggested_text = @rendered_template&.html_safe
     @access_request.final_text = @rendered_template
   end
 
   def create
     @access_request = AccessRequest.new(access_request_params)
     @access_request.user = current_user
-    unless params['textTypeRadios'] == 'expanded'
-      @access_request.final_text = @access_request.suggested_text
-    end
 
-    if @access_request.existing# user attached existing access request file
-      @access_request.final_text = nil
+    if @access_request.ar_method == 'upload'
       @access_request.suggested_text = nil
-      if @access_request.access_request_file
-        @access_request.access_request_file_content_type = @access_request.access_request_file&.content_type
-        @access_request.access_request_file = @access_request.access_request_file.read
-      end
+      @access_request.final_text = nil
+      @access_request.access_request_file_content_type = @access_request.uploaded_access_request_file&.content_type
+      @access_request.access_request_file = @access_request.uploaded_access_request_file.read
     end
 
     if @access_request.save
-      session['download_ar'] = @access_request.id unless @access_request.existing
+      session['download_ar'] = @access_request.id
       redirect_to campaign_access_requests_path(campaign_id: @access_request.campaign_id)
-    elsif @access_request.existing
-      redirect_to campaign_access_requests_existing_path(campaign_id: @access_request.campaign_id), alert: @access_request.errors.full_messages.join(',')
     else
-      render 'new', alert: @access_request.errors.full_messages.join(',')
+      render 'new', alert: @access_request.errors.messages.values.join(',')
     end
   end
 
   def edit
-    @campaign = Campaign.find params[:campaign_id]
+    @campaign = @access_request.campaign
     @campaign_count = AccessRequest.where('campaign_id = ? AND user_id = ?', @campaign.id,current_user.id).count
-
-    unless @access_request.existing
-      @rendered_template = @access_request.final_text
-      @templates = AccessRequest.available_templates(:access_request, @access_request.organization)
-      @selected_template ||= begin
-        if @templates.blank?
-          nil
-        elsif mylang_version = @templates.detect {|t| t.language == current_user.preferred_language}
-          mylang_version
-        else
-          @templates.first
-        end
+    @sectors = get_sectors(@campaign)
+    @templates = []
+    @selected_organization = @access_request.organization.id
+    @selected_sector = @access_request.organization.sector
+    @selected_template = nil
+    @organizations = get_campaign_organizations(@campaign, @selected_sector)
+    @templates = AccessRequest.available_templates(:access_request, @access_request.organization)
+    @selected_template ||= begin
+      if @templates.blank?
+        nil
+      elsif mylang_version = @templates.detect {|t| t.language == current_user.preferred_language}
+        mylang_version
+      else
+        @templates.first
       end
+    end
+
+    @rendered_template = AccessRequest.get_rendered_template(:access_request, current_user, @campaign, @access_request.organization, @access_request, @selected_template)
+
+    if @access_request.access_request_file
+      @access_request.ar_method = 'upload'
+      @access_request.final_text = @rendered_template # in case user decided to change everything and use text instead of his file
+    else
+      @access_request.ar_method = 'template'
+      @rendered_template = @access_request.final_text
     end
   end
 
   def update
     @access_request.assign_attributes(access_request_params)
-    if @access_request.existing && params[:access_request][:access_request_file]
-      @access_request.access_request_file_content_type = @access_request.access_request_file&.content_type
-      @access_request.access_request_file = @access_request.access_request_file.read
+    if @access_request.ar_method == 'upload'
+      @access_request.suggested_text = nil
+      @access_request.final_text = nil
+      @access_request.access_request_file_content_type = @access_request&.uploaded_access_request_file&.content_type
+      @access_request.access_request_file = @access_request&.uploaded_access_request_file&.read
+    else
+      @access_request.access_request_file_content_type = nil
+      @access_request.access_request_file = nil
     end
     if @access_request.save
-      session['download_ar'] = @access_request.id unless @access_request.existing
+      session['download_ar'] = @access_request.id
       redirect_to campaign_access_requests_path(campaign_id: @access_request.campaign_id)
     else
-      redirect_to edit_campaign_access_request_path(campaign_id: @access_request.campaign_id, id: @access_request.id), alert: @access_request.errors.full_messages.join(',')
+      redirect_to edit_campaign_access_request_path(campaign_id: @access_request.campaign_id, id: @access_request.id), alert: @access_request.errors.messages.values.join(',')
     end
   end
 
@@ -171,7 +180,7 @@ class AccessRequestsController < ApplicationController
 
   private
    def access_request_params
-     params.require(:access_request).permit(:organization_id, :campaign_id, :sent_date, :suggested_text, :final_text, :existing, :access_request_file, :sending_method_id, :sending_method_remarks)
+     params.require(:access_request).permit(:organization_id, :campaign_id, :suggested_text, :final_text, :uploaded_access_request_file, :ar_method)
    end
 
    def find_access_request

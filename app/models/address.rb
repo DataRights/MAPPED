@@ -19,7 +19,8 @@
 class Address < ApplicationRecord
   belongs_to :country
   belongs_to :addressable, polymorphic: true, :inverse_of => :address
-  validates_presence_of :line1
+  validates_presence_of :line1, :city_name
+  before_save :capitalize_city_name!
 
   def context_value
     result = {
@@ -27,9 +28,15 @@ class Address < ApplicationRecord
       'line2' => line2.blank? ? '' : line2,
       'post_code' => post_code.blank? ? '' : post_code,
     }
-    result['city'] = city_name.blank? ? '' : city_name
+    unless city_name.blank?
+      result['city'] = city_name
+    end
     result['country'] = country.context_value if country
     result
+  end
+
+  def capitalize_city_name!
+    self.city_name&.capitalize!
   end
 
 end

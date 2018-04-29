@@ -33,7 +33,7 @@ class OrganizationTest < ActiveSupport::TestCase
   test 'must have an address and language' do
     o = Organization.new(name: 'datarights', sector: Sector.new(name: 'IT'))
     assert_not o.valid?
-    o.address = Address.new(line1: 'somewhere', line2: 'somewhere else', post_code: 'NW12', city: City.new(name: 'London'), country: Country.new(name: 'UK'), addressable: o)
+    o.address = Address.new(line1: 'somewhere', line2: 'somewhere else', post_code: 'NW12', city_name: 'London', country: Country.new(name: 'UK'), addressable: o)
     o.languages = [:en]
     assert o.valid?
   end
@@ -42,7 +42,7 @@ class OrganizationTest < ActiveSupport::TestCase
     o = Organization.new(name: 'datarights', sector: Sector.new(name: 'IT'))
     country = Country.new(name: 'UK')
     country.languages = [:en,:ar]
-    o.address = Address.new(line1: 'somewhere', line2: 'somewhere else', post_code: 'NW12', city: City.new(name: 'London'), country: country, addressable: o)
+    o.address = Address.new(line1: 'somewhere', line2: 'somewhere else', post_code: 'NW12', city_name: 'London', country: country, addressable: o)
     assert_equal [:en,:ar], o.languages
   end
 
@@ -51,7 +51,7 @@ class OrganizationTest < ActiveSupport::TestCase
     o.languages = [:kq,:rw]
     country = Country.new(name: 'UK')
     country.languages = [:en,:ar]
-    o.address = Address.new(line1: 'somewhere', line2: 'somewhere else', post_code: 'NW12', city: City.new(name: 'London'), country: country, addressable: o)
+    o.address = Address.new(line1: 'somewhere', line2: 'somewhere else', post_code: 'NW12', city_name: 'London', country: country, addressable: o)
     assert_equal [:kq,:rw], o.languages
   end
 end

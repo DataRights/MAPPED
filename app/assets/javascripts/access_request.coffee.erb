@@ -11,6 +11,7 @@ loadTemplates = (organization_id) ->
       $('#access_request_template_version_id').append listitems
       updateTemplateContentByOrganization organization_id
 
+
 updateTemplateContentByOrganization = (organization_id) ->
   cid = $('#access_request_campaign_id').val()
   url = "/campaigns/#{cid}/organizations/#{organization_id}/template"
@@ -19,8 +20,6 @@ updateTemplateContentByOrganization = (organization_id) ->
   $.ajax url,
     type: 'GET'
     success: (e) ->
-      $('#access_request_standard_text').val(e.template)
-      $('#textContentStandard').html(e.template)
       CKEDITOR.instances['access_request_final_text'].setData e.template
 
 sectorChanged = (sector_id) ->
@@ -43,7 +42,21 @@ sectorChanged = (sector_id) ->
       else
         $('#access_request_template_version_id').children().remove()
 
+setAccessReqeustMethod = ->
+  console.log 'inside access request method'
+  if $("input[name='access_request[ar_method]']:checked").val() == 'template'
+    $('#upload_fields').hide()
+    $('#template_fields').show()
+    $('#btn_submit_ar').val('<%= I18n.t("access_requests.form.final_button") %>')
+  else if $("input[name='access_request[ar_method]']:checked").val() == 'upload'
+    $('#upload_fields').show()
+    $('#template_fields').hide()
+    $('#btn_submit_ar').val('<%= I18n.t("access_requests.form.submit_upload_ar") %>')
+
 $(document).on 'turbolinks:load', ->
+
+  setAccessReqeustMethod()
+
   if Cookies.get('organization')
     sector_id = $('#access_request_sector_id option:contains(Others)').val()
     if sector_id
@@ -53,18 +66,10 @@ $(document).on 'turbolinks:load', ->
   last = Cookies.get('active_accordion')
   $("#" + last).addClass("show") if last? and $('#' + last).length
 
-  if $('#textTypeRadioExpanded').is(':checked')
-    $('#textContentStandard').hide()
-    $('#textContentExpanded').show()
-
   $('#ar_pdf_preview').on 'click', ->
     p_preview = "<%= I18n.t('access_requests.new.generating_preview_pdf') %>"
     $('#ar_pdf_preview').html(p_preview)
-    rendered = ''
-    if ($('#textTypeRadioStandard').is(':checked'))
-      rendered = $('#textContentStandard').html()
-    else if ($('#textTypeRadioExpanded').is(':checked'))
-      rendered = CKEDITOR.instances['access_request_final_text'].getData()
+    rendered = CKEDITOR.instances['access_request_final_text'].getData()
     oReq = new XMLHttpRequest
     oReq.responseType = 'blob'
     oReq.onload = (e) ->
@@ -100,7 +105,6 @@ $(document).on 'turbolinks:load', ->
       url: "/access_request/#{ar_id}/template/#{temp_type}"
       type: 'GET'
       success: (e) ->
-        $('#access_request_standard_text').val(e.template)
         $('#textContentStandard').html(e.template)
         CKEDITOR.instances['custom_text'].setData e.template
 
@@ -110,19 +114,13 @@ $(document).on 'turbolinks:load', ->
   $('#access_request_organization_id').on 'change', ->
     updateTemplateContentByOrganization $(this).val()
 
+  $("input[type=radio][name='access_request[ar_method]']").on 'change', ->
+    console.log('inside changed method!')
+    setAccessReqeustMethod()
+
   $('#access_request_template_version_id').on 'change', ->
     org_id = $('#access_request_organization_id').val()
     updateTemplateContentByOrganization org_id
-
-  $('#textTypeRadioStandard').on 'change', ->
-    if $(this).is(':checked') and $(this).val() == 'standard'
-      $('#textContentStandard').show()
-      $('#textContentExpanded').hide()
-
-  $('#textTypeRadioExpanded').on 'change', ->
-    if $(this).is(':checked') and $(this).val() == 'expanded'
-      $('#textContentStandard').hide()
-      $('#textContentExpanded').show()
 
   $("#accordion").on 'shown.bs.collapse', (e) ->
     Cookies.set('active_accordion', e.target.id)

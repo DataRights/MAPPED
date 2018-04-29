@@ -11,123 +11,85 @@
       <h3>
         <% if @access_request.id %>
           <%= t('.edit_title') %>
-        <% elsif @access_request.existing %>
-          <%= t('.upload_existing_ar') %>
         <% else %>
           <%= t('.create_title') %>
         <% end %>
       </h3>
       <%= form_for [@campaign, @access_request] do |f| %>
-      <%= f.hidden_field(:campaign_id) %>
-      <%= f.hidden_field(:existing) %>
 
-      <% if params[:action] == 'new' %>
-        <div class="form-group">
-          <%= label_tag(:sector_id, t('.sector_label')) %>
-          <br>
-          <%= f.select(:sector_id, options_for_select(@sectors,@selected_sector), {}, {class: "form-control", include_blank: false}) %>
-        </div>
-        <div class="form-group">
-          <%= f.label(:organization_id, t('.organization_label')) %>
-          <br>
-          <%= f.select(:organization_id, options_for_select(@organizations,@selected_organization), {}, {class: "form-control", include_blank: false}) %>
-        </div>
-        <div class="m-3">
-          <small>
-            <a href="#" data-toggle="modal" data-target="#addOrganizationModal" role="button"> <%= t('.click_here') %></a> <%= t('.add_organization') %>
-          </small>
-        </div>
-
-        <div class="form-group <%= @access_request.existing ? 'collapse' : '' %>">
-          <%= f.label(:template_version_id, t('.template_label')) %>
-          <br>
-          <%= f.select(:template_version_id, options_for_select(@templates.pluck(:version, :id),@selected_template.id), {}, {class: "form-control", include_blank: false}) %>
-        </div>
-        <!-- TODO: after creating wiki pages for organization uncomment this line
-        <div class="m-3">
-          <small>
-            <a href="#"><%= t('.click_here') %></a>
-            <%= t('.organization_help') %>
-          </small>
-        </div>
-        -->
-      <% end %>
-      <div id="new_access_request_fields" class="<%= @access_request.existing ? 'collapse' : '' %>">
-          <label for="exampleFormControlTextarea1"><%= t('.text_type_select') %></label>
-          <br/>
+          <%= f.hidden_field(:campaign_id) %>
           <div class="form-group">
-            <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="textTypeRadios" id="textTypeRadioStandard" value="standard" checked="<%= params[:action] == 'new' %>">
-                <%= t('.text_type_standard') %>
-              </label>
+            <strong><%= label_tag(:sector_id, t('.sector_label')) %></strong>
+            <br>
+            <%= f.select(:sector_id, options_for_select(@sectors,@selected_sector), {}, {class: "form-control", include_blank: false}) %>
+          </div>
+          <div class="form-group">
+            <strong><%= f.label(:organization_id, t('.organization_label')) %></strong>
+            <br>
+            <%= f.select(:organization_id, options_for_select(@organizations,@selected_organization), {}, {class: "form-control", include_blank: false}) %>
+          </div>
+          <div class="mt-1">
+            <small>
+              <a href="#" data-toggle="modal" data-target="#addOrganizationModal" role="button"> <%= t('.click_here') %></a> <%= t('.add_organization') %>
+            </small>
+          </div>
+
+          <div class="form-group mt-3">
+            <strong><%= t('.template_or_your_own') %></strong>
+            <br />
+            <br />
+            <%= f.radio_button(:ar_method, 'template') %>
+            <%= f.label(:ar_method, t('.using_request_templates')) %>
+            <br />
+            <%= f.radio_button(:ar_method, 'upload') %>
+            <%= f.label(:ar_method, t('.uploading_request')) %>
+          </div>
+
+          <div id="template_fields">
+            <div class="form-group">
+              <strong><%= f.label(:template_version_id, t('.template_label')) %></strong>
+              <br>
+              <%= f.select(:template_version_id, options_from_collection_for_select(@templates, :id, :version, @selected_template), {}, {class: "form-control", include_blank: false}) %>
             </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="textTypeRadios" id="textTypeRadioExpanded" value="expanded" checked="<%= params[:action] == 'edit' %>">
-                <%= t('.text_type_custom') %>
-              </label>
-            </div><br/>
+            <!-- TODO: after creating wiki pages for organization uncomment this line
+            <div class="m-3">
+              <small>
+                <a href="#"><%= t('.click_here') %></a>
+                <%= t('.organization_help') %>
+              </small>
+            </div>
+            -->
+            <div class="form-group">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong><%= t('.please_note_fields_in_red') %></strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <%= f.hidden_field(:suggested_text)%>
+              <div id="textContentExpanded">
+                <%= f.cktext_area(:final_text, ckeditor: { toolbar: 'mini'}) %>
+              </div>
+            </div>
+            <%= button_tag t('.preview_button'), type: 'button', data: { "disable-with": t('.generating_preview_pdf'), "target": "#previewModal", "toggle": "modal"}, class: 'btn btn-secondary', id: 'ar_pdf_preview' %>
+            <br>
+            <br>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong><%= t('.please_note_fields_in_red') %></strong>
+              <strong><%= t('.passport_id_warning') %></strong>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
+                <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <%= f.hidden_field(:suggested_text)%>
-            <div id="textContentStandard" style="border:2px solid gray;">
-              <%= @rendered_template&.html_safe %>
-            </div>
-            <div id="textContentExpanded" style="display: none;">
-              <%= f.cktext_area(:final_text, ckeditor: { toolbar: 'mini'}) %>
-            </div>
           </div>
-          <%= button_tag t('.preview_button'), type: 'button', data: { "disable-with": t('.generating_preview_pdf'), "target": "#previewModal", "toggle": "modal"}, class: 'btn btn-secondary', id: 'ar_pdf_preview' %>
-          <br>
-          <br>
-      </div>
 
-      <% if @access_request.existing %>
-        <br>
-        <div class="form-group">
-          <%= label_tag(:access_request_file, t('.upload_access_request_file')) %>
-          <br>
-          <%= f.file_field(:access_request_file) %>
-        </div>
+          <div id="upload_fields" class="form-group mt-3 collapse">
+            <strong><%= label_tag(:access_request_file, t('.upload_access_request_file')) %></strong>
+            <br>
+            <%= f.file_field(:uploaded_access_request_file) %>
+          </div>
 
-        <div class="form-group">
-          <%= label_tag(:sending_method, t('.access_request_sending_method')) %>
-          <br>
-          <%= f.select(:sending_method_id, options_for_select(SendingMethod.all.pluck(:name, :id), @access_request.sending_method_id), {}, {class: "form-control", include_blank: false}) %>
-        </div>
-
-        <div class="form-group">
-          <%= label_tag(:sending_method_remarks, t('.sending_method_remarks')) %>
-          <br />
-          <%= f.text_area(:sending_method_remarks, {class: "form-control"}) %>
-        </div>
-
+          <%= f.submit t('.final_button'), id: 'btn_submit_ar', class: 'btn btn-primary' %>
       <% end %>
-
-      <div class="form-group">
-        <%= label_tag(:sent_date, t('.sending_date_label')) %>
-        <br>
-        <%= f.date_field(:sent_date)%>
-      </div>
-
-      <% if @access_request.existing %>
-        <%= f.submit t('.submit_upload_ar'), id: 'submit_upload_ar', class: 'btn btn-primary' %>
-      <% else %>
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong><%= t('.passport_id_warning') %></strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-        <%= f.submit t('.final_button'), id: 'btn_generate_pdf', class: 'btn btn-primary' %>
-      <% end %>
-    <% end %>
-    <br/>
   </div>
  </div>
 </div>
@@ -203,7 +165,7 @@
 
                   <div class="form-group col-md-4">
                     <%= a.label :country %><br />
-                    <%= a.collection_select(:country_id, Country.all, :id, :name, {}, {:class => 'form-control'}) %>
+                    <%= a.collection_select(:country_id, Country.all, :id, :name, {include_blank: true}, {class: 'form-control country'}) %>
                   </div>
                 </div>
 

@@ -14,6 +14,8 @@ class Country < ApplicationRecord
   has_many :addresses, :dependent => :destroy
   #validates_presence_of :languages
 
+  default_scope { order(name: :asc) }
+
   def context_value
     {'name' => name}
   end

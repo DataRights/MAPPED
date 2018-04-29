@@ -22,12 +22,12 @@ one:
   line1: MyString
   line2: MyString
   post_code: MyString
-  city: one
+  city_name: London
   country: one
 
 two:
   line1: MyString
   line2: MyString
   post_code: MyString
-  city: two
+  city_name: Tbilisi
   country: two

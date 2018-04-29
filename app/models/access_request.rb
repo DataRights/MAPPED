@@ -33,20 +33,18 @@ class AccessRequest < ApplicationRecord
   before_save :update_related_caches, if: :campaign_id_changed?
   before_destroy :update_related_caches
   after_create :create_workflow
-  after_initialize :set_existing
 
-  attr_accessor :expanded
-  attr_accessor :standard
   attr_accessor :sector_id
   attr_accessor :template_version_id
-  attr_accessor :existing
   attr_accessor :title
+  attr_accessor :ar_method
+  attr_accessor :uploaded_access_request_file
 
   validates :user, :organization, :campaign, presence: true
 
-  validates :access_request_file, presence: true, if: :existing
-
   validate :max_size, if: :access_request_file
+
+  validate :check_access_request_content
 
   # validates :access_request_file_content_type, inclusion: { in: %w(application/pdf image/jpeg image/png application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document text/plain),
   #   message: I18n.t('validations.access_request_file_content_type') }, if: :access_request_file
@@ -57,23 +55,16 @@ class AccessRequest < ApplicationRecord
     "#{organization.name} - #{user.email}"
   end
 
-  def existing=(value)
-    value = true if value == 'true'
-    value = false if value == 'false'
-    value = false if value.blank?
-    @existing = value
-  end
-
-  def set_existing
-    if self.access_request_file
-      @existing = true
-    else
-      @existing = false
-    end
-  end
-
   def max_size
     errors.add(:access_request_file, I18n.t('validations.attachment_max_size')) if access_request_file.size > MAX_SIZE
+  end
+
+  def check_access_request_content
+    if ar_method == 'upload' && access_request_file.nil?
+      errors.add(:access_request_file, I18n.t('validations.file_not_uploaded'))
+    elsif ar_method == "template" && final_text.blank?
+      errors.add(:final_text, I18n.t('validations.final_text_empty'))
+    end
   end
 
   def context_value
