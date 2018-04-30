@@ -20,6 +20,7 @@ WORKDIR /usr/src/app
 
 COPY Gemfile* ./
 RUN gem install bundler
+RUN gem install foreman
 RUN bundle install
 RUN rm -f tmp/pids/server.pid
 COPY . .

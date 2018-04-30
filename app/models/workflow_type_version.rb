@@ -67,6 +67,7 @@ class WorkflowTypeVersion < ApplicationRecord
     return true
   end
 
+  # This is a helper used in rails_admin please see config/initializers/rails_admin.rb config.model WorkflowTypeVersion
   def diagram
     self.id
   end
