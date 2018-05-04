@@ -12,6 +12,7 @@ services:
     ports:
       - "3000:3000"
     environment:
+      - PORT=3000
       - WEB_CONCURRENCY=$WEB_CONCURRENCY
       - RAILS_ENV=production
       - DB_HOST=$DB_DOCKER_HOST
