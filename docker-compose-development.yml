@@ -7,7 +7,7 @@ services:
   memcached:
     image: memcached:1.5
   redis:
-    image: redis:3.2
+    image: redis:4
   app:
     build: .
     command: /bin/sh -c "rm -f tmp/pids/server.pid && (rake db:migrate 2>/dev/null || rake db:setup) && foreman start -f Procfile"
@@ -16,6 +16,7 @@ services:
     ports:
       - "3000:3000"
     environment:
+      - PORT=3000
       - WEB_CONCURRENCY=1
       - RAILS_ENV=development
       - DB_HOST=db

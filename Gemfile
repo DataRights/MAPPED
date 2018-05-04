@@ -65,6 +65,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Use devise for user management and authentication solution
 gem 'devise', '~> 4.3'
 
+# for sending devise emails in background
+gem 'devise-async'
+
 # theme for devise
 gem 'devise-bootstrap-views'
 
