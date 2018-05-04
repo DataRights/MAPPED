@@ -8,7 +8,8 @@ RailsAdmin.config do |config|
   config.navigation_static_label = "Tools"
   config.navigation_static_links = {
     'Two Factor authentication' => '/users/tfa',
-    'Invitition' => '/users/invitation/new'
+    'Invitition' => '/users/invitation/new',
+    'Sidekiq Jobs' => '/sidekiq'
   }
 
   # showing id field

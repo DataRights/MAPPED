@@ -1,24 +1,36 @@
-app:
-  build: .
-  command: /bin/sh -c "rm -f tmp/pids/server.pid && (rake db:migrate 2>/dev/null || rake db:setup) && bundle exec puma -C config/puma.rb"
-  volumes:
-    - .:/usr/src/app
-  ports:
-    - "3001:3001"
-  environment:
-    - PORT=3001
-    - WEB_CONCURRENCY=3
-    - RAILS_ENV=staging
-    - DB_HOST=$DB_DOCKER_HOST
-    - DB_USERNAME=$DB_USERNAME
-    - DB_PASSWORD=$DB_PASSWORD
-    - DB_PORT=$DB_PORT
-    - BLAZER_DATABASE_URL=$BLAZER_DATABASE_URL_STAGING
-    - MAPPED_TOTP_ENCRYPTION_KEY=$MAPPED_TOTP_ENCRYPTION_KEY
-    - DISCOURSE_SSO_SECRET=$DISCOURSE_SSO_SECRET
-    - SECRET_KEY_BASE=$SECRET_KEY_BASE
-    - HOST=staging.datarights.me
-    - DISCOURSE_SERVER=$DISCOURSE_SERVER
-    - RAILS_SERVE_STATIC_FILES='true'
-    - SENDGRID_USERNAME=$SENDGRID_USERNAME
-    - SENDGRID_PASSWORD=$SENDGRID_PASSWORD
+version: '3'
+services:
+  memcached:
+    image: memcached:1.5
+  redis:
+    image: redis:4
+  app:
+    build: .
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && (rake db:migrate 2>/dev/null || rake db:setup) && foreman start -f Procfile"
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - WEB_CONCURRENCY=3
+      - RAILS_ENV=staging
+      - DB_HOST=$DB_DOCKER_HOST
+      - DB_USERNAME=$DB_USERNAME
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_PORT=$DB_PORT
+      - BLAZER_DATABASE_URL=$BLAZER_DATABASE_URL_STAGING
+      - MAPPED_TOTP_ENCRYPTION_KEY=$MAPPED_TOTP_ENCRYPTION_KEY
+      - DISCOURSE_SSO_SECRET=$DISCOURSE_SSO_SECRET
+      - SECRET_KEY_BASE=$SECRET_KEY_BASE
+      - HOST=staging.datarights.me
+      - DISCOURSE_SERVER=$DISCOURSE_SERVER
+      - RAILS_SERVE_STATIC_FILES='true'
+      - SENDGRID_USERNAME=$SENDGRID_USERNAME
+      - SENDGRID_PASSWORD=$SENDGRID_PASSWORD
+      - MEMCACHED_HOST=memcached
+      - REDIS_HOST=redis
+    depends_on:
+      - db
+      - memcached
+      - redis
