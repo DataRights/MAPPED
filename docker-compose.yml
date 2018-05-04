@@ -30,6 +30,5 @@ services:
       - MEMCACHED_HOST=memcached
       - REDIS_HOST=redis
     depends_on:
-      - db
       - memcached
       - redis
