@@ -55,6 +55,11 @@ setAccessReqeustMethod = ->
 
 $(document).on 'turbolinks:load', ->
 
+  $(".nonselect").on 'click', ->
+    $(".multi-collapse.mb-3.collapse.show").attr("class", "collapse multi-collapse mb-3")
+    $(".select").attr("class", "nonselect")
+    $(this).toggleClass("select")
+
   setAccessReqeustMethod()
 
   if Cookies.get('organization')
@@ -64,7 +69,10 @@ $(document).on 'turbolinks:load', ->
       sectorChanged(sector_id)
 
   last = Cookies.get('active_accordion')
-  $("#" + last).addClass("show") if last? and $('#' + last).length
+  if last? and $('#' + last).length
+    $("##{last}").addClass("show")
+    ar_id = $("##{last}").attr('data-ar-id')
+    $("#triangle_#{ar_id}").toggleClass("select")
 
   $('#ar_pdf_preview').on 'click', ->
     p_preview = "<%= I18n.t('access_requests.new.generating_preview_pdf') %>"

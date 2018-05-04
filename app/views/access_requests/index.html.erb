@@ -15,8 +15,8 @@
     <div class="col-md-8">
       <div id="accordion" role="tablist" aria-multiselectable="true">
       <% @access_requests.each do |a| %>
-        <h5 class="nonselect" data-toggle="collapse" data-parent="#accordion" data-target="#multiCollapse<%= a.id %>" aria-expanded="true" aria-controls="multiCollapse<%= a.id %>">
-          <%= image_tag "controller-play.svg", height: 24 %>
+        <h5 class="nonselect" id="triangle_<%= a.id %>" data-toggle="collapse" data-parent="#accordion" data-target="#multiCollapse<%= a.id %>" aria-expanded="true" aria-controls="multiCollapse<%= a.id %>">
+          <!--<%= image_tag "controller-play.svg", height: 24 %>-->
           <%= a.organization.name %>
           &nbsp;
           <small><%= a.organization.sector.name %></small>
