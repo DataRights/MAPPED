@@ -4,14 +4,19 @@ services:
     image: postgres:10.3
     volumes:
       - ./data:/var/lib/postgresql/data
+  memcached:
+    image: memcached:1.5
+  redis:
+    image: redis:4
   app:
     build: .
-    command: /bin/sh -c "rm -f tmp/pids/server.pid && (rake db:migrate 2>/dev/null || rake db:setup) && bundle exec puma -C config/puma.rb"
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && (rake db:migrate 2>/dev/null || rake db:setup) && foreman start -f Procfile"
     volumes:
       - .:/usr/src/app
     ports:
       - "3000:3000"
     environment:
+      - PORT=3000
       - WEB_CONCURRENCY=1
       - RAILS_ENV=development
       - DB_HOST=db
@@ -23,5 +28,9 @@ services:
       - RAILS_SERVE_STATIC_FILES='true'
       - SENDGRID_USERNAME=$SENDGRID_USERNAME
       - SENDGRID_PASSWORD=$SENDGRID_PASSWORD
+      - MEMCACHED_HOST=memcached
+      - REDIS_HOST=redis
     depends_on:
       - db
+      - memcached
+      - redis

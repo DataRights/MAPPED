@@ -101,6 +101,9 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    devise-async (1.0.0)
+      activejob (>= 5.0)
+      devise (>= 4.0)
     devise-bootstrap-views (0.0.11)
     devise-two-factor (3.0.0)
       activesupport
@@ -353,6 +356,7 @@ DEPENDENCIES
   coveralls
   dalli
   devise (~> 4.3)
+  devise-async
   devise-bootstrap-views
   devise-two-factor
   devise_invitable (~> 1.7.0)

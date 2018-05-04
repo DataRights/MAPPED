@@ -14,6 +14,14 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  # Enable/disable caching.
+  # config.cache_store = :memory_store
+  memcached_config = YAML.load(ERB.new(File.read(Rails.root.join('config/memcached.yml'))).result) rescue nil
+  memcached_hosts = memcached_config[Rails.env]['servers']
+  config.cache_store = :dalli_store, *memcached_hosts
+  config.session_store ActionDispatch::Session::CacheStore, :expire_after => 20.minutes
+  config.active_job.queue_adapter = :sidekiq
+
   # Attempt to read encrypted secrets from `config/secrets.yml.enc`.
   # Requires an encryption key in `ENV["RAILS_MASTER_KEY"]` or
   # `config/secrets.yml.key`.
@@ -53,9 +61,6 @@ Rails.application.configure do
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
-
-  # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
 
   # Config for devise links in the emails
   # TODO: Change this to the actual hostname of mapped project

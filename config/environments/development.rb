@@ -13,7 +13,13 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # Enable/disable caching.
-  config.cache_store = :memory_store
+  # config.cache_store = :memory_store
+  memcached_config = YAML.load(ERB.new(File.read(Rails.root.join('config/memcached.yml'))).result) rescue nil
+  memcached_hosts = memcached_config[Rails.env]['servers']
+  config.cache_store = :dalli_store, *memcached_hosts
+  config.session_store ActionDispatch::Session::CacheStore, :expire_after => 20.minutes
+  config.active_job.queue_adapter = :sidekiq
+
   config.action_controller.perform_caching = false
   config.public_file_server.headers = {
     'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
@@ -34,7 +40,7 @@ Rails.application.configure do
   }
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
