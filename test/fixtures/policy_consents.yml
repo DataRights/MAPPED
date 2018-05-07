@@ -15,22 +15,22 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  template: one
+  template: campaign_template
   title: Policy Consent One Title
   description: Policy Consent One Description
-  type_of: 1
-  mandatory: false
+  type_of: <%= PolicyConsent.type_ofs[:campaign] %>
+  mandatory: true
 
 two:
-  template: two
+  template: campaign_template
   title: Policy Consent Two Title
   description: Policy Consent Two Description
-  type_of: 1
+  type_of: <%= PolicyConsent.type_ofs[:campaign] %>
   mandatory: false
 
 three:
-  template: two
+  template: campaign_template
   title: Policy Consent Three Title
   description: Policy Consent Three Description
-  type_of: 1
+  type_of: <%= PolicyConsent.type_ofs[:campaign] %>
   mandatory: false

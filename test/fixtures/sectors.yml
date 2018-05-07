@@ -15,3 +15,6 @@ health:
 
 transport:
   name: Transport
+
+social:
+  name: Social

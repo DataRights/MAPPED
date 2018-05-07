@@ -67,6 +67,7 @@ en:
     undo: 'Undo'
     undo_history: 'Rollback to %{state}'
     undo_transition_was_successfull: 'Undo operation successfully completed!'
+    diagram: 'Workflow Diagram'
   tfa:
     title: 'Manage 2FA'
     help: 'Two-factor authentication, or 2FA, is a way of logging into websites that requires more than just a password. Using a password to log into a website is susceptible to security threats, because it represents a single piece of information a malicious person needs to acquire. The added security that 2FA provides is requiring additional information to sign in.'
@@ -187,6 +188,8 @@ en:
       edit_file: 'Blackout File'
       new_file: 'New File'
   access_requests:
+    index:
+      approving_campaign_policy_consent_mandatory: 'Approving campaign policy consent is mandatory!'
     templates:
       history_comments:
         access_request_created: 'Access request created'

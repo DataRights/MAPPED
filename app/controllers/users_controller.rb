@@ -5,7 +5,6 @@ class UsersController < ApplicationController
   def has_otp
     u = User.find_by email: params[:email]
     @has_otp = u&.otp_required_for_login ? true : false
-    p "has_otp: #{@has_otp}"
     respond_to do |format|
       format.html
       format.json { render json: @has_otp }

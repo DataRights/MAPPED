@@ -12,6 +12,7 @@ class AccessRequestsController < ApplicationController
     if pc
       upc = UserPolicyConsent.find_or_create_by user_id: current_user.id, policy_consent_id: pc.id
       unless upc.approved
+        flash[:alert] = I18n.t('access_requests.index.approving_campaign_policy_consent_mandatory')
         redirect_to user_profile_for_campaign_path(@campaign) and return
       end
     end
@@ -49,10 +50,7 @@ class AccessRequestsController < ApplicationController
     @organizations = get_campaign_organizations(@campaign, Sector.find_by_id(@selected_sector[1]))  if @selected_sector
     @organizations ||= []
     @selected_organization = @organizations.first
-    unless @selected_organization
-      flash[:notice] = I18n.t('errors.organization_not_found')
-      redirect_to home_path and return
-    end
+    return unless @selected_organization
     organization = Organization.find_by_id(@selected_organization[1])
     @templates = AccessRequest.available_templates(:access_request, organization)
     @selected_template ||= begin
@@ -65,10 +63,10 @@ class AccessRequestsController < ApplicationController
       end
     end
     @rendered_template = AccessRequest.get_rendered_template(:access_request, current_user, @campaign, organization, nil, @selected_template)
-    unless @rendered_template
-      flash[:notice] = I18n.t('errors.template_version_not_found')
-      redirect_to home_path and return
-    end
+    # unless @rendered_template
+    #   flash[:notice] = I18n.t('errors.template_version_not_found')
+    #   redirect_to home_path and return
+    # end
     @access_request.final_text = @rendered_template
   end
 

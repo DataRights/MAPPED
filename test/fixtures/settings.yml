@@ -13,9 +13,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  key: MyString
-  value: MyString
-
-two:
-  key: MyString
-  value: MyString
+  key: 'auto_approved_user_domains'
+  value: '*'
+  description: 'Comma seperated list of domains that do not need any admin approval for sign up. * means all domains are allowed and auto approved.'

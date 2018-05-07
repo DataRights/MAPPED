@@ -1,18 +1,6 @@
 require 'application_system_test_case'
 
 class AdminTemplateVersionPreviewTest < ApplicationSystemTestCase
-  setup do
-    @sample_email = 'john@smith.com'
-    @sample_password = '1234567890'
-    User.create!(email: @sample_email, password_confirmation: @sample_password, password: @sample_password, roles: [Role.find_by(name: roles(:admin).name)])
-    @user = User.find_by(email: @sample_email)
-    @user.confirm
-  end
-
-  teardown do
-    User.find_by(email: @sample_email).destroy
-  end
-
   test 'Test preview button is there for each row' do
     visit('/admin')
     fill_in('user_email', with: @sample_email)
@@ -94,7 +82,7 @@ class AdminTemplateVersionPreviewTest < ApplicationSystemTestCase
       a.click
       pdf_button = page.find_button('PDF')
       pdf_button.click
-      within_window(page.driver.browser.window_handles.last) do
+      within_window(windows.last) do
         assert_equal 'application/pdf', page.response_headers['Content-Type']
       end
     end

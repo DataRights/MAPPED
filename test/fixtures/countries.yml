@@ -15,6 +15,9 @@
 usa:
   name: USA
 
+canada:
+  name: Canada
+
 uk:
   name: UK
 

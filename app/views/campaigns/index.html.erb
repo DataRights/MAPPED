@@ -19,11 +19,11 @@
 <div class="container mt-5">
   <% @campaigns.each do |c| %>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-4" id="campaign_<%= c.id %>">
         <h3><%= c.name %></h3>
         <p><%= c.short_description %></p>
         <p>
-          <%= link_to(t('.join_campaign'), user_profile_for_campaign_path(c), {"class": "btn btn-secondary"}) %>
+          <%= link_to(t('.join_campaign'), user_profile_for_campaign_path(c), {"class": "btn btn-secondary", "id": "join_campaign_#{c.id}"}) %>
         </p>
       </div>
     </div>

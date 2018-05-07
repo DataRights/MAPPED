@@ -1,28 +1,6 @@
 require "application_system_test_case"
 
 class AdminWorkflowDiagramTest < ApplicationSystemTestCase
-  # test "visiting the index" do
-  #   visit rails_admins_url
-  #
-  #   assert_selector "h1", text: "RailsAdmin"
-  # end
-
-  setup do
-    @sample_email = 'john@smith.com'
-    @sample_password = '1234567890'
-    User.create!(email: @sample_email, password_confirmation: @sample_password, password: @sample_password, roles: [Role.find_by(name: roles(:admin).name)])
-    @user = User.find_by(email: @sample_email)
-    @user.confirm
-  end
-
-  teardown do
-    User.find_by(email: @sample_email).destroy
-    WorkflowTypeVersion.all.each do |w|
-      file_path = Rails.root.join('public', "#{w.id}.png")
-      File.delete(file_path) if File.exist?(file_path)
-    end
-  end
-
   test "Test showing workflow diagram on rails admin" do
       visit('/admin')
       fill_in('user_email', with: @sample_email)

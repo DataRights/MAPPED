@@ -24,11 +24,41 @@
 one:
   name: Acibadem Hospital
   sector: health
+  languages: [en]
+  approved: true
 
 hospital1:
   name: Hospital1
   sector: health
+  languages: [en]
+  approved: true
 
 two:
   name: Airport1
   sector: transport
+  languages: [en]
+  approved: true
+
+facebook:
+  name: Facebook Inc
+  sector: social
+  languages: [en]
+  approved: true
+
+instagram:
+  name: Instagram
+  sector: social
+  languages: [en]
+  approved: true
+
+taxify:
+  name: Taxify
+  sector: transport
+  languages: [en]
+  approved: true
+
+uber:
+  name: Uber
+  sector: transport
+  languages: [en]
+  approved: true

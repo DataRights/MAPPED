@@ -15,13 +15,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  short_description: MyString
-  expanded_description: MyText
+  name: Default Campaign
+  short_description: This is the default campaign
+  expanded_description: This is a general text about campaigns assigned/available to the participant, what we are currently busy with in terms of research, etc etc. It could also be a place for general info relevant for the new participant. After first viewing this part of the interface can also dissapear...
   workflow_type: one
 
 two:
-  name: MyString
-  short_description: MyString
-  expanded_description: MyText
+  name: Startup Campaign
+  short_description: Short Description
+  expanded_description: Expanded Description
   workflow_type: version_one_point_o_mapped_social
+  policy_consent: one
+  organizations: one, two, facebook, instagram, uber

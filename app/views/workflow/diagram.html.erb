@@ -1,3 +1,11 @@
-<% unless @diagram_path.blank? %>
-  <img id='workflow_diagram_img' src='<%= @diagram_path %>' alt="Workflow diagram">
-<% end %>
+<div class="container mt-5">
+  <h1 class="display-4">
+    <%= t('workflow.diagram') %>
+  </h1>
+  <br />
+  <div class="col-md-8">
+    <% unless @diagram_path.blank? %>
+      <img id='workflow_diagram_img' src='<%= @diagram_path %>' alt="Workflow diagram">
+    <% end %>
+  </div>
+</div>

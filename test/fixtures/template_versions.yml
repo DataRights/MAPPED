@@ -15,13 +15,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 ar1:
-  version: 1
+  version: Default Template
   template: ar
   content: "This is content of access request version one"
-  active: false
+  active: true
 
 ar2:
-  version: 2
+  version: Alternative Template
   template: ar
   content: "This is content of access request version two for {{ organization.sector }}"
   active: true
@@ -36,5 +36,12 @@ reminder2:
   version: 1
   template: ar_second_reminder
   content: "The access request to {{ access_request.id }} has been created on DataRights.me and it's ready for sending to organization {{ organization.name }}. Currently status of your workflow is: {{ workflow.workflow_state }}"
+  active: true
+  language: en
+
+consent:
+  version: 1
+  template: campaign_template
+  content: "Do you accept terms of service for participating in a campaign?<br />"
   active: true
   language: en
