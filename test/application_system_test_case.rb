@@ -22,4 +22,30 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     click_button I18n.t('devise.sign_in', default: 'Sign in')
     assert campaigns_path, page.current_path
   end
+
+  def update_user_info(campaign)
+    pc = campaign.policy_consent
+    pc = PolicyConsent.find_by(type_of: :campaign) if pc.nil?
+    return unless pc
+    upc = UserPolicyConsent.find_or_create_by user_id: @user.id, policy_consent_id: pc.id
+    u = {
+      first_name: 'John', last_name: 'Smith', preferred_language: 'en', campaign_id: campaign.id,
+      :notification_setting_ids => [NotificationSetting.first.id],
+      :address_attributes => {line1: 'Test Line 1', line2: 'Test Line 2', post_code: '0152', city_name: 'Vancouver', country_id: countries(:canada).id},
+      :user_policy_consents_attributes => [id: upc.id, approved: true, content: 'test']
+    }
+    @user.update(u)
+  end
+
+  def fill_in_ckeditor(id, with:)
+    within_frame find("#cke_#{id} iframe") do
+      find('body').base.send_keys with
+    end
+  end
+
+  def get_ckeditor_value(id)
+    within_frame find("#cke_#{id} iframe") do
+      find('body').base.all_text
+    end
+  end
 end

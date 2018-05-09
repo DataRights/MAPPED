@@ -24,6 +24,6 @@ two:
   name: Startup Campaign
   short_description: Short Description
   expanded_description: Expanded Description
-  workflow_type: version_one_point_o_mapped_social
+  workflow_type: mapped_wf_type_social
   policy_consent: one
   organizations: one, two, facebook, instagram, uber
