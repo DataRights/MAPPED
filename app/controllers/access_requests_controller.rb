@@ -125,7 +125,7 @@ class AccessRequestsController < ApplicationController
 
     @rendered_template = AccessRequest.get_rendered_template(:access_request, current_user, @campaign, @access_request.organization, @access_request, @selected_template)
 
-    if @access_request.access_request_file
+    if @access_request.attachments.count > 0
       @access_request.ar_method = 'upload'
       @access_request.final_text = @rendered_template # in case user decided to change everything and use text instead of his file
     else
@@ -135,21 +135,39 @@ class AccessRequestsController < ApplicationController
   end
 
   def update
-    @access_request.assign_attributes(access_request_params)
-    if @access_request.ar_method == 'upload'
-      @access_request.suggested_text = nil
-      @access_request.final_text = nil
-      @access_request.access_request_file_content_type = @access_request&.uploaded_access_request_file&.content_type
-      @access_request.access_request_file = @access_request&.uploaded_access_request_file&.read
-    else
-      @access_request.access_request_file_content_type = nil
-      @access_request.access_request_file = nil
-    end
-    if @access_request.save
-      session['download_ar'] = @access_request.id
-      redirect_to campaign_access_requests_path(campaign_id: @access_request.campaign_id)
-    else
-      redirect_to edit_campaign_access_request_path(campaign_id: @access_request.campaign_id, id: @access_request.id), alert: @access_request.errors.messages.values.join(',')
+    ActiveRecord::Base.transaction do
+      @access_request.assign_attributes(access_request_params)
+      if @access_request.ar_method == 'upload'
+        @access_request.suggested_text = nil
+        @access_request.final_text = nil
+        attachment = nil
+        if @access_request.attachments.count > 0
+          attachment = @access_request.attachments.first
+        else
+          attachment = Attachment.new
+          attachment.attachable = @access_request
+          attachment.user = current_user
+        end
+        attachment.content = @access_request.uploaded_access_request_file.read
+        attachment.content_type = @access_request.uploaded_access_request_file&.content_type
+        attachment.title = @access_request.uploaded_access_request_file&.original_filename
+        unless attachment.save
+          raise ActiveRecord::Rollback
+          flash[:alert] = attachment.errors.full_messages.join(". ")
+          redirect_to edit_campaign_access_request_path(campaign_id: @access_request.campaign_id, id: @access_request.id) and return
+        end
+      else
+        @access_request.access_request_file_content_type = nil
+        @access_request.access_request_file = nil
+      end
+
+      if @access_request.save
+        session['download_ar'] = @access_request.id
+        redirect_to campaign_access_requests_path(campaign_id: @access_request.campaign_id)
+      else
+        raise ActiveRecord::Rollback
+        redirect_to edit_campaign_access_request_path(campaign_id: @access_request.campaign_id, id: @access_request.id), alert: @access_request.errors.messages.values.join(',')
+      end
     end
   end
 

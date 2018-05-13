@@ -70,7 +70,7 @@ class NewAccessRequestTest < ApplicationSystemTestCase
     visit new_campaign_access_request_path(campaign)
     assert_equal new_campaign_access_request_path(campaign), page.current_path
     choose("access_request_ar_method_upload", option: "upload")
-    attach_file('access_request_uploaded_access_request_file', "#{Rails.root}/test/files/access_request.png")
+    attach_file('access_request_uploaded_access_request_file', "#{Rails.root}/test/files/ar1.png")
     click_on I18n.t('access_requests.form.submit_upload_ar')
     assert_equal campaign_access_requests_path(campaign), page.current_path
     ar = AccessRequest.find_by(user_id: @user.id, campaign_id: campaign.id)
@@ -80,6 +80,20 @@ class NewAccessRequestTest < ApplicationSystemTestCase
     assert_not_nil ar.attachments.first
     assert_not_nil ar.attachments.first.content
     assert_equal 'image/png', ar.attachments.first.content_type
+
+    # Test edit access request
+    find("#triangle_#{ar.id}").click
+    find("#edit_access_request_#{ar.id}").click
+    assert_equal edit_campaign_access_request_path(campaign_id: ar.campaign_id, id: ar.id), page.current_path
+    attach_file('access_request_uploaded_access_request_file', "#{Rails.root}/test/files/ar2.jpg")
+    click_on I18n.t('access_requests.form.submit_upload_ar')
+    assert_equal campaign_access_requests_path(campaign), page.current_path
+    ar.reload
+    a = ar.attachments.first
+    assert_not_nil a
+    assert_not_nil a.content
+    assert_equal 'image/jpeg', a.content_type
+    assert_equal 'ar2.jpg', a.title
   end
 
   test 'Create access request by using existing templates' do

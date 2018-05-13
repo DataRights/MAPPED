@@ -129,7 +129,7 @@
                 </h6>
                 <small><%= time_ago_in_words(a.created_at) %> <%= t('.ago') %></small>
                 <br/>
-                <%= link_to t('.edit_access_request'), edit_campaign_access_request_path(campaign_id: a.campaign_id ,id: a.id) %>
+                <%= link_to t('.edit_access_request'), edit_campaign_access_request_path(campaign_id: a.campaign_id ,id: a.id), id: "edit_access_request_#{a.id}" %>
               </div>
             </li>
           </ul>
