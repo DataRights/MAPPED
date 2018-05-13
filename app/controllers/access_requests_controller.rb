@@ -71,21 +71,35 @@ class AccessRequestsController < ApplicationController
   end
 
   def create
-    @access_request = AccessRequest.new(access_request_params)
-    @access_request.user = current_user
+    ActiveRecord::Base.transaction do
+      @access_request = AccessRequest.new(access_request_params)
+      @access_request.user = current_user
 
-    if @access_request.ar_method == 'upload'
-      @access_request.suggested_text = nil
-      @access_request.final_text = nil
-      @access_request.access_request_file_content_type = @access_request.uploaded_access_request_file&.content_type
-      @access_request.access_request_file = @access_request.uploaded_access_request_file.read
-    end
+      if @access_request.ar_method == 'upload'
+        @access_request.suggested_text = nil
+        @access_request.final_text = nil
+        attachment = Attachment.new
+        attachment.content = @access_request.uploaded_access_request_file.read
+        attachment.content_type = @access_request.uploaded_access_request_file&.content_type
+        attachment.title = @access_request.uploaded_access_request_file&.original_filename
+        attachment.attachable = @access_request
+        attachment.user = current_user
+        # @access_request.access_request_file_content_type = @access_request.uploaded_access_request_file&.content_type
+        # @access_request.access_request_file = @access_request.uploaded_access_request_file.read
+      end
 
-    if @access_request.save
-      session['download_ar'] = @access_request.id
-      redirect_to campaign_access_requests_path(campaign_id: @access_request.campaign_id)
-    else
-      render 'new', alert: @access_request.errors.messages.values.join(',')
+      if @access_request.save
+        if @access_request.ar_method == 'upload' and !attachment.save
+          raise ActiveRecord::Rollback
+          flash[:alert] = attachment.errors.full_messages.join(". ")
+          redirect_to new_campaign_access_request_path(@access_request.campaign_id) and return
+        end
+        session['download_ar'] = @access_request.id
+        redirect_to campaign_access_requests_path(campaign_id: @access_request.campaign_id) and return
+      else
+        flash[:alert] = @access_request.errors.messages.values.join(',')
+        redirect_to new_campaign_access_request_path(@access_request.campaign_id) and return
+      end
     end
   end
 
@@ -148,7 +162,7 @@ class AccessRequestsController < ApplicationController
 
   def download
     if @access_request.final_text.blank?
-      send_data(@access_request.access_request_file, :filename => "AccessRequest-#{@access_request.id}-#{@access_request.organization.name}", :type => @access_request.access_request_file_content_type)
+      send_data(@access_request.attachments.first.content, :filename => "AccessRequest-#{@access_request.id}-#{@access_request.organization.name}", :type => @access_request.attachments.first.content_type)
     else
       pdf = WickedPdf.new.pdf_from_string(@access_request.final_text&.html_safe, encoding: 'UTF-8')
       send_data(pdf, :filename => "AccessRequest-#{@access_request.id}-#{@access_request.organization.name}" ,:type => :pdf)

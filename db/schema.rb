@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180425175937) do
+ActiveRecord::Schema.define(version: 20180509085631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,10 +87,11 @@ ActiveRecord::Schema.define(version: 20180425175937) do
     t.binary "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "workflow_transition_id"
-    t.bigint "response_id"
-    t.index ["response_id"], name: "index_attachments_on_response_id"
-    t.index ["workflow_transition_id"], name: "index_attachments_on_workflow_transition_id"
+    t.string "attachable_type"
+    t.bigint "attachable_id"
+    t.bigint "user_id"
+    t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
+    t.index ["user_id"], name: "index_attachments_on_user_id"
   end
 
   create_table "blazer_audits", force: :cascade do |t|
@@ -576,8 +577,7 @@ ActiveRecord::Schema.define(version: 20180425175937) do
   add_foreign_key "access_rights", "roles"
   add_foreign_key "addresses", "countries"
   add_foreign_key "answers", "questions"
-  add_foreign_key "attachments", "responses"
-  add_foreign_key "attachments", "workflow_transitions"
+  add_foreign_key "attachments", "users"
   add_foreign_key "campaigns", "policy_consents"
   add_foreign_key "campaigns", "workflow_types"
   add_foreign_key "comments", "users"

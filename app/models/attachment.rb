@@ -2,21 +2,24 @@
 #
 # Table name: attachments
 #
-#  id                     :integer          not null, primary key
-#  title                  :string
-#  content_type           :string
-#  content                :binary
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  workflow_transition_id :integer
-#  response_id            :integer
+#  id              :integer          not null, primary key
+#  title           :string
+#  content_type    :string
+#  content         :binary
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  attachable_type :string
+#  attachable_id   :integer
+#  user_id         :integer
 #
 
 # response category: post, email, ..., ?
 
 class Attachment < ApplicationRecord
-  belongs_to :workflow_transition, optional: true
-  belongs_to :response, optional: true
+
+  belongs_to :attachable, :polymorphic => true
+  belongs_to :user, optional: true
+
   has_many :tags, :as => :tagable, dependent: :destroy
   has_many :comments, :as => :commentable, dependent: :destroy
   validate :max_size, if: :content

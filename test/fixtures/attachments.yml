@@ -2,14 +2,15 @@
 #
 # Table name: attachments
 #
-#  id                     :integer          not null, primary key
-#  title                  :string
-#  content_type           :string
-#  content                :binary
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  workflow_transition_id :integer
-#  response_id            :integer
+#  id              :integer          not null, primary key
+#  title           :string
+#  content_type    :string
+#  content         :binary
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  attachable_type :string
+#  attachable_id   :integer
+#  user_id         :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -18,10 +19,14 @@ one:
   title: MyString
   content_type: MyString
   content:
-  workflow_transition_id: 1
+  attachable_type: WorkflowTransition
+  attachable_id: 1
+  user: one
 
 two:
   title: MyString
   content_type: MyString
   content:
-  workflow_transition_id: 2
+  attachable_type: WorkflowTransition
+  attachable_id: 2
+  user: two

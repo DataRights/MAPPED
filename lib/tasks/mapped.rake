@@ -260,4 +260,33 @@ namespace :mapped do
     Country.create(:id=>250,:iso=>"CS",:name=>"Serbia and Montenegro")
     Country.create(:id=>251,:iso=>"AN",:name=>"Netherlands Antilles")
   end
+
+  task :migrate_to_attachable => :environment do
+    ActiveRecord::Base.connection.execute("Update attachments set attachable_type='Response', attachable_id=attachments.response_id where response_id is not null")
+    ActiveRecord::Base.connection.execute("Update attachments set attachable_type='WorkflowTransition', attachable_id=attachments.workflow_transition_id where workflow_transition_id is not null")
+  end
+
+  task :set_user_for_attachments => :environment do
+    Attachment.all.each do |a|
+      if a.attachable_type == 'WorkflowTransition'
+        wt = WorkflowTransition.find(a.attachable_id)
+        a.update(user_id: wt.workflow.access_request.user_id)
+      elsif a.attachable_type == 'Response'
+        r = Response.find(a.attachable_id)
+        r.update(user_id: r.access_request.user_id)
+      end
+    end
+  end
+
+  task :move_access_requests_to_attachments => :environment do
+    AccessRequest.where("access_request_file is not null").each do |ar|
+      a = Attachment.new
+      a.title = 'AccessRequest #{ar.title}'
+      a.content_type = ar.access_request_file_content_type
+      a.content = ar.access_request_file
+      a.attachable = ar
+      a.user = ar.user
+      a.save!
+    end
+  end
 end

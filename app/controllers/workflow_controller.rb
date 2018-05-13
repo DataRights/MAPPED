@@ -40,7 +40,8 @@ class WorkflowController < ApplicationController
           else
             attachment.title = f.original_filename
           end
-          attachment.workflow_transition_id = @workflow_transition.id
+          attachment.attachable = @workflow_transition
+          attachment.user = current_user
           unless attachment.save
             @errors = attachment.errors.full_messages.join(". ")
             raise ActiveRecord::Rollback
@@ -69,8 +70,8 @@ class WorkflowController < ApplicationController
             else
               attachment.title = f.original_filename
             end
-            attachment.response_id = response.id
-            attachment.workflow_transition_id = @workflow_transition.id
+            attachment.attachable = response
+            attachment.user = current_user
             unless attachment.save
               @errors = attachment.errors.full_messages.join(". ")
               raise ActiveRecord::Rollback

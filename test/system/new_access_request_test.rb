@@ -2,6 +2,8 @@ require 'application_system_test_case'
 
 class NewAccessRequestTest < ApplicationSystemTestCase
 
+  include ERB::Util
+
   def rendered_template_version(tv, campaign, organization)
     context = TemplateContext.new
     context.campaign = campaign
@@ -71,5 +73,46 @@ class NewAccessRequestTest < ApplicationSystemTestCase
     attach_file('access_request_uploaded_access_request_file', "#{Rails.root}/test/files/access_request.png")
     click_on I18n.t('access_requests.form.submit_upload_ar')
     assert_equal campaign_access_requests_path(campaign), page.current_path
+    ar = AccessRequest.find_by(user_id: @user.id, campaign_id: campaign.id)
+    assert_not_nil ar
+    assert_nil ar.access_request_file
+    assert_nil ar.access_request_file_content_type
+    assert_not_nil ar.attachments.first
+    assert_not_nil ar.attachments.first.content
+    assert_equal 'image/png', ar.attachments.first.content_type
+  end
+
+  test 'Create access request by using existing templates' do
+    sign_in
+    campaign = campaigns(:two)
+    update_user_info(campaign)
+    visit new_campaign_access_request_path(campaign)
+    assert_equal new_campaign_access_request_path(campaign), page.current_path
+    choose("access_request_ar_method_template", option: "template")
+
+    # select transport sector
+    sector = sectors(:transport)
+    find_field('access_request_sector_id').find("option[value='#{sector.id}']").click
+    rendered_template = ''
+    organization_ids = find_field('access_request_organization_id').all('option').map { |o| o.value.to_i }
+    organization_ids.each do |o|
+      assert_equal sector.id, Organization.find(o).sector_id
+      templates = sector.templates.where(template_type: :access_request)
+      templates.each do |t|
+        template_versions = t.template_versions.where(active: true)
+        assert_equal template_versions.count, find_field('access_request_template_version_id').all('option').count, sector.name
+        template_versions.each do |tv|
+          find_field('access_request_template_version_id').find("option[value='#{tv.id}']").click
+          rendered_template = rendered_template_version(tv, campaign, Organization.find(o))
+          assert_equal rendered_template, get_ckeditor_value('1_contents')
+        end
+      end
+    end
+
+    click_on I18n.t('access_requests.form.final_button')
+    assert_equal campaign_access_requests_path(campaign), page.current_path
+    ar = AccessRequest.find_by(user_id: @user.id, campaign_id: campaign.id)
+    assert_not_nil ar
+    assert ar.final_text.include?(html_escape(rendered_template))
   end
 end

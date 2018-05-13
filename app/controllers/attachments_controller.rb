@@ -7,7 +7,7 @@ class AttachmentsController < ApplicationController
   # GET /attachments
   # GET /attachments.json
   def index
-    @attachments = Attachment.joins(workflow_transition: {workflow: :access_request}).where(access_requests: {user_id: current_user.id}).all
+    @attachments = Attachment.where(user_id: current_user.id)
   end
 
   # GET /attachments/new
@@ -17,13 +17,14 @@ class AttachmentsController < ApplicationController
     unless workflow_transition.workflow.access_request.user_id == current_user.id
       redirect_to attachments_path and return
     end
-    @attachment.workflow_transition_id = workflow_transition.id
+    @attachment.attachable = workflow_transition
   end
 
   # POST /attachments
   # POST /attachments.json
   def create
     @attachment = Attachment.new(attachment_params)
+    @attachment.user = current_user
 
    respond_to do |format|
      if @attachment.save
@@ -101,7 +102,7 @@ class AttachmentsController < ApplicationController
 
   def new_content
     @attachment = Attachment.new()
-    @attachment.workflow_transition_id =  params['workflow_transition_id'].to_i
+    @attachment.attachable = WorkflowTransition.find(params['workflow_transition_id'].to_i)
     @attachment.title = params['image'].original_filename
     @attachment.content_type = params['image'].content_type
     @attachment.content = params['image'].tempfile.read
@@ -135,15 +136,14 @@ class AttachmentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_attachment
       a = Attachment.find(params[:id])
-      if (a.workflow_transition && a.workflow_transition.workflow.access_request.user_id == current_user.id) or
-         (a.response && a.response.access_request.user_id == current_user.id)
+      if (a.user_id == current_user.id)
         @attachment = a
       end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def attachment_params
-      params.require(:attachment).permit(:title, :content_type, :content, :workflow_transition_id)
+      params.require(:attachment).permit(:title, :content_type, :content)
     end
 
 end

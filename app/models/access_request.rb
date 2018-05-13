@@ -33,6 +33,7 @@ class AccessRequest < ApplicationRecord
   before_save :update_related_caches, if: :campaign_id_changed?
   before_destroy :update_related_caches
   after_create :create_workflow
+  has_many :attachments, :as => :attachable, dependent: :destroy
 
   attr_accessor :sector_id
   attr_accessor :template_version_id
@@ -46,9 +47,6 @@ class AccessRequest < ApplicationRecord
 
   validate :check_access_request_content
 
-  # validates :access_request_file_content_type, inclusion: { in: %w(application/pdf image/jpeg image/png application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document text/plain),
-  #   message: I18n.t('validations.access_request_file_content_type') }, if: :access_request_file
-
   MAX_SIZE = 5048*1024
 
   def title
@@ -60,10 +58,8 @@ class AccessRequest < ApplicationRecord
   end
 
   def check_access_request_content
-    if ar_method == 'upload' && access_request_file.nil?
-      errors.add(:access_request_file, I18n.t('validations.file_not_uploaded'))
-    elsif ar_method == "template" && final_text.blank?
-      errors.add(:final_text, I18n.t('validations.final_text_empty'))
+    if ar_method == "template" && final_text.blank?
+       errors.add(:final_text, I18n.t('validations.final_text_empty'))
     end
   end
 

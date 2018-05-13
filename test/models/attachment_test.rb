@@ -2,14 +2,15 @@
 #
 # Table name: attachments
 #
-#  id                     :integer          not null, primary key
-#  title                  :string
-#  content_type           :string
-#  content                :binary
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  workflow_transition_id :integer
-#  response_id            :integer
+#  id              :integer          not null, primary key
+#  title           :string
+#  content_type    :string
+#  content         :binary
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  attachable_type :string
+#  attachable_id   :integer
+#  user_id         :integer
 #
 
 require 'test_helper'
@@ -17,7 +18,7 @@ require 'test_helper'
 class AttachmentTest < ActiveSupport::TestCase
   test "max size of attachment is 500k" do
     wt = workflow_transitions(:one)
-    attachment = Attachment.new(workflow_transition: wt)
+    attachment = Attachment.new(attachable: wt)
 		assert attachment.valid?
     attachment.content = '0' * Attachment::MAX_SIZE
     assert attachment.valid?

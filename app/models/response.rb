@@ -14,5 +14,5 @@
 class Response < ApplicationRecord
   belongs_to :response_type
   belongs_to :access_request
-  has_many :attachments
+  has_many :attachments, :as => :attachable, dependent: :destroy
 end
