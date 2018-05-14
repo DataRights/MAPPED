@@ -128,5 +128,16 @@ class NewAccessRequestTest < ApplicationSystemTestCase
     ar = AccessRequest.find_by(user_id: @user.id, campaign_id: campaign.id)
     assert_not_nil ar
     assert ar.final_text.include?(html_escape(rendered_template))
+
+    # Test edit access request
+    find("#triangle_#{ar.id}").click
+    find("#edit_access_request_#{ar.id}").click
+    assert_equal edit_campaign_access_request_path(campaign_id: ar.campaign_id, id: ar.id), page.current_path
+    new_text = 'Test 1, 2, 3.'
+    fill_in_ckeditor('1_contents', with: new_text)
+    click_on I18n.t('access_requests.form.final_button')
+    assert_equal campaign_access_requests_path(campaign), page.current_path
+    ar.reload
+    assert ar.final_text.include?(new_text)
   end
 end
