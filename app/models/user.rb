@@ -69,6 +69,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :user_policy_consents, dependent: :destroy
   has_many :access_requests, dependent: :destroy
+  has_many :organizations, foreign_key: 'suggested_by_user_id', dependent: :nullify
 
   before_create :add_default_notification_settings
   after_create :check_approved

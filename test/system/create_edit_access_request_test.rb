@@ -1,6 +1,6 @@
 require 'application_system_test_case'
 
-class NewAccessRequestTest < ApplicationSystemTestCase
+class CreateEditAccessRequestTest < ApplicationSystemTestCase
 
   include ERB::Util
 
@@ -38,8 +38,6 @@ class NewAccessRequestTest < ApplicationSystemTestCase
     sectors.each do |s|
       find_field('access_request_sector_id').find("option[value='#{s}']").click
       organization_ids = find_field('access_request_organization_id').all('option').map { |o| o.value.to_i }
-
-      #
       organization_ids.each do |o|
         assert_equal s, Organization.find(o).sector_id
         sector = Sector.find s
@@ -85,6 +83,13 @@ class NewAccessRequestTest < ApplicationSystemTestCase
     find("#triangle_#{ar.id}").click
     find("#edit_access_request_#{ar.id}").click
     assert_equal edit_campaign_access_request_path(campaign_id: ar.campaign_id, id: ar.id), page.current_path
+
+    # Sumitting with an empty file should fail with error
+    click_on I18n.t('access_requests.form.submit_upload_ar')
+    assert_equal edit_campaign_access_request_path(campaign_id: ar.campaign_id, id: ar.id), page.current_path
+    assert page.body.include?("#{I18n.t('activerecord.attributes.attachment.content')} #{I18n.t('activerecord.errors.models.attachment.attributes.content.blank')}")
+
+    # Attaching a file and editing access request should succeed
     attach_file('access_request_uploaded_access_request_file', "#{Rails.root}/test/files/ar2.jpg")
     click_on I18n.t('access_requests.form.submit_upload_ar')
     assert_equal campaign_access_requests_path(campaign), page.current_path
@@ -139,5 +144,46 @@ class NewAccessRequestTest < ApplicationSystemTestCase
     assert_equal campaign_access_requests_path(campaign), page.current_path
     ar.reload
     assert ar.final_text.include?(new_text)
+
+    # Test edit access request with empty text
+    assert_equal campaign_access_requests_path(campaign), page.current_path
+    find("#triangle_#{ar.id}").click
+    find("#edit_access_request_#{ar.id}").click
+    assert_equal edit_campaign_access_request_path(campaign_id: ar.campaign_id, id: ar.id), page.current_path
+    fill_in_ckeditor('1_contents', with: ' ')
+    click_on I18n.t('access_requests.form.final_button')
+    assert_equal edit_campaign_access_request_path(campaign_id: ar.campaign_id, id: ar.id), page.current_path
+    assert page.body.include?(I18n.t('validations.final_text_empty'))
+  end
+
+  test 'test add new organization in new access request page' do
+    sign_in
+    campaign = campaigns(:two)
+    update_user_info(campaign)
+    visit new_campaign_access_request_path(campaign)
+    assert_equal 0, Organization.where(name: 'Facebook').count
+    click_on I18n.t('access_requests.form.click_here')
+    fill_in('organization[name]', with: 'Facebook Inc.')
+    fill_in('organization[privacy_policy_url]', with: "https://www.facebook.com/privacy")
+    fill_in('organization[address_attributes][email]', with: 'info@facebook.com')
+    fill_in('organization[address_attributes][line1]', with: '1 Hacker Way')
+    fill_in('organization[address_attributes][line2]', with: ' ')
+    fill_in('organization[address_attributes][post_code]', with: '0152')
+    fill_in('organization[address_attributes][city_name]', with: 'Menlo Park, California')
+    find_field('organization[address_attributes][country_id]').find("option[value='#{countries(:usa).id}']").click
+    find('#new_organization_submit').click
+    submit_btn = first('#new_organization_submit')
+    loop until submit_btn.nil? or submit_btn.value != I18n.t('access_requests.form.saving')
+    o = Organization.find_by(name: 'Facebook Inc.')
+    assert o
+    assert_equal 'Others', o.sector.name
+    assert_equal o.sector.id, find_field('access_request_sector_id').value.to_i
+    assert_equal o.id, find_field('access_request_organization_id').value.to_i
+    ar_text = 'Access Request to Facebook Inc.'
+    fill_in_ckeditor_with_class('cke_contents', with: ar_text)
+    click_on I18n.t('access_requests.form.final_button')
+    assert_equal campaign_access_requests_path(campaign), page.current_path
+    ar = AccessRequest.find_by(user_id: @user.id, campaign_id: campaign.id)
+    assert ar.final_text.include?(ar_text)
   end
 end

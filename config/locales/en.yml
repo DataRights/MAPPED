@@ -310,3 +310,13 @@ en:
       template_or_your_own: 'How do you want to generate your access request?'
       using_request_templates: 'Using request templates'
       uploading_request: 'Uploading your own request file'
+  activerecord:
+    attributes:
+      attachment:
+        content: "Attachment content"
+    errors:
+      models:
+        attachment:
+          attributes:
+            content:
+              blank: "can not be empty!"

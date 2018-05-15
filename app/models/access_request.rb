@@ -59,7 +59,9 @@ class AccessRequest < ApplicationRecord
 
   def check_access_request_content
     if ar_method == "template" && final_text.blank?
-       errors.add(:final_text, I18n.t('validations.final_text_empty'))
+      errors.add(:final_text, I18n.t('validations.final_text_empty'))
+    elsif ar_method == 'upload' && attachments.empty?
+      errors.add(:attachments, I18n.t('validations.file_not_uploaded'))
     end
   end
 

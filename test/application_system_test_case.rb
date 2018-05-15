@@ -39,7 +39,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def fill_in_ckeditor(id, with:)
     within_frame find("#cke_#{id} iframe") do
-      find('body').base.send_keys with
+      find('body').base.set with
+    end
+  end
+
+  def fill_in_ckeditor_with_class(css_class, with:)
+    within_frame find(".#{css_class} iframe") do
+      find('body').base.set with
     end
   end
 
