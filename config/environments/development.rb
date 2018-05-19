@@ -32,8 +32,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     user_name: ENV['SENDGRID_USERNAME'],
     password: ENV['SENDGRID_PASSWORD'],
-    domain: 'herokumanager.com',
-    address: 'smtp.sendgrid.net',
+    domain:  ENV['SEND_EMAIL_DOMAIN'],  #'herokumanager.com',
+    address: ENV['SEND_EMAIL_ADDRESS'], #'smtp.sendgrid.net',
     port: 587,
     authentication: :plain,
     enable_starttls_auto: true
