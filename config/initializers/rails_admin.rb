@@ -393,15 +393,16 @@ RailsAdmin.config do |config|
       field :sector
       field :approved
       field :suggested_by_user
-      field :custom_1
-      field :custom_1_desc
-      field :custom_2
-      field :custom_2_desc
-      field :custom_3
-      field :custom_3_desc
+      #field :custom_1
+      #field :custom_1_desc
+      #field :custom_2
+      #field :custom_2_desc
+      #field :custom_3
+      #field :custom_3_desc
       field :address
       field :campaigns
       field :tags
+      field :remark
       field :languages, :pg_string_array
     end
 
@@ -410,15 +411,16 @@ RailsAdmin.config do |config|
       field :sector
       field :approved
       field :suggested_by_user
-      field :custom_1
-      field :custom_1_desc
-      field :custom_2
-      field :custom_2_desc
-      field :custom_3
-      field :custom_3_desc
+      #field :custom_1
+      #field :custom_1_desc
+      #field :custom_2
+      #field :custom_2_desc
+      #field :custom_3
+      #field :custom_3_desc
       field :address
       field :campaigns
       field :tags
+      field :remark
       field :languages, :pg_string_array
     end
   end
