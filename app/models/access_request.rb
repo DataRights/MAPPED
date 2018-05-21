@@ -23,10 +23,10 @@ class AccessRequest < ApplicationRecord
   belongs_to :organization
   belongs_to :user
   belongs_to :campaign
-  belongs_to :sending_method, optional: true
+  #belongs_to :sending_method, optional: true
   has_one :workflow, dependent: :destroy
   has_many :answers, as: :answerable, dependent: :destroy
-  #HA has_many :tags, :as => :tagable, dependent: :destroy
+  #has_many :tags, :as => :tagable, dependent: :destroy
   has_many :comments, :as => :commentable, dependent: :destroy
   has_many :responses, dependent: :destroy
   has_many :notifications, dependent: :destroy
@@ -41,10 +41,14 @@ class AccessRequest < ApplicationRecord
   attr_accessor :uploaded_access_request_file
 
   validates :user, :organization, :campaign, presence: true
-
   validate :max_size, if: :access_request_file
-
   validate :check_access_request_content
+
+  enum sending_method:  [:post, :email, :web_form, :other]
+  # TODO HA: (i) does this need to be addedd to MIGRATION?
+  #          (ii) change this to hash-type enums to avoid mistaken change
+
+
 
   # validates :access_request_file_content_type, inclusion: { in: %w(application/pdf image/jpeg image/png application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document text/plain),
   #   message: I18n.t('validations.access_request_file_content_type') }, if: :access_request_file

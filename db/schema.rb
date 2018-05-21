@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180521202935) do
+ActiveRecord::Schema.define(version: 20180521212252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,8 +29,6 @@ ActiveRecord::Schema.define(version: 20180521202935) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "remarks"
-    t.bigint "event_id"
-    t.index ["event_id"], name: "index_access_request_steps_on_event_id"
     t.index ["failed_action_id"], name: "index_access_request_steps_on_failed_action_id"
     t.index ["failed_guard_id"], name: "index_access_request_steps_on_failed_guard_id"
     t.index ["transition_id"], name: "index_access_request_steps_on_transition_id"
@@ -244,16 +242,6 @@ ActiveRecord::Schema.define(version: 20180521202935) do
     t.integer "email_type", default: 0, null: false
     t.string "error_log"
     t.index ["notification_id"], name: "index_email_notifications_on_notification_id"
-  end
-
-  create_table "events", force: :cascade do |t|
-    t.bigint "workflow_state_id"
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "display_order"
-    t.integer "ui_form"
-    t.index ["workflow_state_id"], name: "index_events_on_workflow_state_id"
   end
 
   create_table "guards_transitions", id: false, force: :cascade do |t|
@@ -541,7 +529,6 @@ ActiveRecord::Schema.define(version: 20180521202935) do
   end
 
   add_foreign_key "access_request_steps", "code_actions", column: "failed_action_id"
-  add_foreign_key "access_request_steps", "events"
   add_foreign_key "access_request_steps", "transitions"
   add_foreign_key "access_request_steps", "workflows"
   add_foreign_key "access_requests", "organizations"
@@ -555,7 +542,6 @@ ActiveRecord::Schema.define(version: 20180521202935) do
   add_foreign_key "campaigns", "workflow_types"
   add_foreign_key "comments", "users"
   add_foreign_key "email_notifications", "notifications"
-  add_foreign_key "events", "workflow_states"
   add_foreign_key "letters", "access_request_steps"
   add_foreign_key "notifications", "access_requests"
   add_foreign_key "notifications", "users"

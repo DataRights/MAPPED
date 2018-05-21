@@ -24,7 +24,8 @@ class AccessRequestStep < ApplicationRecord
   belongs_to :transition
   belongs_to :failed_action, class_name: 'CodeAction', optional: true
   #HA belongs_to :failed_guard, class_name: 'Guard', optional: true
-  belongs_to :event, optional: true
+  #HA belongs_to :event, optional: true
+  #belongs_to :workflow_state, optional: true  # HA in place of above - nah
   has_many   :attachments, dependent: :destroy
   has_many   :letters, dependent: :destroy
 

@@ -17,6 +17,7 @@ class Template < ApplicationRecord
   validates_presence_of :version, :content, :language
 
   enum template_type:  [:access_request, :reminder, :followup, :custom, :notification, :terms_of_service, :faq, :'second reminder', :about]
+  # TODO HA: change this to hash-type enums to avoid mistaken change
 
   def self.dynamic_page_content(template_type, user=nil)
     #templates = Template.joins(:template_versions).where(template_type: template_type, :template_versions => {:active => true})

@@ -131,7 +131,7 @@ RailsAdmin.config do |config|
   end
 
   config.model Template do
-    navigation_label 'Template Definition'
+    navigation_label 'Campaign Definitions'
     weight 50
 
     create do
@@ -165,11 +165,6 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.model WorkflowType do
-    navigation_label 'Workflow Definitions'
-    weight 60
-  end
-
   config.model Setting do
     navigation_label 'General Settings'
     weight 70
@@ -198,6 +193,10 @@ RailsAdmin.config do |config|
 
   config.model Comment do
     parent User
+  end
+
+  config.model WorkflowType do
+    parent Template
   end
 
   config.model WorkflowTypeVersion do
@@ -230,11 +229,11 @@ RailsAdmin.config do |config|
   end
 
   # config.model SendingMethod do
-  #   parent WorkflowType
+  #   parent Template
   # end
 
   config.model ResponseType do
-    parent WorkflowType
+    parent Template
   end
 
   config.model Answer do
@@ -266,11 +265,11 @@ RailsAdmin.config do |config|
   end
 
   config.model WorkflowState do
-    parent WorkflowType
+    parent Template
   end
 
   # config.model Event do
-  #   parent WorkflowType
+  #   parent Template
   # end
 
   config.model AccessRequestStep do
@@ -282,19 +281,19 @@ RailsAdmin.config do |config|
   end
 
   config.model WorkflowTypeVersion do
-    parent WorkflowType
+    parent Template
   end
 
   config.model WorkflowState do
-    parent WorkflowType
+    parent Template
   end
 
   config.model WorkflowStateForm do
-    parent WorkflowType  #HA Guard
+    parent Template  #HA Guard
   end
 
   config.model Transition do
-    parent WorkflowType
+    parent Template
 
     create do
       field :name
@@ -328,13 +327,13 @@ RailsAdmin.config do |config|
   end
 
   config.model CodeAction do
-    parent WorkflowType  #Guard
+    parent Template  #Guard
     label "Action"
     label_plural "Actions"
   end
 
   config.model Campaign do
-    parent WorkflowType
+    parent Template
 
     create do
       field :name

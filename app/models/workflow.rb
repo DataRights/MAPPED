@@ -52,7 +52,7 @@ class Workflow < ApplicationRecord
     wt = AccessRequestStep.new
     wt.transition = transition
     wt.workflow = self
-    (wt.event_id = event_id) if event_id
+    #HA (wt.event_id = event_id) if event_id
     wt.remarks = remarks
     wt.execute
     wt.save
