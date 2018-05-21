@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180521200403) do
+ActiveRecord::Schema.define(version: 20180521202935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -377,12 +377,6 @@ ActiveRecord::Schema.define(version: 20180521200403) do
     t.index ["template_id"], name: "index_sectors_templates_on_template_id"
   end
 
-  create_table "sending_methods", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "settings", force: :cascade do |t|
     t.string "key"
     t.string "value"
@@ -551,7 +545,6 @@ ActiveRecord::Schema.define(version: 20180521200403) do
   add_foreign_key "access_request_steps", "transitions"
   add_foreign_key "access_request_steps", "workflows"
   add_foreign_key "access_requests", "organizations"
-  add_foreign_key "access_requests", "sending_methods"
   add_foreign_key "access_requests", "users"
   add_foreign_key "access_rights", "roles"
   add_foreign_key "addresses", "countries"

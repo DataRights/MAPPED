@@ -10,9 +10,8 @@
 #
 
 class Template < ApplicationRecord
-  #has_many :template_versions, dependent: :destroy
   has_and_belongs_to_many :sectors
-  #HA has_many :tags, :as => :tagable, dependent: :destroy
+  #has_many :tags, :as => :tagable, dependent: :destroy
   #has_many :comments, :as => :commentable, dependent: :destroy
   validates_presence_of :name, :template_type
   validates_presence_of :version, :content, :language

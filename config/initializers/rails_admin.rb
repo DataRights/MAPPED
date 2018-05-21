@@ -229,9 +229,9 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.model SendingMethod do
-    parent WorkflowType
-  end
+  # config.model SendingMethod do
+  #   parent WorkflowType
+  # end
 
   config.model ResponseType do
     parent WorkflowType
