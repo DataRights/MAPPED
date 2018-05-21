@@ -8,7 +8,7 @@
     <%= form.text_field :content_type, id: :contnt_type, disabled: :true, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= form.hidden_field :workflow_transition_id %>
+    <%= form.hidden_field :access_request_step_id %>
   </div>
   <% if attachment && !attachment.content.blank? %>
     <div class="form-group">

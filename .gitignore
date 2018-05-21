@@ -31,3 +31,8 @@ config/local_env.yml
 public/*.png
 
 /data
+
+# HA
+/vendor/bundle/
+/vendor/cache/
+/vendor/asset/

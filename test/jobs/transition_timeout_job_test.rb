@@ -14,11 +14,11 @@ class TransitionTimeoutJobTest < ActiveJob::TestCase
     assert_equal transitions(:access_request_created), transitions.first
     assert_equal 1, t.timeout_days
     assert_equal t.from_state, wf.workflow_state
-    assert_equal 0, WorkflowTransition.where(workflow_id: wf.id).count, WorkflowTransition.where(workflow_id: wf.id).first.inspect
+    assert_equal 0, AccessRequestStep.where(workflow_id: wf.id).count, AccessRequestStep.where(workflow_id: wf.id).first.inspect
 
     job = TransitionTimeoutJob.new
     job.perform(wf.id, wf.workflow_state.id, t.id)
-    wt = WorkflowTransition.find_by(workflow_id: wf.id)
+    wt = AccessRequestStep.find_by(workflow_id: wf.id)
     assert wt
     assert_equal 'success', wt.status
     wf.reload

@@ -10,6 +10,7 @@
 #  updated_at   :datetime         not null
 #
 
-class Tag < ApplicationRecord
-  belongs_to :tagable, :polymorphic => true
-end
+#HA
+#class Tag < ApplicationRecord
+#  belongs_to :tagable, :polymorphic => true
+#end

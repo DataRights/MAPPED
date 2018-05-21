@@ -1,4 +1,4 @@
-require Rails.root.join('lib', 'rails_admin', 'preview_template.rb')
+    require Rails.root.join('lib', 'rails_admin', 'preview_template.rb')
 RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::PreviewTemplate)
 
 RailsAdmin.config do |config|
@@ -29,7 +29,7 @@ RailsAdmin.config do |config|
 
   ## == Gravatar integration ==
   ## To disable Gravatar integration in Navigation Bar set to false
-  # config.show_gravatar = true
+  config.show_gravatar = false  # HA
 
   config.label_methods << :description
   config.label_methods << :email
@@ -167,10 +167,11 @@ RailsAdmin.config do |config|
     weight 70
   end
 
-  config.model Guard do
-    navigation_label 'Development Settings'
-    weight 80
-  end
+  #HA
+  # config.model Guard do
+  #   navigation_label 'Development Settings'
+  #   weight 80
+  # end
 
   ####################################################################
   #                     END TOP MENU ITEMS
@@ -275,7 +276,7 @@ RailsAdmin.config do |config|
   #   parent WorkflowType
   # end
 
-  config.model WorkflowTransition do
+  config.model AccessRequestStep do
     parent AccessRequest
   end
 
@@ -292,7 +293,7 @@ RailsAdmin.config do |config|
   end
 
   config.model WorkflowStateForm do
-    parent Guard
+    parent WorkflowType  #HA Guard
   end
 
   config.model Transition do
@@ -308,7 +309,7 @@ RailsAdmin.config do |config|
       field :transition_type
       field :display_order
       field :actions
-      field :guards
+      #HA field :guards
     end
 
     edit do
@@ -321,7 +322,7 @@ RailsAdmin.config do |config|
       field :ui_form
       field :display_order
       field :actions
-      field :guards
+      #HA field :guards
     end
   end
 
@@ -330,7 +331,7 @@ RailsAdmin.config do |config|
   end
 
   config.model CodeAction do
-    parent Guard
+    parent WorkflowType  #Guard
     label "Action"
     label_plural "Actions"
   end
@@ -384,7 +385,7 @@ RailsAdmin.config do |config|
       field :custom_3_desc
       field :address
       field :campaigns
-      field :tags
+      #HA field :tags
       field :languages, :pg_string_array
     end
 
@@ -401,7 +402,7 @@ RailsAdmin.config do |config|
       field :custom_3_desc
       field :address
       field :campaigns
-      field :tags
+      #HA field :tags
       field :languages, :pg_string_array
     end
 
@@ -418,7 +419,7 @@ RailsAdmin.config do |config|
       field :custom_3_desc
       field :address
       field :campaigns
-      field :tags
+      #HA field :tags
       field :languages, :pg_string_array
     end
   end
@@ -439,9 +440,10 @@ RailsAdmin.config do |config|
     parent AccessRequest
   end
 
-  config.model Tag do
-    parent Comment
-  end
+  #HA
+  # config.model Tag do
+  #   parent Comment
+  # end
 
   config.model PolicyConsent do
     parent User

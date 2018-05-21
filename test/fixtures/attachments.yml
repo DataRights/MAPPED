@@ -8,20 +8,21 @@
 #  content                :binary
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  workflow_transition_id :integer
+#  access_request_step_id :integer
 #  response_id            :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+#HA
 one:
   title: MyString
   content_type: MyString
   content:
-  workflow_transition_id: 1
+  access_request_step_id: 1
 
 two:
   title: MyString
   content_type: MyString
   content:
-  workflow_transition_id: 2
+  access_request_step_id: 2

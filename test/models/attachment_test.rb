@@ -8,7 +8,7 @@
 #  content                :binary
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  workflow_transition_id :integer
+#  access_request_step_id :integer
 #  response_id            :integer
 #
 
@@ -16,8 +16,8 @@ require 'test_helper'
 
 class AttachmentTest < ActiveSupport::TestCase
   test "max size of attachment is 500k" do
-    wt = workflow_transitions(:one)
-    attachment = Attachment.new(workflow_transition: wt)
+    wt = access_request_steps(:one)
+    attachment = Attachment.new(access_request_step: wt)
 		assert attachment.valid?
     attachment.content = '0' * Attachment::MAX_SIZE
     assert attachment.valid?

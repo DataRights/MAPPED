@@ -26,7 +26,7 @@ class AccessRequest < ApplicationRecord
   belongs_to :sending_method, optional: true
   has_one :workflow, dependent: :destroy
   has_many :answers, as: :answerable, dependent: :destroy
-  has_many :tags, :as => :tagable, dependent: :destroy
+  #HA has_many :tags, :as => :tagable, dependent: :destroy
   has_many :comments, :as => :commentable, dependent: :destroy
   has_many :responses, dependent: :destroy
   has_many :notifications, dependent: :destroy

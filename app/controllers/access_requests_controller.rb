@@ -16,7 +16,7 @@ class AccessRequestsController < ApplicationController
       end
     end
 
-    @access_requests = current_user.access_requests.includes(:campaign, :comments, organization: [:sector, address: [:country]], workflow: [{workflow_state: [:workflow_state_form, :possible_transitions]}, {workflow_transitions: [:transition, :event] }]).where(campaign_id: @campaign.id).order('created_at DESC')
+    @access_requests = current_user.access_requests.includes(:campaign, :comments, organization: [:sector, address: [:country]], workflow: [{workflow_state: [:workflow_state_form, :possible_transitions]}, {access_request_step: [:transition, :event] }]).where(campaign_id: @campaign.id).order('created_at DESC')
     @download_ar = nil
     if session['download_ar']
       @download_ar = session['download_ar']
@@ -31,7 +31,7 @@ class AccessRequestsController < ApplicationController
     @access_request.sent_date = Date.today
     @templates = []
     @selected_template = nil
-    campaign_id = params[:campaign_id]
+    campaign_id = 'params'[:campaign_id]
     campaign_id = Campaign.find_by(:name => Campaign::DEFAULT_CAMPAIGN_NAME) unless campaign_id
     unless campaign_id
       flash[:notice] = I18n.t('errors.campaign_not_found')

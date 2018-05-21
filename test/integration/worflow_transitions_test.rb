@@ -32,23 +32,24 @@ class WorflowTransitionsTest < ActionDispatch::IntegrationTest
     assert_equal( I18n.t('errors.transition_does_not_exist_in_current_state'), exception.message )
   end
 
-  test "Workflow.send_event should not go to next state if a guard fails." do
-    wf = Workflow.new
-    wf.access_request = access_requests(:one)
-    wf.workflow_type_version = workflow_type_versions(:version_one_point_o_mapped_social)
-    wf.save!
-    assert_equal workflow_states(:waiting_for_ar_creation), wf.workflow_state
-
-    g = guards(:simple_false_if)
-    t = transitions(:access_request_created)
-    t.guards << g
-    t.save!
-
-    wt = wf.send_event(t)
-    assert_equal 'guard_failed', wt.status
-    assert_equal  g.id, wt.failed_guard_id
-    assert_nil wt.performed_actions
-  end
+  #HA
+  # test "Workflow.send_event should not go to next state if a guard fails." do
+  #   wf = Workflow.new
+  #   wf.access_request = access_requests(:one)
+  #   wf.workflow_type_version = workflow_type_versions(:version_one_point_o_mapped_social)
+  #   wf.save!
+  #   assert_equal workflow_states(:waiting_for_ar_creation), wf.workflow_state
+  #
+  #   g = guards(:simple_false_if)
+  #   t = transitions(:access_request_created)
+  #   t.guards << g
+  #   t.save!
+  #
+  #   wt = wf.send_event(t)
+  #   assert_equal 'guard_failed', wt.status
+  #   assert_equal  g.id, wt.failed_guard_id
+  #   assert_nil wt.performed_actions
+  # end
 
   test "workflow.send_event should rollback all the performed_actions if an action fails" do
     wf = Workflow.new

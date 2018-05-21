@@ -45,11 +45,11 @@ function createBlackOutTool() {
     hiddenTools: ['open'],
     saveHandler: function (image, done) {
       var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
-      var workflow_transition_id = document.getElementsByName('attachment[workflow_transition_id]')[0].value
+      var access_request_step_id = document.getElementsByName('attachment[access_request_step_id]')[0].value
 
       var formData = new FormData();
       formData.append('authenticity_token',AUTH_TOKEN);
-      formData.append('workflow_transition_id',workflow_transition_id);
+      formData.append('access_request_step_id',access_request_step_id);
 
       var newFileType = $("#content_type").val();
       var newFileName = $("#title").val();

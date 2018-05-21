@@ -4,7 +4,7 @@
       <div class="card card-body">
         <small>
           <ul class="list-unstyled">
-            <% a.workflow.workflow_transitions.order('created_at DESC').each do |t| %>
+            <% a.workflow.access_request_steps.order('created_at DESC').each do |t| %>
             <li class="media my-4">
               <% if t.attachments.count > 0 %>
                 <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70, style: 'border: 1px solid black'), get_content_path(t.attachments.first), target: "_blank" %>
@@ -35,17 +35,17 @@
                   <%= t.remarks %>
                   <br />
                 <% end %>
-                <%= link_to 'Add Attachment', new_attachment_path(workflow_transition_id: t.id) %>
+                <%= link_to 'Add Attachment', new_attachment_path(access_request_step_id: t.id) %>
                 <% if t.attachments.count > 0 %>
                   &nbsp;-&nbsp;
                   <%= link_to 'Edit Attachment', edit_attachment_path(t.attachments.first) %>
                 <% end %>
-                <% if a.workflow.workflow_transitions.order('created_at DESC').first.id == t.id %>
+                <% if a.workflow.access_request_steps.order('created_at DESC').first.id == t.id %>
                   &nbsp;-&nbsp;
                   <a href="#" data-toggle="modal" data-target="#modal_edit<%= a.id %>"><%= t('.edit') %></a>
                   -
-                  <%= link_to t('.undo'), {controller: "workflow", action: "undo", workflow_transition_id: t.id}, method: :post %>
-                  <% @last_wt = a.workflow.workflow_transitions.order('created_at DESC').first %>
+                  <%= link_to t('.undo'), {controller: "workflow", action: "undo", access_request_step_id: t.id}, method: :post %>
+                  <% @last_wt = a.workflow.access_request_steps.order('created_at DESC').first %>
                   <%= form_with(model: @last_wt) do |f| %>
                   <div class="modal fade" id="modal_edit<%= a.id %>" tabindex="-1" role="dialog" aria-labelledby="editWorkflowModalLabel<%= a.id %>" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">

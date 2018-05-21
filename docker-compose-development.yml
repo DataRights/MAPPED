@@ -1,13 +1,13 @@
 version: '3'
 services:
-  db:
-    image: postgres:10.3
-    volumes:
-      - ./data:/var/lib/postgresql/data
-  memcached:
-    image: memcached:1.5
-  redis:
-    image: redis:4
+  #db:
+    #image: postgres:10.3
+    #volumes:
+      #- ./data:/var/lib/postgresql/data
+  #memcached:
+    #image: memcached:1.5
+  #redis:
+    #image: redis:4
   app:
     build: .
     command: /bin/sh -c "rm -f tmp/pids/server.pid && (rake db:migrate 2>/dev/null || rake db:setup) && foreman start -f Procfile"
@@ -32,7 +32,7 @@ services:
       - SEND_EMAIL_ADDRESS=$SEND_EMAIL_ADDRESS
       - MEMCACHED_HOST=memcached
       - REDIS_HOST=redis
-    depends_on:
-      - db
-      - memcached
-      - redis
+    #depends_on:
+      #- db
+      #- memcached
+      #- redis

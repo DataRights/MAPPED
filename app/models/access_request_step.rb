@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: workflow_transitions
+# Table name: access_request_steps
 #
 #  id                      :integer          not null, primary key
 #  workflow_id             :integer
@@ -19,11 +19,11 @@
 #  event_id                :integer
 #
 
-class WorkflowTransition < ApplicationRecord
+class AccessRequestStep < ApplicationRecord
   belongs_to :workflow
   belongs_to :transition
   belongs_to :failed_action, class_name: 'CodeAction', optional: true
-  belongs_to :failed_guard, class_name: 'Guard', optional: true
+  #HA belongs_to :failed_guard, class_name: 'Guard', optional: true
   belongs_to :event, optional: true
   has_many   :attachments, dependent: :destroy
   has_many   :letters, dependent: :destroy
@@ -37,7 +37,7 @@ class WorkflowTransition < ApplicationRecord
   # should return state, success:false/true, message (in case of error, error_message)
   def execute
     begin
-      return false unless check_guards
+      #HA return false unless check_guards
       execute_actions
       rollback_actions unless self.failed_action.nil?
       self.failed_action.nil?
@@ -48,19 +48,20 @@ class WorkflowTransition < ApplicationRecord
 
   private
 
-  def check_guards
-    self.transition.guards.each do |g|
-      guard_result = g.check(workflow)
-      unless guard_result[:result]
-        self.status = :guard_failed
-        self.failed_guard = g
-        self.failed_guard_message = guard_result[:message]
-        return false
-      end
-    end
-
-    true
-  end
+  #HA
+  # def check_guards
+  #   self.transition.guards.each do |g|
+  #     guard_result = g.check(workflow)
+  #     unless guard_result[:result]
+  #       self.status = :guard_failed
+  #       self.failed_guard = g
+  #       self.failed_guard_message = guard_result[:message]
+  #       return false
+  #     end
+  #   end
+  #
+  #   true
+  # end
 
   def execute_actions
     self.performed_actions = []

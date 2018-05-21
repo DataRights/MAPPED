@@ -8,16 +8,16 @@
 #  content                :binary
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  workflow_transition_id :integer
+#  access_request_step_id :integer
 #  response_id            :integer
 #
 
 # response category: post, email, ..., ?
 
 class Attachment < ApplicationRecord
-  belongs_to :workflow_transition, optional: true
+  belongs_to :access_request_step, optional: true
   belongs_to :response, optional: true
-  has_many :tags, :as => :tagable, dependent: :destroy
+  #HA has_many :tags, :as => :tagable, dependent: :destroy
   has_many :comments, :as => :commentable, dependent: :destroy
   validate :max_size, if: :content
 

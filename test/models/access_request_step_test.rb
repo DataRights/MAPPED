@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: workflow_transitions
+# Table name: access_request_steps
 #
 #  id                      :integer          not null, primary key
 #  workflow_id             :integer
@@ -21,5 +21,5 @@
 
 require 'test_helper'
 
-class WorkflowTransitionTest < ActiveSupport::TestCase
+class AccessRequestStepTest < ActiveSupport::TestCase
 end

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: workflow_transitions
+# Table name: access_request_steps
 #
 #  id                      :integer          not null, primary key
 #  workflow_id             :integer
@@ -28,8 +28,8 @@ one:
   status: success
   failed_action: one
   action_failed_message: MyString
-  failed_guard: one
-  failed_guard_message: MyString
+  #HA failed_guard: one
+  #HA failed_guard_message: MyString
   internal_data:
 
 two:
@@ -39,8 +39,8 @@ two:
   status: MyString
   failed_action: two
   action_failed_message: MyString
-  failed_guard: two
-  failed_guard_message: MyString
+  #HA failed_guard: two
+  #HA failed_guard_message: MyString
   internal_data:
 
 wt_access_request_created:
@@ -50,8 +50,8 @@ wt_access_request_created:
   status: success
   failed_action:
   action_failed_message:
-  failed_guard:
-  failed_guard_message:
+  #HA failed_guard:
+  #HA failed_guard_message:
   internal_data:
 
 wt_ar_sent:
@@ -61,8 +61,8 @@ wt_ar_sent:
   status: success
   failed_action:
   action_failed_message:
-  failed_guard:
-  failed_guard_message:
+  #HA failed_guard:
+  #HA failed_guard_message:
   internal_data:
 
 wt_data_came_back_transition:
@@ -72,6 +72,6 @@ wt_data_came_back_transition:
   status: success
   failed_action:
   action_failed_message:
-  failed_guard:
-  failed_guard_message:
+  #HA failed_guard:
+  #HA failed_guard_message:
   internal_data:

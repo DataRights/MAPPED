@@ -13,6 +13,6 @@
 
 class Answer < ApplicationRecord
   belongs_to :answerable, polymorphic: true
-  has_many :tags, :as => :tagable, dependent: :destroy
+  #HA has_many :tags, :as => :tagable, dependent: :destroy
   belongs_to :question
 end
