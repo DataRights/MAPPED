@@ -66,7 +66,7 @@ class AccessRequestsController < ApplicationController
     end
     @rendered_template = AccessRequest.get_rendered_template(:access_request, current_user, @campaign, organization, nil, @selected_template)
     unless @rendered_template
-      flash[:notice] = I18n.t('errors.template_version_not_found')
+      flash[:notice] = I18n.t('errors.template_not_found')
       redirect_to home_path and return
     end
     @access_request.final_text = @rendered_template

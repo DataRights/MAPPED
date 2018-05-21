@@ -35,7 +35,7 @@ class AccessRequest < ApplicationRecord
   after_create :create_workflow
 
   attr_accessor :sector_id
-  attr_accessor :template_version_id
+  attr_accessor :template_id
   attr_accessor :title
   attr_accessor :ar_method
   attr_accessor :uploaded_access_request_file
@@ -96,25 +96,27 @@ class AccessRequest < ApplicationRecord
 
     return [] unless Template.template_types.include?(template_type)
 
-    active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
+    #active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
+    active_templates = organization.sector.templates.where(:template_type => template_type, :active => true)
     return [] if active_templates.blank?
 
-    template_versions = []
+    #template_versions = []
 
-    active_templates.each do |template|
-      template.template_versions.where(:active => true).each do |tv|
-        template_versions << tv unless template_versions.include?(tv)
-      end
-    end
+    #active_templates.each do |template|
+    #  template.template_versions.where(:active => true).each do |tv|
+    #    template_versions << tv unless template_versions.include?(tv)
+    #  end
+    #end
 
-    template_versions
+    #template_versions
+    active_templates
   end
 
-  def get_rendered_template(template_type, template_version=nil)
-    @rendered_template ||= AccessRequest.get_rendered_template(template_type, self.user, self.campaign, self.organization, self, template_version)
+  def get_rendered_template(template_type, template=nil)
+    @rendered_template ||= AccessRequest.get_rendered_template(template_type, self.user, self.campaign, self.organization, self, template)
   end
 
-  def self.get_rendered_template(template_type, user, campaign, organization, access_request=nil, template_version=nil)
+  def self.get_rendered_template(template_type, user, campaign, organization, access_request=nil, template=nil)
     return nil unless organization.sector
 
     if template_type.class == :String
@@ -125,21 +127,22 @@ class AccessRequest < ApplicationRecord
       return ''
     end
 
-    active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
+    #active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
+    active_templates = organization.sector.templates.where(:template_type => template_type, :active => true)
     return nil if active_templates.blank?
 
-    template_versions = []
-    active_templates.each do |t|
-      t.template_versions.where(:active => true).each do |tv|
-        template_versions << tv unless template_versions.include?(tv)
-      end
-    end
+    #template_versions = []
+    #active_templates.each do |t|
+    #  t.template_versions.where(:active => true).each do |tv|
+    #    template_versions << tv unless template_versions.include?(tv)
+    #  end
+    #end
 
     result = nil
-    if template_version
-      result = template_versions.detect {|t| t.id == template_version.id}
+    if template
+      result = active_templates.detect {|t| t.id == template.id}
     else
-      result = template_versions.first
+      result = active_templates.first
     end
 
     if result

@@ -137,23 +137,31 @@ RailsAdmin.config do |config|
     create do
       field :name
       field :template_type
-      field :template_versions
       field :sectors
+      field :version
+      field :content, :ck_editor
+      field :active
+      field :language
     end
 
     edit do
       field :name
       field :template_type
-      field :template_versions
       field :sectors
+      field :version
+      field :content, :ck_editor
+      field :active
+      field :language
     end
 
     list do
       field :id
       field :name
       field :template_type
-      field :template_versions
       field :sectors
+      field :version
+      field :active
+      field :language
     end
   end
 
@@ -190,17 +198,6 @@ RailsAdmin.config do |config|
 
   config.model Comment do
     parent User
-  end
-
-  config.model TemplateVersion do
-    parent Template
-    edit do
-      field :version
-      field :template
-      field :content, :ck_editor
-      field :active
-      field :language
-    end
   end
 
   config.model WorkflowTypeVersion do

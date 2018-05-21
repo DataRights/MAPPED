@@ -21,7 +21,7 @@ class AdminTemplateVersionPreviewTest < ApplicationSystemTestCase
     has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
     take_screenshot unless has_title
     assert_equal true, has_title
-    visit('/admin/template_version')
+    visit('/admin/template')
     assert_equal page.all('i', class: 'icon-eye-open').count, page.all('i', class: 'icon-info-sign').count
   end
 
@@ -33,7 +33,7 @@ class AdminTemplateVersionPreviewTest < ApplicationSystemTestCase
     has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
     take_screenshot unless has_title
     assert_equal true, has_title
-    visit('/admin/template_version')
+    visit('/admin/template')
     a = page.first('li', class: 'preview_template_member_link').find_link
     a.click
     assert page.has_content?(I18n.t('admin.actions.preview_template.title').upcase)
@@ -47,7 +47,7 @@ class AdminTemplateVersionPreviewTest < ApplicationSystemTestCase
     has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
     take_screenshot unless has_title
     assert_equal true, has_title
-    visit('/admin/template_version')
+    visit('/admin/template')
     a = page.first('li', class: 'preview_template_member_link').find_link
     a.click
     campaign_select = page.find_by_id('campaign_id')
@@ -71,7 +71,7 @@ class AdminTemplateVersionPreviewTest < ApplicationSystemTestCase
     has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
     take_screenshot unless has_title
     assert_equal true, has_title
-    visit('/admin/template_version')
+    visit('/admin/template')
     a = page.first('li', class: 'preview_template_member_link').find_link
     a.click
     preview_button = page.find_button('Preview')
@@ -89,7 +89,7 @@ class AdminTemplateVersionPreviewTest < ApplicationSystemTestCase
       has_title = page.has_content?(I18n.t('admin.actions.dashboard.title').upcase)
       take_screenshot unless has_title
       assert_equal true, has_title
-      visit('/admin/template_version')
+      visit('/admin/template')
       a = page.first('li', class: 'preview_template_member_link').find_link
       a.click
       pdf_button = page.find_button('PDF')

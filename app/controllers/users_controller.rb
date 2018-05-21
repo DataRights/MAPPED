@@ -44,7 +44,7 @@ class UsersController < ApplicationController
       if @upc.approved && !current_user.first_name.blank? && !current_user.last_name.blank?
         redirect_to new_campaign_access_request_path(@campaign_id) and return
       end
-      tv = TemplateVersion.find_by template_id: pc.template_id, active: true
+      tv = Template.find_by template_id: pc.template_id, active: true
       if tv
         tc = TemplateContext.new
         tc.user = current_user

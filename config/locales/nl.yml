@@ -53,7 +53,7 @@ nl:
     transition_does_not_exist_in_current_state: 'Overgang bestaat niet in huidige staat'
     campaign_not_found: 'Campagne is niet gevonden'
     organization_not_found: 'Organisatie niet gevonden'
-    template_version_not_found: 'Sjabloonversie niet gevonden'
+    template_not_found: 'Sjabloonversie niet gevonden'
   workflow:
     no_state_to_generate_diagram: 'Workflow heeft geen status om een ​​diagram te genereren!'
     generate_diagram: 'Diagram genereren'
