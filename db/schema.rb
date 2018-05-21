@@ -313,6 +313,7 @@ ActiveRecord::Schema.define(version: 20180521175729) do
     t.string "privacy_policy_url"
     t.boolean "approved", default: true
     t.bigint "suggested_by_user_id"
+    t.text "remark"
     t.index ["name"], name: "index_organizations_on_name", unique: true
     t.index ["sector_id"], name: "index_organizations_on_sector_id"
     t.index ["suggested_by_user_id"], name: "index_organizations_on_suggested_by_user_id"
