@@ -19,6 +19,7 @@ class AttachmentTest < ActiveSupport::TestCase
   test "max size of attachment is 500k" do
     wt = workflow_transitions(:one)
     attachment = Attachment.new(attachable: wt)
+    attachment.content = 'test'
 		assert attachment.valid?
     attachment.content = '0' * Attachment::MAX_SIZE
     assert attachment.valid?

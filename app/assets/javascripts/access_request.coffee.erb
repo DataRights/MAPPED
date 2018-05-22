@@ -106,7 +106,7 @@ $(document).on 'turbolinks:load', ->
           $("#ui_form_#{ar_id}").val(e.ui_form)
 
 
-  $('.send_letter_type').on 'change', ->
+  $('.send_communication_type').on 'change', ->
     ar_id = $(this).attr('data-ar-id')
     temp_type = $(this).val()
     $.ajax

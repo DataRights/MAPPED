@@ -1,9 +1,9 @@
 # == Schema Information
 #
-# Table name: letters
+# Table name: outgoing_communications
 #
 #  id                     :integer          not null, primary key
-#  letter_type            :integer
+#  communication_type     :integer
 #  suggested_text         :string
 #  final_text             :string
 #  remarks                :string
@@ -16,14 +16,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  letter_type: 1
+  communication_type: 1
   suggested_text: MyString
   final_text: MyString
   remarks: MyString
   workflow_transition_id: 1
 
 two:
-  letter_type: 1
+  communication_type: 1
   suggested_text: MyString
   final_text: MyString
   remarks: MyString

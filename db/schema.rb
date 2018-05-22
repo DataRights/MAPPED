@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180509085631) do
+ActiveRecord::Schema.define(version: 20180515144748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -250,18 +250,6 @@ ActiveRecord::Schema.define(version: 20180509085631) do
     t.index ["guard_id", "transition_id"], name: "index_guards_transitions_on_guard_id_and_transition_id"
   end
 
-  create_table "letters", force: :cascade do |t|
-    t.integer "letter_type"
-    t.string "suggested_text"
-    t.string "final_text"
-    t.string "remarks"
-    t.bigint "workflow_transition_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "sent_date"
-    t.index ["workflow_transition_id"], name: "index_letters_on_workflow_transition_id"
-  end
-
   create_table "notification_settings", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -304,6 +292,18 @@ ActiveRecord::Schema.define(version: 20180509085631) do
     t.index ["name"], name: "index_organizations_on_name", unique: true
     t.index ["sector_id"], name: "index_organizations_on_sector_id"
     t.index ["suggested_by_user_id"], name: "index_organizations_on_suggested_by_user_id"
+  end
+
+  create_table "outgoing_communications", force: :cascade do |t|
+    t.integer "communication_type"
+    t.string "suggested_text"
+    t.string "final_text"
+    t.string "remarks"
+    t.bigint "workflow_transition_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "sent_date"
+    t.index ["workflow_transition_id"], name: "index_outgoing_communications_on_workflow_transition_id"
   end
 
   create_table "policy_consents", force: :cascade do |t|
@@ -583,11 +583,11 @@ ActiveRecord::Schema.define(version: 20180509085631) do
   add_foreign_key "comments", "users"
   add_foreign_key "email_notifications", "notifications"
   add_foreign_key "events", "workflow_states"
-  add_foreign_key "letters", "workflow_transitions"
   add_foreign_key "notifications", "access_requests"
   add_foreign_key "notifications", "users"
   add_foreign_key "organizations", "sectors"
   add_foreign_key "organizations", "users", column: "suggested_by_user_id"
+  add_foreign_key "outgoing_communications", "workflow_transitions"
   add_foreign_key "policy_consents", "templates"
   add_foreign_key "responses", "access_requests"
   add_foreign_key "responses", "response_types"

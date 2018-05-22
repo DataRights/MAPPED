@@ -279,7 +279,7 @@ RailsAdmin.config do |config|
     parent AccessRequest
   end
 
-  config.model Letter do
+  config.model OutgoingCommunication do
     parent AccessRequest
   end
 

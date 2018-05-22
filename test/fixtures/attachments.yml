@@ -17,16 +17,16 @@
 
 one:
   title: MyString
-  content_type: MyString
-  content:
+  content_type: application/jpeg
+  content: jpeg_image!
   attachable_type: WorkflowTransition
   attachable_id: 1
   user: one
 
 two:
   title: MyString
-  content_type: MyString
-  content:
+  content_type: application/pdf
+  content: pdf_file!
   attachable_type: WorkflowTransition
   attachable_id: 2
   user: two

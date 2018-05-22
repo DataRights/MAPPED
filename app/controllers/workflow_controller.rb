@@ -81,18 +81,18 @@ class WorkflowController < ApplicationController
       end
 
       if params[:workflow][:current_form] == 'send_letter'
-        l = Letter.new
-        l.sent_date = params[:sent_date]
-        l.workflow_transition_id = @workflow_transition.id
-        l.suggested_text = params[:standard_text]
+        oc = OutgoingCommunication.new
+        oc.sent_date = params[:sent_date]
+        oc.workflow_transition_id = @workflow_transition.id
+        oc.suggested_text = params[:standard_text]
         if params[:textTypeRadios] == 'expanded'
-          l.final_text = params[:custom_text]
+          oc.final_text = params[:custom_text]
         else
-          l.final_text = params[:standard_text]
+          oc.final_text = params[:standard_text]
         end
-        l.letter_type = params[:workflow][:letter_type]
-        unless l.save
-          @errors = l.errors.full_messages.join(". ")
+        oc.communication_type = params[:workflow][:letter_type]
+        unless oc.save
+          @errors = oc.errors.full_messages.join(". ")
           raise ActiveRecord::Rollback
         end
       end

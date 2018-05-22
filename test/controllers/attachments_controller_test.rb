@@ -41,7 +41,7 @@ class AttachmentsControllerTest < ActionDispatch::IntegrationTest
   test "should get attachment content" do
     get get_content_path(@attachment), xhr: true
     assert_response :success
-    assert_equal '{}', response.body
+    assert_equal 'jpeg_image!', response.body
     @attachment.content = 'test'
     @attachment.save!
     get get_content_path(@attachment), xhr: true
@@ -59,8 +59,8 @@ class AttachmentsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should return thumbnail' do
     image_file = file_fixture('Testing.jpg')
-    @attachment.content = image_file.read
-    @attachment.save!
+    @attachment.content = image_file.read.force_encoding "ASCII-8BIT"
+    assert @attachment.save, @attachment.errors.full_messages
     get thumbnail_path(@attachment)
     assert_response :success
     assert_equal @attachment.content_type, response.content_type

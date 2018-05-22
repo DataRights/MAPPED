@@ -1,9 +1,9 @@
 # == Schema Information
 #
-# Table name: letters
+# Table name: outgoing_communications
 #
 #  id                     :integer          not null, primary key
-#  letter_type            :integer
+#  communication_type     :integer
 #  suggested_text         :string
 #  final_text             :string
 #  remarks                :string
@@ -15,7 +15,7 @@
 
 require 'test_helper'
 
-class LetterTest < ActiveSupport::TestCase
+class OutgoingCommunicationTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

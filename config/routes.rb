@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   match "/404", :to => "errors#not_found", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
 
-  get 'letter/:id/download', to: 'letters#download', as: 'download_letter'
+  get 'outgoing_communication/:id/download', to: 'outgoing_communication#download', as: 'download_outgoing_communication'
 
   resources :campaigns, only: [:index] do
     resources :access_requests, except: [:delete, :show]

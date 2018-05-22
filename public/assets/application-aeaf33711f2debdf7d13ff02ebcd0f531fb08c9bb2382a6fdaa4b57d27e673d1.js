@@ -18872,7 +18872,7 @@ click:function(a){var b=a.elementMode==CKEDITOR.ELEMENT_MODE_INLINE?a.container.
         }
       });
     });
-    $('.send_letter_type').on('change', function() {
+    $('.send_communication_type').on('change', function() {
       var ar_id, temp_type;
       ar_id = $(this).attr('data-ar-id');
       temp_type = $(this).val();

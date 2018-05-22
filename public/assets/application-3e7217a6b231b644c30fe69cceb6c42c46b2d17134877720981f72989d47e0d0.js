@@ -18827,7 +18827,7 @@ click:function(a){var b=a.elementMode==CKEDITOR.ELEMENT_MODE_INLINE?a.container.
       oReq.open('GET', baseUrl + '/access_requests/preview?rendered_template=' + encodeURIComponent(rendered_template));
       oReq.send();
     });
-    $('.send_letter_type').on('change', function() {
+    $('.send_communication_type').on('change', function() {
       var access_request_id, template_type;
       access_request_id = $(this).attr('data-ar-id');
       template_type = $(this).val();

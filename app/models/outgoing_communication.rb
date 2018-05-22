@@ -1,9 +1,9 @@
 # == Schema Information
 #
-# Table name: letters
+# Table name: outgoing_communications
 #
 #  id                     :integer          not null, primary key
-#  letter_type            :integer
+#  communication_type     :integer
 #  suggested_text         :string
 #  final_text             :string
 #  remarks                :string
@@ -13,8 +13,10 @@
 #  sent_date              :datetime
 #
 
-class Letter < ApplicationRecord
+class OutgoingCommunication < ApplicationRecord
   belongs_to :workflow_transition
-  enum letter_type: [:reminder, :'second reminder', :clarification, :question]
-  validates_presence_of :letter_type
+  has_many :attachments, :as => :attachable, dependent: :destroy
+
+  enum communication_type: [:reminder, :'second reminder', :clarification, :question]
+  validates_presence_of :communication_type
 end
