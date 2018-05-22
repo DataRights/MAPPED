@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: outgoing_communications
+# Table name: correspondences
 #
 #  id                     :integer          not null, primary key
 #  communication_type     :integer
@@ -13,10 +13,10 @@
 #  sent_date              :datetime
 #
 
-class OutgoingCommunication < ApplicationRecord
-  belongs_to :workflow_transition
-  has_many :attachments, :as => :attachable, dependent: :destroy
+require 'test_helper'
 
-  enum communication_type: [:reminder, :'second reminder', :clarification, :question]
-  validates_presence_of :communication_type
+class CorrespondenceTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

@@ -1,6 +1,6 @@
-class OutgoingCommunicationController < ApplicationController
+class CorrespondencesController < ApplicationController
 
-  before_action :set_outgoing_communication
+  before_action :set_correspondence
   before_action :authenticate_user!
 
   def download
@@ -12,8 +12,8 @@ class OutgoingCommunicationController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_outgoing_communication
-      l = OutgoingCommunication.find(params[:id])
+    def set_correspondence
+      l = Correspondence.find(params[:id])
       if l.workflow_transition.workflow.access_request.user_id == current_user.id
         @oc = l
       end

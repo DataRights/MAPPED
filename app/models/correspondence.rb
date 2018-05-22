@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: outgoing_communications
+# Table name: correspondences
 #
 #  id                     :integer          not null, primary key
 #  communication_type     :integer
@@ -13,18 +13,10 @@
 #  sent_date              :datetime
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+class Correspondence < ApplicationRecord
+  belongs_to :workflow_transition
+  has_many :attachments, :as => :attachable, dependent: :destroy
 
-one:
-  communication_type: 1
-  suggested_text: MyString
-  final_text: MyString
-  remarks: MyString
-  workflow_transition_id: 1
-
-two:
-  communication_type: 1
-  suggested_text: MyString
-  final_text: MyString
-  remarks: MyString
-  workflow_transition_id: 2
+  enum communication_type: [:reminder, :'second reminder', :clarification, :question]
+  validates_presence_of :communication_type
+end

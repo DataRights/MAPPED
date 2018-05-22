@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: outgoing_communications
+# Table name: correspondences
 #
 #  id                     :integer          not null, primary key
 #  communication_type     :integer
@@ -13,10 +13,18 @@
 #  sent_date              :datetime
 #
 
-require 'test_helper'
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-class OutgoingCommunicationTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
-end
+one:
+  communication_type: 1
+  suggested_text: MyString
+  final_text: MyString
+  remarks: MyString
+  workflow_transition_id: 1
+
+two:
+  communication_type: 1
+  suggested_text: MyString
+  final_text: MyString
+  remarks: MyString
+  workflow_transition_id: 2

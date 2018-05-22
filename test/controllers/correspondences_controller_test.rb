@@ -1,12 +1,12 @@
 require 'test_helper'
 
-class OutgoingCommunicationsControllerTest < ActionDispatch::IntegrationTest
+class CorrespondencesControllerTest < ActionDispatch::IntegrationTest
 
   include Devise::Test::IntegrationHelpers
 
   test "should get download" do
     sign_in users(:one)
-    get download_outgoing_communication_url(outgoing_communications(:one))
+    get download_correspondence_url(correspondences(:one))
     assert_response :success
   end
 

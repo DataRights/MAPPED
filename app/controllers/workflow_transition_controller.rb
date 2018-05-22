@@ -28,10 +28,10 @@ class WorkflowTransitionController < ApplicationController
     p "Final text: #{params[:letter_text]}"
     p "***********************************************************"
     if params.include?(:letter_text)
-      letter = wt.letters.first
-      letter.final_text = params[:letter_text]
-      unless letter.save
-        @status = letter.errors.full_messages
+      correspondence = wt.correspondences.first
+      correspondence.final_text = params[:letter_text]
+      unless correspondence.save
+        @status = correspondence.errors.full_messages
         return
       end
     end

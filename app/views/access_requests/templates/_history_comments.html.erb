@@ -8,8 +8,8 @@
             <li class="media my-4">
               <% if t.attachments.count > 0 %>
                 <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70, style: 'border: 1px solid black'), get_content_path(t.attachments.first), target: "_blank" %>
-              <% elsif t.letters.count > 0 %>
-                <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70, style: 'border: 1px solid black'), download_letter_path(t.letters.first), target: "_blank" %>
+              <% elsif t.correspondences.count > 0 %>
+                <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70, style: 'border: 1px solid black'), download_correspondence_path(t.correspondences.first), target: "_blank" %>
               <% else %>
                 <%= image_tag("empty.png", class: 'mr-3', height: 100, width: 70, style: 'border: 1px solid black') %>
               <% end %>
@@ -17,8 +17,8 @@
                 <h6 class="mt-0 mb-1">
                   <% if t.attachments.count > 0 %>
                     <%= link_to image_tag("download_green.svg", height: 18, align: 'left'), get_content_path(t.attachments.first), target: "_blank" %>
-                  <% elsif t.letters.count > 0 %>
-                    <%= link_to image_tag("upload_grey.svg", height: 18, align: 'left'), download_letter_path(t.letters.first), target: "_blank" %>
+                  <% elsif t.correspondences.count > 0 %>
+                    <%= link_to image_tag("upload_grey.svg", height: 18, align: 'left'), download_correspondence_path(t.correspondences.first), target: "_blank" %>
                   <% else %>
                     <%= image_tag "upload_grey.svg", height: 18, align: 'left' %>
                   <% end %>
@@ -93,10 +93,10 @@
                             </div>
                           <% end %>
 
-                          <% if @last_wt.letters.count > 0 %>
+                          <% if @last_wt.correspondences.count > 0 %>
                           <div class="form-group">
                             <%= f.label :letter_text, t('.letter_text') %>
-                            <%= cktext_area_tag(:letter_text, @last_wt.letters.first.final_text, ckeditor: { toolbar: 'mini'}) %>
+                            <%= cktext_area_tag(:letter_text, @last_wt.correspondences.first.final_text, ckeditor: { toolbar: 'mini'}) %>
                           </div>
                           <% end %>
 

@@ -26,7 +26,7 @@ class WorkflowTransition < ApplicationRecord
   belongs_to :failed_guard, class_name: 'Guard', optional: true
   belongs_to :event, optional: true
   has_many :attachments, :as => :attachable, dependent: :destroy
-  has_many   :letters, dependent: :destroy
+  has_many :correspondences, dependent: :destroy
 
   attr_accessor :title
 

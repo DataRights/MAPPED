@@ -81,7 +81,7 @@ class WorkflowController < ApplicationController
       end
 
       if params[:workflow][:current_form] == 'send_letter'
-        oc = OutgoingCommunication.new
+        oc = Correspondence.new
         oc.sent_date = params[:sent_date]
         oc.workflow_transition_id = @workflow_transition.id
         oc.suggested_text = params[:standard_text]

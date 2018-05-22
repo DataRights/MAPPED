@@ -205,6 +205,18 @@ ActiveRecord::Schema.define(version: 20180515144748) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "correspondences", force: :cascade do |t|
+    t.integer "communication_type"
+    t.string "suggested_text"
+    t.string "final_text"
+    t.string "remarks"
+    t.bigint "workflow_transition_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "sent_date"
+    t.index ["workflow_transition_id"], name: "index_correspondences_on_workflow_transition_id"
+  end
+
   create_table "countries", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -292,18 +304,6 @@ ActiveRecord::Schema.define(version: 20180515144748) do
     t.index ["name"], name: "index_organizations_on_name", unique: true
     t.index ["sector_id"], name: "index_organizations_on_sector_id"
     t.index ["suggested_by_user_id"], name: "index_organizations_on_suggested_by_user_id"
-  end
-
-  create_table "outgoing_communications", force: :cascade do |t|
-    t.integer "communication_type"
-    t.string "suggested_text"
-    t.string "final_text"
-    t.string "remarks"
-    t.bigint "workflow_transition_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "sent_date"
-    t.index ["workflow_transition_id"], name: "index_outgoing_communications_on_workflow_transition_id"
   end
 
   create_table "policy_consents", force: :cascade do |t|
@@ -581,13 +581,13 @@ ActiveRecord::Schema.define(version: 20180515144748) do
   add_foreign_key "campaigns", "policy_consents"
   add_foreign_key "campaigns", "workflow_types"
   add_foreign_key "comments", "users"
+  add_foreign_key "correspondences", "workflow_transitions"
   add_foreign_key "email_notifications", "notifications"
   add_foreign_key "events", "workflow_states"
   add_foreign_key "notifications", "access_requests"
   add_foreign_key "notifications", "users"
   add_foreign_key "organizations", "sectors"
   add_foreign_key "organizations", "users", column: "suggested_by_user_id"
-  add_foreign_key "outgoing_communications", "workflow_transitions"
   add_foreign_key "policy_consents", "templates"
   add_foreign_key "responses", "access_requests"
   add_foreign_key "responses", "response_types"
