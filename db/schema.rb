@@ -10,10 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180515144748) do
+ActiveRecord::Schema.define(version: 20180521212252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "access_request_steps", force: :cascade do |t|
+    t.bigint "workflow_id"
+    t.bigint "transition_id"
+    t.bigint "failed_action_id"
+    t.bigint "failed_guard_id"
+    t.string "action_failed_message"
+    t.string "failed_guard_message"
+    t.string "status"
+    t.jsonb "rollback_failed_actions"
+    t.jsonb "performed_actions"
+    t.jsonb "internal_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "remarks"
+    t.index ["failed_action_id"], name: "index_access_request_steps_on_failed_action_id"
+    t.index ["failed_guard_id"], name: "index_access_request_steps_on_failed_guard_id"
+    t.index ["transition_id"], name: "index_access_request_steps_on_transition_id"
+    t.index ["workflow_id"], name: "index_access_request_steps_on_workflow_id"
+  end
 
   create_table "access_requests", force: :cascade do |t|
     t.bigint "organization_id"
@@ -210,11 +230,11 @@ ActiveRecord::Schema.define(version: 20180515144748) do
     t.string "suggested_text"
     t.string "final_text"
     t.string "remarks"
-    t.bigint "workflow_transition_id"
+    t.bigint "access_request_step_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "sent_date"
-    t.index ["workflow_transition_id"], name: "index_correspondences_on_workflow_transition_id"
+    t.index ["access_request_step_id"], name: "index_correspondences_on_access_request_step_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -235,25 +255,6 @@ ActiveRecord::Schema.define(version: 20180515144748) do
     t.integer "email_type", default: 0, null: false
     t.string "error_log"
     t.index ["notification_id"], name: "index_email_notifications_on_notification_id"
-  end
-
-  create_table "events", force: :cascade do |t|
-    t.bigint "workflow_state_id"
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "display_order"
-    t.integer "ui_form"
-    t.index ["workflow_state_id"], name: "index_events_on_workflow_state_id"
-  end
-
-  create_table "guards", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.string "class_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "method_name"
   end
 
   create_table "guards_transitions", id: false, force: :cascade do |t|
@@ -301,6 +302,7 @@ ActiveRecord::Schema.define(version: 20180515144748) do
     t.string "privacy_policy_url"
     t.boolean "approved", default: true
     t.bigint "suggested_by_user_id"
+    t.text "remark"
     t.index ["name"], name: "index_organizations_on_name", unique: true
     t.index ["sector_id"], name: "index_organizations_on_sector_id"
     t.index ["suggested_by_user_id"], name: "index_organizations_on_suggested_by_user_id"
@@ -364,12 +366,6 @@ ActiveRecord::Schema.define(version: 20180515144748) do
     t.index ["template_id"], name: "index_sectors_templates_on_template_id"
   end
 
-  create_table "sending_methods", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "settings", force: :cascade do |t|
     t.string "key"
     t.string "value"
@@ -378,31 +374,15 @@ ActiveRecord::Schema.define(version: 20180515144748) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
-    t.string "tagable_type"
-    t.bigint "tagable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["tagable_type", "tagable_id"], name: "index_tags_on_tagable_type_and_tagable_id"
-  end
-
-  create_table "template_versions", force: :cascade do |t|
-    t.string "version"
-    t.bigint "template_id"
-    t.text "content"
-    t.boolean "active"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "language"
-    t.index ["template_id"], name: "index_template_versions_on_template_id"
-  end
-
   create_table "templates", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "template_type"
+    t.string "version"
+    t.text "content"
+    t.boolean "active"
+    t.string "language"
   end
 
   create_table "transitions", force: :cascade do |t|
@@ -522,28 +502,6 @@ ActiveRecord::Schema.define(version: 20180515144748) do
     t.index ["workflow_type_version_id"], name: "index_workflow_states_on_workflow_type_version_id"
   end
 
-  create_table "workflow_transitions", force: :cascade do |t|
-    t.bigint "workflow_id"
-    t.bigint "transition_id"
-    t.bigint "failed_action_id"
-    t.bigint "failed_guard_id"
-    t.string "action_failed_message"
-    t.string "failed_guard_message"
-    t.string "status"
-    t.jsonb "rollback_failed_actions"
-    t.jsonb "performed_actions"
-    t.jsonb "internal_data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "remarks"
-    t.bigint "event_id"
-    t.index ["event_id"], name: "index_workflow_transitions_on_event_id"
-    t.index ["failed_action_id"], name: "index_workflow_transitions_on_failed_action_id"
-    t.index ["failed_guard_id"], name: "index_workflow_transitions_on_failed_guard_id"
-    t.index ["transition_id"], name: "index_workflow_transitions_on_transition_id"
-    t.index ["workflow_id"], name: "index_workflow_transitions_on_workflow_id"
-  end
-
   create_table "workflow_type_versions", force: :cascade do |t|
     t.float "version"
     t.bigint "workflow_type_id"
@@ -571,8 +529,10 @@ ActiveRecord::Schema.define(version: 20180515144748) do
     t.index ["workflow_type_version_id"], name: "index_workflows_on_workflow_type_version_id"
   end
 
+  add_foreign_key "access_request_steps", "code_actions", column: "failed_action_id"
+  add_foreign_key "access_request_steps", "transitions"
+  add_foreign_key "access_request_steps", "workflows"
   add_foreign_key "access_requests", "organizations"
-  add_foreign_key "access_requests", "sending_methods"
   add_foreign_key "access_requests", "users"
   add_foreign_key "access_rights", "roles"
   add_foreign_key "addresses", "countries"
@@ -581,9 +541,8 @@ ActiveRecord::Schema.define(version: 20180515144748) do
   add_foreign_key "campaigns", "policy_consents"
   add_foreign_key "campaigns", "workflow_types"
   add_foreign_key "comments", "users"
-  add_foreign_key "correspondences", "workflow_transitions"
+  add_foreign_key "correspondences", "access_request_steps"
   add_foreign_key "email_notifications", "notifications"
-  add_foreign_key "events", "workflow_states"
   add_foreign_key "notifications", "access_requests"
   add_foreign_key "notifications", "users"
   add_foreign_key "organizations", "sectors"
@@ -591,7 +550,6 @@ ActiveRecord::Schema.define(version: 20180515144748) do
   add_foreign_key "policy_consents", "templates"
   add_foreign_key "responses", "access_requests"
   add_foreign_key "responses", "response_types"
-  add_foreign_key "template_versions", "templates"
   add_foreign_key "transitions", "workflow_states", column: "from_state_id"
   add_foreign_key "transitions", "workflow_states", column: "to_state_id"
   add_foreign_key "user_policy_consents", "policy_consents"
@@ -601,11 +559,6 @@ ActiveRecord::Schema.define(version: 20180515144748) do
   add_foreign_key "web_notifications", "notifications"
   add_foreign_key "workflow_states", "workflow_state_forms"
   add_foreign_key "workflow_states", "workflow_type_versions"
-  add_foreign_key "workflow_transitions", "code_actions", column: "failed_action_id"
-  add_foreign_key "workflow_transitions", "events"
-  add_foreign_key "workflow_transitions", "guards", column: "failed_guard_id"
-  add_foreign_key "workflow_transitions", "transitions"
-  add_foreign_key "workflow_transitions", "workflows"
   add_foreign_key "workflow_type_versions", "workflow_types"
   add_foreign_key "workflows", "access_requests"
   add_foreign_key "workflows", "workflow_states"

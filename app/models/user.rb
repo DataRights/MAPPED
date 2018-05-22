@@ -65,7 +65,7 @@ class User < ApplicationRecord
   has_many :notifications, :dependent => :destroy
   has_and_belongs_to_many :notification_settings, :dependent => :destroy
   has_and_belongs_to_many :campaigns, :dependent => :destroy
-  has_many :tags, :as => :tagable, :dependent => :destroy
+  #HA has_many :tags, :as => :tagable, :dependent => :destroy
   has_many :comments, dependent: :destroy
   has_many :user_policy_consents, dependent: :destroy
   has_many :access_requests, dependent: :destroy

@@ -4,7 +4,8 @@ module NotificationActionsHelper
     unless internal_data.include?('template_id') and internal_data.include?('title')
       return { result: false, message: I18n.t('validations.template_id_mandatory_internal_data') }
     end
-    tv = TemplateVersion.find_by template_id: internal_data['template_id'], active: true
+    #tv = Template.find_by template_id: internal_data['template_id'], active: true
+    tv = Template.find_by id: internal_data['template_id'], active: true
     unless tv
       return {result: false, message: I18n.t('validations.template_id_not_found')}
     end

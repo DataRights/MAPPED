@@ -12,7 +12,7 @@ class WorkflowNotificationActionsTest < ActionDispatch::IntegrationTest
 
     t = transitions(:access_request_created)
     a = code_actions(:send_notification_with_template)
-    template = templates(:ar_created_reminder)
+    template = templates(:reminder1)
     title = 'Your Access Request Status Update.'
     a.internal_data = { 'template_id': "#{template.id}", 'title': title}
     t.actions << a

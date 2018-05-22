@@ -3,19 +3,19 @@ loadTemplates = (organization_id) ->
   $.ajax url,
     type: 'GET'
     success: (e) ->
-      $('#access_request_template_version_id').children().remove()
+      $('#access_request_template_id').children().remove()
       listitems = []
       $.each e.templates, (key, value) ->
         listitems += "<option value='#{value[0]}'>#{value[1]}</option>"
 
-      $('#access_request_template_version_id').append listitems
+      $('#access_request_template_id').append listitems
       updateTemplateContentByOrganization organization_id
 
 
 updateTemplateContentByOrganization = (organization_id) ->
   cid = $('#access_request_campaign_id').val()
   url = "/campaigns/#{cid}/organizations/#{organization_id}/template"
-  url = "#{url}/#{$('#access_request_template_version_id').val()}"
+  url = "#{url}/#{$('#access_request_template_id').val()}"
 
   $.ajax url,
     type: 'GET'
@@ -40,7 +40,7 @@ sectorChanged = (sector_id) ->
       if listitems.length > 0
         loadTemplates(e[0][1])
       else
-        $('#access_request_template_version_id').children().remove()
+        $('#access_request_template_id').children().remove()
 
 setAccessReqeustMethod = ->
   console.log 'inside access request method'
@@ -126,7 +126,7 @@ $(document).on 'turbolinks:load', ->
     console.log('inside changed method!')
     setAccessReqeustMethod()
 
-  $('#access_request_template_version_id').on 'change', ->
+  $('#access_request_template_id').on 'change', ->
     org_id = $('#access_request_organization_id').val()
     updateTemplateContentByOrganization org_id
 

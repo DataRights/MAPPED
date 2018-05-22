@@ -7,7 +7,7 @@
 #  suggested_text         :string
 #  final_text             :string
 #  remarks                :string
-#  workflow_transition_id :integer
+#  access_request_step_id :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  sent_date              :datetime

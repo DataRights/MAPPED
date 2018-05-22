@@ -23,7 +23,7 @@ class Transition < ApplicationRecord
   belongs_to :from_state, class_name: 'WorkflowState'
   belongs_to :to_state, class_name: 'WorkflowState'
   has_and_belongs_to_many :actions, class_name: 'CodeAction'
-  has_and_belongs_to_many :guards
+  #HA has_and_belongs_to_many :guards
 
   validates :from_state, :to_state, :name, presence: true
   validate :only_one_timeout_from_one_state

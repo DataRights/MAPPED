@@ -7,6 +7,7 @@ git_source(:github) do |repo_name|
 end
 
 # Begin Default rails gems #
+# gem 'foreman'  # HA:from dockerfile
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1'
@@ -30,7 +31,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.12'  #HA
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -130,9 +131,10 @@ gem 'wicked_pdf'
 
 gem 'pdfjs_rails'
 
+#HA:
 gem 'sidekiq'
 
-gem 'redis'
+#gem 'redis'
 
 gem 'rmagick'
 

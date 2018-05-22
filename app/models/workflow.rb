@@ -14,7 +14,7 @@ class Workflow < ApplicationRecord
   belongs_to :workflow_type_version
   belongs_to :workflow_state
   belongs_to :access_request
-  has_many :workflow_transitions, dependent: :destroy
+  has_many :access_request_steps, dependent: :destroy
   validates :workflow_type_version, :workflow_state, :access_request, presence: true
   validate :workflow_type_should_be_active
   after_create :set_transition_timeout
@@ -49,10 +49,10 @@ class Workflow < ApplicationRecord
       raise I18n.t('errors.transition_does_not_exist_in_current_state')
     end
 
-    wt = WorkflowTransition.new
+    wt = AccessRequestStep.new
     wt.transition = transition
     wt.workflow = self
-    (wt.event_id = event_id) if event_id
+    #HA (wt.event_id = event_id) if event_id
     wt.remarks = remarks
     wt.execute
     wt.save
@@ -98,7 +98,7 @@ class Workflow < ApplicationRecord
   private
 
   def get_or_create_undo_transition
-    wt = workflow_transitions.joins(:transition).where.not(transitions: {transition_type: :undo}).where(transitions: {to_state_id: self.workflow_state_id}).order("ID DESC").first
+    wt = access_request_steps.joins(:transition).where.not(transitions: {transition_type: :undo}).where(transitions: {to_state_id: self.workflow_state_id}).order("ID DESC").first
     return nil unless wt
     t = Transition.where(from_state_id: self.workflow_state_id, to_state_id: wt.transition.from_state_id, transition_type: :undo).first
     unless t

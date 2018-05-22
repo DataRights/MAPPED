@@ -29,7 +29,7 @@ class WorkflowTest < ActiveSupport::TestCase
   end
 
   test "Using undo user should be able to rollback multiple transitions" do
-    wt = workflow_transitions(:wt_data_came_back_transition)
+    wt = access_request_steps(:wt_data_came_back_transition)
     wf = wt.workflow
     assert_equal workflow_states(:data_came_back), wf.workflow_state
 

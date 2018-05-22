@@ -24,9 +24,9 @@ class WorkflowController < ApplicationController
       @ar = wf.access_request
       t = Transition.find(transition_id)
       @errors = nil
-      @workflow_transition = wf.send_event(t, params[:workflow][:event_id], params[:workflow][:remarks])
-      unless @workflow_transition.status == 'success'
-        @errors = "#{@workflow_transition.action_failed_message} - #{@workflow_transition.failed_guard_message}"
+      @access_request_step = wf.send_event(t, params[:workflow][:event_id], params[:workflow][:remarks])
+      unless @access_request_step.status == 'success'
+        @errors = "#{@access_request_step.action_failed_message} - #{@access_request_step.failed_guard_message}"
         return
       end
 
@@ -40,7 +40,7 @@ class WorkflowController < ApplicationController
           else
             attachment.title = f.original_filename
           end
-          attachment.attachable = @workflow_transition
+          attachment.attachable = @access_request_step
           attachment.user = current_user
           unless attachment.save
             @errors = attachment.errors.full_messages.join(". ")
@@ -70,7 +70,7 @@ class WorkflowController < ApplicationController
             else
               attachment.title = f.original_filename
             end
-            attachment.attachable = response
+            attachment.attachable = access_request_step
             attachment.user = current_user
             unless attachment.save
               @errors = attachment.errors.full_messages.join(". ")
@@ -83,7 +83,7 @@ class WorkflowController < ApplicationController
       if params[:workflow][:current_form] == 'send_letter'
         oc = Correspondence.new
         oc.sent_date = params[:sent_date]
-        oc.workflow_transition_id = @workflow_transition.id
+        oc.workflow_transition_id = @access_request_step.id
         oc.suggested_text = params[:standard_text]
         if params[:textTypeRadios] == 'expanded'
           oc.final_text = params[:custom_text]
@@ -130,7 +130,7 @@ class WorkflowController < ApplicationController
   end
 
   def undo
-    wt = WorkflowTransition.find_by(id: params[:workflow_transition_id])
+    wt = AccessRequestStep.find_by(id: params[:access_request_step_id])
     return unless wt.workflow.access_request.user_id == current_user.id
     result = wt.workflow.undo
     if result[:success] == true

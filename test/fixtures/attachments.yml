@@ -15,11 +15,12 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+#HA
 one:
   title: MyString
   content_type: application/jpeg
   content: jpeg_image!
-  attachable_type: WorkflowTransition
+  attachable_type: AccessRequestStep
   attachable_id: 1
   user: one
 
@@ -27,6 +28,6 @@ two:
   title: MyString
   content_type: application/pdf
   content: pdf_file!
-  attachable_type: WorkflowTransition
+  attachable_type: AccessRequestStep
   attachable_id: 2
   user: two

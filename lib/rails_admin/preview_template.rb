@@ -2,12 +2,12 @@ module RailsAdmin
   module Config
     module Actions
       class PreviewTemplate < RailsAdmin::Config::Actions::Base
-        # This ensures the action only shows up for TemplateVersions
+        # This ensures the action only shows up for Templates
         register_instance_option :visible? do
-          authorized? && bindings[:object].class == TemplateVersion
+          authorized? && bindings[:object].class == Template
         end
 
-        # We want the action on members, not the TemplateVersions collection
+        # We want the action on members, not the Templates collection
         register_instance_option :member do
           true
         end

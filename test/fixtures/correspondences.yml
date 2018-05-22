@@ -7,7 +7,7 @@
 #  suggested_text         :string
 #  final_text             :string
 #  remarks                :string
-#  workflow_transition_id :integer
+#  access_request_step_id :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  sent_date              :datetime
@@ -20,11 +20,11 @@ one:
   suggested_text: MyString
   final_text: MyString
   remarks: MyString
-  workflow_transition_id: 1
+  access_request_step_id: 1
 
 two:
   communication_type: 1
   suggested_text: MyString
   final_text: MyString
   remarks: MyString
-  workflow_transition_id: 2
+  access_request_step_id: 2

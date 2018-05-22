@@ -23,10 +23,10 @@ class AccessRequest < ApplicationRecord
   belongs_to :organization
   belongs_to :user
   belongs_to :campaign
-  belongs_to :sending_method, optional: true
+  #belongs_to :sending_method, optional: true
   has_one :workflow, dependent: :destroy
   has_many :answers, as: :answerable, dependent: :destroy
-  has_many :tags, :as => :tagable, dependent: :destroy
+  #has_many :tags, :as => :tagable, dependent: :destroy
   has_many :comments, :as => :commentable, dependent: :destroy
   has_many :responses, dependent: :destroy
   has_many :notifications, dependent: :destroy
@@ -36,16 +36,18 @@ class AccessRequest < ApplicationRecord
   has_many :attachments, :as => :attachable, dependent: :destroy
 
   attr_accessor :sector_id
-  attr_accessor :template_version_id
+  attr_accessor :template_id
   attr_accessor :title
   attr_accessor :ar_method
   attr_accessor :uploaded_access_request_file
 
   validates :user, :organization, :campaign, presence: true
-
   validate :max_size, if: :access_request_file
-
   validate :check_access_request_content
+
+  enum sending_method:  [:post, :email, :web_form, :other]
+ # TODO HA: (i) does this need to be addedd to MIGRATION?
+ #          (ii) change this to hash-type enums to avoid mistaken change
 
   MAX_SIZE = 5048*1024
 
@@ -94,25 +96,27 @@ class AccessRequest < ApplicationRecord
 
     return [] unless Template.template_types.include?(template_type)
 
-    active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
+    #active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
+    active_templates = organization.sector.templates.where(:template_type => template_type, :active => true)
     return [] if active_templates.blank?
 
-    template_versions = []
+    #template_versions = []
 
-    active_templates.each do |template|
-      template.template_versions.where(:active => true).each do |tv|
-        template_versions << tv unless template_versions.include?(tv)
-      end
-    end
+    #active_templates.each do |template|
+    #  template.template_versions.where(:active => true).each do |tv|
+    #    template_versions << tv unless template_versions.include?(tv)
+    #  end
+    #end
 
-    template_versions
+    #template_versions
+    active_templates
   end
 
-  def get_rendered_template(template_type, template_version=nil)
-    @rendered_template ||= AccessRequest.get_rendered_template(template_type, self.user, self.campaign, self.organization, self, template_version)
+  def get_rendered_template(template_type, template=nil)
+    @rendered_template ||= AccessRequest.get_rendered_template(template_type, self.user, self.campaign, self.organization, self, template)
   end
 
-  def self.get_rendered_template(template_type, user, campaign, organization, access_request=nil, template_version=nil)
+  def self.get_rendered_template(template_type, user, campaign, organization, access_request=nil, template=nil)
     return nil unless organization.sector
 
     if template_type.class == :String
@@ -123,21 +127,22 @@ class AccessRequest < ApplicationRecord
       return ''
     end
 
-    active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
+    #active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
+    active_templates = organization.sector.templates.where(:template_type => template_type, :active => true)
     return nil if active_templates.blank?
 
-    template_versions = []
-    active_templates.each do |t|
-      t.template_versions.where(:active => true).each do |tv|
-        template_versions << tv unless template_versions.include?(tv)
-      end
-    end
+    #template_versions = []
+    #active_templates.each do |t|
+    #  t.template_versions.where(:active => true).each do |tv|
+    #    template_versions << tv unless template_versions.include?(tv)
+    #  end
+    #end
 
     result = nil
-    if template_version
-      result = template_versions.detect {|t| t.id == template_version.id}
+    if template
+      result = active_templates.detect {|t| t.id == template.id}
     else
-      result = template_versions.first
+      result = active_templates.first
     end
 
     if result

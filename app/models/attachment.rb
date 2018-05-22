@@ -20,7 +20,6 @@ class Attachment < ApplicationRecord
   belongs_to :attachable, :polymorphic => true
   belongs_to :user, optional: true
 
-  has_many :tags, :as => :tagable, dependent: :destroy
   has_many :comments, :as => :commentable, dependent: :destroy
   validate :max_size, if: :content
   validates_presence_of :content

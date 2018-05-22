@@ -17,6 +17,7 @@
 #  privacy_policy_url   :string
 #  approved             :boolean          default(TRUE)
 #  suggested_by_user_id :integer
+#  remark               :text
 #
 
 require 'test_helper'

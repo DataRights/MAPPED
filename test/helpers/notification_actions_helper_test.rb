@@ -14,7 +14,7 @@ class NotificationActionsHelperTest < ActionView::TestCase
   test "send_notification_with_template should fail with appropriate error if persistance of Notification fails" do
     wf = workflows(:one)
     wf.access_request.user = nil
-    result = NotificationActionsHelper::send_notification_with_template(wf, {"title": "mani", "template_id": templates(:ar).id})
+    result = NotificationActionsHelper::send_notification_with_template(wf, {"title": "mani", "template_id": templates(:ar2).id})
     assert_not result[:success]
     assert result[:message].include?(I18n.t('notificaitons.insert_failed', errors:'')), result[:message]
   end

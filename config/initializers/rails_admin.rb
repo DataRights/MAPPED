@@ -1,4 +1,4 @@
-require Rails.root.join('lib', 'rails_admin', 'preview_template.rb')
+    require Rails.root.join('lib', 'rails_admin', 'preview_template.rb')
 RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::PreviewTemplate)
 
 RailsAdmin.config do |config|
@@ -29,7 +29,7 @@ RailsAdmin.config do |config|
 
   ## == Gravatar integration ==
   ## To disable Gravatar integration in Navigation Bar set to false
-  # config.show_gravatar = true
+  config.show_gravatar = false  # HA
 
   config.label_methods << :description
   config.label_methods << :email
@@ -55,7 +55,9 @@ RailsAdmin.config do |config|
   end
 
 
-  config.excluded_models = ["Event", "Blazer::Audit", "Blazer::Check", "Blazer::Dashboard", "Blazer::DashboardQuery", "Blazer::Query"]
+  config.excluded_models = ["Blazer::Audit", "Blazer::Check", "Blazer::Dashboard", "Blazer::DashboardQuery", "Blazer::Query",
+      "Event", "Role", "CodeAction", "WorkflowStateForm", "ResponseType", "AccessRight",
+      "NotificationSetting", "EmailNotification", "WebNotification"]
 
 
   ####################################################################
@@ -116,13 +118,8 @@ RailsAdmin.config do |config|
   end
 
   config.model Sector do
-    navigation_label 'Sectors & Organizations'
+    navigation_label 'Organization Management'
     weight 20
-  end
-
-  config.model Notification do
-    navigation_label 'Notification Management'
-    weight 30
   end
 
   config.model Question do
@@ -130,79 +127,110 @@ RailsAdmin.config do |config|
     weight 40
   end
 
-  config.model Template do
-    navigation_label 'Template Definition'
-    weight 50
+  config.model Campaign do
+      navigation_label 'Campaign Settings'
+      weight 50
 
     create do
       field :name
-      field :template_type
-      field :template_versions
-      field :sectors
+      field :short_description
+      field :expanded_description
+      field :policy_consent
+      field :workflow_type
+      field :organizations
+      field :questions
     end
 
     edit do
       field :name
-      field :template_type
-      field :template_versions
-      field :sectors
+      field :short_description
+      field :expanded_description
+      field :policy_consent
+      field :workflow_type
+      field :organizations
+      field :questions
     end
 
     list do
-      field :id
       field :name
-      field :template_type
-      field :template_versions
-      field :sectors
+      field :short_description
+      field :expanded_description
+      field :policy_consent
+      field :workflow_type
+      field :organizations
+      field :questions
     end
   end
 
-  config.model WorkflowType do
-    navigation_label 'Workflow Definitions'
-    weight 60
-  end
 
   config.model Setting do
-    navigation_label 'General Settings'
+    navigation_label 'Platform Settings'
     weight 70
   end
 
-  config.model Guard do
-    navigation_label 'Development Settings'
-    weight 80
-  end
 
   ####################################################################
   #                     END TOP MENU ITEMS
   ####################################################################
 
-
-
-
-
-
+  config.model Notification do
+    #navigation_label 'Notification Management'
+    #weight 30
+    parent User
+  end
 
 
   config.model Response do
     parent AccessRequest
   end
 
+  config.model AccessRequestStep do
+    parent AccessRequest
+  end
+
+  config.model Workflow do
+    parent AccessRequest
+  end
+
   config.model Comment do
+    parent AccessRequest
+  end
+
+  config.model UserRole do
     parent User
   end
 
-  config.model TemplateVersion do
-    parent Template
+  # config.model AccessRight do
+  #   parent Setting
+  # end
+
+  config.model Address do
+      label "Entered Addresses"
+     parent Sector
+  end
+
+  # config.model Role do
+  #   parent User
+  # end
+
+  config.model Country do
+    parent Setting
     edit do
-      field :version
-      field :template
-      field :content, :ck_editor
-      field :active
-      field :language
+      field :name
+      field :languages, :pg_string_array
     end
   end
 
+
+  config.model WorkflowType do
+    parent Campaign
+
+  end
+
   config.model WorkflowTypeVersion do
+      parent Campaign
+
+
     list do
       field :name
       field :workflow_type
@@ -231,72 +259,71 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.model SendingMethod do
-    parent WorkflowType
-  end
+  config.model Template do
+      parent Campaign
 
-  config.model ResponseType do
-    parent WorkflowType
+    create do
+      field :name
+      field :template_type
+      field :sectors
+      field :version
+      field :content, :ck_editor
+      field :active
+      field :language
+    end
+
+    edit do
+      field :name
+      field :template_type
+      field :sectors
+      field :version
+      field :content, :ck_editor
+      field :active
+      field :language
+    end
+
+    list do
+      field :id
+      field :name
+      field :template_type
+      field :sectors
+      field :version
+      field :active
+      field :language
+    end
   end
 
   config.model Answer do
     parent Question
   end
 
-  config.model UserRole do
-    parent User
-  end
-
-  config.model AccessRight do
-    parent User
-  end
-
-  config.model Address do
-    parent User
-  end
-
-  config.model Role do
-    parent User
-  end
-
-  config.model Country do
-    parent User
-    edit do
-      field :name
-      field :languages, :pg_string_array
-    end
-  end
-
-  config.model WorkflowState do
-    parent WorkflowType
-  end
-
-  # config.model Event do
-  #   parent WorkflowType
+  # config.model SendingMethod do
+  #   parent Campaign
   # end
 
-  config.model WorkflowTransition do
-    parent AccessRequest
-  end
+  # config.model ResponseType do
+  #   parent Campaign
+  # end
+
+  # config.model Event do
+  #   parent Campaign
+  # end
+
+  # config.model Guard do
+  #   parent Campaign
+  # end
 
   config.model Correspondence do
     parent AccessRequest
   end
 
-  config.model WorkflowTypeVersion do
-    parent WorkflowType
-  end
 
   config.model WorkflowState do
-    parent WorkflowType
-  end
-
-  config.model WorkflowStateForm do
-    parent Guard
+    parent Campaign
   end
 
   config.model Transition do
-    parent WorkflowType
+    parent Campaign
 
     create do
       field :name
@@ -308,7 +335,7 @@ RailsAdmin.config do |config|
       field :transition_type
       field :display_order
       field :actions
-      field :guards
+      #HA field :guards
     end
 
     edit do
@@ -321,53 +348,16 @@ RailsAdmin.config do |config|
       field :ui_form
       field :display_order
       field :actions
-      field :guards
+      #HA field :guards
     end
   end
 
-  config.model Workflow do
-    parent AccessRequest
-  end
+  # config.model CodeAction do
+  #   parent Campaign
+  #   label "Action"
+  #   label_plural "Actions"
+  # end
 
-  config.model CodeAction do
-    parent Guard
-    label "Action"
-    label_plural "Actions"
-  end
-
-  config.model Campaign do
-    parent WorkflowType
-
-    create do
-      field :name
-      field :short_description
-      field :expanded_description
-      field :policy_consent
-      field :workflow_type
-      field :organizations
-      field :questions
-    end
-
-    edit do
-      field :name
-      field :short_description
-      field :expanded_description
-      field :policy_consent
-      field :workflow_type
-      field :organizations
-      field :questions
-    end
-
-    list do
-      field :name
-      field :short_description
-      field :expanded_description
-      field :policy_consent
-      field :workflow_type
-      field :organizations
-      field :questions
-    end
-  end
 
   config.model Organization do
     parent Sector
@@ -384,7 +374,7 @@ RailsAdmin.config do |config|
       field :custom_3_desc
       field :address
       field :campaigns
-      field :tags
+      #HA field :tags
       field :languages, :pg_string_array
     end
 
@@ -393,15 +383,16 @@ RailsAdmin.config do |config|
       field :sector
       field :approved
       field :suggested_by_user
-      field :custom_1
-      field :custom_1_desc
-      field :custom_2
-      field :custom_2_desc
-      field :custom_3
-      field :custom_3_desc
+      #field :custom_1
+      #field :custom_1_desc
+      #field :custom_2
+      #field :custom_2_desc
+      #field :custom_3
+      #field :custom_3_desc
       field :address
       field :campaigns
-      field :tags
+      #HA field :tags
+      field :remark
       field :languages, :pg_string_array
     end
 
@@ -410,41 +401,43 @@ RailsAdmin.config do |config|
       field :sector
       field :approved
       field :suggested_by_user
-      field :custom_1
-      field :custom_1_desc
-      field :custom_2
-      field :custom_2_desc
-      field :custom_3
-      field :custom_3_desc
+      #field :custom_1
+      #field :custom_1_desc
+      #field :custom_2
+      #field :custom_2_desc
+      #field :custom_3
+      #field :custom_3_desc
       field :address
       field :campaigns
-      field :tags
+      #HA field :tags
+      field :remark
       field :languages, :pg_string_array
     end
   end
 
-  config.model EmailNotification do
-    parent Notification
-  end
+  # config.model EmailNotification do
+  #   parent User
+  # end
+  #
+  # config.model WebNotification do
+  #   parent User
+  # end
 
-  config.model WebNotification do
-    parent Notification
-  end
-
-  config.model NotificationSetting do
-    parent Setting
-  end
+  # config.model NotificationSetting do
+  #   parent Notification
+  # end
 
   config.model Attachment do
     parent AccessRequest
   end
 
-  config.model Tag do
-    parent Comment
-  end
+  #HA
+  # config.model Tag do
+  #   parent Comment
+  # end
 
   config.model PolicyConsent do
-    parent User
+    parent Campaign
   end
 
   config.model UserPolicyConsent do

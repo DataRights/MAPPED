@@ -13,11 +13,11 @@ class AttachmentsController < ApplicationController
   # GET /attachments/new
   def new
     @attachment = Attachment.new
-    workflow_transition = WorkflowTransition.find(params[:workflow_transition_id])
-    unless workflow_transition.workflow.access_request.user_id == current_user.id
+    access_request_step = AccessRequestStep.find(params[:access_request_step_id])
+    unless access_request_step.workflow.access_request.user_id == current_user.id
       redirect_to attachments_path and return
     end
-    @attachment.attachable = workflow_transition
+    @attachment.attachable = access_request_step
   end
 
   # POST /attachments
@@ -102,7 +102,7 @@ class AttachmentsController < ApplicationController
 
   def new_content
     @attachment = Attachment.new()
-    @attachment.attachable = WorkflowTransition.find(params['workflow_transition_id'].to_i)
+    @attachment.attachable = AccessRequestStep.find(params['access_request_step_id'].to_i)
     @attachment.title = params['image'].original_filename
     @attachment.content_type = params['image'].content_type
     @attachment.content = params['image'].tempfile.read

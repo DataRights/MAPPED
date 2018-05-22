@@ -27,7 +27,7 @@ class AccessRequestsControllerTest < ActionDispatch::IntegrationTest
     get access_request_template_url(id: ar, template_type: :'second reminder')
     assert_response :success, response.body
     result = JSON.parse(response.body)
-    expected_template = "The access request to #{ar.id} has been created on DataRights.me and it's ready for sending to organization #{ar.organization.name}. Currently status of your workflow is: #{ar.workflow.workflow_state.name}"
+    expected_template = "The access request #{ar.id} has been created on DataRights.me and it's ready for sending to organization #{ar.organization.name}. Currently status of your workflow is: #{ar.workflow.workflow_state.name}"
     assert_equal expected_template, result['template']
   end
 end

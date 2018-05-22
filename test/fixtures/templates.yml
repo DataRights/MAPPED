@@ -7,27 +7,53 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  template_type :integer
+#  version       :string
+#  content       :text
+#  active        :boolean
+#  language      :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-ar:
+# follow:
+#   name: FollowUp
+
+
+ar1:
   name: AccessRequest
   template_type: :access_request
   sectors: transport, social
+  version: Default Template
+  content: "This is content of access request version one"
+  active: true
 
-follow:
-  name: FollowUp
+ar2:
+  name: AccessRequest
+  template_type: :access_request
+  version: 2
+  content: "This is content of access request version two for {{ organization.sector }}"
+  active: true
 
-ar_created_reminder:
+reminder1:
   name: AccessRequestCreatedReminder
   template_type: :reminder
+  version: 1
+  content: "The access request {{ access_request.id }} has been created on DataRights.me and it's ready for sending to organization {{ organization.name }}. Currently status of your workflow is: {{ workflow.workflow_state }}"
+  active: true
 
-ar_second_reminder:
+reminder2:
   name: AccessRequestCreatedSecondReminder
   template_type: :'second reminder'
+  version: 1
   sectors: health
+  active: true
+  language: en
+  content: "The access request {{ access_request.id }} has been created on DataRights.me and it's ready for sending to organization {{ organization.name }}. Currently status of your workflow is: {{ workflow.workflow_state }}"
 
 campaign_template:
   name: Campaign template
   template_type: :terms_of_service
+  version: 1
+  content: "Do you accept terms of service for participating in a campaign?<br />"
+  active: true
+  language: en

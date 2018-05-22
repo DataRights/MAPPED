@@ -47,9 +47,9 @@
 
           <div id="template_fields">
             <div class="form-group">
-              <strong><%= f.label(:template_version_id, t('.template_label')) %></strong>
+              <strong><%= f.label(:template_id, t('.template_label')) %></strong>
               <br>
-              <%= f.select(:template_version_id, options_from_collection_for_select(@templates, :id, :version, @selected_template), {}, {class: "form-control", include_blank: false}) %>
+              <%= f.select(:template_id, options_from_collection_for_select(@templates, :id, :version, @selected_template), {}, {class: "form-control", include_blank: false}) %>
             </div>
             <!-- TODO: after creating wiki pages for organization uncomment this line
             <div class="m-3">

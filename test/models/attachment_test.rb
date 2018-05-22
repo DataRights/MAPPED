@@ -17,7 +17,7 @@ require 'test_helper'
 
 class AttachmentTest < ActiveSupport::TestCase
   test "max size of attachment is 500k" do
-    wt = workflow_transitions(:one)
+    wt = access_request_steps(:one)
     attachment = Attachment.new(attachable: wt)
     attachment.content = 'test'
 		assert attachment.valid?

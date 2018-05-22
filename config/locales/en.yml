@@ -57,7 +57,7 @@ en:
     transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
     campaign_not_found: 'Campaign not found'
     organization_not_found: 'Organization not found'
-    template_version_not_found: 'Template version not found'
+    template_not_found: 'Template version not found'
   workflow:
     no_state_to_generate_diagram: 'Workflow has no state to generate a diagram!'
     generate_diagram: 'Generate Diagram'

@@ -1,22 +1,22 @@
-class WorkflowTransitionController < ApplicationController
+class AccessRequestStepController < ApplicationController
 
   before_action :authenticate_user!
 
   def update
-    return unless params.include?(:workflow_transition)
-    wt_id = params[:workflow_transition][:id]
-    wt = WorkflowTransition.find(wt_id)
+    return unless params.include?(:access_request_step)
+    wt_id = params[:access_request_step][:id]
+    wt = AccessRequestStep.find(wt_id)
     @a = wt.workflow.access_request
-    wt.remarks = params[:workflow_transition][:remarks]
-    wt.event_id = params[:workflow_transition][:event_id]
+    wt.remarks = params[:access_request_step][:remarks]
+    wt.event_id = params[:access_request_step][:event_id]
 
-    if params[:workflow_transition].include?(:attachment_description)
+    if params[:access_request_step].include?(:attachment_description)
       attachment = wt.attachments.first
-      attachment.title = params[:workflow_transition][:attachment_description]
+      attachment.title = params[:access_request_step][:attachment_description]
 
-      unless params[:workflow_transition][:attachment_file].blank?
-        attachment.content = params[:workflow_transition][:attachment_file].read
-        attachment.content_type = params[:workflow_transition][:attachment_file].content_type
+      unless params[:access_request_step][:attachment_file].blank?
+        attachment.content = params[:access_request_step][:attachment_file].read
+        attachment.content_type = params[:access_request_step][:attachment_file].content_type
       end
 
       unless attachment.save
