@@ -3,28 +3,31 @@
 # Table name: correspondences
 #
 #  id                     :integer          not null, primary key
-#  communication_type     :integer
-#  suggested_text         :string
 #  final_text             :string
 #  remarks                :string
 #  access_request_step_id :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  sent_date              :datetime
+#  correspondence_type    :string
+#  medium                 :string
+#  direction              :string
+#  correspondence_date    :datetime
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  communication_type: 1
-  suggested_text: MyString
+  correspondence_type: reminder
   final_text: MyString
   remarks: MyString
   access_request_step_id: 1
+  medium: email
+  direction: outgoing
 
 two:
-  communication_type: 1
-  suggested_text: MyString
+  correspondence_type: reminder
   final_text: MyString
   remarks: MyString
   access_request_step_id: 2
+  medium: email
+  direction: outgoing

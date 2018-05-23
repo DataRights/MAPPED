@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180523070021) do
+ActiveRecord::Schema.define(version: 20180523181319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -225,14 +225,15 @@ ActiveRecord::Schema.define(version: 20180523070021) do
   end
 
   create_table "correspondences", force: :cascade do |t|
-    t.integer "communication_type"
-    t.string "suggested_text"
     t.string "final_text"
     t.string "remarks"
     t.bigint "access_request_step_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "sent_date"
+    t.string "correspondence_type"
+    t.string "medium"
+    t.string "direction"
+    t.datetime "correspondence_date"
     t.index ["access_request_step_id"], name: "index_correspondences_on_access_request_step_id"
   end
 
