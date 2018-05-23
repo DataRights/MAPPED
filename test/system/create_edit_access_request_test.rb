@@ -4,7 +4,7 @@ class CreateEditAccessRequestTest < ApplicationSystemTestCase
 
   include ERB::Util
 
-  def rendered_template_version(tv, campaign, organization)
+  def rendered_template(tv, campaign, organization)
     context = TemplateContext.new
     context.campaign = campaign
     context.user = @user
@@ -41,14 +41,11 @@ class CreateEditAccessRequestTest < ApplicationSystemTestCase
       organization_ids.each do |o|
         assert_equal s, Organization.find(o).sector_id
         sector = Sector.find s
-        templates = sector.templates.where(template_type: :access_request)
+        templates = sector.templates.where(template_type: :access_request, active: true)
+        assert_equal templates.count, find_field('access_request_template_id').all('option').count, sector.name
         templates.each do |t|
-          template_versions = t.template_versions.where(active: true)
-          assert_equal template_versions.count, find_field('access_request_template_version_id').all('option').count, sector.name
-          template_versions.each do |tv|
-            find_field('access_request_template_version_id').find("option[value='#{tv.id}']").click
-            assert_equal rendered_template_version(tv, campaign, Organization.find(o)), get_ckeditor_value('1_contents')
-          end
+          find_field('access_request_template_id').find("option[value='#{tv.id}']").click
+          assert_equal rendered_template(t, campaign, Organization.find(o)), get_ckeditor_value('1_contents')
         end
       end
       Organization.where(sector_id: s).each do |o|
@@ -116,15 +113,12 @@ class CreateEditAccessRequestTest < ApplicationSystemTestCase
     organization_ids = find_field('access_request_organization_id').all('option').map { |o| o.value.to_i }
     organization_ids.each do |o|
       assert_equal sector.id, Organization.find(o).sector_id
-      templates = sector.templates.where(template_type: :access_request)
+      templates = sector.templates.where(template_type: :access_request, active: true)
+      assert_equal templates.count, find_field('access_request_template_id').all('option').count, sector.name
       templates.each do |t|
-        template_versions = t.template_versions.where(active: true)
-        assert_equal template_versions.count, find_field('access_request_template_version_id').all('option').count, sector.name
-        template_versions.each do |tv|
-          find_field('access_request_template_version_id').find("option[value='#{tv.id}']").click
-          rendered_template = rendered_template_version(tv, campaign, Organization.find(o))
-          assert_equal rendered_template, get_ckeditor_value('1_contents')
-        end
+        find_field('access_request_template_id').find("option[value='#{tv.id}']").click
+        rendered_template = rendered_template(t, campaign, Organization.find(o))
+        assert_equal rendered_template, get_ckeditor_value('1_contents')
       end
     end
 

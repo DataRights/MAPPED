@@ -7,5 +7,5 @@
 <div class="form-group">
   <%= label_tag(:sending_method, t('.access_request_sending_method')) %>
   <br />
-  <%= f.select(:sending_method_id, options_for_select(SendingMethod.all.pluck(:name, :id), a.sending_method_id), {}, {class: "form-control", include_blank: false}) %>
+  <%= f.select :sending_method, AccessRequest.sending_methods.keys.to_a, {}, {class: "form-control", include_blank: false} %>
 </div>

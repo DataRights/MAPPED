@@ -15,11 +15,13 @@
 #  final_text                       :text
 #  access_request_file              :binary
 #  access_request_file_content_type :string
-#  sending_method_id                :integer
 #  sending_method_remarks           :string
+#  sending_method                   :string
 #
 
 class AccessRequest < ApplicationRecord
+  include StringEnums
+
   belongs_to :organization
   belongs_to :user
   belongs_to :campaign
@@ -45,9 +47,16 @@ class AccessRequest < ApplicationRecord
   validate :max_size, if: :access_request_file
   validate :check_access_request_content
 
-  enum sending_method:  [:post, :email, :web_form, :other]
- # TODO HA: (i) does this need to be addedd to MIGRATION?
- #          (ii) change this to hash-type enums to avoid mistaken change
+  string_enum sending_method: [:post, :email, :web_form, :other] # see concerns/string_enums.rb
+
+  # def sending_methods
+  #   {
+  #     "post": I18n.t('access_requests.sending_methods.post'),
+  #     "email": I18n.t('access_requests.sending_methods.email'),
+  #     "web_form": I18n.t('access_requests.sending_methods.web_form'),
+  #     "other": I18n.t('access_requests.sending_methods.other'),
+  #   }
+  # end
 
   MAX_SIZE = 5048*1024
 

@@ -1,6 +1,6 @@
 <div class="form-group">
-    <%= f.label :letter_type, t('.letter_type') %>
-    <%= f.select :letter_type, Letter.letter_types.keys.to_a, {}, {class: "form-control send_communication_type", 'data-ar-id' => a.id} %>
+    <%= f.label :communication_type, t('.letter_type') %>
+    <%= f.select :communication_type, Correspondence.communication_types.keys.to_a, {}, {class: "form-control send_communication_type", 'data-ar-id' => a.id} %>
 </div>
 <div class="form-group">
     <label for="customText"><%= t('.text_type_select') %></label>

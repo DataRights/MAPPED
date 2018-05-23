@@ -15,8 +15,8 @@
 #  final_text                       :text
 #  access_request_file              :binary
 #  access_request_file_content_type :string
-#  sending_method_id                :integer
 #  sending_method_remarks           :string
+#  sending_method                   :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

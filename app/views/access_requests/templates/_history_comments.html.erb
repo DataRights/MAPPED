@@ -74,13 +74,6 @@
                           </div>
                           <%= f.hidden_field(:id, value: @last_wt.id) %>
 
-                          <% if @last_wt.event_id %>
-                            <div class="form-group">
-                              <%= f.label :event_description, t('.what_happened') %>
-                              <%= f.select(:event_id, options_for_select(Event.where(workflow_state_id: @last_wt.transition.from_state_id).map{ |t| [t.title, t.id] }, @last_wt.event_id), {}, {class: "form-control"}) %>
-                            </div>
-                          <% end %>
-
                           <% if @last_wt.attachments.count > 0 %>
                             <div class="form-group">
                               <%= f.label :attachment_file, t('.upload_attachment') %>
