@@ -4,12 +4,12 @@ class CreateEditAccessRequestTest < ApplicationSystemTestCase
 
   include ERB::Util
 
-  def rendered_template(tv, campaign, organization)
+  def rendered_template(template, campaign, organization)
     context = TemplateContext.new
     context.campaign = campaign
     context.user = @user
     context.organization = organization
-    tv.render(context)
+    template.render(context)
   end
 
   test 'before creating AR, consent and personal information, changing sector, organization and templates' do
@@ -44,7 +44,7 @@ class CreateEditAccessRequestTest < ApplicationSystemTestCase
         templates = sector.templates.where(template_type: :access_request, active: true)
         assert_equal templates.count, find_field('access_request_template_id').all('option').count, sector.name
         templates.each do |t|
-          find_field('access_request_template_id').find("option[value='#{tv.id}']").click
+          find_field('access_request_template_id').find("option[value='#{t.id}']").click
           assert_equal rendered_template(t, campaign, Organization.find(o)), get_ckeditor_value('1_contents')
         end
       end
@@ -116,7 +116,7 @@ class CreateEditAccessRequestTest < ApplicationSystemTestCase
       templates = sector.templates.where(template_type: :access_request, active: true)
       assert_equal templates.count, find_field('access_request_template_id').all('option').count, sector.name
       templates.each do |t|
-        find_field('access_request_template_id').find("option[value='#{tv.id}']").click
+        find_field('access_request_template_id').find("option[value='#{t.id}']").click
         rendered_template = rendered_template(t, campaign, Organization.find(o))
         assert_equal rendered_template, get_ckeditor_value('1_contents')
       end

@@ -30,21 +30,23 @@ ar1:
 ar2:
   name: AccessRequest
   template_type: :access_request
-  version: 2
+  sectors: health
+  version: Health Sector Template
   content: "This is content of access request version two for {{ organization.sector }}"
   active: true
 
 reminder1:
   name: AccessRequestCreatedReminder
   template_type: :reminder
-  version: 1
+  version: Reminder Default Template
   content: "The access request {{ access_request.id }} has been created on DataRights.me and it's ready for sending to organization {{ organization.name }}. Currently status of your workflow is: {{ workflow.workflow_state }}"
   active: true
+  sectors: transport, social
 
 reminder2:
   name: AccessRequestCreatedSecondReminder
   template_type: :'second reminder'
-  version: 1
+  version: Reminder for health sector
   sectors: health
   active: true
   language: en

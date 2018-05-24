@@ -43,7 +43,6 @@ sectorChanged = (sector_id) ->
         $('#access_request_template_id').children().remove()
 
 setAccessReqeustMethod = ->
-  console.log 'inside access request method'
   if $("input[name='access_request[ar_method]']:checked").val() == 'template'
     $('#upload_fields').hide()
     $('#template_fields').show()
@@ -123,7 +122,6 @@ $(document).on 'turbolinks:load', ->
     updateTemplateContentByOrganization $(this).val()
 
   $("input[type=radio][name='access_request[ar_method]']").on 'change', ->
-    console.log('inside changed method!')
     setAccessReqeustMethod()
 
   $('#access_request_template_id').on 'change', ->
@@ -141,11 +139,9 @@ $(document).on 'turbolinks:load', ->
     attachment_files = $("#workflow_attachment_file_#{ar_id}")
     response_attachments_files = $("#workflow_response_attachment_files_#{ar_id}")
     if attachment_files != undefined && (attachment_files.val() == undefined || attachment_files.val() == "")
-      console.log 'inside empty attachment_files block!'
       attachment_files.remove()
 
     if response_attachments_files != undefined && (response_attachments_files.val() == undefined || response_attachments_files.val() == "")
-      console.log 'inside empty response_attachment_files block!'
       response_attachments_files.remove()
 
     return true;

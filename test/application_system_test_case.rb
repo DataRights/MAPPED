@@ -6,6 +6,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   setup do
     @sample_email = 'john@smith.com'
     @sample_password = '1234567890'
+    return if User.find_by(email: @sample_email)
     User.create!(email: @sample_email, password_confirmation: @sample_password, password: @sample_password, approved: true, roles: [Role.find_by(name: roles(:admin).name)])
     @user = User.find_by(email: @sample_email)
     @user.confirm

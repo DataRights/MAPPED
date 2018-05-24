@@ -40,6 +40,7 @@ class CampaignsController < ApplicationController
     render json: result and return unless organization
 
     render json: result and return unless params.include?(:template_id) and params[:template_id] != 'null'
+    return nil if params[:template_id] == 'undefined'
     template = params.include?(:template_id) ? Template.find(params[:template_id]) : nil
 
     rendered_template = AccessRequest.get_rendered_template(:access_request, current_user, campaign, organization, nil, template)

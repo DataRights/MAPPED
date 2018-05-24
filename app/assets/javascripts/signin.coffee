@@ -5,7 +5,6 @@ check_otp = () ->
     contentType: "application/json;charset=utf-8",
     dataType: 'json',
     success: (e) ->
-      console.log e
       if e
         $('#otp_fields').collapse('show')
       else
