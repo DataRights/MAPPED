@@ -21,6 +21,6 @@ class Correspondence < ApplicationRecord
 
   string_enum medium: [:post, :email, :call, :weblink, :meeting, :other]
   string_enum direction: [:incoming, :outgoing]
-  string_enum correspondence_type: [:reminder, :'second reminder', :clarification, :question, :data]
+  string_enum correspondence_type: [:reminder, :'second reminder', :clarification, :question, :data, :access_request]
   validates_presence_of :correspondence_type
 end
