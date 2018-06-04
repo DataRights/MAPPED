@@ -2,17 +2,18 @@
 #
 # Table name: transitions
 #
-#  id                  :integer          not null, primary key
-#  name                :string
-#  from_state_id       :integer
-#  to_state_id         :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  timeout_days        :float
-#  ui_form             :integer
-#  history_description :string
-#  display_order       :integer          default(10)
-#  transition_type     :integer          default("event")
+#  id                    :integer          not null, primary key
+#  name                  :string
+#  from_state_id         :integer
+#  to_state_id           :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  timeout_days          :float
+#  ui_form               :integer
+#  history_description   :string
+#  display_order         :integer          default(10)
+#  transition_type       :integer          default("event")
+#  is_initial_transition :boolean          default(FALSE)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -21,6 +22,7 @@ one:
   name: MyString
   from_state: one
   to_state: one
+  is_initial_transition: true
 
 two:
   name: MyString
@@ -36,6 +38,7 @@ access_request_created:
   #HA guards: simple_true_if, check_current_state_is_initial
   actions: send_a_reminder, apply_tag_in_database_success
   timeout_days: 1
+  is_initial_transition: true
 
 ar_sent:
   name: Access Request sent

@@ -2,82 +2,48 @@
 #
 # Table name: access_requests
 #
-#  id                               :integer          not null, primary key
-#  organization_id                  :integer
-#  user_id                          :integer
-#  meta_data                        :jsonb
-#  sent_date                        :datetime
-#  data_received_date               :datetime
-#  created_at                       :datetime         not null
-#  updated_at                       :datetime         not null
-#  campaign_id                      :integer
-#  suggested_text                   :text
-#  final_text                       :text
-#  access_request_file              :binary
-#  access_request_file_content_type :string
-#  sending_method_remarks           :string
-#  sending_method                   :string
+#  id              :integer          not null, primary key
+#  organization_id :integer
+#  user_id         :integer
+#  meta_data       :jsonb
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  campaign_id     :integer
 #
 
 class AccessRequest < ApplicationRecord
-  include StringEnums
 
   belongs_to :organization
   belongs_to :user
   belongs_to :campaign
-  #belongs_to :sending_method, optional: true
   has_one :workflow, dependent: :destroy
   has_many :answers, as: :answerable, dependent: :destroy
-  #has_many :tags, :as => :tagable, dependent: :destroy
   has_many :comments, :as => :commentable, dependent: :destroy
-  has_many :responses, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :correspondences, dependent: :destroy
   before_save :update_related_caches, if: :campaign_id_changed?
+  before_save :update_correspondence, if: :new_record?
   before_destroy :update_related_caches
   after_create :create_workflow
-  has_many :attachments, :as => :attachable, dependent: :destroy
 
   attr_accessor :sector_id
   attr_accessor :template_id
   attr_accessor :title
   attr_accessor :ar_method
   attr_accessor :uploaded_access_request_file
+  attr_accessor :final_text
+  attr_accessor :suggested_text
+  attr_accessor :attachment_id
 
   validates :user, :organization, :campaign, presence: true
-  validate :max_size, if: :access_request_file
-  validate :check_access_request_content
 
-  string_enum sending_method: [:post, :email, :web_form, :other] # see concerns/string_enums.rb
-
-  # def sending_methods
-  #   {
-  #     "post": I18n.t('access_requests.sending_methods.post'),
-  #     "email": I18n.t('access_requests.sending_methods.email'),
-  #     "web_form": I18n.t('access_requests.sending_methods.web_form'),
-  #     "other": I18n.t('access_requests.sending_methods.other'),
-  #   }
-  # end
-
-  MAX_SIZE = 5048*1024
 
   def title
     "#{organization.name} - #{user.email}"
   end
 
-  def max_size
-    errors.add(:access_request_file, I18n.t('validations.attachment_max_size')) if access_request_file.size > MAX_SIZE
-  end
-
-  def check_access_request_content
-    if ar_method == "template" && final_text.blank?
-      errors.add(:final_text, I18n.t('validations.final_text_empty'))
-    elsif ar_method == 'upload' && attachments.empty?
-      errors.add(:attachments, I18n.t('validations.file_not_uploaded'))
-    end
-  end
-
   def context_value
-    { 'id' => id, 'data_received_date' => self.data_received_date, 'sent_date' => self.sent_date }
+    { 'id' => id }
   end
 
   def update_related_caches
@@ -94,30 +60,73 @@ class AccessRequest < ApplicationRecord
     wf.workflow_type_version = self.campaign.workflow_type.current_version
     wf.access_request = self
     wf.save!
+
+    t = wf.workflow_state.possible_transitions.where(is_initial_transition: true).first
+    return true unless t
+    ar_step = wf.send_event(t)
+    ActiveRecord::Base.transaction do
+      c = Correspondence.new
+      c.direction = :outgoing
+      c.correspondence_type = :access_request
+      c.final_text = final_text
+      c.access_request_step_id = ar_step.id
+      c.access_request = self
+      if uploaded_access_request_file and attachment_id
+        a = Attachment.find(attachment_id)
+        a.attachable = c
+        a.save!
+      end
+      c.save!
+    end
+  end
+
+  def update_correspondence
+    c = correspondences.find_by(correspondence_type: :access_request)
+    return true unless c
+    c.final_text = final_text
+    if uploaded_access_request_file and attachment_id
+      a = Attachment.find(attachment_id)
+      attachment.attachable = c
+      attachment.save!
+    end
+    c.save!
+  end
+
+  def has_file?
+    c = correspondences.find_by(correspondence_type: :access_request)
+    return false unless c
+    c.attachments.count > 0
+  end
+
+  def ar_attachment
+    c = correspondences.find_by(correspondence_type: :access_request)
+    return nil unless c
+    c.attachments.first
+  end
+
+  def ar_text
+    c = correspondences.find_by(correspondence_type: :access_request)
+    c&.final_text
+  end
+
+  def access_request_file
+    c = correspondences.find_by(correspondence_type: :access_request)
+    c&.attachments&.first&.content
+  end
+
+  def access_request_file_content_type
+    c = correspondences.find_by(correspondence_type: :access_request)
+    c&.attachments&.first&.content_type
   end
 
   def self.available_templates(template_type, organization)
     return [] unless organization.sector
-
     if template_type.class == :String
       template_type = template_type.to_sym
     end
-
     return [] unless Template.template_types.include?(template_type)
-
-    #active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
     active_templates = organization.sector.templates.where(:template_type => template_type, :active => true)
     return [] if active_templates.blank?
-
-    #template_versions = []
-
-    #active_templates.each do |template|
-    #  template.template_versions.where(:active => true).each do |tv|
-    #    template_versions << tv unless template_versions.include?(tv)
-    #  end
-    #end
-
-    #template_versions
     active_templates
   end
 
@@ -136,16 +145,8 @@ class AccessRequest < ApplicationRecord
       return ''
     end
 
-    #active_templates = organization.sector.templates.joins(:template_versions).where(:templates => {template_type: template_type}, :template_versions => {:active => true})
     active_templates = organization.sector.templates.where(:template_type => template_type, :active => true)
     return nil if active_templates.blank?
-
-    #template_versions = []
-    #active_templates.each do |t|
-    #  t.template_versions.where(:active => true).each do |tv|
-    #    template_versions << tv unless template_versions.include?(tv)
-    #  end
-    #end
 
     result = nil
     if template

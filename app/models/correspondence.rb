@@ -18,6 +18,7 @@ class Correspondence < ApplicationRecord
   include StringEnums
   belongs_to :access_request_step
   has_many :attachments, :as => :attachable, dependent: :destroy
+  belongs_to :access_request
 
   string_enum medium: [:post, :email, :call, :weblink, :meeting, :other]
   string_enum direction: [:incoming, :outgoing]

@@ -64,17 +64,17 @@ class CreateEditAccessRequestTest < ApplicationSystemTestCase
     update_user_info(campaign)
     visit new_campaign_access_request_path(campaign)
     assert_equal new_campaign_access_request_path(campaign), page.current_path
-    choose("access_request_ar_method_upload", option: "upload")
+    choose('access_request_ar_method_upload', option: 'upload')
     attach_file('access_request_uploaded_access_request_file', "#{Rails.root}/test/files/ar1.png")
     click_on I18n.t('access_requests.form.submit_upload_ar')
     assert_equal campaign_access_requests_path(campaign), page.current_path
     ar = AccessRequest.find_by(user_id: @user.id, campaign_id: campaign.id)
     assert_not_nil ar
-    assert_nil ar.access_request_file
-    assert_nil ar.access_request_file_content_type
-    assert_not_nil ar.attachments.first
-    assert_not_nil ar.attachments.first.content
-    assert_equal 'image/png', ar.attachments.first.content_type
+    # assert_nil ar.access_request_file
+    # assert_nil ar.access_request_file_content_type
+    assert_not_nil ar.ar_attachment
+    assert_not_nil ar.ar_attachment.content
+    assert_equal 'image/png', ar.ar_attachment.content_type
 
     # Test edit access request
     find("#triangle_#{ar.id}").click
@@ -91,7 +91,7 @@ class CreateEditAccessRequestTest < ApplicationSystemTestCase
     click_on I18n.t('access_requests.form.submit_upload_ar')
     assert_equal campaign_access_requests_path(campaign), page.current_path
     ar.reload
-    a = ar.attachments.first
+    a = ar.ar_attachment
     assert_not_nil a
     assert_not_nil a.content
     assert_equal 'image/jpeg', a.content_type
@@ -126,25 +126,26 @@ class CreateEditAccessRequestTest < ApplicationSystemTestCase
     assert_equal campaign_access_requests_path(campaign), page.current_path
     ar = AccessRequest.find_by(user_id: @user.id, campaign_id: campaign.id)
     assert_not_nil ar
-    assert ar.final_text.include?(html_escape(rendered_template))
+    assert_not_nil ar.ar_text
+    assert ar.ar_text.include?(html_escape(rendered_template))
 
     # Test edit access request
     find("#triangle_#{ar.id}").click
     find("#edit_access_request_#{ar.id}").click
     assert_equal edit_campaign_access_request_path(campaign_id: ar.campaign_id, id: ar.id), page.current_path
     new_text = 'Test 1, 2, 3.'
-    fill_in_ckeditor('1_contents', with: new_text)
+    fill_in_ckeditor_with_class('cke_contents', with: new_text)
     click_on I18n.t('access_requests.form.final_button')
     assert_equal campaign_access_requests_path(campaign), page.current_path
     ar.reload
-    assert ar.final_text.include?(new_text)
+    assert ar.ar_text.include?(new_text)
 
     # Test edit access request with empty text
     assert_equal campaign_access_requests_path(campaign), page.current_path
     find("#triangle_#{ar.id}").click
     find("#edit_access_request_#{ar.id}").click
     assert_equal edit_campaign_access_request_path(campaign_id: ar.campaign_id, id: ar.id), page.current_path
-    fill_in_ckeditor('1_contents', with: ' ')
+    fill_in_ckeditor_with_class('cke_contents', with: ' ')
     click_on I18n.t('access_requests.form.final_button')
     assert_equal edit_campaign_access_request_path(campaign_id: ar.campaign_id, id: ar.id), page.current_path
     assert page.body.include?(I18n.t('validations.final_text_empty'))
@@ -158,7 +159,7 @@ class CreateEditAccessRequestTest < ApplicationSystemTestCase
     assert_equal 0, Organization.where(name: 'Facebook').count
     click_on I18n.t('access_requests.form.click_here')
     fill_in('organization[name]', with: 'Facebook Inc.')
-    fill_in('organization[privacy_policy_url]', with: "https://www.facebook.com/privacy")
+    fill_in('organization[privacy_policy_url]', with: 'https://www.facebook.com/privacy')
     fill_in('organization[address_attributes][email]', with: 'info@facebook.com')
     fill_in('organization[address_attributes][line1]', with: '1 Hacker Way')
     fill_in('organization[address_attributes][line2]', with: ' ')
@@ -178,6 +179,7 @@ class CreateEditAccessRequestTest < ApplicationSystemTestCase
     click_on I18n.t('access_requests.form.final_button')
     assert_equal campaign_access_requests_path(campaign), page.current_path
     ar = AccessRequest.find_by(user_id: @user.id, campaign_id: campaign.id)
-    assert ar.final_text.include?(ar_text)
+    assert ar.ar_text
+    assert ar.ar_text.include?(ar_text)
   end
 end

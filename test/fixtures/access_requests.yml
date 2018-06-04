@@ -2,21 +2,13 @@
 #
 # Table name: access_requests
 #
-#  id                               :integer          not null, primary key
-#  organization_id                  :integer
-#  user_id                          :integer
-#  meta_data                        :jsonb
-#  sent_date                        :datetime
-#  data_received_date               :datetime
-#  created_at                       :datetime         not null
-#  updated_at                       :datetime         not null
-#  campaign_id                      :integer
-#  suggested_text                   :text
-#  final_text                       :text
-#  access_request_file              :binary
-#  access_request_file_content_type :string
-#  sending_method_remarks           :string
-#  sending_method                   :string
+#  id              :integer          not null, primary key
+#  organization_id :integer
+#  user_id         :integer
+#  meta_data       :jsonb
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  campaign_id     :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -25,28 +17,20 @@ one:
   organization: one
   user: one
   meta_data:
-  sent_date: 2017-11-06 11:33:17
-  data_received_date: 2017-11-06 11:33:17
 
 two:
   organization: two
   user: two
   meta_data:
-  sent_date: 2017-11-06 11:33:17
-  data_received_date: 2017-11-06 11:33:17
 
 three:
   organization: one
   user: three
   campaign: one
   meta_data:
-  sent_date: 2017-11-06 11:33:17
-  data_received_date: 2017-11-06 11:33:17
 
 four:
   organization: one
   user: four
   campaign: one
   meta_data:
-  sent_date: 2017-11-06 11:33:17
-  data_received_date: 2017-11-06 11:33:17

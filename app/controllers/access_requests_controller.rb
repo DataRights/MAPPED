@@ -29,7 +29,6 @@ class AccessRequestsController < ApplicationController
     @access_request = AccessRequest.new
     @access_request.ar_method = 'template'
     @organization = Organization.new
-    @access_request.sent_date = Date.today
     @templates = []
     @selected_template = nil
     campaign_id = params[:campaign_id]
@@ -77,25 +76,23 @@ class AccessRequestsController < ApplicationController
       @access_request.user = current_user
 
       if @access_request.ar_method == 'upload'
-        @access_request.suggested_text = nil
         @access_request.final_text = nil
         attachment = Attachment.new
         attachment.content = @access_request.uploaded_access_request_file.read
         attachment.content_type = @access_request.uploaded_access_request_file&.content_type
         attachment.title = @access_request.uploaded_access_request_file&.original_filename
-        attachment.attachable = @access_request
         attachment.user = current_user
-        @access_request.attachments << attachment
+        if attachment.save
+          @access_request.attachment_id = attachment.id
+        else
+          flash[:alert] = attachment.errors.full_messages.join(". ")
+          raise ActiveRecord::Rollback
+        end
       end
 
       if @access_request.save
-        if @access_request.ar_method == 'upload' and !attachment.save
-          flash[:alert] = attachment.errors.full_messages.join(". ")
-          raise ActiveRecord::Rollback
-        else
-          session['download_ar'] = @access_request.id
-          success = true
-        end
+        session['download_ar'] = @access_request.id
+        success = true
       else
         flash[:alert] = @access_request.errors.messages.values.join(',')
         raise ActiveRecord::Rollback
@@ -129,11 +126,10 @@ class AccessRequestsController < ApplicationController
       end
     end
 
-    @rendered_template = AccessRequest.get_rendered_template(:access_request, current_user, @campaign, @access_request.organization, @access_request, @selected_template)
-
-    if @access_request.attachments.count > 0
+    if @access_request.has_file?
       @access_request.ar_method = 'upload'
-      @access_request.final_text = @rendered_template # in case user decided to change everything and use text instead of his file
+      @rendered_template = AccessRequest.get_rendered_template(:access_request, current_user, @campaign, @access_request.organization, @access_request, @selected_template)
+      @access_request.final_text = @rendered_template # in case users decided to change everything and use text instead of their file
     else
       @access_request.ar_method = 'template'
       @rendered_template = @access_request.final_text
@@ -145,26 +141,25 @@ class AccessRequestsController < ApplicationController
     ActiveRecord::Base.transaction do
       @access_request.assign_attributes(access_request_params)
       if @access_request.ar_method == 'upload'
-        @access_request.suggested_text = nil
         @access_request.final_text = nil
         attachment = nil
-        if @access_request.attachments.count > 0
-          attachment = @access_request.attachments.first
+        if @access_request.has_file?
+          attachment = @access_request.ar_attachment
         else
           attachment = Attachment.new
-          attachment.attachable = @access_request
           attachment.user = current_user
         end
         attachment.content = @access_request.uploaded_access_request_file&.read
         attachment.content_type = @access_request.uploaded_access_request_file&.content_type
         attachment.title = @access_request.uploaded_access_request_file&.original_filename
-        unless attachment.save
+        if attachment.save
+          @access_request.attachment_id = attachment.id
+        else
           flash[:alert] = attachment.errors.full_messages.join(". ")
           raise ActiveRecord::Rollback
         end
       elsif @access_request.final_text
-        @access_request.access_request_file_content_type = nil
-        @access_request.access_request_file = nil
+        @access_request.uploaded_access_request_file = nil
       end
 
       if @access_request.save
@@ -191,10 +186,10 @@ class AccessRequestsController < ApplicationController
   end
 
   def download
-    if @access_request.final_text.blank?
-      send_data(@access_request.attachments.first.content, :filename => "AccessRequest-#{@access_request.id}-#{@access_request.organization.name}", :type => @access_request.attachments.first.content_type)
+    if @access_request.ar_attachment
+      send_data(@access_request.ar_attachment.content, :filename => "AccessRequest-#{@access_request.id}-#{@access_request.organization.name}", :type => @access_request.ar_attachment.content_type)
     else
-      pdf = WickedPdf.new.pdf_from_string(@access_request.final_text&.html_safe, encoding: 'UTF-8')
+      pdf = WickedPdf.new.pdf_from_string(@access_request.ar_text&.html_safe, encoding: 'UTF-8')
       send_data(pdf, :filename => "AccessRequest-#{@access_request.id}-#{@access_request.organization.name}" ,:type => :pdf)
     end
   end
@@ -222,7 +217,7 @@ class AccessRequestsController < ApplicationController
 
   private
    def access_request_params
-     params.require(:access_request).permit(:organization_id, :campaign_id, :suggested_text, :final_text, :uploaded_access_request_file, :ar_method)
+     params.require(:access_request).permit(:organization_id, :campaign_id, :final_text, :uploaded_access_request_file, :ar_method)
    end
 
    def find_access_request

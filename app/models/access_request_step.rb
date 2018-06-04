@@ -24,13 +24,16 @@ class AccessRequestStep < ApplicationRecord
   belongs_to :failed_action, class_name: 'CodeAction', optional: true
   belongs_to :failed_guard, class_name: 'Guard', optional: true
   belongs_to :event, optional: true
-  has_many :attachments, :as => :attachable, dependent: :destroy
   has_many :correspondences, dependent: :destroy
 
   attr_accessor :title
 
   def title
     "#{transition.from_state.name} => #{transition.to_state.name}"
+  end
+
+  def attachment
+    correspondences.first&.attachments&.first
   end
 
   # should return state, success:false/true, message (in case of error, error_message)

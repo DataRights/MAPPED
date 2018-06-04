@@ -2,17 +2,18 @@
 #
 # Table name: transitions
 #
-#  id                  :integer          not null, primary key
-#  name                :string
-#  from_state_id       :integer
-#  to_state_id         :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  timeout_days        :float
-#  ui_form             :integer
-#  history_description :string
-#  display_order       :integer          default(10)
-#  transition_type     :integer          default("event")
+#  id                    :integer          not null, primary key
+#  name                  :string
+#  from_state_id         :integer
+#  to_state_id           :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  timeout_days          :float
+#  ui_form               :integer
+#  history_description   :string
+#  display_order         :integer          default(10)
+#  transition_type       :integer          default("event")
+#  is_initial_transition :boolean          default(FALSE)
 #
 
 require 'test_helper'

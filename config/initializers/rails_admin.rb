@@ -56,7 +56,7 @@ RailsAdmin.config do |config|
 
 
   config.excluded_models = ["Blazer::Audit", "Blazer::Check", "Blazer::Dashboard", "Blazer::DashboardQuery", "Blazer::Query",
-      "Event", "Role", "CodeAction", "WorkflowStateForm", "ResponseType", "AccessRight",
+      "Event", "Role", "CodeAction", "WorkflowStateForm", "AccessRight",
       "NotificationSetting", "EmailNotification", "WebNotification"]
 
 
@@ -179,11 +179,6 @@ RailsAdmin.config do |config|
     parent User
   end
 
-
-  config.model Response do
-    parent AccessRequest
-  end
-
   config.model AccessRequestStep do
     parent AccessRequest
   end
@@ -296,14 +291,6 @@ RailsAdmin.config do |config|
   config.model Answer do
     parent Question
   end
-
-  # config.model SendingMethod do
-  #   parent Campaign
-  # end
-
-  # config.model ResponseType do
-  #   parent Campaign
-  # end
 
   # config.model Event do
   #   parent Campaign

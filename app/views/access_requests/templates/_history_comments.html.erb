@@ -6,21 +6,17 @@
           <ul class="list-unstyled">
             <% a.workflow.access_request_steps.order('created_at DESC').each do |t| %>
             <li class="media my-4">
-              <% if t.attachments.count > 0 %>
-                <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70, style: 'border: 1px solid black'), get_content_path(t.attachments.first), target: "_blank" %>
-              <% elsif t.correspondences.count > 0 %>
+              <% if t.correspondences.count > 0 %>
                 <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70, style: 'border: 1px solid black'), download_correspondence_path(t.correspondences.first), target: "_blank" %>
               <% else %>
                 <%= image_tag("empty.png", class: 'mr-3', height: 100, width: 70, style: 'border: 1px solid black') %>
               <% end %>
               <div class="media-body">
                 <h6 class="mt-0 mb-1">
-                  <% if t.attachments.count > 0 %>
+                  <% if t.correspondences.count > 0 and t.correspondences.first.direction == :incoming %>
                     <%= link_to image_tag("download_green.svg", height: 18, align: 'left'), get_content_path(t.attachments.first), target: "_blank" %>
-                  <% elsif t.correspondences.count > 0 %>
+                  <% elsif t.correspondences.count > 0 and t.correspondences.first.direction == :outgoing %>
                     <%= link_to image_tag("upload_grey.svg", height: 18, align: 'left'), download_correspondence_path(t.correspondences.first), target: "_blank" %>
-                  <% else %>
-                    <%= image_tag "upload_grey.svg", height: 18, align: 'left' %>
                   <% end %>
                   &nbsp;
                   <%= t.transition.history_description.blank? ? t.transition.name : t.transition.history_description %>
@@ -35,11 +31,8 @@
                   <%= t.remarks %>
                   <br />
                 <% end %>
-                <%= link_to 'Add Attachment', new_attachment_path(access_request_step_id: t.id) %>
-                <% if t.attachments.count > 0 %>
-                  &nbsp;-&nbsp;
-                  <%= link_to 'Edit Attachment', edit_attachment_path(t.attachments.first) %>
-                <% end %>
+                <!--
+                -->
                 <% if a.workflow.access_request_steps.order('created_at DESC').first.id == t.id %>
                   &nbsp;-&nbsp;
                   <a href="#" data-toggle="modal" data-target="#modal_edit<%= a.id %>"><%= t('.edit') %></a>
@@ -74,7 +67,7 @@
                           </div>
                           <%= f.hidden_field(:id, value: @last_wt.id) %>
 
-                          <% if @last_wt.attachments.count > 0 %>
+                          <% if @last_wt.attachment %>
                             <div class="form-group">
                               <%= f.label :attachment_file, t('.upload_attachment') %>
                               <%= f.file_field :attachment_file %>
@@ -82,7 +75,7 @@
 
                             <div class="form-group">
                               <%= f.label :attachment_description, t('.upload_attachment_description') %>
-                              <%= f.text_area(:attachment_description, value: @last_wt.attachments.first.title, class: 'form-control') %>
+                              <%= f.text_area(:attachment_description, value: @last_wt.attachment.title, class: 'form-control') %>
                             </div>
                           <% end %>
 

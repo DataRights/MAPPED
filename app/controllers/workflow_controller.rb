@@ -50,16 +50,6 @@ class WorkflowController < ApplicationController
       end
 
       if params[:workflow][:ui_form] && params[:workflow][:ui_form] == 'response_received'
-        response = Response.new
-        response.response_type = ResponseType.find(params[:workflow][:response_type_id])
-        response.description = params[:workflow][:response_description]
-        response.received_date = params[:workflow][:response_received_date]
-        response.access_request_id = wf.access_request.id
-        unless response.save
-          @errors = response.errors.full_messages.join(". ")
-          raise ActiveRecord::Rollback
-        end
-
         if params[:workflow][:response_attachment_file] && params[:workflow][:response_attachment_file].count > 0
           params[:workflow][:response_attachment_file].each do |f|
             attachment = Attachment.new
@@ -82,7 +72,7 @@ class WorkflowController < ApplicationController
 
       if params[:workflow][:current_form] == 'send_letter'
         oc = Correspondence.new
-        oc.sent_date = params[:sent_date]
+        oc.correspondence_date = params[:sent_date]
         oc.workflow_transition_id = @access_request_step.id
         oc.suggested_text = params[:standard_text]
         if params[:textTypeRadios] == 'expanded'
@@ -93,16 +83,6 @@ class WorkflowController < ApplicationController
         oc.communication_type = params[:workflow][:letter_type]
         unless oc.save
           @errors = oc.errors.full_messages.join(". ")
-          raise ActiveRecord::Rollback
-        end
-      end
-
-      if params[:workflow][:sent_date]
-        @ar.sent_date = params[:workflow][:sent_date]
-        @ar.sending_method_id = params[:workflow][:sending_method_id]
-        @ar.sending_method_remarks = params[:workflow][:remarks]
-        unless @ar.save
-          @errors = @ar.errors.full_messages.join(". ")
           raise ActiveRecord::Rollback
         end
       end
