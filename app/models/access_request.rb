@@ -22,7 +22,7 @@ class AccessRequest < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :correspondences, dependent: :destroy
   before_save :update_related_caches, if: :campaign_id_changed?
-  before_save :update_correspondence, if: :new_record?
+  before_save :update_correspondence, unless: :new_record?
   before_destroy :update_related_caches
   after_create :create_workflow
 
@@ -36,7 +36,11 @@ class AccessRequest < ApplicationRecord
   attr_accessor :attachment_id
 
   validates :user, :organization, :campaign, presence: true
+  validate :final_text_present
 
+  def final_text_present
+    errors.add(:final_text, I18n.t('validations.final_text_empty')) if ar_method == 'template' && final_text.empty?
+  end
 
   def title
     "#{organization.name} - #{user.email}"
@@ -60,7 +64,6 @@ class AccessRequest < ApplicationRecord
     wf.workflow_type_version = self.campaign.workflow_type.current_version
     wf.access_request = self
     wf.save!
-
     t = wf.workflow_state.possible_transitions.where(is_initial_transition: true).first
     return true unless t
     ar_step = wf.send_event(t)
@@ -86,8 +89,8 @@ class AccessRequest < ApplicationRecord
     c.final_text = final_text
     if uploaded_access_request_file and attachment_id
       a = Attachment.find(attachment_id)
-      attachment.attachable = c
-      attachment.save!
+      a.attachable = c
+      a.save!
     end
     c.save!
   end

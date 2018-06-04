@@ -322,6 +322,7 @@ RailsAdmin.config do |config|
       field :transition_type
       field :display_order
       field :actions
+      field :is_initial_transition
       #HA field :guards
     end
 
@@ -335,6 +336,7 @@ RailsAdmin.config do |config|
       field :ui_form
       field :display_order
       field :actions
+      field :is_initial_transition
       #HA field :guards
     end
   end
