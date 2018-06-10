@@ -22,6 +22,13 @@ class WorkflowController < ApplicationController
       wf = Workflow.find(workflow_id)
       return unless wf.access_request.user_id == current_user.id
       @ar = wf.access_request
+      if params[:workflow][:access_request_sent_date]
+        c = @ar.correspondences.where(correspondence_type: :access_request).first
+        c.correspondence_date = params[:workflow][:access_request_sent_date]
+        c.medium = params[:workflow][:correspondence_medium]
+        c.remarks = params[:workflow][:remarks]
+        c.save!
+      end
       t = Transition.find(transition_id)
       @errors = nil
       @access_request_step = wf.send_event(t, params[:workflow][:event_id], params[:workflow][:remarks])

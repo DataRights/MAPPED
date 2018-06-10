@@ -56,7 +56,7 @@ RailsAdmin.config do |config|
 
 
   config.excluded_models = ["Blazer::Audit", "Blazer::Check", "Blazer::Dashboard", "Blazer::DashboardQuery", "Blazer::Query",
-      "Event", "Role", "CodeAction", "WorkflowStateForm", "AccessRight",
+      "Event", "Role", "CodeAction", "AccessRight",
       "NotificationSetting", "EmailNotification", "WebNotification"]
 
 
@@ -306,6 +306,10 @@ RailsAdmin.config do |config|
 
 
   config.model WorkflowState do
+    parent Campaign
+  end
+
+  config.model WorkflowStateForm do
     parent Campaign
   end
 

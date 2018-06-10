@@ -132,7 +132,8 @@ class AccessRequestsController < ApplicationController
       @access_request.final_text = @rendered_template # in case users decided to change everything and use text instead of their file
     else
       @access_request.ar_method = 'template'
-      @rendered_template = @access_request.final_text
+      @access_request.final_text = @access_request.ar_text 
+      @rendered_template = @access_request.ar_text
     end
   end
 

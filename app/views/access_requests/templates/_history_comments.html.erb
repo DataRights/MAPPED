@@ -35,16 +35,23 @@
                 -->
                 <% if a.workflow.access_request_steps.order('created_at DESC').first.id == t.id %>
                   &nbsp;-&nbsp;
-                  <a href="#" data-toggle="modal" data-target="#modal_edit<%= a.id %>"><%= t('.edit') %></a>
+                  <% @last_wt = a.workflow.access_request_steps.order('created_at DESC').first %>
+                  <% if @last_wt.transition.is_initial_transition %>
+                    <%= link_to t('.edit_access_request'), edit_campaign_access_request_path(campaign_id: a.campaign_id ,id: a.id), id: "edit_access_request_#{a.id}" %>
+                  <% else %>
+                    <a href="#" data-toggle="modal" data-target="#modal_edit<%= a.id %>"><%= t('.edit') %></a>
+                  <% end %>
                   -
                   <%= link_to t('.undo'), {controller: "workflow", action: "undo", access_request_step_id: t.id}, method: :post %>
-                  <% @last_wt = a.workflow.access_request_steps.order('created_at DESC').first %>
+                  
                   <%= form_with(model: @last_wt) do |f| %>
                   <div class="modal fade" id="modal_edit<%= a.id %>" tabindex="-1" role="dialog" aria-labelledby="editWorkflowModalLabel<%= a.id %>" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="editWorkflowModalLabel<%= a.id %>"><%= t('.edit_status_title') %></h5>
+                          <h5 class="modal-title" id="editWorkflowModalLabel<%= a.id %>">
+                            <%= t('.edit_status_title') %>
+                          </h5>
 
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -105,19 +112,6 @@
               </div>
             </li>
             <% end %>
-            <li class="media my-4">
-              <%= link_to image_tag("document.jpg", class: 'mr-3', height: 100, width: 70, style: 'border: 1px solid black'), downlaod_access_request_path(a), target: "_blank" %>
-              <div class="media-body">
-                <h6 class="mt-0 mb-1">
-                  <%= image_tag "upload_grey.svg", height: 18, align: 'left' %>
-                  &nbsp;
-                  <%= t('.access_request_created') %>
-                </h6>
-                <small><%= time_ago_in_words(a.created_at) %> <%= t('.ago') %></small>
-                <br/>
-                <%= link_to t('.edit_access_request'), edit_campaign_access_request_path(campaign_id: a.campaign_id ,id: a.id), id: "edit_access_request_#{a.id}" %>
-              </div>
-            </li>
           </ul>
         </small>
       </div>
