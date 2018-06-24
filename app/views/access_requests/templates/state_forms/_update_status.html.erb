@@ -40,12 +40,10 @@
         <div id="access_request_date<%= a.id %>" class="collapse dynamic">
           <%= render partial: 'access_requests/templates/transition_forms/access_request_date', locals: {a: a, f: f} %>
         </div>
-        <div id="response_received<%= a.id %>" class="collapse dynamic">
-          <%= render partial: 'access_requests/templates/transition_forms/response_received', locals: {a: a, f: f} %>
+        <div id="receive_correspondence<%= a.id %>" class="collapse dynamic">
+          <%= render partial: 'access_requests/templates/transition_forms/receive_correspondence', locals: {a: a, f: f} %>
         </div>
-        <div id="upload_attachment<%= a.id %>" class="collapse dynamic">
-          <%= render partial: 'access_requests/templates/transition_forms/upload_attachment', locals: {a: a, f: f} %>
-        </div>
+        
 
         <div class="form-group"
           <label for="remarks"><%= t('.remark') %>:</label>
@@ -54,8 +52,8 @@
         <div class="form-group">
           <%= f.hidden_field(:current_form, value: 'update_status', id: 'workflow_current_form') %>
         </div>
-        <div id="send_letter<%= a.id %>" class="collapse dynamic">
-          <%= render partial: 'access_requests/templates/transition_forms/send_letter', locals: {a: a, f: f} %>
+        <div id="send_correspondence<%= a.id %>" class="collapse dynamic">
+          <%= render partial: 'access_requests/templates/transition_forms/send_correspondence', locals: {a: a, f: f} %>
         </div>
       </div>
       <div class="modal-footer">

@@ -223,7 +223,7 @@ nl:
         upload_attachment_description: 'Gegevensbeschrijving bewerken (optioneel)'
         upload_file: 'Upload bestand'
         letter_text: 'Bewerk uw brief:'
-      send_letter:
+      send_correspondence:
         text_type_select: 'Tekst van de brief'
         text_type_standard: 'Standaard tekst'
         text_type_custom: 'Aangepaste tekst'

@@ -56,18 +56,31 @@ class WorkflowController < ApplicationController
         end
       end
 
-      if params[:workflow][:ui_form] && params[:workflow][:ui_form] == 'response_received'
-        if params[:workflow][:response_attachment_file] && params[:workflow][:response_attachment_file].count > 0
-          params[:workflow][:response_attachment_file].each do |f|
+      if params[:workflow][:ui_form] && params[:workflow][:ui_form] == 'receive_correspondence'
+        corr = Correspondence.new
+        corr.direction = :incoming
+        corr.correspondence_type = params[:workflow][:rr_correspondence_type]
+        corr.medium = params[:workflow][:rr_correspondence_medium]
+        if params[:workflow][:correspondence_attachment_file] && params[:workflow][:correspondence_attachment_file].count > 0
+          corr.remarks = params[:workflow][:rr_correspondence_remarks]
+        else
+          corr.final_text = params[:workflow][:rr_correspondence_remarks]
+        end
+        corr.correspondence_date = params[:workflow][:rr_correspondence_date]
+        corr.access_request = @ar
+        corr.access_request_step = @access_request_step
+        unless corr.save
+          @errors = corr.errors.full_messages.join(". ")
+          raise ActiveRecord::Rollback
+        end
+
+        if params[:workflow][:correspondence_attachment_file] && params[:workflow][:correspondence_attachment_file].count > 0
+          params[:workflow][:correspondence_attachment_file].each do |f|
             attachment = Attachment.new
             attachment.content = f.read
             attachment.content_type = f.content_type
-            if params[:workflow][:response_attachment_title] && !params[:workflow][:response_attachment_title].blank?
-              attachment.title = params[:workflow][:response_attachment_title]
-            else
-              attachment.title = f.original_filename
-            end
-            attachment.attachable = access_request_step
+            attachment.title = f.original_filename
+            attachment.attachable = corr
             attachment.user = current_user
             unless attachment.save
               @errors = attachment.errors.full_messages.join(". ")
@@ -77,19 +90,15 @@ class WorkflowController < ApplicationController
         end
       end
 
-      if params[:workflow][:current_form] == 'send_letter'
-        oc = Correspondence.new
-        oc.correspondence_date = params[:sent_date]
-        oc.workflow_transition_id = @access_request_step.id
-        oc.suggested_text = params[:standard_text]
-        if params[:textTypeRadios] == 'expanded'
-          oc.final_text = params[:custom_text]
-        else
-          oc.final_text = params[:standard_text]
-        end
-        oc.communication_type = params[:workflow][:letter_type]
-        unless oc.save
-          @errors = oc.errors.full_messages.join(". ")
+      if params[:workflow][:current_form] == 'send_correspondence'
+        corr = Correspondence.new
+        corr.direction = :outgoing
+        corr.correspondence_date = params[:workflow][:send_correspondence_date]
+        corr.workflow_transition_id = @access_request_step.id
+        corr.final_text = params[:send_correspondence_custom_text]
+        corr.medium = params[:workflow][:send_correspondence_correspondence_medium]
+        unless corr.save
+          @errors = corr.errors.full_messages.join('. ')
           raise ActiveRecord::Rollback
         end
       end

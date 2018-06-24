@@ -47,8 +47,8 @@
           </div>
         </div>
 
-        <div id="response_received_<%= a.id %>" class="collapse dymanic dynamic_events">
-          <%= render partial: 'access_requests/templates/transition_forms/response_received', locals: {a: a, f: f} %>
+        <div id="receive_correspondence_<%= a.id %>" class="collapse dymanic dynamic_events">
+          <%= render partial: 'access_requests/templates/transition_forms/receive_correspondence', locals: {a: a, f: f} %>
         </div>
 
         <!--
@@ -70,8 +70,8 @@
         <div class="form-group">
           <%= f.hidden_field(:current_form, value: 'update_status', id: "workflow_current_form#{a.id}" ) %>
         </div>
-        <div id="send_letter<%= a.id %>" class="collapse dynamic_transitions">
-          <%= render partial: 'access_requests/templates/send_letter', locals: {a: a, f: f} %>
+        <div id="send_correspondence<%= a.id %>" class="collapse dynamic_transitions">
+          <%= render partial: 'access_requests/templates/send_correspondence', locals: {a: a, f: f} %>
         </div>
       </div>
       <div class="modal-footer">

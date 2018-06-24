@@ -1,0 +1,29 @@
+<div class="form-group">
+  <%= f.label :rr_correspondence_type, t('.response_type') %>
+  <br />
+  <%= f.select(:rr_correspondence_type, options_for_select(Correspondence.correspondence_types), {}, {class: "form-control", include_blank: false}) %>
+</div>
+
+<div class="form-group">
+  <%= f.label :rr_correspondence_medium, t('.correspondence_medium') %>
+  <br />
+  <%= f.select(:rr_correspondence_medium, options_for_select(Correspondence.media), {}, {class: "form-control", include_blank: false}) %>
+</div>
+
+<div class="form-group">
+  <%= f.label :rr_correspondence_remarks, t('.description') %>
+  <br />
+  <%= f.text_area :rr_correspondence_remarks, {class: "form-control"} %>
+</div>
+
+<div class="form-group">
+  <%= f.label :rr_correspondence_attachment_file, t('.response_attachments') %>
+  <br />
+  <%= f.file_field :rr_correspondence_attachment_file, id: "workflow_response_attachment_files_#{a.id}", multiple: true, class: 'form-control' %>
+</div>
+
+<div class="form-group">
+  <%= f.label :rr_correspondence_date, t('.received_date') %>
+  <br />
+  <%= f.date_field :rr_correspondence_date, {class: "form-control", value: Date.today} %>
+</div>

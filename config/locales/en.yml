@@ -256,7 +256,7 @@ en:
           select_blank: 'Please select an option ...'
           i_want_to_blackout: 'I want to blackout some parts of attachment.'
       transition_forms:
-        send_letter:
+        send_correspondence:
           text_type_select: 'Text of letter'
           text_type_standard: 'Standard text'
           text_type_custom: 'Expanded text'
@@ -269,11 +269,12 @@ en:
         access_request_date:
           sent_date: 'Date of sending'
           access_request_sending_method: 'Sending Method'
-        response_received:
+        receive_correspondence:
           response_type: 'What did they communicate?'
           description: "Additional description"
           response_attachments: 'Attachments (if any)'
           received_date: 'When?'
+          correspondence_medium: "How did they communicate?"
         upload_attachment:
           upload_attachment: 'Upload Attachments (Optional)'
           upload_attachment_description: 'File description (Optional)'

@@ -1,8 +1,0 @@
-<div class="form-group">
-  <%= f.label :attachment_file, t('.upload_attachment') %>
-  <%= f.file_field 'attachment_file', id: "workflow_attachment_file_#{a.id}", multiple: true, class: 'form-control' %>
-</div>
-<div class="form-group">
-  <%= f.label :attachment_description, t('.upload_attachment_description') %>
-  <%= f.text_area(:attachment_description, class: 'form-control') %>
-</div>

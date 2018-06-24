@@ -16,24 +16,23 @@
 #  is_initial_transition :boolean          default(FALSE)
 #
 
+# Definition of workflow transitions
 class Transition < ApplicationRecord
-
-  enum ui_form: [:empty, :send_letter, :access_request_date, :response_received, :upload_attachment]
-  enum transition_type: [:event, :undo, :timeout]
+  enum ui_form: %i[empty send_correspondence access_request_date receive_correspondence]
+  enum transition_type: %i[event undo timeout]
 
   belongs_to :from_state, class_name: 'WorkflowState'
   belongs_to :to_state, class_name: 'WorkflowState'
   has_and_belongs_to_many :actions, class_name: 'CodeAction'
-  #HA has_and_belongs_to_many :guards
+  # [HA] has_and_belongs_to_many :guards
 
   validates :from_state, :to_state, :name, presence: true
   validate :only_one_timeout_from_one_state
 
   def only_one_timeout_from_one_state
-    return unless self.timeout_days
-    other_transition_timeout = Transition.where(from_state_id: self.from_state_id).where.not(timeout_days: nil).where.not(id: self.id).first
-    if other_transition_timeout
-      errors.add(:timeout_days, I18n.t('workflow.state_has_already_one_timeout_transition', transition: other_transition_timeout.to_json))
-    end
+    return unless timeout_days
+    other_transition_timeout = Transition.where(from_state_id: from_state_id).where.not(timeout_days: nil).where.not(id: id).first
+    return unless other_transition_timeout
+    errors.add(:timeout_days, I18n.t('workflow.state_has_already_one_timeout_transition', transition: other_transition_timeout.to_json))
   end
 end
