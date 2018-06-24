@@ -15,6 +15,11 @@ class WorkflowController < ApplicationController
   end
 
   def send_event
+    p "*********************************************"
+    p "*********************************************"
+    p "inside send event: #{params.inspect}"
+    p "*********************************************"
+    p "*********************************************"
     ActiveRecord::Base.transaction do
       workflow_id = params[:workflow][:id]
       transition_id = params[:workflow][:transition_id]
@@ -27,7 +32,13 @@ class WorkflowController < ApplicationController
         c.correspondence_date = params[:workflow][:access_request_sent_date]
         c.medium = params[:workflow][:correspondence_medium]
         c.remarks = params[:workflow][:remarks]
-        c.save!
+        p 'saving correspondence ...'
+        unless c.save
+          @errors = c.errors.full_messages.join('. ')
+          p "saving correspondence failed with error: #{@errors}"
+          raise ActiveRecord::Rollback
+        end
+        p 'Correspondence successfully saved!'
       end
       t = Transition.find(transition_id)
       @errors = nil

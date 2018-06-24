@@ -23,6 +23,10 @@ class AccessRequestsController < ApplicationController
       @download_ar = session['download_ar']
       session['download_ar'] = nil
     end
+    p "*********************************************"
+    p "inside access requests index"
+    p "*********************************************"
+
   end
 
   def new

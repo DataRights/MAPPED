@@ -55,6 +55,7 @@ Rails.application.routes.draw do
 
   # Workflow
   get 'workflow/diagram/:id', to: 'workflow#diagram'
+  post 'workflow', to: 'workflow#send_event'
   patch 'workflow', to: 'workflow#send_event'
   post 'workflow/undo/:access_request_step_id', to: 'workflow#undo'
 
