@@ -136,12 +136,12 @@ $(document).on 'turbolinks:load', ->
   # https://stackoverflow.com/questions/49614091/safari-11-1-ajax-xhr-form-submission-fails-when-inputtype-file-is-empty/49708973#49708973
   $(".update_status").on 'click', ->
     ar_id = $(this).attr('data-ar-id')
-    attachment_files = $("#workflow_attachment_file_#{ar_id}")
-    response_attachments_files = $("#workflow_response_attachment_files_#{ar_id}")
-    if attachment_files != undefined && (attachment_files.val() == undefined || attachment_files.val() == "")
-      attachment_files.remove()
+    rr_corr_files = $("#workflow_response_attachment_files_#{ar_id}")
+    send_corr_file = $("#workflow_send_attachment_files_#{ar_id}")
+    if rr_corr_files != undefined && (rr_corr_files.val() == undefined || rr_corr_files.val() == "")
+      rr_corr_files.remove()
 
-    if response_attachments_files != undefined && (response_attachments_files.val() == undefined || response_attachments_files.val() == "")
-      response_attachments_files.remove()
+    if send_corr_file != undefined && (send_corr_file.val() == undefined || send_corr_file.val() == "")
+      send_corr_file.remove()
 
     return true;

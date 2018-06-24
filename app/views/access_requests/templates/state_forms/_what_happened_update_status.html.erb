@@ -108,6 +108,12 @@
     if($("#workflow_response_attachment_files_<%= a.id %>").val() === "") {
       $("#workflow_response_attachment_files_<%= a.id %>").remove();
     }
+
+    send_corr_file = $("#workflow_send_attachment_files_#{a.id}")
+
+    if send_corr_file != undefined && (send_corr_file.val() == undefined || send_corr_file.val() == "")
+      send_corr_file.remove()
+
     return true;
   });
 </script>

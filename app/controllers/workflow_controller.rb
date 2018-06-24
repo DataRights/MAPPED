@@ -15,11 +15,6 @@ class WorkflowController < ApplicationController
   end
 
   def send_event
-    p "*********************************************"
-    p "*********************************************"
-    p "inside send event: #{params.inspect}"
-    p "*********************************************"
-    p "*********************************************"
     ActiveRecord::Base.transaction do
       workflow_id = params[:workflow][:id]
       transition_id = params[:workflow][:transition_id]
