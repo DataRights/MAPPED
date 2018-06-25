@@ -28,10 +28,10 @@ class Organization < ApplicationRecord
   #HA: has_many :tags, :as => :tagable, dependent: :destroy
   #has_many :comments, :as => :commentable, dependent: :destroy
   before_save :set_default_language
-  validates_presence_of :address
+  #HA: validates_presence_of :address
   validates_presence_of :name
   validates :name, uniqueness: { case_sensitive: false, message: ": Another organization with the same name exists!"}
-  accepts_nested_attributes_for :address
+  #accepts_nested_attributes_for :address
 
   def context_value
     result = { 'name' => name }
