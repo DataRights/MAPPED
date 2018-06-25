@@ -13,12 +13,6 @@ NotificationSetting.find_or_create_by!(name: 'Email Instantly', notification_typ
 NotificationSetting.find_or_create_by!(name: 'Email Daily Digest', notification_type: 'email_daily_digest')
 NotificationSetting.find_or_create_by!(name: 'Email Weekly Digest', notification_type: 'email_weekly_digest')
 
-# HA
-# SendingMethod.find_or_create_by!(name: 'Post')
-# SendingMethod.find_or_create_by!(name: 'Email')
-# SendingMethod.find_or_create_by!(name: 'Web Form')
-# SendingMethod.find_or_create_by!(name: 'Other')
-
 
 unless admin1
   User.create!(email: 'mm.mani@gmail.com', password_confirmation: 'eybaba13', password: 'eybaba13', approved: true)
@@ -54,23 +48,24 @@ WorkflowStateForm.find_or_create_by!(name: 'Dual Transition State Form', form_pa
 wtt = WorkflowType.find_or_create_by(name: 'Workflow Simple')
 wtv = WorkflowTypeVersion.find_or_create_by(name: 'Workflow Simple Active', workflow_type: wtt, version: 1)
 
-ws0 = WorkflowState.find_or_create_by(name: 'New Request', workflow_type_version: wtv, is_initial_state: true, workflow_state_form: wsfd, button_text: 'To Send', button_css_class: 'btn btn-warning')
-ws1 = WorkflowState.find_or_create_by(name: 'Waiting for sending the AR', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'Update', button_css_class: 'btn btn-warning')
-ws2 = WorkflowState.find_or_create_by(name: 'Waiting for Org. Response', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'Waiting', button_css_class: 'btn btn-primary')
-ws3 = WorkflowState.find_or_create_by(name: 'Waiting for User Response', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'To Respond', button_css_class: 'btn btn-warning')
+ws0 = WorkflowState.find_or_create_by(name: 'New Request', workflow_type_version: wtv, is_initial_state: true, workflow_state_form: wsfd, button_text: 'CREATE', button_css_class: 'btn btn-warning')
+ws1 = WorkflowState.find_or_create_by(name: 'Waiting for sending the AR', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'To Send', button_css_class: 'btn btn-warning')
+ws2 = WorkflowState.find_or_create_by(name: 'Waiting for Organization', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'Waiting', button_css_class: 'btn btn-primary')
+ws3 = WorkflowState.find_or_create_by(name: 'Waiting for User Response', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'Action Needed', button_css_class: 'btn btn-warning')
 ws4 = WorkflowState.find_or_create_by(name: 'Finished', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'Finished', button_css_class: 'btn btn-default')
 
-Transition.find_or_create_by(name: 'Access Request Created', from_state: ws0, to_state: ws1, ui_form: 'empty', transition_type: 'event', is_initial_transition: true)
-Transition.find_or_create_by(name: 'I have sent the request', from_state: ws1, to_state: ws2, ui_form: 'access_request_date', transition_type: 'event')
-Transition.find_or_create_by(name: 'The organization has responded or called', from_state: ws2, to_state: ws3, ui_form: 'receive_correspondence', transition_type: 'event')
-Transition.find_or_create_by(name: "I'd like to send them a reminder (or I have sent one)", from_state: ws2, to_state: ws2, ui_form: 'send_correspondence', transition_type: 'event')
-Transition.find_or_create_by(name: 'I have abandoned the request', from_state: ws2, to_state: ws4, ui_form: 'empty', transition_type: 'event')
+Transition.find_or_create_by(name: 'Access Request Created', history_description: 'Request created', from_state: ws0, to_state: ws1, ui_form: 'empty', transition_type: 'initial', is_initial_transition: true)
+Transition.find_or_create_by(name: 'I have sent the request', history_description: 'Request sent', from_state: ws1, to_state: ws2, ui_form: 'access_request_date', transition_type: 'event')
+Transition.find_or_create_by(name: 'The organization has responded or called me', history_description: 'Incoming', from_state: ws2, to_state: ws3, ui_form: 'receive_correspondence', transition_type: 'event')
+Transition.find_or_create_by(name: "I'd like to send them a reminder (or I have sent one)", history_description: 'Reminder sent', from_state: ws2, to_state: ws2, ui_form: 'send_correspondence', transition_type: 'event')
+Transition.find_or_create_by(name: 'I have abandoned the request', history_description: 'Request abandoned', from_state: ws2, to_state: ws4, ui_form: 'empty', transition_type: 'event')
 Transition.find_or_create_by(name: "Something else", from_state: ws2, to_state: ws3, ui_form: 'empty', transition_type: 'event')
-Transition.find_or_create_by(name: "I'd like to compose an email to the organization", from_state: ws3, to_state: ws2, ui_form: 'empty', transition_type: 'event')
-Transition.find_or_create_by(name: "I have already responded or contacted them (or I will soon)", from_state: ws3, to_state: ws2, ui_form: 'send_correspondence', transition_type: 'event')
-Transition.find_or_create_by(name: 'The organization contacted again in the meantime', from_state: ws3, to_state: ws3, ui_form: 'receive_correspondence', transition_type: 'event')
-Transition.find_or_create_by(name: "The request has been answered or I'm otherwise done with it", from_state: ws3, to_state: ws4, ui_form: 'empty', transition_type: 'event')
-Transition.find_or_create_by(name: 'Do nothing and wait', from_state: ws3, to_state: ws2, ui_form: 'empty', transition_type: 'event')
+Transition.find_or_create_by(name: "I'd like to compose an email response", history_description: 'Outgoing', from_state: ws3, to_state: ws2, ui_form: 'empty', transition_type: 'event')
+Transition.find_or_create_by(name: "I have already contacted them (or I will soon)", from_state: ws3, to_state: ws2, ui_form: 'send_correspondence', transition_type: 'event')
+Transition.find_or_create_by(name: 'The organization contacted again / offered data via their tool', history_description: 'Incoming', from_state: ws3, to_state: ws3, ui_form: 'receive_correspondence', transition_type: 'event')
+# Transition.find_or_create_by(name: "I got data with their download tool", history_description: 'Download tool', from_state: ws3, to_state: ws3, ui_form: 'receive_correspondence', transition_type: 'event')
+Transition.find_or_create_by(name: "I'm DONE with this request (answer is final or pursued enough)", history_description: 'Request done', from_state: ws3, to_state: ws4, ui_form: 'empty', transition_type: 'event')
+Transition.find_or_create_by(name: 'Go back to waiting', history_description: 'Waiting', from_state: ws3, to_state: ws2, ui_form: 'empty', transition_type: 'event')
 
 wtv.active = true
 wtv.save!

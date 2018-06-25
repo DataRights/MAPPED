@@ -220,7 +220,7 @@ en:
         letter_text: 'Edit your letter:'
       state_forms:
         update_status:
-          update_status: 'Update Status'
+          update_status: 'Update Request State'
           what_is_it: 'What is it?'
           remark: 'Remark'
           acknowledgement: 'Acknowledgement/confirmation'
@@ -283,12 +283,12 @@ en:
       preview_button: 'Preview PDF'
       generating_preview_pdf: 'Generating PDF Preview ...'
     form:
-      create_title: 'Create new access request'
+      create_title: 'Create an Access Request'
       edit_title: 'Edit access request'
       sector_label: 'Sector'
       organization_label: 'Organization'
-      click_here: 'Click here'
-      add_organization: 'to add a new organization to above list.'
+      click_here: 'Add'
+      add_organization: 'a new organization'
       organization_help: 'for more information about the selected organization on our wiki page.'
       text_type_select: 'Text of access request'
       text_type_standard: 'Standard text'
@@ -297,7 +297,7 @@ en:
       generating_preview_pdf: 'Generating PDF Preview ...'
       sending_date_label: 'Date of sending'
       passport_id_warning: 'Do not forget to attach a copy of your passport/ID card to your access request.'
-      final_button: 'Generate Final PDF'
+      final_button: 'Create Request & Download PDF'
       please_note_fields_in_red: 'Please note that fields in red require your personal data.'
       preview_modal_title: 'Preview'
       select_blank: 'Please select an item ...'
@@ -308,10 +308,10 @@ en:
       address_help_content: 'Here comes a short explanation why. Because access request right is only valid in case of... Bla bla bla'
       address_help_title: "Why do we ask for organization's address?"
       template_label: Template
-      submit_upload_ar: 'Upload Access Request'
+      submit_upload_ar: 'Create Request & Attach File'
       template_or_your_own: 'How do you want to generate your access request?'
-      using_request_templates: 'Using request templates'
-      uploading_request: 'Uploading your own request file'
+      using_request_templates: 'By using campaign templates'
+      uploading_request: 'By uploading your own file'
   activerecord:
     attributes:
       attachment:

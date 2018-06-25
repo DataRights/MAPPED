@@ -19,7 +19,8 @@
 # Definition of workflow transitions
 class Transition < ApplicationRecord
   enum ui_form: %i[empty send_correspondence access_request_date receive_correspondence]
-  enum transition_type: %i[event undo timeout]
+  # HA: added 'initial' to avoid having an extra gray box
+  enum transition_type: %i[event undo timeout initial]
 
   belongs_to :from_state, class_name: 'WorkflowState'
   belongs_to :to_state, class_name: 'WorkflowState'
