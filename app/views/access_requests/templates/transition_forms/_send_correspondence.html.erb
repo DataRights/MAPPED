@@ -1,19 +1,20 @@
-<div class="form-group">
+<!-- HA: minimalist solution for now hiding correspondence type & editor (see spec) -->
+<!-- div class="form-group">
     <%= f.label :send_correspondence_correspondence_type, t('.letter_type') %>
     <%= f.select :send_correspondence_correspondence_type, Correspondence.correspondence_types.keys.to_a, {}, {class: "form-control send_communication_type", 'data-ar-id' => a.id} %>
-</div>
+</div -->
 
 <div class="form-group">
   <%= f.label :send_correspondence_correspondence_medium, t('.correspondence_medium') %>
   <br />
   <%= f.select(:send_correspondence_correspondence_medium, options_for_select(Correspondence.media), {}, {class: "form-control", include_blank: false}) %>
 </div>
-
-<div class="form-group">
+<!-- HA: (same reason) -->
+<!-- div class="form-group">
     <div id="textContentExpanded">
       <%= cktext_area_tag(:send_correspondence_custom_text, a.get_rendered_template(:reminder), ckeditor: { toolbar: 'mini'}) %>
     </div>
-</div>
+</div-->
 <div class="form-group">
   <%= f.label :send_correspondence_attachment_file, t('.send_attachments') %>
   <br />
@@ -24,9 +25,10 @@
       <br>
       <%= date_field_tag(:send_correspondence_date, Date.today)%>
 </div>
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
+<!-- HA: (same reason) -->
+<!-- div class="alert alert-danger alert-dismissible fade show" role="alert">
     <strong><%= t('.passport_id_warning') %></strong>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
-</div>
+</div -->

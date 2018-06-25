@@ -20,8 +20,8 @@ class Correspondence < ApplicationRecord
   has_many :attachments, :as => :attachable, dependent: :destroy
   belongs_to :access_request
 
-  string_enum medium: [:post, :email, :call, :weblink, :meeting, :other]
+  string_enum medium: [:email, :post, :webpage, :call, :meeting, :other]
   string_enum direction: [:incoming, :outgoing]
-  string_enum correspondence_type: [:reminder, :'second reminder', :clarification, :question, :data, :access_request]
-  validates_presence_of :correspondence_type
+  string_enum correspondence_type: [ :reminder, :'second reminder', :clarification, :question, :data, :access_request]
+  # HA: validates_presence_of :correspondence_type
 end

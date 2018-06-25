@@ -18,11 +18,12 @@
       <%= form_for [@campaign, @access_request] do |f| %>
 
           <%= f.hidden_field(:campaign_id) %>
-          <div class="form-group">
+          <!-- HA: minimalist solution to hide sectors for now (see spec) -->
+          <!-- div class="form-group">
             <strong><%= label_tag(:sector_id, t('.sector_label')) %></strong>
             <br>
             <%= f.select(:sector_id, options_for_select(@sectors,@selected_sector), {}, {class: "form-control", include_blank: false}) %>
-          </div>
+        </div-->
           <div class="form-group">
             <strong><%= f.label(:organization_id, t('.organization_label')) %></strong>
             <br>

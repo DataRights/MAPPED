@@ -1,8 +1,9 @@
-<div class="form-group">
+<!-- HA: minimalist approach to hide correspondnce type (see spec) -->
+<!-- div class="form-group">
   <%= f.label :rr_correspondence_type, t('.response_type') %>
   <br />
   <%= f.select(:rr_correspondence_type, options_for_select(Correspondence.correspondence_types), {}, {class: "form-control", include_blank: false}) %>
-</div>
+</div-->
 
 <div class="form-group">
   <%= f.label :rr_correspondence_medium, t('.correspondence_medium') %>
