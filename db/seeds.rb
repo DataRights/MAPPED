@@ -50,13 +50,15 @@ Setting.find_or_create_by!(key: 'auto_approved_user_domains', value: '*', descri
 
 # HA simplest of all workflows (no timeout, evaluation, delete)
 wtt = WorkflowType.find_or_create_by(name: 'Workflow Simple')
-wtv = WorkflowTypeVersion.find_or_create_by(name: 'Workflow Simple Active', workflow_type: wtt, version: 1, active: false)
+wtv = WorkflowTypeVersion.find_or_create_by(name: 'Workflow Simple Active', workflow_type: wtt, version: 1)
 
-ws1 = WorkflowState.find_or_create_by(name: 'New Request', workflow_type_version: wtv, is_initial_state: true, workflow_state_form: wsfd, button_text: 'Update', button_css_class: 'btn btn-warning')
+ws0 = WorkflowState.find_or_create_by(name: 'New Request', workflow_type_version: wtv, is_initial_state: true, workflow_state_form: wsfd, button_text: 'Update', button_css_class: 'btn btn-warning')
+ws1 = WorkflowState.find_or_create_by(name: 'Waiting for sending the AR', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'Update', button_css_class: 'btn btn-warning')
 ws2 = WorkflowState.find_or_create_by(name: 'Waiting for Org. Response', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'Update', button_css_class: 'btn btn-primary')
 ws3 = WorkflowState.find_or_create_by(name: 'Waiting for User Reaction', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'React', button_css_class: 'btn btn-warning')
 ws4 = WorkflowState.find_or_create_by(name: 'Finished', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'Finished', button_css_class: 'btn')
 
+Transition.find_or_create_by(name: 'Access Request Created', from_state: ws0, to_state: ws1, ui_form: 'empty', transition_type: 'event', is_initial_transition: true)
 Transition.find_or_create_by(name: 'I have sent the request', from_state: ws1, to_state: ws2, ui_form: 'access_request_date', transition_type: 'event')
 Transition.find_or_create_by(name: 'The organization responded by email or post', from_state: ws2, to_state: ws3, ui_form: 'receive_correspondence', transition_type: 'event')
 Transition.find_or_create_by(name: 'The organization called me', from_state: ws2, to_state: ws3, ui_form: 'receive_correspondence', transition_type: 'event')
@@ -71,5 +73,3 @@ Transition.find_or_create_by(name: 'Something else (explain)', from_state: ws3, 
 wtv.active = true
 wtv.save!
 Campaign.find_or_create_by(name: 'Campaign 2018', workflow_type: wtt)
-
-Country.find_or_create_by(name: 'The World')

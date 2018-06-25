@@ -53,6 +53,7 @@ en:
     attachment_content_type: 'Invalid attachment type! Only JPEG, PNG images, PDF files, Text and Office documents are allowed.'
     file_not_uploaded: 'Please upload the access request file!'
     final_text_empty: 'Access request content can not be empty!'
+    initial_transition_doesnt_exist: 'Initial state should have an initial transition!'
   errors:
     transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
     campaign_not_found: 'Campaign not found'

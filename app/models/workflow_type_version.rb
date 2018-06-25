@@ -37,6 +37,10 @@ class WorkflowTypeVersion < ApplicationRecord
       unless initial_state
         errors.add(:active, I18n.t('validations.initial_state_is_mandatory'))
       end
+
+      unless initial_state.possible_transitions.where(is_initial_transition: true).first
+        errors.add(:active, I18n.t('validations.initial_transition_doesnt_exist'))
+      end
     end
   end
 
