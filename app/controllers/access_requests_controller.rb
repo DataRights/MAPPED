@@ -23,10 +23,6 @@ class AccessRequestsController < ApplicationController
       @download_ar = session['download_ar']
       session['download_ar'] = nil
     end
-    p "*********************************************"
-    p "inside access requests index"
-    p "*********************************************"
-
   end
 
   def new
@@ -82,20 +78,20 @@ class AccessRequestsController < ApplicationController
       if @access_request.ar_method == 'upload'
         @access_request.final_text = nil
         attachment = Attachment.new
-        attachment.content = @access_request.uploaded_access_request_file.read
+        attachment.content = @access_request.uploaded_access_request_file&.read
         attachment.content_type = @access_request.uploaded_access_request_file&.content_type
         attachment.title = @access_request.uploaded_access_request_file&.original_filename
         attachment.user = current_user
         if attachment.save
           @access_request.attachment_id = attachment.id
         else
-          flash[:alert] = attachment.errors.full_messages.join(". ")
+          flash[:alert] = attachment.errors.full_messages.join('. ')
           raise ActiveRecord::Rollback
         end
       end
 
       if @access_request.save
-        session['download_ar'] = @access_request.id
+        session['download_ar'] = @access_request.id unless @access_request.ar_method == 'upload'
         success = true
       else
         flash[:alert] = @access_request.errors.messages.values.join(',')

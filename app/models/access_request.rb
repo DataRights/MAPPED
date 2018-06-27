@@ -18,7 +18,7 @@ class AccessRequest < ApplicationRecord
   belongs_to :campaign
   has_one :workflow, dependent: :destroy
   has_many :answers, as: :answerable, dependent: :destroy
-  has_many :comments, :as => :commentable, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :correspondences, dependent: :destroy
   before_save :update_related_caches, if: :campaign_id_changed?
@@ -28,7 +28,6 @@ class AccessRequest < ApplicationRecord
 
   attr_accessor :sector_id
   attr_accessor :template_id
-  attr_accessor :title
   attr_accessor :ar_method
   attr_accessor :uploaded_access_request_file
   attr_accessor :final_text
@@ -37,9 +36,14 @@ class AccessRequest < ApplicationRecord
 
   validates :user, :organization, :campaign, presence: true
   validate :final_text_present
+  validate :pdf_file_present
 
   def final_text_present
     errors.add(:final_text, I18n.t('validations.final_text_empty')) if ar_method == 'template' && final_text.empty?
+  end
+
+  def pdf_file_present
+    errors.add(:pdf_file_present, I18n.t('validations.pdf_file_present')) if ar_method == 'uplaod' && uploaded_access_request_file.nil?
   end
 
   def title

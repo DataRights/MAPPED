@@ -92,3 +92,13 @@ happy:
   to_state: finished_happy_with_data
 
 # END Transitions for version_one_point_o_mapped_social active workflow #
+
+########## BEGIN 1.1 mapped_social workflow The Inactive workflow #########
+
+created:
+  name: Access Request Created!
+  from_state: ar_created_next
+  to_state: waiting_to_send_the_ar_next
+  is_initial_transition: true
+
+########## END 1.1 mapped_social workflow The Inactive workflow #########

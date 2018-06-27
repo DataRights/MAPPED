@@ -49,6 +49,7 @@ nl:
     template_id_mandatory_internal_data: 'template_id is verplicht voor interne gegevens van deze actie.'
     template_id_not_found: 'template_id niet gevonden!'
     attachment_max_size: 'maximale grootte van de bijlage is 1,5 MB'
+    initial_transition_doesnt_exist: 'Initial state should have an initial transition!'
   errors:
     transition_does_not_exist_in_current_state: 'Overgang bestaat niet in huidige staat'
     campaign_not_found: 'Campagne is niet gevonden'

@@ -32,15 +32,15 @@ class WorkflowTypeVersion < ApplicationRecord
   end
 
   def presence_of_initial_state
-    if self.active
-      initial_state = WorkflowState.where(workflow_type_version: self, is_initial_state: true).first
-      unless initial_state
-        errors.add(:active, I18n.t('validations.initial_state_is_mandatory'))
-      end
+    return unless active
+    initial_state = WorkflowState.where(workflow_type_version: self, is_initial_state: true).first
+    unless initial_state
+      errors.add(:active, I18n.t('validations.initial_state_is_mandatory'))
+      return
+    end
 
-      unless initial_state.possible_transitions.where(is_initial_transition: true).first
-        errors.add(:active, I18n.t('validations.initial_transition_doesnt_exist'))
-      end
+    unless initial_state.possible_transitions.where(is_initial_transition: true).first
+      errors.add(:active, I18n.t('validations.initial_transition_doesnt_exist'))
     end
   end
 

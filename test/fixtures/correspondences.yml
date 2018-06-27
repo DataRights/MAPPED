@@ -12,6 +12,7 @@
 #  medium                 :string
 #  direction              :string
 #  correspondence_date    :datetime
+#  access_request_id      :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

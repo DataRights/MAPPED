@@ -47,9 +47,8 @@ class Organization < ApplicationRecord
   end
 
   def set_default_language
-    if self[:languages].blank?
-      self.languages = 'en'
-    end
+    self.languages = 'en' if self[:languages].blank?
+    true
   end
 
   def languages
