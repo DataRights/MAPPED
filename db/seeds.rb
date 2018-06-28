@@ -48,8 +48,8 @@ WorkflowStateForm.find_or_create_by!(name: 'Dual Transition State Form', form_pa
 wtt = WorkflowType.find_or_create_by(name: 'Workflow Simple')
 wtv = WorkflowTypeVersion.find_or_create_by(name: 'Workflow Simple Active', workflow_type: wtt, version: 1)
 
-ws0 = WorkflowState.find_or_create_by(name: 'New Request', workflow_type_version: wtv, is_initial_state: true, workflow_state_form: wsfd, button_text: 'CREATE', button_css_class: 'btn btn-warning')
-ws1 = WorkflowState.find_or_create_by(name: 'Waiting for sending the AR', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'To Send', button_css_class: 'btn btn-warning')
+ws0 = WorkflowState.find_or_create_by(name: 'INITIAL', workflow_type_version: wtv, is_initial_state: true, workflow_state_form: wsfd, button_text: 'CREATE', button_css_class: 'btn btn-warning')
+ws1 = WorkflowState.find_or_create_by(name: 'New Request', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'To Send', button_css_class: 'btn btn-warning')
 ws2 = WorkflowState.find_or_create_by(name: 'Waiting for Organization', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'Waiting', button_css_class: 'btn btn-primary')
 ws3 = WorkflowState.find_or_create_by(name: 'Waiting for User Response', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'Action Needed', button_css_class: 'btn btn-warning')
 ws4 = WorkflowState.find_or_create_by(name: 'Finished', workflow_type_version: wtv, workflow_state_form: wsfd, button_text: 'Finished', button_css_class: 'btn btn-default')
