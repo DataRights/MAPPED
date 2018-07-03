@@ -27,13 +27,10 @@ class WorkflowController < ApplicationController
         c.correspondence_date = params[:workflow][:access_request_sent_date]
         c.medium = params[:workflow][:correspondence_medium]
         c.remarks = params[:workflow][:remarks]
-        p 'saving correspondence ...'
         unless c.save
           @errors = c.errors.full_messages.join('. ')
-          p "saving correspondence failed with error: #{@errors}"
           raise ActiveRecord::Rollback
         end
-        p 'Correspondence successfully saved!'
       end
       t = Transition.find(transition_id)
       @errors = nil
@@ -100,7 +97,7 @@ class WorkflowController < ApplicationController
         corr = Correspondence.new
         corr.direction = :outgoing
         corr.correspondence_date = params[:workflow][:send_correspondence_date]
-        corr.workflow_transition_id = @access_request_step.id
+        corr.access_request_step_id = @access_request_step.id
         corr.final_text = params[:send_correspondence_custom_text]
         corr.medium = params[:workflow][:send_correspondence_correspondence_medium]
         unless corr.save

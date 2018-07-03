@@ -54,10 +54,13 @@ setAccessReqeustMethod = ->
 
 $(document).on 'turbolinks:load', ->
 
-  $(".nonselect").on 'click', ->
-    $(".multi-collapse.mb-3.collapse.show").attr("class", "collapse multi-collapse mb-3")
-    $(".select").attr("class", "nonselect")
-    $(this).toggleClass("select")
+  $('#accordion > h5').on 'click', ->
+    selected = $(this).attr('class').indexOf("nonselect")
+    $(this).removeClass
+    if selected > -1
+      $(this).attr('class', 'select')
+    else
+      $(this).attr('class', 'nonselect')
 
   setAccessReqeustMethod()
 
@@ -71,6 +74,7 @@ $(document).on 'turbolinks:load', ->
   if last? and $('#' + last).length
     $("##{last}").addClass("show")
     ar_id = $("##{last}").attr('data-ar-id')
+    $("#triangle_#{ar_id}").removeClass()
     $("#triangle_#{ar_id}").toggleClass("select")
 
   $('#ar_pdf_preview').on 'click', ->

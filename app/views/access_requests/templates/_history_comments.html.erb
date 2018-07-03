@@ -118,11 +118,11 @@
     </div>
     <div class="col">
       <div class="card card-body">
-        <small class="nonselect">
+        <small>
           <%= image_tag "chat.svg", height: 18, align: 'left' %>
           &nbsp;<%= a.comments.count %>
           <%= t('.comments') %></small><hr>
-        <small class="nonselect">
+        <small>
           <a data-toggle="modal" data-target="#addCommentModal<%= a.id %>">
             <%= image_tag "circle-with-plus.svg", height: 18, align: 'left' %>
             &nbsp;<%= t('.add_comment') %></a>

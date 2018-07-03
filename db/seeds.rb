@@ -13,7 +13,6 @@ NotificationSetting.find_or_create_by!(name: 'Email Instantly', notification_typ
 NotificationSetting.find_or_create_by!(name: 'Email Daily Digest', notification_type: 'email_daily_digest')
 NotificationSetting.find_or_create_by!(name: 'Email Weekly Digest', notification_type: 'email_weekly_digest')
 
-
 unless admin1
   User.create!(email: 'mm.mani@gmail.com', password_confirmation: 'eybaba13', password: 'eybaba13', approved: true)
   admin1 = User.find_by email: 'mm.mani@gmail.com'
@@ -59,9 +58,9 @@ Transition.find_or_create_by(name: 'I have sent the request', history_descriptio
 Transition.find_or_create_by(name: 'The organization has responded or called me', history_description: 'Incoming', from_state: ws2, to_state: ws3, ui_form: 'receive_correspondence', transition_type: 'event')
 Transition.find_or_create_by(name: "I'd like to send them a reminder (or I have sent one)", history_description: 'Reminder sent', from_state: ws2, to_state: ws2, ui_form: 'send_correspondence', transition_type: 'event')
 Transition.find_or_create_by(name: 'I have abandoned the request', history_description: 'Request abandoned', from_state: ws2, to_state: ws4, ui_form: 'empty', transition_type: 'event')
-Transition.find_or_create_by(name: "Something else", from_state: ws2, to_state: ws3, ui_form: 'empty', transition_type: 'event')
+Transition.find_or_create_by(name: 'Something else', from_state: ws2, to_state: ws3, ui_form: 'empty', transition_type: 'event')
 Transition.find_or_create_by(name: "I'd like to compose an email response", history_description: 'Outgoing', from_state: ws3, to_state: ws2, ui_form: 'empty', transition_type: 'event')
-Transition.find_or_create_by(name: "I have already contacted them (or I will soon)", from_state: ws3, to_state: ws2, ui_form: 'send_correspondence', transition_type: 'event')
+Transition.find_or_create_by(name: 'I have already contacted them (or I will soon)', from_state: ws3, to_state: ws2, ui_form: 'send_correspondence', transition_type: 'event')
 Transition.find_or_create_by(name: 'The organization contacted again / offered data via their tool', history_description: 'Incoming', from_state: ws3, to_state: ws3, ui_form: 'receive_correspondence', transition_type: 'event')
 # Transition.find_or_create_by(name: "I got data with their download tool", history_description: 'Download tool', from_state: ws3, to_state: ws3, ui_form: 'receive_correspondence', transition_type: 'event')
 Transition.find_or_create_by(name: "I'm DONE with this request (answer is final or pursued enough)", history_description: 'Request done', from_state: ws3, to_state: ws4, ui_form: 'empty', transition_type: 'event')
@@ -75,5 +74,6 @@ camp = Campaign.find_or_create_by(name: 'Campaign 2018', workflow_type: wtt)
 org.campaigns << camp
 org.save!
 
+# For seeding countries use rake mapped:seed_countries
 # Seed countries from another file
-load File.join(Rails.root, 'db', 'seed_countries.rb')
+# load File.join(Rails.root, 'db', 'seed_countries.rb')
