@@ -23,7 +23,6 @@
           <!--small><%= a.organization.sector.name %></small-->
         </h5>
         <p>
-          <a class="btn btn-secondary disabled" href="#" role="button" aria-disabled="true">&nbsp;</a>
           <% a.workflow.access_request_steps.joins(:transition).where(transitions: {transition_type: :event}).each do |wt| %>
             <a class="btn btn-secondary disabled" href="#" role="button" aria-disabled="true">&nbsp;</a>
           <% end %>

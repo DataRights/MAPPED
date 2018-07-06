@@ -2,17 +2,17 @@
 #
 # Table name: access_requests
 #
-#  id              :integer          not null, primary key
-#  organization_id :integer
-#  user_id         :integer
-#  meta_data       :jsonb
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  campaign_id     :integer
+#  id                  :integer          not null, primary key
+#  organization_id     :integer
+#  user_id             :integer
+#  meta_data           :jsonb
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  campaign_id         :integer
+#  private_attachments :boolean          default(FALSE)
 #
 
 class AccessRequest < ApplicationRecord
-
   belongs_to :organization
   belongs_to :user
   belongs_to :campaign

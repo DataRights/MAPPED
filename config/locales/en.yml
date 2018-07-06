@@ -54,7 +54,9 @@ en:
     file_not_uploaded: 'Please upload the access request file!'
     final_text_empty: 'Access request content can not be empty!'
     initial_transition_doesnt_exist: 'Initial state should have an initial transition!'
+    remarks_when_private: 'Please provide remarks since you marked the attachment as private.'
   errors:
+    format: "%{message}"
     transition_does_not_exist_in_current_state: 'Transition does not exist in current state'
     campaign_not_found: 'Campaign not found'
     organization_not_found: 'Organization not found'
@@ -267,6 +269,7 @@ en:
           close: "Close"
           final_button: 'Generate PDF'
           select_blank: 'Please select an action ...'
+          privacy: 'Allow the campaign manager to see this attachment'
         access_request_date:
           sent_date: 'Date of sending'
           access_request_sending_method: 'Sending Method'
@@ -276,6 +279,7 @@ en:
           response_attachments: 'Attachments (if any)'
           received_date: 'When?'
           correspondence_medium: "How did they communicate?"
+          privacy: 'Allow the campaign manager to see this attachment'
         upload_attachment:
           upload_attachment: 'Upload Attachments (Optional)'
           upload_attachment_description: 'File description (Optional)'
@@ -312,6 +316,7 @@ en:
       template_or_your_own: 'How do you want to generate your access request?'
       using_request_templates: 'By using campaign templates'
       uploading_request: 'By uploading your own file'
+      private_attachments: 'Attachments in this AR are by default hidden from the campaign manager'
   activerecord:
     attributes:
       attachment:

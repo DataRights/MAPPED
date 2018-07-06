@@ -15,6 +15,9 @@ class WorkflowController < ApplicationController
   end
 
   def send_event
+    p '********************************************'
+    p "Params: #{params[:workflow]}"
+    p '********************************************'
     ActiveRecord::Base.transaction do
       workflow_id = params[:workflow][:id]
       transition_id = params[:workflow][:transition_id]
@@ -64,7 +67,7 @@ class WorkflowController < ApplicationController
         corr.direction = :incoming
         corr.correspondence_type = params[:workflow][:rr_correspondence_type]
         corr.medium = params[:workflow][:rr_correspondence_medium]
-        if params[:workflow][:correspondence_attachment_file] && params[:workflow][:correspondence_attachment_file].count > 0
+        if params[:workflow][:rr_correspondence_attachment_file] && params[:workflow][:rr_correspondence_attachment_file].count > 0
           corr.remarks = params[:workflow][:rr_correspondence_remarks]
         else
           corr.final_text = params[:workflow][:rr_correspondence_remarks]
@@ -77,14 +80,15 @@ class WorkflowController < ApplicationController
           raise ActiveRecord::Rollback
         end
 
-        if params[:workflow][:correspondence_attachment_file] && params[:workflow][:correspondence_attachment_file].count > 0
-          params[:workflow][:correspondence_attachment_file].each do |f|
+        if params[:workflow][:rr_correspondence_attachment_file] && params[:workflow][:rr_correspondence_attachment_file].count > 0
+          params[:workflow][:rr_correspondence_attachment_file].each do |f|
             attachment = Attachment.new
             attachment.content = f.read
             attachment.content_type = f.content_type
             attachment.title = f.original_filename
             attachment.attachable = corr
             attachment.user = current_user
+            attachment.private_content = params[:workflow][:rr_correspondence_private_attachment]
             unless attachment.save
               @errors = attachment.errors.full_messages.join(". ")
               raise ActiveRecord::Rollback
@@ -93,16 +97,32 @@ class WorkflowController < ApplicationController
         end
       end
 
-      if params[:workflow][:current_form] == 'send_correspondence'
+      if params[:workflow][:ui_form] == 'send_correspondence'
         corr = Correspondence.new
         corr.direction = :outgoing
         corr.correspondence_date = params[:workflow][:send_correspondence_date]
-        corr.access_request_step_id = @access_request_step.id
-        corr.final_text = params[:send_correspondence_custom_text]
         corr.medium = params[:workflow][:send_correspondence_correspondence_medium]
+        corr.access_request = @ar
+        corr.access_request_step = @access_request_step
         unless corr.save
           @errors = corr.errors.full_messages.join('. ')
           raise ActiveRecord::Rollback
+        end
+
+        if params[:workflow][:send_correspondence_attachment_file] && params[:workflow][:send_correspondence_attachment_file].count > 0
+          params[:workflow][:send_correspondence_attachment_file].each do |f|
+            attachment = Attachment.new
+            attachment.content = f.read
+            attachment.content_type = f.content_type
+            attachment.title = f.original_filename
+            attachment.attachable = corr
+            attachment.user = current_user
+            attachment.private_content = params[:workflow][:send_correspondence_private_attachment]
+            unless attachment.save
+              @errors = attachment.errors.full_messages.join('. ')
+              raise ActiveRecord::Rollback
+            end
+          end
         end
       end
 

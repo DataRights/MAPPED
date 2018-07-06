@@ -218,7 +218,7 @@ class AccessRequestsController < ApplicationController
 
   private
    def access_request_params
-     params.require(:access_request).permit(:organization_id, :campaign_id, :final_text, :uploaded_access_request_file, :ar_method)
+     params.require(:access_request).permit(:organization_id, :campaign_id, :final_text, :uploaded_access_request_file, :ar_method, :private_attachments)
    end
 
    def find_access_request

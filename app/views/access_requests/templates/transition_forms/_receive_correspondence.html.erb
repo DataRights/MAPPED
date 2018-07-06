@@ -24,6 +24,11 @@
 </div>
 
 <div class="form-group">
+  <%= f.check_box :rr_correspondence_private_attachment, {:checked=>true}, false, true %>
+  <%= f.label :rr_correspondence_private_attachment, t('.privacy') %>
+</div>
+
+<div class="form-group">
   <%= f.label :rr_correspondence_date, t('.received_date') %>
   <br />
   <%= f.date_field :rr_correspondence_date, {class: "form-control", value: Date.today} %>

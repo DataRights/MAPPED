@@ -65,11 +65,11 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.rails_logger = true
-    Bullet.add_footer = true
-  end
+  # config.after_initialize do
+  #   Bullet.enable = true
+  #   Bullet.rails_logger = true
+  #   Bullet.add_footer = true
+  # end
 
   config.discourse_server = "http://forum.datarights.me/"
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180529103116) do
+ActiveRecord::Schema.define(version: 20180706181249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20180529103116) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "campaign_id"
+    t.boolean "private_attachments", default: false
     t.index ["campaign_id"], name: "index_access_requests_on_campaign_id"
     t.index ["organization_id"], name: "index_access_requests_on_organization_id"
     t.index ["user_id"], name: "index_access_requests_on_user_id"
@@ -101,6 +102,7 @@ ActiveRecord::Schema.define(version: 20180529103116) do
     t.string "attachable_type"
     t.bigint "attachable_id"
     t.bigint "user_id"
+    t.boolean "private_content", default: false
     t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
     t.index ["user_id"], name: "index_attachments_on_user_id"
   end

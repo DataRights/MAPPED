@@ -16,14 +16,18 @@
     </div>
 </div-->
 <div class="form-group">
-  <%= f.label :send_correspondence_attachment_file, t('.send_attachments') %>
-  <br />
-  <%= f.file_field :send_correspondence_attachment_file, id: "workflow_send_attachment_files_#{a.id}", multiple: true, class: 'form-control' %>
+    <%= f.label :send_correspondence_attachment_file, t('.send_attachments') %>
+    <br />
+    <%= f.file_field :send_correspondence_attachment_file, id: "workflow_send_attachment_files_#{a.id}", multiple: true, class: 'form-control' %>
 </div>
 <div class="form-group">
-      <%= label_tag(:send_correspondence_date, t('.sending_date_label')) %>
-      <br>
-      <%= date_field_tag(:send_correspondence_date, Date.today)%>
+  <%= f.check_box :send_correspondence_private_attachment, {:checked=>true}, false, true %>
+  <%= f.label :send_correspondence_private_attachment, t('.privacy') %>
+</div>
+<div class="form-group">
+    <%= label_tag(:send_correspondence_date, t('.sending_date_label')) %>
+    <br>
+    <%= date_field_tag(:send_correspondence_date, Date.today)%>
 </div>
 <!-- HA: (same reason) -->
 <!-- div class="alert alert-danger alert-dismissible fade show" role="alert">

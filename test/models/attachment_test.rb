@@ -11,6 +11,7 @@
 #  attachable_type :string
 #  attachable_id   :integer
 #  user_id         :integer
+#  private_content :boolean          default(FALSE)
 #
 
 require 'test_helper'
