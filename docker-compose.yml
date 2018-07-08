@@ -6,7 +6,7 @@ services:
     image: redis:4
   app:
     build: .
-    command: /bin/sh -c "rm -f tmp/pids/server.pid && (rake db:migrate 2>/dev/null || rake db:setup) && foreman start -f Procfile"
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && (rake db:migrate 2>/dev/null) && foreman start -f Procfile"
     volumes:
       - .:/usr/src/app
     ports:
