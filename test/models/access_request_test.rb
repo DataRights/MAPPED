@@ -10,6 +10,7 @@
 #  updated_at          :datetime         not null
 #  campaign_id         :integer
 #  private_attachments :boolean          default(FALSE)
+#  uid                 :uuid             not null
 #
 
 require 'test_helper'

@@ -12,6 +12,7 @@
 #  attachable_id   :integer
 #  user_id         :integer
 #  private_content :boolean          default(FALSE)
+#  uid             :uuid             not null
 #
 
 require 'test_helper'

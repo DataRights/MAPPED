@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180706181249) do
+ActiveRecord::Schema.define(version: 20180707170108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pgcrypto"
 
   create_table "access_request_steps", force: :cascade do |t|
     t.bigint "workflow_id"
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 20180706181249) do
     t.datetime "updated_at", null: false
     t.bigint "campaign_id"
     t.boolean "private_attachments", default: false
+    t.uuid "uid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["campaign_id"], name: "index_access_requests_on_campaign_id"
     t.index ["organization_id"], name: "index_access_requests_on_organization_id"
     t.index ["user_id"], name: "index_access_requests_on_user_id"
@@ -103,6 +105,7 @@ ActiveRecord::Schema.define(version: 20180706181249) do
     t.bigint "attachable_id"
     t.bigint "user_id"
     t.boolean "private_content", default: false
+    t.uuid "uid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
     t.index ["user_id"], name: "index_attachments_on_user_id"
   end

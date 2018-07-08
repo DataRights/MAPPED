@@ -18,7 +18,7 @@
         <h5 class="nonselect" id="triangle_<%= a.id %>" data-toggle="collapse" data-parent="#accordion" data-target="#multiCollapse<%= a.id %>" aria-expanded="true" aria-controls="multiCollapse<%= a.id %>">
           <!--<%= image_tag "controller-play.svg", height: 24 %>-->
           <%= a.organization.name %>
-          &nbsp;
+          <small style='color: gray;'>- <%= a.uid %></small>
           <!-- HA: hiding sector (see spec) -->
           <!--small><%= a.organization.sector.name %></small-->
         </h5>
